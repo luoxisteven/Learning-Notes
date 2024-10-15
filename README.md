@@ -1,6 +1,6 @@
 ## Knowledge_Base
 - `@Author:` Xi Luo
-- These are notes I took myself. Most of them are in Chinese. They are in MARKDOWN format.
+- These are notes I took myself. Most of them are in Chinese. They are in `MARKDOWN` format.
 
 ## Usage
 Open `Note/`

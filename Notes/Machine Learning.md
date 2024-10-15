@@ -70,3 +70,28 @@ Transformer的位置编码是固定的，在训练过程中固定。
 ------
 
 #### Multi-Head Attention 多头注意机制
+- 得到多组特征，多头数量为8
+- 可以理解为CNN不同Kernel提取的特征图，那这里就是提取的不同语意，然后经过拼接，然后最后通过一个全连接层。
+- Self-Attention 只使用了一组QKV的权重，而Multi-Head Attention 用了多组权重
+    ![alt text](<img/to allow multiple.jpg>)
+    - h代表多头的头数
+
+- Add&Norm
+    - LayerNorm(X+Multi-HeadAttention(X))
+    - LayerNorm(X+FeedForward(X))
+    - Add为残差结构：为了减少训练过程中，梯度消失或者梯度爆炸的影响。
+    - Norm为Layer Norm
+
+#### Normalization 归一化的作用（优化模型拟合过程）
+1) 数据不同维度可能了量级差距比较大，大量级维度对模型会降低梯度的效率，归一化加快模型学习速度。
+特征处于相同的量级时，模型的参数更新更加均衡和稳定。
+- 例如，“身高”维度可能是150-180cm，“金钱”维度可能是0-100亿，那我一开始“金钱”维度对于损失函数的影响就比较大
+
+2) 减少模型过拟合:
+归一化主要是通过优化和训练过程的稳定性来间接减缓过拟合
+
+#### Normalization类型：
+1) Batch Norm （CNN，Linear）
+2) Layer Norm（RNN）
+3) Instance Norm
+4) Group Norm
