@@ -108,6 +108,11 @@ f(x) = \max(0, x)
 - Mini-BGD 介于 BGD 和 SGD之间。
 - SGD每个Epoch梯度为数据的一个样本，所需计算资源会小一点，但是需要更多的epoch到达最优。
 
+## 模型的Tradeoff权衡：
+- 一个复杂的模型，过拟合，训练误差小，泛化误差大
+- 一个简单的模型，欠拟合，训练误差大，泛化误差大
+- 正确的是，训练误差小，泛化误差小
+
 ## 朴素贝叶斯 Naive Bayes
 https://zhuanlan.zhihu.com/p/518118474
 ```math
@@ -167,11 +172,147 @@ Logistic Regression 是一种二分类的线性模型。
 3. 多分类问题需要使用多个LR模型
 4. 特征需要进行统一规格化处理
 
-Logistic Regression 将特征进行线性组合后，再映射为一个概率值。
+- Logistic Regression 将特征进行线性组合后，再映射为一个概率值。
 
 ### 模型假设：
 - 线性模型假设：`p(y | x)`服从`Normal(x^T w, σ)`，即服从正态分布。
 - Logistic Regression 假设：`p(y | x)`服从`Bernoulli(Logistic(x^T w))`，即伯努利分布。
+
+## LDA 线性判别分析 （Linear Discriminant Analysis）
+- 把样本投影到直线上，让组间间隔最大，让组内间隔最小。
+![alt text](<img/Pasted Graphic99.jpg>)
+
+## 类别不均衡
+1) 过采样 Oversampling
+2) 欠采样 Undersampling
+3) `阀值移动 Threshold-moving`
+    在二分类问题中，比如使用对数几率回归，模型会输出一个介于0和1之间的概率预测。然后，我们会选择一个阈值（通常默认为0.5）来决定类别。如果模型预测的概率大于这个阈值，我们会将样本分类为正类；否则，它会被分类为负类。
+
+## 隐马尔可夫 Hidden Markov Model (HMM)
+![alt text](<img/Pasted Graphic 98.jpg>)
+`两个假设：`
+1) 输出假设：观察事件（word）仅取决于隐藏状态（tag)
+2) 马尔可夫假设：现在状态（tag)仅取决于之前的状态	
+
+## 正则化
+使用原因：
+- 多重共线性（会导致解不为一） 
+- 过拟合 （增加扰动项，提升模型抗击扰动的影响，增加模型的健壮性 Robustness）
+- 正则化等同于加入先验知识，把ERM转换成MAP
+（例如，在线性回归中，增加扰动项，一阶扰动项为岭回归(使得某些参数为0），二阶扰动项为Lasso回归）
+
+1) L1 正则化 (Ridge Regression)
+```math
+J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (|w_1| + |w_2|)
+```
+2) L2 正则化 (Lasso
+```math
+J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (w_1^2 + w_2^2))
+```
+3) Dropout正则化
+    - 避免过度依赖某个神经元 Neurons
+    - 增加了一些噪音noise
+    - 减少过拟合
+
+## 主成分分析（Principal Component Analysis，PCA）
+- 一种常用的数据降维技术，旨在通过线性变换将高维数据映射到低维空间，同时最大程度地保留原始数据的方差。
+
+## 决策树（Decision Tree）
+
+### 分而治之（Divide-and-conquer）
+**信息增益（Information Gain）**：决策树通过划分数据，将无序的数据转化为有序。随着划分的进行，决策树的分支结点包含的样本越来越趋向于同一类别，即结点的"纯度"（purity）越来越高。
+
+- 指标：
+    1. **ID.3 信息增益**（Information Gain）
+    2. **C4.5 信息增益率**（Information Gain Ratio）
+        - 为什么使用信息增益率？例如，使用唯一编号的特征进行划分，每个分支只包含一个节点，这样信息增益会最大。
+    3. **CART 基尼系数**（GINI）
+        - 对于分类问题，CART树的叶子节点包含一个实际的分数，而非确定的类别，这有利于实现高效的优化算法。
+
+- 剪枝（Pruning）
+    - **预剪枝**：使用验证集来验证剪枝前后的精度，判断是否需要剪枝。
+    - **后剪枝**：在剪枝后利用验证集验证精度。
+
+- `优点：`
+    1. 不需要进行特征缩放。
+    2. 非线性效果好。
+    3. 对特征集小的数据集，拟合效果好。
+
+-  `缺点：`
+    1. 容易过拟合（因此需要剪枝）。
+
+## 支持向量机（SVM）
+
+**SVM**可以找到一个最大间隔的超平面，使得该超平面可以将两类样本分开。其目标是**最大化间隔**（margin）将训练数据分隔开。
+
+- 损失函数：
+每个样本到超平面的距离。
+- 核函数：
+SVM可以通过**核函数**（Kernel Function）使超平面具有非线性分割的能力。
+- `优点：`
+    1. 核函数可以实现非线性分割。
+    2. 对于数据量较大的数据集，拟合效果好。
+- `缺点：`
+    1. 需要多个SVM模型来实现多分类。
+    2. 可解释性较弱。
+    3. 需要较大的数据集。
+
+## 多分类模型（OvO和OvR）
+- 最经典的拆分策略有三种:
+    1) "一对一" (One  vs.  One，简称 OvO) 
+    2) "一对 其余" (One  vs.  Rest，简称 OvR)
+    3) "多对多" (Many  vs.  Ma町，简称 MvM).
+
+![alt text](<img/Pasted Graphic 10.jpg>)
+
+## 感知机Perceptron:
+损失函数为是否正确的被分类
+
+## 神经网络Neural Network:
+由多个感知机模型构成，更加高维的对数据进行分类
+损失函数为，是否正确的被分类
+
+## 卷积神经网络 Convolutional Neural Networks (CNN)
+大部分情景用于计算机视觉CV，少部分场景用于自然语言处理NLP
+Sliding window over sequence (序列中进行滑动窗口计算)
+
+## 循环神经网络 Recurrent Neural Networks (RNN)
+![alt text](<img/Pasted Graphic 11.jpg>)
+
+- 对于输入的长度可变，所以对于处理语言文本很有效果。
+- `训练方法：`通过时间反向传播 Backpropagation Through Time（BPTT）
+	- 先用模型把输出全部计算，然后反向传播。
+	- 不过这里的“反向”不仅仅是通过网络层，还包括时间步之间的反向。
+	- 当计算Loss和Ws的偏导数时，不仅要考虑到这个hidden layer也要考虑到下一个的。
+	- 上一个隐藏层的梯度，依赖于下一个隐藏层的梯度。
+	
+- `特征：`
+    1) 中间层一般用h表示，表示为隐藏层Hidden State
+    2) RNN重点是每个单元的参数是共享的。
+    3) 输出层可以更改为Softmax，输出每个单词的概率
+    4) 每个输出的Loss是加在一起的
+- `缺点：`
+    梯度消失问题 Vanishing Gradients
+
+## 长短记忆网络 Long Short-Term Memory (LSTM)
+- 一个记忆单元Memory Cell包括: 
+    - 遗忘门Forget Gate
+    - 输入门Input Gate
+    - 输出门Output Gate
+
+- `优点：`
+    1) 有能力去记录长序列的信息 
+    2) 像Feed Forward 神经网络：很灵活Flexible（可用于不同的任务）
+- `缺点：`
+    1) 计算复杂，缓慢 
+    2) 实际运用还是很难去记录远的依赖 Long-range Dependency
+
+![alt text](<img/Pasted Graphic 7.jpg>)
+
+- 门向量Gating Vector: 对于其他向量进行Pair-wise Multiplying 向量点积 也就是哈达玛积
+h代表隐藏层, 
+C代表细胞状态 Cell State （或叫做Memory Cell)：记录着重点信息
+
 
 
 ## Tokenization 与 Byte Pair Encoding (BPE) 对比

@@ -14,4 +14,4 @@ Open `Note/`
 - [AB Test](Notes/AB%20Test.md)
 - [Git](Notes/git.md)
 - [Machine Learning](Notes/Machine%20Learning.md)
-- [NLP](Notes/NLP.md)
+- [Natural Language Processing](Notes/NLP.md)
