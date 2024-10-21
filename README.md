@@ -4,6 +4,7 @@
 -  `@Format:` Markdown
 
 ## Table of Contents
+- [CFA Level 1](CFA/CFA%20Level%201)
 - [Java](Notes/Java.md)
 - [SQL](Notes/SQL.md)
 - [Pandas](Notes/Pandas.md)
@@ -12,7 +13,7 @@
 - [AB Test](Notes/AB%20Test.md)
 - [Git](Notes/git.md)
 - [Machine Learning](Notes/Machine%20Learning.md)
-- [Reinforcement Learning](Notes/Reinforcement Learning.md)
+- [Reinforcement Learning](Notes/Reinforcement%20Learning.md)
 - [Computer Vision](Notes/CV.md)
 - [Natural Language Processing](Notes/NLP.md)
 - [LLM](Notes/LLM.md)
