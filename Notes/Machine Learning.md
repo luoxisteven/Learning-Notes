@@ -387,9 +387,11 @@ Attention允许模型在生成输出时，动态地聚焦于输入序列的不�
 - 目标词的上下文表示等于目标词及其上下文词的值向量的加权和。
 - Contextual representation of target word = 
 	weighted sum of value vectors of context words and target word
+
 $$
 A(Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V
 $$
+
 where:
 - $Q$ is the query matrix,
 - $K$ is the key matrix,
