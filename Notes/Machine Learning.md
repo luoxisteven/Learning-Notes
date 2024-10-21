@@ -173,10 +173,10 @@ f(x) = \max(0, x)
 4) 等…
 
 ## 朴素贝叶斯 Naive Bayes
-https://zhuanlan.zhihu.com/p/518118474
 ```math
 \arg\max_{c_n} p(c_n | f_1 \dots f_m) = \prod_{i=1}^{m} p(f_i | c_n) p(c_n)
 ```
+- [朴素贝叶斯 知乎](https://zhuanlan.zhihu.com/p/518118474)
 - 朴素贝叶斯假设特征都是`相互独立`的。
 - `优点：`
     1) 如果独立性假设符合，它是最好的模型
@@ -355,20 +355,22 @@ C_t = f_t \circ C_{t-1} + i_t \circ \tilde{C}_t\\
 
 h_t = o_t \circ \tanh(C_t)\\
 ```
+`公式:`
+- 第一个公式为遗忘门
+- 第二，第四，第五个公式为输入门
+- 第三和最后一个公式为输出门。
 
-第一个公式为遗忘门，第二，第四，第五个公式为输入门，第三和最后一个公式为输出门。
-
+`解释:`
 - 门向量Gating Vector: 对于其他向量进行Pair-wise Multiplying 向量点积 也就是哈达玛积，h代表隐藏层，C代表细胞状态 Cell State （或叫做Memory Cell)：记录着重点信息
 
 - 连接 Concatenate: $A \oplus B$ 矩阵相互连接
 - 哈达玛积 Hadamard Product:  $A \circ B$ 也叫向量点乘 Element-wise product，也就是矩阵元素两两相乘
 
+`门控:`
 1) 遗忘门 Forget Gate:
     - 控制记忆细胞C^t-1需要去遗忘的信息，得出来是一个权重f^t
-
 2) 输入门 Input Gate:
     - 往记忆细胞输入新的信息，形成C^t
-
 3) 输出门 Output Gate:
     - 计算新的隐藏层
 
@@ -377,21 +379,6 @@ h_t = o_t \circ \tanh(C_t)\\
 - Simplified variant with only 2 gates and no memory cell
 - 更新门（update gate）和 重置门（reset gate）
 
-
-## Tokenization 与 Byte Pair Encoding (BPE)
-
-### Tokenization VS. Byte Pair Encoding (BPE) 对比
-- 传统的词表示方法无法很好地处理未知或罕见的词汇。
-- 传统的词tokenization方法不利于模型学习词缀之间的关系。
-    - 例如，模型学到的“old”、“older”和“oldest”之间的关系，无法泛化到“smart”、“smarter”和“smartest”。
-
-### Byte Pair Encoding (BPE)
-**BPE（字节对）编码**或**二元编码**是一种简单的数据压缩形式，其中最常见的一对连续字节数据被替换为该数据中不存在的字节。使用时，需要一个替换表来重建原始数据。OpenAI 的 GPT-2 与 Facebook 的 RoBERTa 均采用此方法构建 subword 向量。
-
-- **优点**：
-    - 可以有效地平衡词汇表大小和步数（编码句子所需的token数量）。
-- **缺点**：
-    - 基于贪婪和确定的符号替换，不能提供带概率的多个分片结果。
 
 ## 注意力机制 Attention
 Attention允许模型在生成输出时，动态地聚焦于输入序列的不同部分。
@@ -527,6 +514,22 @@ Transformer 用的是 LayerNorm，对于同一样本的所有特征计算均值�
 ### BERT的分词方法
 
 BERT使用的分词方法为**WordPiece**，这是**BPE（Byte-Pair Encoding**的一种变种。
+
+### Tokenization 与 Byte Pair Encoding (BPE)
+
+#### Tokenization VS. Byte Pair Encoding (BPE) 对比
+- 传统的词表示方法无法很好地处理未知或罕见的词汇。
+- 传统的词tokenization方法不利于模型学习词缀之间的关系。
+    - 例如，模型学到的“old”、“older”和“oldest”之间的关系，无法泛化到“smart”、“smarter”和“smartest”。
+
+#### Byte Pair Encoding (BPE)
+**BPE（字节对）编码**或**二元编码**是一种简单的数据压缩形式，其中最常见的一对连续字节数据被替换为该数据中不存在的字节。使用时，需要一个替换表来重建原始数据。OpenAI 的 GPT-2 与 Facebook 的 RoBERTa 均采用此方法构建 subword 向量。
+
+- **优点**：
+    - 可以有效地平衡词汇表大小和步数（编码句子所需的token数量）。
+- **缺点**：
+    - 基于贪婪和确定的符号替换，不能提供带概率的多个分片结果。
+
 
 ### tokenizer的输出：
 1. **Token ID**：
