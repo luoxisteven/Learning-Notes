@@ -1,4 +1,41 @@
-# 机器学习
+# 机器学习 Machine Learning
+
+机器学习 Machine Learning
+
+## Table of Contents
+- `基础 Foundations:`
+    - [机器学习分类 Classification](#机器学习分类)
+    - [评估指标 Metrics](#评估指标metrics)
+    - [学派 Schools](#学派区别)
+    - [判别模型与生成模型 Models](#判别模型与生成模型)
+    - [参数/非参数模型 Parametric](#参数/非参数模型)
+    - [批大小 Batch Size](#batch-size)
+    - [类别不均衡 Unbalanced Classes](#类别不均衡)
+    - [正则化 Regularization](#正则化-regularization)
+    - [激活函数 Activation Functions](#激活函数activation-functions)
+- `参数 How to get parameters:`
+    - [牛顿法 Newton-Raphson Method](#newton-raphson-irls-牛顿法)
+    - [为什么需要进行梯度下降? Why gradient descent?](#为什么需要进行梯度下降)
+    - [如何避免陷入局部最优 How to avoid local optimum?](#如何避免陷入局部最优)
+- `模型 Models`
+    - [朴素贝叶斯 Naive Bayes](#朴素贝叶斯-naive-bayes)
+    - [K近邻 KNN](#k近邻k-nearest-neighbors-knn)
+    - [对数几率回归 Logistic Regression](#logistic-regression对数几率回归)
+    - [线性判别分析 Linear Discriminant Analysis](#lda-线性判别分析-linear-discriminant-analysis)
+    - [隐马尔可夫 HMM](#隐马尔可夫-hidden-markov-model-hmm)
+    - [主成分分析 PCA](#主成分分析principal-component-analysispca)
+    - [决策树 Decision Tree](#决策树decision-tree)
+    - [支持向量机 SVM](#支持向量机svm)
+    - [感知机 Perceptron](#感知机-perceptron)
+    - [神经网络 Neural Network](#神经网络-neural-network)
+    - [卷积神经网络 CNN](#卷积神经网络-convolutional-neural-networks-cnn)
+    - [循环神经网络 RNN](#循环神经网络-recurrent-neural-networks-rnn)
+    - [长短记忆网络 LSTM](#长短记忆网络-long-short-term-memory-lstm)
+    - [门控循环单元 GRU](#门控循环单元-gated-recurrent-unit-gru)
+    - [注意力机制 Attention](#注意力机制-attention)
+    - [自注意力机制 Self-Attention](#自注意力机制-self-attention)
+    - [变形金刚 Transformer](#变形金刚-transformer)
+    - [BERT](#bert-bidirectional-encoder-representations-from-transformers)
 
 ## 机器学习分类
 
@@ -14,30 +51,32 @@
 4) 半监督学习 (Semi-Supervised Learning)
 利用大量未标记的数据和少量标记的数据共同训练模型。
 
-## 评估指标（Metrics）
+## 评估指标 Metrics
 
 1. **Recall（查全率）** =  $ TP / (TP + FN)$
 2. **Precision（查准率）** = $TP / (TP + FP)$
 3. **F1 Score** = $2 * P * R / (P + R)$
    - F1分数是查全率和查准率的调和平均（Harmonic Mean）
 
-## 泛化误差（Generalization Error）
+## 泛化误差 Generalization Error
 泛化误差 = 偏差（Bias）+ 方差（Variance）+ 噪声（Noise）
+- 一个复杂的模型，过拟合，训练误差小，泛化误差大
+- 一个简单的模型，欠拟合，训练误差大，泛化误差大
+- 正确的是，训练误差小，泛化误差小
 
-## 贝叶斯公式
-- $P(θ|X) = P(X|θ) P(θ) / P(X) $
-- 后验概率 = 似然函数 * 先验概率 / 边际概率
-
-### 统计学派别：
+## 学派 Schools：
 1. **频率学派**：极大似然估计（有偏估计），选择构成数据几率最大的参数$P(X|θ)$
 2. **贝叶斯学派**：极大后验证估计（无偏估计）$P(θ|X)$，选择该数据最有可能的参数
 3. **经验风险最小化（ERM，Empirical Risk Minimization）**：利用损失函数拟合模型  
    - ERM引入L1正则化对应Laplace分布，L2正则化对应高斯分布
 
-### 对数技巧（Log Trick）
+### 贝叶斯公式
+- $P(θ|X) = P(X|θ) P(θ) / P(X) $
+- 后验概率 = 似然函数 * 先验概率 / 边际概率
+
+### 对数技巧 Log Trick
 1. 将连乘转换为连加
 2. 是一种单调变换 (Monotonic Transformation)，不改变原有的单调性
-
 
 ## 判别模型与生成模型
 1. **判别模型（Discriminative Model）**：$P(Y|X)$ 条件概率分布
@@ -48,7 +87,38 @@
 2. **非参数模型**：模型的参数不固定（如K-Means、核密度估计KDE）
    - **核密度估计（KDE）**：用于估计数据的概率密度函数
 
-## 激活函数（Activation Functions）
+## 批大小 Batch Size
+- BGD 每个Epoch梯度为整体数据的一个平均梯度，所以更加平滑一点，所需计算资源较大，尤其是数据量比较大的时候，需要更小的epoch到达最优。
+- Mini-BGD 介于 BGD 和 SGD之间。
+- SGD每个Epoch梯度为数据的一个样本，所需计算资源会小一点，但是需要更多的epoch到达最优。
+
+## 类别不均衡 Unbalanced Classe
+1) 过采样 Oversampling
+2) 欠采样 Undersampling
+3) `阀值移动 Threshold-moving`
+    在二分类问题中，比如使用对数几率回归，模型会输出一个介于0和1之间的概率预测。然后，我们会选择一个阈值（通常默认为0.5）来决定类别。如果模型预测的概率大于这个阈值，我们会将样本分类为正类；否则，它会被分类为负类。
+
+## 正则化 Regularization
+`使用原因:`
+- 多重共线性（会导致解不为一） 
+- 过拟合 （增加扰动项，提升模型抗击扰动的影响，增加模型的健壮性 Robustness）
+- 正则化等同于加入先验知识，把ERM转换成MAP
+（例如，在线性回归中，增加扰动项，一阶扰动项为岭回归(使得某些参数为0），二阶扰动项为Lasso回归）
+
+1) L1 正则化 (Ridge Regression)
+```math
+J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (|w_1| + |w_2|)
+```
+2) L2 正则化 (Lasso
+```math
+J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (w_1^2 + w_2^2))
+```
+3) Dropout正则化
+    - 避免过度依赖某个神经元 Neurons
+    - 增加了一些噪音noise
+    - 减少过拟合
+
+## 激活函数 Activation Functions
 
 ### 1. Sigmoid 函数
 - 用于二分类问题
@@ -71,7 +141,7 @@ f(x) = \max(0, x)
 - 当 $x > 0$ 时，$y = x$
 - 当 $x \leq 0$ 时，$y = 0$
 
-## Newton-Raphson（IRLS） 牛顿法
+## Newton-Raphson (IRLS) 牛顿法
 
 除了梯度下降法，Newton-Raphson 是一种二阶导数迭代 $θ$ 的方法。它的特点包括：
 
@@ -96,21 +166,11 @@ f(x) = \max(0, x)
 - 开解（或称为数值解）是指解无法用简单的数学公式表示，但仍然可以通过数值方法或者迭代方法逐步逼近解。虽然没有明确的解析公式，但可以通过算法得出近似的解。
 - 并不代表无解
 
-## 如何避免陷入局部最优：
+## 如何避免陷入局部最优
 1) 用SGD和Mini-Batch的方法，可以让梯度有随机性，梯度的方向不是精确的全局梯度，因此可以帮助模型跳出局部最优。
 2) 添加噪声
 3) 添加动量
 4) 等…
-
-## Batch Size
-- BGD 每个Epoch梯度为整体数据的一个平均梯度，所以更加平滑一点，所需计算资源较大，尤其是数据量比较大的时候，需要更小的epoch到达最优。
-- Mini-BGD 介于 BGD 和 SGD之间。
-- SGD每个Epoch梯度为数据的一个样本，所需计算资源会小一点，但是需要更多的epoch到达最优。
-
-## 模型的Tradeoff权衡：
-- 一个复杂的模型，过拟合，训练误差小，泛化误差大
-- 一个简单的模型，欠拟合，训练误差大，泛化误差大
-- 正确的是，训练误差小，泛化误差小
 
 ## 朴素贝叶斯 Naive Bayes
 https://zhuanlan.zhihu.com/p/518118474
@@ -180,37 +240,12 @@ Logistic Regression 是一种二分类的线性模型。
 - 把样本投影到直线上，让组间间隔最大，让组内间隔最小。
 ![alt text](<img/Pasted Graphic99.jpg>)
 
-## 类别不均衡
-1) 过采样 Oversampling
-2) 欠采样 Undersampling
-3) `阀值移动 Threshold-moving`
-    在二分类问题中，比如使用对数几率回归，模型会输出一个介于0和1之间的概率预测。然后，我们会选择一个阈值（通常默认为0.5）来决定类别。如果模型预测的概率大于这个阈值，我们会将样本分类为正类；否则，它会被分类为负类。
-
 ## 隐马尔可夫 Hidden Markov Model (HMM)
 ![alt text](<img/Pasted Graphic 98.jpg>)
 `两个假设：`
 1) 输出假设：观察事件（word）仅取决于隐藏状态（tag)
 2) 马尔可夫假设：现在状态（tag)仅取决于之前的状态	
 
-## 正则化
-`使用原因:`
-- 多重共线性（会导致解不为一） 
-- 过拟合 （增加扰动项，提升模型抗击扰动的影响，增加模型的健壮性 Robustness）
-- 正则化等同于加入先验知识，把ERM转换成MAP
-（例如，在线性回归中，增加扰动项，一阶扰动项为岭回归(使得某些参数为0），二阶扰动项为Lasso回归）
-
-1) L1 正则化 (Ridge Regression)
-```math
-J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (|w_1| + |w_2|)
-```
-2) L2 正则化 (Lasso
-```math
-J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (w_1^2 + w_2^2))
-```
-3) Dropout正则化
-    - 避免过度依赖某个神经元 Neurons
-    - 增加了一些噪音noise
-    - 减少过拟合
 
 ## 主成分分析（Principal Component Analysis，PCA）
 - 一种常用的数据降维技术，旨在通过线性变换将高维数据映射到低维空间，同时最大程度地保留原始数据的方差。
@@ -255,7 +290,7 @@ SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割
     2. 可解释性较弱。
     3. 需要较大的数据集。
 
-## 多分类模型（OvO和OvR）
+### 多分类模型（OvO和OvR）
 - 最经典的拆分策略有三种:
     1) "一对一" (One vs. One, 简称 OvO) 
     2) "一对 其余" (One vs. Rest, 简称 OvR)
@@ -263,10 +298,10 @@ SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割
 
 ![alt text](<img/Pasted Graphic 10.jpg>)
 
-## 感知机Perceptron:
+## 感知机 Perceptron:
 损失函数为是否正确的被分类
 
-## 神经网络Neural Network:
+## 神经网络 Neural Network:
 由多个感知机模型构成，更加高维的对数据进行分类
 损失函数为，是否正确的被分类
 
@@ -358,7 +393,7 @@ h_t = o_t \circ \tanh(C_t)\\
 - **缺点**：
     - 基于贪婪和确定的符号替换，不能提供带概率的多个分片结果。
 
-## Attention 注意力机制
+## 注意力机制 Attention
 Attention允许模型在生成输出时，动态地聚焦于输入序列的不同部分。
 
 ### Attention Mechanism
@@ -384,7 +419,7 @@ where:
 - `优点:`1）速度快（并行计算） 2）效果好（抓重点）
 - `缺点:`在进行Sequence to Sequence时，Attention机制的Encoder部分，每一步计算仍依赖于上一步的计算结果。
 
-## Self-Attention 自注意力机制
+## 自注意力机制 Self-Attention 
 - Self-Attention让模型在处理某一部分信息时同时考虑到序列中的其他部分，关注输入序列元素之间的关系。(序列自己和自己进行相似度对比)
 
 - `特点:`
@@ -396,7 +431,7 @@ where:
     Self-Attention机制提供了一种非常灵活的方式来捕获序列内的信息，模型可以自动学习到序列中哪些部分是更重要的。
 
 
-## Transformer 变形金刚
+## 变形金刚 Transformer 
 ![alt text](img/Outputs.jpg)
 - `原始的Transformer：`Encoder和Decoder的Block数量都为6 
 - `Positional Encoding 位置编码: `Trigonometric Function 三角函数
