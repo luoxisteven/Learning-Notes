@@ -1,9 +1,7 @@
-## Knowledge_Base
+## Notes
 - `@Author:` Xi Luo
-- These are notes I took myself. Most of them are in Chinese. They are in `MARKDOWN` format.
-
-## Usage
-Open `Note/`
+- `@Language:` Mainly Chinese
+-  `@Format:` Markdown
 
 ## Table of Contents
 - [Java](Notes/Java.md)
@@ -14,4 +12,7 @@ Open `Note/`
 - [AB Test](Notes/AB%20Test.md)
 - [Git](Notes/git.md)
 - [Machine Learning](Notes/Machine%20Learning.md)
+- [Reinforcement Learning](Notes/Reinforcement Learning.md)
+- [Computer Vision](Notes/CV.md)
 - [Natural Language Processing](Notes/NLP.md)
+- [LLM](Notes/LLM.md)
