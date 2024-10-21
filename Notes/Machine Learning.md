@@ -16,38 +16,37 @@
 
 ## 评估指标（Metrics）
 
-1. **Recall（查全率）** = TP / (TP + FN)
-2. **Precision（查准率）** = TP / (TP + FP)
-3. **F1 Score** = 2 * P * R / (P + R)  
+1. **Recall（查全率）** =  $ TP / (TP + FN)$
+2. **Precision（查准率）** = $TP / (TP + FP)$
+3. **F1 Score** = $2 * P * R / (P + R)$
    - F1分数是查全率和查准率的调和平均（Harmonic Mean）
 
 ## 泛化误差（Generalization Error）
 泛化误差 = 偏差（Bias）+ 方差（Variance）+ 噪声（Noise）
 
 ## 贝叶斯公式
-- P(θ|X) = P(X|θ) P(θ) / P(X)  
-后验概率 = 似然函数 * 先验概率 / 边际概率
+- $P(θ|X) = P(X|θ) P(θ) / P(X) $
+- 后验概率 = 似然函数 * 先验概率 / 边际概率
 
 ### 统计学派别：
-1. **频率学派**：极大似然估计（有偏估计），选择构成数据几率最大的参数P(X|θ)
-2. **贝叶斯学派**：极大后验证估计（无偏估计）P(θ|X)，选择该数据最有可能的参数
+1. **频率学派**：极大似然估计（有偏估计），选择构成数据几率最大的参数$P(X|θ)$
+2. **贝叶斯学派**：极大后验证估计（无偏估计）$P(θ|X)$，选择该数据最有可能的参数
 3. **经验风险最小化（ERM，Empirical Risk Minimization）**：利用损失函数拟合模型  
    - ERM引入L1正则化对应Laplace分布，L2正则化对应高斯分布
 
 ### 对数技巧（Log Trick）
 1. 将连乘转换为连加
-2. 是一种单调变换（Monotonic Transformation），不改变原有的单调性
-----
+2. 是一种单调变换 (Monotonic Transformation)，不改变原有的单调性
+
 
 ## 判别模型与生成模型
-1. **判别模型（Discriminative Model）**：P(Y|X) 条件概率分布
-2. **生成模型（Generative Model）**：P(X, Y) 整体分布
+1. **判别模型（Discriminative Model）**：$P(Y|X)$ 条件概率分布
+2. **生成模型（Generative Model）**：$P(X, Y)$ 整体分布
 
----
+## 参数/非参数模型
 1. **参数模型**：模型的参数固定（如神经网络、Logistic回归）
 2. **非参数模型**：模型的参数不固定（如K-Means、核密度估计KDE）
    - **核密度估计（KDE）**：用于估计数据的概率密度函数
----
 
 ## 激活函数（Activation Functions）
 
@@ -69,21 +68,21 @@
 ```math
 f(x) = \max(0, x) 
 ```
-- 当 x > 0 时，y = x 
-- 当 x \leq 0 时，y = 0
+- 当 $x > 0$ 时，$y = x$
+- 当 $x \leq 0$ 时，$y = 0$
 
 ## Newton-Raphson（IRLS） 牛顿法
 
-除了梯度下降法，Newton-Raphson 是一种二阶导数迭代 `θ` 的方法。它的特点包括：
+除了梯度下降法，Newton-Raphson 是一种二阶导数迭代 $θ$ 的方法。它的特点包括：
 
 1. **不需要学习率**：与梯度下降法（Gradient Descent）不同，Newton-Raphson 不需要设置学习率。
 2. **更少的迭代次数**：相比于梯度下降法，它所需的迭代次数较少。
 3. **计算复杂度**：
-   - 假设 `n` 是特征（features）的数量，Newton-Raphson 方法的计算代价更高，因为它需要计算二阶导数。
-   - Newton-Raphson 复杂度为 `O(n^3)`，主要因为它需要计算 Hessian 矩阵（即二阶偏导数矩阵），而梯度下降法的复杂度为 `O(n)`，因此在特征数量少的情况下可以考虑使用 Newton-Raphson。
+   - 假设 $n$ 是特征（features）的数量，Newton-Raphson 方法的计算代价更高，因为它需要计算二阶导数。
+   - Newton-Raphson 复杂度为 $O(n^3)$，主要因为它需要计算 Hessian 矩阵（即二阶偏导数矩阵），而梯度下降法的复杂度为 $O(n)$，因此在特征数量少的情况下可以考虑使用 Newton-Raphson。
 4. **Hessian 矩阵**：这是二阶偏导数矩阵，在每次迭代中不仅需要计算一阶导数（梯度），还需要计算 Hessian 矩阵并对其求逆。
     - **Hessian 矩阵**：在牛顿法中，每次迭代不仅需要计算一阶导数，还需要计算 Hessian 矩阵（函数的二阶导数矩阵），并且还需要对这个矩阵进行求逆。
-    - **假设有 `n` 个特征（变量）**: Hessian 矩阵是一个 `n × n` 的矩阵，计算 Hessian 的时间复杂度为 `O(n^2)`，而求逆的复杂度为 `O(n^3)`。因此，整体复杂度为 `O(n^3)`，尤其在高维情况下，计算代价较高。
+    - **假设有 $n$ 个特征（变量）**: Hessian 矩阵是一个 $n × n$ 的矩阵，计算 Hessian 的时间复杂度为 $O(n^2)$，而求逆的复杂度为 $O(n^3)$。因此，整体复杂度为 $O(n^3)$，尤其在高维情况下，计算代价较高。
 5. **基本原理**
     ![alt text](<img/newton.png>)
 
@@ -137,7 +136,7 @@ https://zhuanlan.zhihu.com/p/518118474
 ![alt text](img/注意：多项式分布只需了解即可。.jpg)
 
 3) 高斯朴素贝叶斯 Gaussian Naive Bayes (GNB)
-![alt text](img/Pasted Graphic 5.jpg>)
+![alt text](<img/Pasted Graphic 5.jpg>)
 
 ## K近邻（K-Nearest Neighbors, KNN）
 
@@ -153,13 +152,12 @@ https://zhuanlan.zhihu.com/p/518118474
 2. 难以处理类别不平衡的数据
 3. 输出较慢（因为需要进行大量的距离计算）
 
----
 
 ## Logistic Regression（对数几率回归）
 
 Logistic Regression 是一种二分类的线性模型。
 
-- 不用`y - \hat{y}`作为损失函数的原因是它不是凸函数。
+- 不用 $(y - \hat{y})$ 作为损失函数的原因是它不是凸函数。
 - Logistic Regression 的代价函数/损失函数为**二进制交叉熵损失函数**（Binary Cross-Entropy Loss）。
 
 ### 优点：
@@ -175,8 +173,8 @@ Logistic Regression 是一种二分类的线性模型。
 - Logistic Regression 将特征进行线性组合后，再映射为一个概率值。
 
 ### 模型假设：
-- 线性模型假设：`p(y | x)`服从`Normal(x^T w, σ)`，即服从正态分布。
-- Logistic Regression 假设：`p(y | x)`服从`Bernoulli(Logistic(x^T w))`，即伯努利分布。
+- 线性模型假设：$p(y | x)$服从$Normal(x^T w, σ)$，即服从正态分布。
+- Logistic Regression 假设：$p(y | x)$服从$Bernoulli(Logistic(x^T w))$，即伯努利分布。
 
 ## LDA 线性判别分析 （Linear Discriminant Analysis）
 - 把样本投影到直线上，让组间间隔最大，让组内间隔最小。
@@ -195,7 +193,7 @@ Logistic Regression 是一种二分类的线性模型。
 2) 马尔可夫假设：现在状态（tag)仅取决于之前的状态	
 
 ## 正则化
-使用原因：
+`使用原因:`
 - 多重共线性（会导致解不为一） 
 - 过拟合 （增加扰动项，提升模型抗击扰动的影响，增加模型的健壮性 Robustness）
 - 正则化等同于加入先验知识，把ERM转换成MAP
@@ -222,14 +220,14 @@ J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (
 ### 分而治之（Divide-and-conquer）
 **信息增益（Information Gain）**：决策树通过划分数据，将无序的数据转化为有序。随着划分的进行，决策树的分支结点包含的样本越来越趋向于同一类别，即结点的"纯度"（purity）越来越高。
 
-- 指标：
+- `指标:`
     1. **ID.3 信息增益**（Information Gain）
     2. **C4.5 信息增益率**（Information Gain Ratio）
         - 为什么使用信息增益率？例如，使用唯一编号的特征进行划分，每个分支只包含一个节点，这样信息增益会最大。
     3. **CART 基尼系数**（GINI）
         - 对于分类问题，CART树的叶子节点包含一个实际的分数，而非确定的类别，这有利于实现高效的优化算法。
 
-- 剪枝（Pruning）
+- `剪枝 (Pruning)`
     - **预剪枝**：使用验证集来验证剪枝前后的精度，判断是否需要剪枝。
     - **后剪枝**：在剪枝后利用验证集验证精度。
 
@@ -245,10 +243,10 @@ J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (
 
 **SVM**可以找到一个最大间隔的超平面，使得该超平面可以将两类样本分开。其目标是**最大化间隔**（margin）将训练数据分隔开。
 
-- 损失函数：
+- `损失函数:`
 每个样本到超平面的距离。
-- 核函数：
-SVM可以通过**核函数**（Kernel Function）使超平面具有非线性分割的能力。
+- `核函数:`
+SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割的能力。
 - `优点：`
     1. 核函数可以实现非线性分割。
     2. 对于数据量较大的数据集，拟合效果好。
@@ -259,9 +257,9 @@ SVM可以通过**核函数**（Kernel Function）使超平面具有非线性分�
 
 ## 多分类模型（OvO和OvR）
 - 最经典的拆分策略有三种:
-    1) "一对一" (One  vs.  One，简称 OvO) 
-    2) "一对 其余" (One  vs.  Rest，简称 OvR)
-    3) "多对多" (Many  vs.  Ma町，简称 MvM).
+    1) "一对一" (One vs. One, 简称 OvO) 
+    2) "一对 其余" (One vs. Rest, 简称 OvR)
+    3) "多对多" (Many vs. Ma, 简称 MvM).
 
 ![alt text](<img/Pasted Graphic 10.jpg>)
 
@@ -295,29 +293,59 @@ Sliding window over sequence (序列中进行滑动窗口计算)
     梯度消失问题 Vanishing Gradients
 
 ## 长短记忆网络 Long Short-Term Memory (LSTM)
-- 一个记忆单元Memory Cell包括: 
+- `一个记忆单元Memory Cell包括:`
     - 遗忘门Forget Gate
     - 输入门Input Gate
     - 输出门Output Gate
 
-- `优点：`
+- `优点:`
     1) 有能力去记录长序列的信息 
     2) 像Feed Forward 神经网络：很灵活Flexible（可用于不同的任务）
-- `缺点：`
+- `缺点:`
     1) 计算复杂，缓慢 
     2) 实际运用还是很难去记录远的依赖 Long-range Dependency
 
+## LSTM 公式
 ![alt text](<img/Pasted Graphic 7.jpg>)
+```math
+f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\\
 
-- 门向量Gating Vector: 对于其他向量进行Pair-wise Multiplying 向量点积 也就是哈达玛积
-h代表隐藏层, 
-C代表细胞状态 Cell State （或叫做Memory Cell)：记录着重点信息
+i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)\\
+
+o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o)\\
+
+\tilde{C}_t = \tanh(W_C \cdot [h_{t-1}, x_t] + b_C\\
+
+C_t = f_t \circ C_{t-1} + i_t \circ \tilde{C}_t\\
+
+h_t = o_t \circ \tanh(C_t)\\
+```
+
+第一个公式为遗忘门，第二，第四，第五个公式为输入门，第三和最后一个公式为输出门。
+
+- 门向量Gating Vector: 对于其他向量进行Pair-wise Multiplying 向量点积 也就是哈达玛积，h代表隐藏层，C代表细胞状态 Cell State （或叫做Memory Cell)：记录着重点信息
+
+- 连接 Concatenate: $A \oplus B$ 矩阵相互连接
+- 哈达玛积 Hadamard Product:  $A \circ B$ 也叫向量点乘 Element-wise product，也就是矩阵元素两两相乘
+
+1) 遗忘门 Forget Gate:
+    - 控制记忆细胞C^t-1需要去遗忘的信息，得出来是一个权重f^t
+
+2) 输入门 Input Gate:
+    - 往记忆细胞输入新的信息，形成C^t
+
+3) 输出门 Output Gate:
+    - 计算新的隐藏层
+
+## 门控循环单元 Gated Recurrent Unit (GRU)
+
+- Simplified variant with only 2 gates and no memory cell
+- 更新门（update gate）和 重置门（reset gate）
 
 
+## Tokenization 与 Byte Pair Encoding (BPE)
 
-## Tokenization 与 Byte Pair Encoding (BPE) 对比
-
-### Tokenization VS. Byte Pair Encoding (BPE)
+### Tokenization VS. Byte Pair Encoding (BPE) 对比
 - 传统的词表示方法无法很好地处理未知或罕见的词汇。
 - 传统的词tokenization方法不利于模型学习词缀之间的关系。
     - 例如，模型学到的“old”、“older”和“oldest”之间的关系，无法泛化到“smart”、“smarter”和“smartest”。
@@ -341,16 +369,16 @@ $$
 A(Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V
 $$
 where:
-- \(Q\) is the query matrix,
-- \(K\) is the key matrix,
-- \(V\) is the value matrix,
-- \(d_k\) is the dimension of query and key vectors.
+- $Q$ is the query matrix,
+- $K$ is the key matrix,
+- $V$ is the value matrix,
+- $d_k$ is the dimension of query and key vectors.
 
 - `方法:`
 先计算Q和K的相似度，求的一个相似度权重，再去和V进行加权。
 这样子会注意到Q和K相似的地方。
 - `举个例子:`
-比方说，我要讲中文翻译成英文，Q就是我已经翻译好的中文，K就是所有的英文单词，我会去看Q和K的相似度，利用这个相似度和V加权。生成一个关于上下文的向量Attention Value。
+比方说，我要讲中文翻译成英文，$Q$就是我已经翻译好的中文，K就是所有的英文单词，我会去看 $Q$ 和 $K$ 的相似度，利用这个相似度和V加权。生成一个关于上下文的向量Attention Value。
 - `特点:`
 对于像RNN，LSTM这种序列模型，下一个隐藏层的输出依赖上一个隐藏层的输出，使得在长文本里序列模型难以抓住文本前面的信息。
 - `优点:`1）速度快（并行计算） 2）效果好（抓重点）
@@ -384,7 +412,7 @@ Transformer的位置编码是固定的，在训练过程中固定。
 ------
 #### Scaled Dot-Product Attention
 ![alt text](<img/Pasted Graphic 18.jpg>)
-- 这个图就是底下那个 A(Q,K,V)的公式，MatMul为Matrix Multiplication，即矩阵乘法
+- 这个图就是底下那个 $A(Q,K,V)$的公式，MatMul为Matrix Multiplication，即矩阵乘法
 
 ------
 
@@ -395,7 +423,7 @@ Transformer的位置编码是固定的，在训练过程中固定。
     ![alt text](<img/to allow multiple.jpg>)
     - h代表多头的头数
 
-- Add&Norm
+- `Add&Norm`
     - LayerNorm(X+Multi-HeadAttention(X))
     - LayerNorm(X+FeedForward(X))
     - Add为残差结构：为了减少训练过程中，梯度消失或者梯度爆炸的影响。
@@ -413,9 +441,9 @@ Transformer的位置编码是固定的，在训练过程中固定。
 2) 减少模型过拟合:
 归一化主要是通过优化和训练过程的稳定性来间接减缓过拟合
 
-#### Normalization类型：
-1) Batch Norm （CNN，Linear）
-2) Layer Norm（RNN）
+## Normalization：
+1) Batch Norm (CNN, Linear)
+2) Layer Norm (RNN)
 3) Instance Norm
 4) Group Norm
 
@@ -424,28 +452,28 @@ Batch Normalization 我们会对同一批次的所有样本的同一特征计算
 
 ### Layer Norm:
 Transformer 用的是 LayerNorm，对于同一样本的所有特征计算均值和方差。
-- 例子：
+- `例子:`
     ```
     有一个句子：[[1, 2, 3], [4, 5, 6]]
     其中 `[1, 2, 3]` 为一个词的词向量。  
     1，2，3，4，5，6 的均值为 3.5，标准差为 1.7078，规范化后为：
     [[-1.4638, -0.8783, -0.2928], [0.2928, 0.8783, 1.4638]]
     ```
+----
+1) Batch Normalization：
+    - 它去除了不同特征之间的大小关系，但是保留了不同样本间的大小关系，所以在 **CV** 领域用得多。
 
-### Batch Normalization：
-- 它去除了不同特征之间的大小关系，但是保留了不同样本间的大小关系，所以在 **CV** 领域用得多。
+2) Layer Normalization：
+    - 它去除了不同样本间的大小关系，但是保留了一个样本内不同特征之间的大小关系，所以在 **NLP** 领域用得多。
 
-### Layer Normalization：
-- 它去除了不同样本间的大小关系，但是保留了一个样本内不同特征之间的大小关系，所以在 **NLP** 领域用得多。
---
+----
 ### ELMO与GPT对比
 - ELMO
     - 使用`两对LSTM`网络：一个正向输出，一个反向输出。
 - GPT
     - 使用`单向的Encoder`。
 
----
-## BERT（Bidirectional Encoder Representations from Transformers）
+## BERT (Bidirectional Encoder Representations from Transformers)
 采用的是一个双向的Encoder-Only模型，以便更好地理解语言的上下文含义。
 
 ### BERT 结构
@@ -463,7 +491,7 @@ Transformer 用的是 LayerNorm，对于同一样本的所有特征计算均值�
 
 ### BERT的分词方法
 
-BERT使用的分词方法为**WordPiece**，这是**BPE（Byte-Pair Encoding）**的一种变种。
+BERT使用的分词方法为**WordPiece**，这是**BPE（Byte-Pair Encoding**的一种变种。
 
 ### tokenizer的输出：
 1. **Token ID**：
@@ -518,7 +546,7 @@ BertModel.from_pretrained(model_name, output_hidden_states=True, output_attentio
 
 ## 计算BERT-BASE的参数数量
 
-## #BERT-BASE的定义：
+### BERT-BASE的定义：
 - 隐藏层维度（hidden_size）：768
 - 注意力头数（num_heads）：12
 - 最大序列长度（max_sequence_length）：512
@@ -537,20 +565,21 @@ BERT接收一个一维向量，维度为`512 × 1`，即最大序列长度512的
 - **位置嵌入矩阵的维度**：512 × 768 = **393,216个参数**
 - **类型嵌入矩阵的维度**：2 × 768 = **1,536个参数**
 
-#### 3. 转换为Q, K, V矩阵
-BERT将输入的`(512 × 768)`维度的矩阵转换为三个矩阵：Q、K、V，分别计算：
-- Q = XW_Q, K = XW_K, V = XW_V，W_Q, W_K, W_V为权重矩阵
+#### 3. 转换 $Q, K, V$ 矩阵
+BERT将输入的`(512 × 768)`维度的矩阵转换为三个矩阵：$Q$、$K$、$V$，分别计算：
+- $Q = XW_Q, K = XW_K, V = XW_V, W_Q, W_K, W_V$为权重矩阵
 
 每个头的维度为64，总共有12个头，因此：
-- 每个头的Q、K、V矩阵的权重维度为：`768 × 64`，共12个头。
-- 因此，Q、K、V矩阵的参数数量为：`3 × (768 × 64) × 12` = **147,456个参数**（每个头的Q, K, V共用）
+- 每个头的$Q、K、V$矩阵的权重维度为：`768 × 64`，共12个头。
+- 因此，$Q、K、V$矩阵的参数数量为：`3 × (768 × 64) × 12` = **147,456个参数**（每个头的Q, K, V共用）
 
-#### 4. QK^T 和乘上V
+#### 4. $QK^T$ 和乘上 $V$
 注意力机制的计算为：
-
-![alt text](<img/Pasted Graphic 4.png>)
-- QK^T = `(512 × 64) × (64 × 512)` = `512 × 512`
-- 然后QK^T与V矩阵相乘：`(512 × 512) × (512 × 64)` = `512 × 64`
+$$
+A(Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V
+$$
+- $QK^T$ = `(512 × 64) × (64 × 512)` = `512 × 512`
+- 然后 $QK^T$ 与 $V$ 矩阵相乘：`(512 × 512) × (512 × 64)` = `512 × 64`
 
 #### 5. 多头注意力
 将12个头的结果concat起来，得到的矩阵为`512 × 768`，总参数数不变。
