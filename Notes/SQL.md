@@ -1,6 +1,6 @@
 ## SQL
 
-```
+```SQL
 SELECTFROM
 WHERE
 GROUP BY (用空格隔开)
