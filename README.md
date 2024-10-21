@@ -1,7 +1,8 @@
 ## Notes
+This repository contains some of the notes I've taken over the years.
 - `@Author:` Xi Luo
 - `@Languages:` Mainly Chinese, Some English
-- `@Format:` Markdown
+- `@Format:` Markdown, PDF
 
 ## Table of Contents
 1) Maths
@@ -18,9 +19,11 @@
     - [Machine Learning](Notes/Machine%20Learning.md)
     - [Reinforcement Learning (Pending)](Notes/Reinforcement%20Learning.md)
     - [Computer Vision (Pending)](Notes/CV.md)
-    - [Natural Language Processing (Transfering)](Notes/NLP.md)
+    - [Natural Language Processing](Notes/NLP.md)
     - [LLM](Notes/LLM.md)
 4) Finance
     - [CFA Level 1](./CFA%20Level%201/)
 
 5) [Others](./Notes/others.md)
+
+`Notes:` Machine Learning的集成学习还要再看一下
