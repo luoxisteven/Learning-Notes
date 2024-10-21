@@ -12,6 +12,7 @@
     - [批大小 Batch Size](#batch-size)
     - [类别不均衡 Unbalanced Classes](#类别不均衡)
     - [正则化 Regularization](#正则化-regularization)
+    - [损失函数 Loss Functions](#损失函数-loss-functions)
     - [激活函数 Activation Functions](#激活函数activation-functions)
 - `参数 How to get parameters:`
     - [牛顿法 Newton-Raphson Method](#newton-raphson-irls-牛顿法)
@@ -25,6 +26,8 @@
     - [隐马尔可夫 HMM](#隐马尔可夫-hidden-markov-model-hmm)
     - [主成分分析 PCA](#主成分分析principal-component-analysispca)
     - [决策树 Decision Tree](#决策树decision-tree)
+    - [集成学习 Ensemble Learning](#集成学习-ensemble-learning)
+    - [随机森林 Random Forest](#随机森林-random-forest)
     - [支持向量机 SVM](#支持向量机svm)
     - [感知机 Perceptron](#感知机-perceptron)
     - [神经网络 Neural Network](#神经网络-neural-network)
@@ -92,7 +95,7 @@
 - Mini-BGD 介于 BGD 和 SGD之间。
 - SGD每个Epoch梯度为数据的一个样本，所需计算资源会小一点，但是需要更多的epoch到达最优。
 
-## 类别不均衡 Unbalanced Classe
+## 类别不均衡
 1) 过采样 Oversampling
 2) 欠采样 Undersampling
 3) `阀值移动 Threshold-moving`
@@ -117,6 +120,22 @@ J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (
     - 避免过度依赖某个神经元 Neurons
     - 增加了一些噪音noise
     - 减少过拟合
+
+## 损失函数 Loss Functions：
+
+### 1) 二进制交叉熵 Binary Cross-Entropy (BCE)
+- 常用于二分类问题
+$$
+L(y, \hat{y}) = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y_i}) + (1 - y_i) \log(1 - \hat{y_i}) \right]
+$$
+
+
+### 2) 多分类交叉熵 Categorical Cross-Entropy
+- 常用于多分类问题
+$$
+L(y, \hat{y}) = - \sum_{i=1}^{N} \sum_{j=1}^{C} y_{ij} \log(\hat{y_{ij}})
+$$
+
 
 ## 激活函数 Activation Functions
 
@@ -267,12 +286,46 @@ Logistic Regression 是一种二分类的线性模型。
     - **后剪枝**：在剪枝后利用验证集验证精度。
 
 - `优点：`
-    1. 不需要进行特征缩放。
-    2. 非线性效果好。
-    3. 对特征集小的数据集，拟合效果好。
+    - 不需要进行特征缩放。
+    - 非线性效果好。
+    - 对特征集小的数据集，拟合效果好。
 
 -  `缺点：`
-    1. 容易过拟合（因此需要剪枝）。
+    - 容易过拟合（因此需要剪枝）。
+
+## 集成学习 Ensemble Learning
+### 1) Bagging
+针对数据集，我们可采样出 T 个含 m 个训练样本的采样集，然后基于每个采样集训练出一个基学习器，再将这些基学习器进行结合。这就是 Bagging 的基本流程。在对预测输出进行结合时，Bagging 通常对分类任务使用简单投票法，对回归任务使用简单平均法。
+- **分类**: 投票
+- **回归**: 平均
+
+### 2) Boosting
+
+- Boosting 是串行的过程：
+    1) 第一个分类器模型训练完成后，对一些数据进行预测，再将未被正确分类的数据输入第二个模型.
+    2) 然后再生成一些新的数据并喂给第三个模型。模型之间是有顺序的。
+
+-  AdaBoost
+    - AdaBoost 算法通过给已有模型预测错误的样本更高的权重，使得先前的学习器做错的训练样本在后续模型中受到更多关注，从而弥补已有模型的不足。也是多个弱学习器的组合。
+
+- Gradient Boosting
+    - 梯度提升（Gradient Boosting）是通过计算梯度来优化模型的提升方法。
+
+### 3) Stacking
+- Stacking 通过学习多个弱学习器，然后由一个最终的学习器（如 MLP）去总结最终结果。
+
+## 随机森林 Random Forest
+- 随机森林以决策树为基础，把一个实例放进多个决策树中，看看哪个 label 出现最多，这个实例的最终分类结果就是哪个 label。
+- 随机性
+    1) 随机有放回抽取样本
+    2) 随机选取特征（Feature）
+- 优点:
+    1. 能处理维度很高的数据
+    2. 可以处理非线性数据
+    3. 每棵树可以同时生成，并行效率高，训练速度快
+    4. 采用了集成算法，精度优于大多数单模型算法
+- 缺点：
+    - 有可能会过拟合
 
 ## 支持向量机（SVM）
 
