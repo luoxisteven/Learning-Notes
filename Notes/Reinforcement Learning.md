@@ -1,2 +1,196 @@
 # 强化学习 Reinforcement Learning
-https://gibberblot.github.io/rl-notes/index.html#
+
+- 大部分参考 COMP90051 AI Planning & Autonomy：https://gibberblot.github.io/rl-notes/index.html#
+- 小部分参考 Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
+
+## 基础 Foundations
+
+1) Value Function - V(s)
+指的是 Bellman Equation。它是给定一个状态 State，从该状态开始采取最优策略后所能获得的最大期望回报 (Reward)。
+
+$$
+V(s) = \max_{a \in A(s)} \sum_{s' \in S} P_a(s' \mid s)\ [r(s,a,s') + \gamma\  V(s')]
+$$
+
+$$
+V(s) = \overbrace{\max_{a \in A(s)}}^{\text{best action from $s$}} \overbrace{\underbrace{\sum_{s' \in S}}_{\text{for every state}} P_a(s' \mid s) [\underbrace{r(s,a,s')}_{\text{immediate reward}} + \underbrace{\gamma}_{\text{discount factor}} \cdot  \underbrace{V(s')}_{\text{value of } s'}]}^{\text{expected reward of executing action $a$ in state $s$}}
+$$
+
+
+- $V(s)$：状态 $s$ 的价值函数
+- $\max$：表示在所有可能的动作 $a$ 中选择一个使得价值最大的动作
+- $a \in A(s)$：在状态 $s$ 中可以采取的动作集合 $A(s)$
+- $\sum_{s' \in S}$：表示对所有可能的下一个状态 $s'$ 求和
+- $P_a(s' \mid s)$：在状态 $s$ 下采取动作 $a$ 转移到状态 $s'$ 的概率
+- $r(s, a, s')$：从状态 $s$ 采取动作 $a$ 转移到状态 $s'$ 所获得的即时回报
+- $\gamma$：折扣因子，表示未来回报的衰减系数，取值范围为 $[0, 1]$
+- $V(s')$：下一个状态 $s'$ 的价值
+
+
+2) Q Function - Q(s, a)
+表示在给定状态 s 和动作 a 的情况下，从状态 s 开始执行动作 a，并随后按照最优策略行动后，能够获得的最大期望回报。
+
+$$
+Q(s,a) = \sum_{s' \in S} P_a(s' \mid s)\ [r(s,a,s') + \gamma\  V(s') ]
+$$
+
+- $Q(s, a)$：在状态 $s$ 下采取动作 $a$ 的价值函数
+- $\sum_{s' \in S}$：表示对所有可能的下一个状态 $s'$ 求和
+- $P_a(s' \mid s)$：在状态 $s$ 下采取动作 $a$ 转移到状态 $s'$ 的概率
+- $r(s, a, s')$：从状态 $s$ 采取动作 $a$ 转移到状态 $s'$ 所获得的即时回报
+- $\gamma$：折扣因子，表示未来回报的衰减系数，取值范围为 $[0, 1]$
+- $V(s')$：下一个状态 $s'$ 的价值函数
+
+
+3) Deterministic Policy - $π(s)$
+    - 表示给定一个状态 s，返回一个能够获得最大期望回报的动作 (action)。
+>  $π(s)$返回的是最好的action, $v(s)$返回的是获得的最大expected value。
+
+4) Stochastic Policies - $π(s,a)$
+    - This means that for a given state $s$, the policy 
+$π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
+## 分类
+
+### Policy-based methods
+直接训练策略 (Policy) 来学习在给定状态下应该采取的行动。
+
+### Value-based methods
+训练一个价值函数 (Value Function) 来学习哪个状态更有价值，并使用此价值函数来选择能够导致更高价值的行动。
+
+--- 
+### Model-based Methods
+直接获得转移函数（矩阵）和 Reward 函数。例如，值迭代 (Value Iteration) 或策略迭代 (Policy Iteration)。
+
+### Model-free Methods
+通过经验、尝试动作 (action) 后才能获得转移函数和 Reward 函数。例如，Q-learning、SARSA 和 Monte Carlo 等。
+
+---
+
+### On-policy
+强化学习方法是基于当前策略来更新值函数或策略的，如 SARSA，它基于当前 policy 或 episode 的 V(s) 进行更新。
+### Off-policy
+强化学习方法是基于不同于当前策略的数据或策略来更新值函数，如 Q-learning，它基于最优 V(s) 进行更新。
+
+---
+### Online Planning
+在执行 action 之前进行规划，基于当前状态的最新信息，计算下一个最优动作。例如：MCTS、A*。
+
+### Offline Planning
+在执行任何动作之前，智能体已经提前计算出应对所有可能情况的最优策略。例如，值迭代 (Value Iteration)、策略迭代 (Policy Iteration)、SARSA、Q-learning。
+
+
+## 算法 Algorithms
+
+### 1) Value Iteration （值迭代）
+遍历所有的 state，在每个 state 尝试 action，计算 Q(s, a)，然后更新 V(s) = max Q(s, a)。通过不断迭代，更新 V(s)，使其逐渐逼近真实值。
+
+```math
+\begin{array}{l}
+  \textbf{Input:}\ \text{MDP}\ M = \langle S, s_0, A, P_a(s' \mid s), r(s,a,s')\rangle\\
+  \textbf{Output:}\ \text{Value function}\ V\\[2mm]
+  \text{Set}\ V\ \text{to arbitrary value function; e.g., }\ V(s) = 0\ \text{for all}\ s\\[2mm]
+  \textbf{Repeat:} \\
+  \quad\quad \Delta \leftarrow 0 \\
+  \quad\quad \textbf{For each}\ s \in S \\
+  \quad\quad\quad\quad \underbrace{V'(s) \leftarrow \max_{a \in A(s)} \sum_{s' \in S}  P_a(s' \mid s)\ [r(s,a,s') + 
+ \gamma\ V(s') ]}_{\text{Bellman equation}} \\
+  \quad\quad\quad\quad \Delta \leftarrow \max(\Delta, |V'(s) - V(s)|) \\
+  \quad\quad V \leftarrow V' \\
+  \textbf{Until:}\ \Delta \leq \theta 
+\end{array}
+
+```
+
+### 2) Multi-armed Bandit Algorithm (MAB) 多臂老虎机
+在 MAB 问题中，通常不涉及完整的 episode，而是执行某个 action，计算获得的 Reward 期望。
+
+### 3) Monte-Carlo Reinforcement Learning (更新 Q-Function)
+通过 MAB 等方法生成 episode（从起点到终点的 state-action 链），然后从后往前更新 (update)，利用 episode 的 Reward 更新 Q-Function。Monte Carlo 使用 episode 的 Reward 更新，而 Temporal Difference（如 Q-learning、SARSA）使用 V(s’) 进行更新。
+
+### 4) Temporal Difference (TD) Methods
+
+$$
+Q(s,a) \leftarrow \underbrace{Q(s,a)}_\text{old value} + \overbrace{\alpha}^{\text{learning rate}} \cdot [\underbrace{\overbrace{r}^{\text{reward}} + \overbrace{\gamma}^{\text{discount factor}} \cdot V(s')}_{\text{TD target}} - \overbrace{Q(s,a)}^{\text{do not count extra } Q(s,a)}]
+$$
+- 与Monte Carlo不同的是，TD用V(s')去更新Q(s,a)，不用Episode的Value。
+- **Q-Learning (Off-Policy)**：基于 MAB 生成 episode，利用 max Q(s’, a’) 更新 Q(s, a)，通过最大化未来回报来更新。
+
+- **SARSA (On-Policy)**：根据当前策略下，后续选择的 action a' 对 Q(s, a) 进行更新。
+
+总结：SARSA 会逐渐趋近于 optimal 的 policy，且 MAB 随着它的选择逐渐更新。
+
+### 5) Monte-Carlo Tree Search (MCTS)
+MCTS 是一种 Model-based 方法，可以直接观察转移矩阵。它通过四个阶段来解决问题：
+
+- **选择 (Selection)**：连续选择 child，直到一个 child 没有 fully-expanded（即所有 (state, action) 对要被探索）。
+- **扩张 (Expansion)**：选择一个尚未探索的 action，扩展到新的状态，创建对应的新节点。
+- **模拟 (Simulation)**：从扩展的节点开始，进行随机模拟（例如随机选择动作直到游戏结束），估计当前路径的回报。
+- **回传 (Back-propagation)**：将模拟得到的回报沿路径向上传播，更新树中每个节点的统计数据。
+
+---
+
+### 6) Q-Function Approximation
+- Q-function 近似是一种通过函数逼近来估计 Q-function 的方法，常用于处理大规模状态空间的问题。
+> 保证收敛但不保证问题是Optimal的（如果问题是非线性的话）
+- Q-values from linear Q-functions
+    $$
+    \begin{array}{lll}
+    Q(s,a) & = & f_1(s,a) \cdot w^a_1 + f_2(s,a)\cdot w^a_2 + \ldots  + f_{n}(s,a) \cdot w^a_n\\
+            & = & \sum_{i=0}^{n} f_i(s,a) w^a_i
+    \end{array}
+    $$
+- 损失函数的目标是最小化当前的 Q函数估计 和 目标Q值 之间的误差。
+    $$ L(w) = \frac{1}{2} \left( r(s, a, s') + \gamma \cdot \max_{a'} Q(s', a'; w') - Q(s, a; w) \right)^2
+$$
+    - $f_n(s,a)$ 代表特征feature的具体值。
+        - 比方说，它可以是我这辆车和前面车的距离；也可以是前面车的速度或者加速度等等。
+        - 也可以是我某个行动之后，和前面车的距离
+    - $w^a_n$ 代表特征的系数。
+        - 我们需要对这个值进行估计或者学习
+----
+#### Q-function 的更新
+- For initialisation, initialise all weights to 0.
+- For update, update rules: 其中 $w^a_i$ initialise为0， $\alpha$ 是学习率 
+
+    $\quad\quad$ For each state-action feature $i$\
+    $\quad\quad\quad\quad w^a_i \leftarrow w^a_i + \alpha \cdot \delta \cdot \ f_i(s,a)$
+    - **这里其实和线性回归的权重$w_i$更新方式一致。**
+
+- Q-Learning的 $\delta$ **(其实$\delta$就是前面的损失函数$L(w)$的微分)**
+    $$ \delta = r(s, a, s') + \gamma \cdot \max_{a'} Q(s', a') - Q(s, a)$$
+- SARSA的 $\delta$ **(其实$\delta$就是前面的损失函数$L(w)$的微分)**
+    $$\delta = r(s, a, s') + \gamma \cdot Q(s', a') - Q(s, a)$$
+----
+#### Deep Q-learning
+用神经网络进行 $\theta$ 更新，
+$$
+\theta \leftarrow \theta + \alpha \cdot \delta \cdot \nabla_{\theta} Q(s, a; \theta)
+$$
+其中：
+$\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对特征$\theta$的偏导数）
+
+![alt text](img/Deep_QLearning.png)
+
+- 这个Deep Q-Learning怎么做呢？具体可以想象一下，从Linear Q-learning的Q(s,a)特征的线性组合，那我们可以想象一下用MLP传入这些特征，输出为Q(s,a)。
+- 输出层的大小为在这个理state的action的数量的大小。
+- 如果插入非线性的激活函数，我们就可以拟合非线性的模型啦！
+> Deep Q-learning不保证收敛.
+
+- 优点（与线性 Q 函数近似相比）：
+
+    - **特征选择**：我们不需要手动选择特征，神经网络的隐藏层会自动学习到“特征”。
+    - **非结构化数据**：状态 $s$可以是更不结构化的数据，例如图像或图像序列（视频）。
+
+- 缺点：
+
+    - **收敛性**：没有收敛的保证。
+    - **数据需求大**：深度神经网络对数据的需求更大，因为它们不仅需要学习“Q 函数”，还要学习特征。因此，相比于使用良好特征的线性近似，学习良好的 Q 函数可能更加困难。通常需要大量的计算资源。
+----
+### Q-function Approximation的优点：
+
+- **内存**：相比于 Q 表，深度 Q 函数具有更高效的表示，因为我们只需要存储 Q 函数的权重/参数，而不需要存储大小为 $|A| \times |S|$ 的 Q 表。
+- **Q 值传播**：我们不需要在状态 $s$ 中执行动作 $a$ 来获取 $Q(s, a)$ 的值，因为 Q 函数具有泛化能力。
+
+### Q-function Approximation的缺点：
+
+- **Q 函数只是一个近似**：现在的 Q 函数只是实际 Q 函数的近似，共享特征值的状态根据 Q 函数会有相同的 Q 值，但根据（未知的）最优 Q 函数，它们的实际 Q 值可能不同。
