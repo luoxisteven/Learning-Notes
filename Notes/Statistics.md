@@ -1,6 +1,6 @@
 # 统计学 Statistics 
 
-## Table of Contents
+## 目录 Table of Contents
 - [两类错误](#两类错误)
 - [显著性水平、统计功效和 P 值](#显著性水平统计功效和-p-值)
 - [置信区间](#置信区间)
