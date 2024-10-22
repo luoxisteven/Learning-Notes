@@ -3,6 +3,13 @@
 - 大部分参考 COMP90051 AI Planning & Autonomy：https://gibberblot.github.io/rl-notes/index.html#
 - 小部分参考 Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
 
+## 目录 Table of Contents
+- [基础 Foundations](#基础-foundations)
+- [分类 Classification](#分类-classification)
+- [算法 Algorithms](#算法-algorithms)
+    - [Value Iteration](#1-value-iteration-值迭代)
+    
+
 ## 基础 Foundations
 
 1) Value Function - V(s)
@@ -49,7 +56,8 @@ $$
 4) Stochastic Policies - $π(s,a)$
     - This means that for a given state $s$, the policy 
 $π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
-## 分类
+
+## 分类 Classification
 
 ### Policy-based methods
 直接训练策略 (Policy) 来学习在给定状态下应该采取的行动。
@@ -186,11 +194,27 @@ $\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对�
     - **收敛性**：没有收敛的保证。
     - **数据需求大**：深度神经网络对数据的需求更大，因为它们不仅需要学习“Q 函数”，还要学习特征。因此，相比于使用良好特征的线性近似，学习良好的 Q 函数可能更加困难。通常需要大量的计算资源。
 ----
-### Q-function Approximation的优点：
+#### Q-function Approximation的优点：
 
 - **内存**：相比于 Q 表，深度 Q 函数具有更高效的表示，因为我们只需要存储 Q 函数的权重/参数，而不需要存储大小为 $|A| \times |S|$ 的 Q 表。
 - **Q 值传播**：我们不需要在状态 $s$ 中执行动作 $a$ 来获取 $Q(s, a)$ 的值，因为 Q 函数具有泛化能力。
 
-### Q-function Approximation的缺点：
+#### Q-function Approximation的缺点：
 
 - **Q 函数只是一个近似**：现在的 Q 函数只是实际 Q 函数的近似，共享特征值的状态根据 Q 函数会有相同的 Q 值，但根据（未知的）最优 Q 函数，它们的实际 Q 值可能不同。
+----
+### 7) Reward Shaping
+
+在初始的状态下reward可能比较稀疏Sparse，比方说我们在象棋中，实际上只有把别人的将军吃掉才有Reward。在稀疏的情况下，模型在一开始可能只有随机的寻找action，很难去更好的寻找和趋近最优方法。
+
+- 有两种方法优化稀疏的环境:
+    1. **奖励塑造 (Reward Shaping)**：如果奖励稀疏，我们可以修改/增强奖励函数，对那些我们认为能使问题向解决方案更接近的行为进行奖励。（比方说在象棋中，我们在吃了对方的一个车+4分，一个炮+3分等等）这就意味着我们要利用Domain Knowledge去进行Reward Shaping。（其实等于增加了Heuristics）
+
+    2. **Q 值初始化 (Q-Value Initialisation)**：我们可以在一开始“猜测”一个好的 Q 函数，并将 $Q(s, a)$ 初始化为该值，这将引导我们的学习算法。
+
+- Reward Shaping 公式
+    $$Q(s,a) \leftarrow Q(s,a) + \alpha [r + \underbrace{F(s,s')}_{\text{additional reward}} + \gamma \max_{a'} Q(s',a') - Q(s,a)]$$
+    - 我们说 $G^{\Phi} = \sum_{i=0}^{\infty} \gamma^i (r_i + F(s_i,s_{i+1}))$ 是整个Episode的塑造奖励（shaped reward）。
+    - $F(s,s')>0$ 是 正向奖励，鼓励我们去exploit一个action从 $s$ 到 $s'$
+    - $F(s,s')<0$ 是 反向奖励，反对我们去exploit一个action从 $s$ 到 $s'$
+----
