@@ -1,18 +1,47 @@
 # 强化学习 Reinforcement Learning
 
+强化学习是我最喜欢的，但也是相比于CV, NLP最难理解的。POMDP就先不看了，这个笔记主要看MDP。
+
 - 大部分参考 COMP90051 AI Planning & Autonomy：https://gibberblot.github.io/rl-notes/index.html#
 - 小部分参考 Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
+- 我没怎么看 Sutton and Barto 的经典RL的书。
 
 ## 目录 Table of Contents
 - [基础 Foundations](#基础-foundations)
 - [分类 Classification](#分类-classification)
 - [算法 Algorithms](#算法-algorithms)
     - [Value Iteration](#1-value-iteration-值迭代)
-    
+    - [Multi-armed Bandit](#2-multi-armed-bandit-algorithm-mab-多臂老虎机)
+    - [Monte-Carlo Reinforcement Learning](#3-monte-carlo-reinforcement-learning-更新-q-function)
+    - [Temporal Difference Methods](#4-temporal-difference-td-methods)
+        - [Q-Learning](#)
+        - [SARSA](#)
+    - [Monte-Carlo Tree Search](#5-monte-carlo-tree-search-mcts)
+    - [Q-Function Approximation](#6-q-function-approximation-更新-q-function)
+        - [Deep Q-Learning](#deep-q-learning)
+    - [Reward Shaping](#7-reward-shaping)
+    - [Policy Iteration](#6-policy-iteration-直接更新policy)
+    - [Policy Gradient](#7-policy-gradient)
+        - [REINFORCE](#)
+        - [Actor Critic](#)
+    - [Backward Induction (Min-Max)](#)
+
 
 ## 基础 Foundations
+1) **Markov Decision Process (MDP)**
 
-1) Value Function - V(s)
+    A **Markov Decision Process** (MDP) is a  **fully observable**, **probabilistic** state model. The most common formulation of MDPs is a **Discounted-Reward Markov Decision
+    Process**. A discount-reward MDP  is a tuple $(S, s_0, A, P, r, \gamma)$ containing:
+    -   a state space $S$;
+    -   initial state $s_0 \in S$;
+    -   actions $A(s) \subseteq A$ applicable in each state $s \in S$ that our agent can execute;
+    -   **transition probabilities** $P_a(s' \mid s)$ for $s \in S$ and
+        $a \in A(s)$;
+    -   **rewards** $r(s,a,s')$ positive or negative of transitioning from
+        state $s$ to state $s'$ using action $a$; and
+    -   a **discount factor** $0 \leq \gamma < 1$.
+
+2) **Value Function - V(s)**
 指的是 Bellman Equation。它是给定一个状态 State，从该状态开始采取最优策略后所能获得的最大期望回报 (Reward)。
 
 $$
@@ -34,7 +63,7 @@ $$
 - $V(s')$：下一个状态 $s'$ 的价值
 
 
-2) Q Function - Q(s, a)
+3) **Q Function - Q(s, a)**
 表示在给定状态 s 和动作 a 的情况下，从状态 s 开始执行动作 a，并随后按照最优策略行动后，能够获得的最大期望回报。
 
 $$
@@ -49,11 +78,11 @@ $$
 - $V(s')$：下一个状态 $s'$ 的价值函数
 
 
-3) Deterministic Policy - $π(s)$
+4) **Deterministic Policy - $π(s)$**
     - 表示给定一个状态 s，返回一个能够获得最大期望回报的动作 (action)。
 >  $π(s)$返回的是最好的action, $v(s)$返回的是获得的最大expected value。
 
-4) Stochastic Policies - $π(s,a)$
+5) **Stochastic Policies - $π(s,a)$**
     - This means that for a given state $s$, the policy 
 $π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
 
@@ -75,9 +104,9 @@ $π(s,a)$ assigns a probability to each action $a$, indicating how likely the ag
 ---
 
 ### On-policy
-强化学习方法是基于当前策略来更新值函数或策略的，如 SARSA，它基于当前 policy 或 episode 的 V(s) 进行更新。
+强化学习方法是基于当前策略来更新值函数或策略的，如 SARSA，它基于当前 policy 或 episode 的 $V(s)$ 进行更新。
 ### Off-policy
-强化学习方法是基于不同于当前策略的数据或策略来更新值函数，如 Q-learning，它基于最优 V(s) 进行更新。
+强化学习方法是基于不同于当前策略的数据或策略来更新值函数，如 Q-learning，它基于最优 $V(s)$ 进行更新。
 
 ---
 ### Online Planning
@@ -90,7 +119,7 @@ $π(s,a)$ assigns a probability to each action $a$, indicating how likely the ag
 ## 算法 Algorithms
 
 ### 1) Value Iteration （值迭代）
-遍历所有的 state，在每个 state 尝试 action，计算 Q(s, a)，然后更新 V(s) = max Q(s, a)。通过不断迭代，更新 V(s)，使其逐渐逼近真实值。
+遍历所有的 state，在每个 state 尝试 action，计算 $Q(s, a)$，然后更新 $V(s) = max Q(s, a)$。通过不断迭代，更新 $V(s)$，使其逐渐逼近真实值。
 
 ```math
 \begin{array}{l}
@@ -113,7 +142,7 @@ $π(s,a)$ assigns a probability to each action $a$, indicating how likely the ag
 在 MAB 问题中，通常不涉及完整的 episode，而是执行某个 action，计算获得的 Reward 期望。
 
 ### 3) Monte-Carlo Reinforcement Learning (更新 Q-Function)
-通过 MAB 等方法生成 episode（从起点到终点的 state-action 链），然后从后往前更新 (update)，利用 episode 的 Reward 更新 Q-Function。Monte Carlo 使用 episode 的 Reward 更新，而 Temporal Difference（如 Q-learning、SARSA）使用 V(s’) 进行更新。
+通过 MAB 等方法生成 episode（从起点到终点的 state-action 链），然后从后往前更新 (update)，利用 episode 的 Reward 更新 Q-Function。Monte Carlo 使用 episode 的 Reward 更新，而 Temporal Difference（如 Q-learning、SARSA）使用 $V(s’)$ 进行更新。
 
 ### 4) Temporal Difference (TD) Methods
 
@@ -121,9 +150,9 @@ $$
 Q(s,a) \leftarrow \underbrace{Q(s,a)}_\text{old value} + \overbrace{\alpha}^{\text{learning rate}} \cdot [\underbrace{\overbrace{r}^{\text{reward}} + \overbrace{\gamma}^{\text{discount factor}} \cdot V(s')}_{\text{TD target}} - \overbrace{Q(s,a)}^{\text{do not count extra } Q(s,a)}]
 $$
 - 与Monte Carlo不同的是，TD用V(s')去更新Q(s,a)，不用Episode的Value。
-- **Q-Learning (Off-Policy)**：基于 MAB 生成 episode，利用 max Q(s’, a’) 更新 Q(s, a)，通过最大化未来回报来更新。
+- **Q-Learning (Off-Policy)**：基于 MAB 生成 episode，利用 $max Q(s’, a’)$ 更新 $Q(s, a)$，通过最大化未来回报来更新。
 
-- **SARSA (On-Policy)**：根据当前策略下，后续选择的 action a' 对 Q(s, a) 进行更新。
+- **SARSA (On-Policy)**：根据当前策略下，后续选择的 action $a'$ 对 $Q(s, a)$ 进行更新。
 
 总结：SARSA 会逐渐趋近于 optimal 的 policy，且 MAB 随着它的选择逐渐更新。
 
@@ -137,7 +166,7 @@ MCTS 是一种 Model-based 方法，可以直接观察转移矩阵。它通过�
 
 ---
 
-### 6) Q-Function Approximation
+### 6) Q-Function Approximation (更新 Q-Function)
 - Q-function 近似是一种通过函数逼近来估计 Q-function 的方法，常用于处理大规模状态空间的问题。
 > 保证收敛但不保证问题是Optimal的（如果问题是非线性的话）
 - Q-values from linear Q-functions
@@ -179,7 +208,7 @@ $\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对�
 
 ![alt text](img/Deep_QLearning.png)
 
-- 这个Deep Q-Learning怎么做呢？具体可以想象一下，从Linear Q-learning的Q(s,a)特征的线性组合，那我们可以想象一下用MLP传入这些特征，输出为Q(s,a)。
+- 这个Deep Q-Learning怎么做呢？具体可以想象一下，从Linear Q-learning的 $Q(s,a)$ 特征的线性组合，那我们可以想象一下用MLP传入这些特征，输出为$Q(s,a)$。
 - 输出层的大小为在这个理state的action的数量的大小。
 - 如果插入非线性的激活函数，我们就可以拟合非线性的模型啦！
 > Deep Q-learning不保证收敛.
@@ -208,7 +237,8 @@ $\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对�
 在初始的状态下reward可能比较稀疏Sparse，比方说我们在象棋中，实际上只有把别人的将军吃掉才有Reward。在稀疏的情况下，模型在一开始可能只有随机的寻找action，很难去更好的寻找和趋近最优方法。
 
 - 有两种方法优化稀疏的环境:
-    1. **奖励塑造 (Reward Shaping)**：如果奖励稀疏，我们可以修改/增强奖励函数，对那些我们认为能使问题向解决方案更接近的行为进行奖励。（比方说在象棋中，我们在吃了对方的一个车+4分，一个炮+3分等等）这就意味着我们要利用Domain Knowledge去进行Reward Shaping。（其实等于增加了Heuristics）
+    1. **奖励塑造 (Reward Shaping)**：如果奖励稀疏，我们可以修改/增强奖励函数，对那些我们认为能使问题向解决方案更接近的行为进行奖励。
+    - 比方说在象棋中，我们在吃了对方的一个车+4分，一个炮+3分等等）这就意味着我们要利用Domain Knowledge去进行Reward Shaping。（其实等于增加了Heuristics）
 
     2. **Q 值初始化 (Q-Value Initialisation)**：我们可以在一开始“猜测”一个好的 Q 函数，并将 $Q(s, a)$ 初始化为该值，这将引导我们的学习算法。
 
@@ -218,3 +248,55 @@ $\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对�
     - $F(s,s')>0$ 是 正向奖励，鼓励我们去exploit一个action从 $s$ 到 $s'$
     - $F(s,s')<0$ 是 反向奖励，反对我们去exploit一个action从 $s$ 到 $s'$
 ----
+#### 基于势能的奖励塑造 Potential-based Reward Shaping
+
+**Potential-based** reward shaping is a particular type of reward shaping with nice theoretical guarantees. In potential-based reward shaping, $F$ is of the form:
+
+$$F(s,s') = \gamma \Phi(s') - \Phi(s)$$
+
+We call $\Phi$ the **potential function (势能函数)** and $\Phi(s)$ is the **potential (势能)** of state $s$.
+
+So, instead of defining $F : S \times S \to \mathbb{R}$, we define $\Phi : S \to \mathbb{R}$, which is some heuristic measure of the value of each state $s \in S$. (空间的大小由 $S \times S$ 变成了 $S$)
+
+**Theoretical guarantee**: this will still converge to the optimal policy under the assumption that all state-action pairs are sampled infinitely often.
+
+`例子:`
+
+$$
+\Phi(s) = 1 - \frac{|x(g) - x(s)| + |y(g) - y(s)|}{width + height - 2}
+$$
+- 要往势能低的地方走，所以是要用 $(1 - ..) $
+- $x(g)$为Goal State的 $x$ 坐标
+- $y(g)$为Goal State的 $y$ 坐标
+
+我们的初始点为 $(1,0)$ ，Goal State $(3,2)$ 。
+我们用曼哈顿距离为Heuristics的话，我们初始点 $(1，0)$ 的势能为 $1-(｜3-1｜+｜2-0｜)/4+3-2 = 4/5$, $（0,0)$ 的势能为 1，Goal State (3,2) 的势能为0。
+我们要往势能低的地方走，所以说Reward Shaping会限制我们从初始点 $(1,0)$ 去 $(0,0)$ , 鼓励我们去Goal State $(3,2)$ 。
+
+> `评价:` 用 ”Reward Shaping“ 方法比较依赖 “Domain Knowledge” 也就是我们对Feature的选择。
+--- 
+#### Q-function initialisation
+ - 初始化一个Q-Value使其趋近于最优Q-Value
+
+----
+### 6) Policy Iteration (直接更新Policy)
+ - 一种Policy-based的方法：直接更新Policy
+ - 一种Model-based的方法：能直接观察到Reward和Transition Function
+ -  一开始由一个非最优的Policy，然后逐渐更新趋向于最优Policy。
+ - `方法:` 由两个部分组成 Policy Evaluation 和 Policy Improvement。
+ 1) Policy Evaluation: 
+    - 先遍历所有的States，`根据Policy`的$V^\pi(s')$ 去更新 $V^\pi(s)$。
+    $$V^\pi(s) =  \sum_{s' \in S} P_{\pi(s)} (s' \mid s)\ [r(s,a,s') +  \gamma\ V^\pi(s') ]$$
+
+ 2) Policy Improvement:
+    - 再遍历每个State，然后每个State遍历每个action，然后看哪个action根据policy的Q-value最大更新policy。
+    $$Q^{\pi}(s,a)  =  \sum_{s' \in S} P_a(s' \mid s)\ [r(s,a,s') \, + \,  \gamma\ V^{\pi}(s')]$$
+    $$ Update:  \pi(s) \leftarrow \textrm{argmax}_{a \in A(s)}Q^{\pi}(s,a)$$
+ 3) 进行Policy Evaluation + Policy Improvement多次，直到变化小于某个值或者达到某个次数。
+
+---
+### 7) Policy Gradient
+ - Policy Gradient 有点抽象，之前学的时候这里没有例子，可能是因为是随机的policy吧，例子不好找。
+ - `两个特点:`
+    1) 要求Function`可微 differentiable`.
+    2) 一般来说，Polies是`随机Stochastic`的，$π(s,a)$返回一个probability。
