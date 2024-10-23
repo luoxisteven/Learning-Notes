@@ -1,6 +1,6 @@
 # 机器学习 Machine Learning
 
-机器学习 Machine Learning
+根据 COMP90051 Statistical Machine Learning, COMP90086 Computer Vision, COMP90042 Natural Language Processing, 周志华的《机器学习》, CSDN, 知乎等信息来源总结。
 
 ## 目录 Table of Contents
 - `基础 Foundations:`
