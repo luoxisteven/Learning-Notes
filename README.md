@@ -22,6 +22,7 @@ This repository contains some of the notes I've taken over the years.
     - [Natural Language Processing](Notes/NLP.md)
     - [LLM](Notes/LLM.md)
 4) Finance
+    - [Time Series Analysis (Pending)](/Notes/Time%20Series%20Analysis.md)
     - [CFA Level 1](./CFA%20Level%201/)
 
 5) [Others](./Notes/others.md)

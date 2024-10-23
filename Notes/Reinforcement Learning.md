@@ -40,9 +40,15 @@
     -   **rewards** $r(s,a,s')$ positive or negative of transitioning from
         state $s$ to state $s'$ using action $a$; and
     -   a **discount factor** $0 \leq \gamma < 1$.
+    - `为什么discount factor要小于1？` 
+        - 避免在同一个state获得reward，陷入Loop死循环
 
+---
 2) **Value Function - V(s)**
 指的是 Bellman Equation。它是给定一个状态 State，从该状态开始采取最优策略后所能获得的最大期望回报 (Reward)。
+
+    - Bellman Equation有两层：
+        - 遍历该state的所有action，然后对这些action的可能到达的state进行相加（你会看到连加符号下面是所有state，是因为 $P_a(s' \mid s)$ 一般来说很多都是0。 
 
 $$
 V(s) = \max_{a \in A(s)} \sum_{s' \in S} P_a(s' \mid s)\ [r(s,a,s') + \gamma\  V(s')]
@@ -51,7 +57,6 @@ $$
 $$
 V(s) = \overbrace{\max_{a \in A(s)}}^{\text{best action from $s$}} \overbrace{\underbrace{\sum_{s' \in S}}_{\text{for every state}} P_a(s' \mid s) [\underbrace{r(s,a,s')}_{\text{immediate reward}} + \underbrace{\gamma}_{\text{discount factor}} \cdot  \underbrace{V(s')}_{\text{value of } s'}]}^{\text{expected reward of executing action $a$ in state $s$}}
 $$
-
 
 - $V(s)$：状态 $s$ 的价值函数
 - $\max$：表示在所有可能的动作 $a$ 中选择一个使得价值最大的动作
@@ -62,7 +67,7 @@ $$
 - $\gamma$：折扣因子，表示未来回报的衰减系数，取值范围为 $[0, 1]$
 - $V(s')$：下一个状态 $s'$ 的价值
 
-
+----
 3) **Q Function - Q(s, a)**
 表示在给定状态 s 和动作 a 的情况下，从状态 s 开始执行动作 a，并随后按照最优策略行动后，能够获得的最大期望回报。
 
@@ -77,7 +82,7 @@ $$
 - $\gamma$：折扣因子，表示未来回报的衰减系数，取值范围为 $[0, 1]$
 - $V(s')$：下一个状态 $s'$ 的价值函数
 
-
+---
 4) **Deterministic Policy - $π(s)$**
     - 表示给定一个状态 s，返回一个能够获得最大期望回报的动作 (action)。
 >  $π(s)$返回的是最好的action, $v(s)$返回的是获得的最大expected value。
@@ -85,6 +90,7 @@ $$
 5) **Stochastic Policies - $π(s,a)$**
     - This means that for a given state $s$, the policy 
 $π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
+
 
 ## 分类 Classification
 
@@ -282,13 +288,13 @@ $$
 ### 6) Policy Iteration (直接更新Policy)
  - 一种Policy-based的方法：直接更新Policy
  - 一种Model-based的方法：能直接观察到Reward和Transition Function
- -  一开始由一个非最优的Policy，然后逐渐更新趋向于最优Policy。
+ -  一开始由一个非最优的Policy（例如Random Policy)，然后逐渐更新趋向于最优Policy。
  - `方法:` 由两个部分组成 Policy Evaluation 和 Policy Improvement。
- 1) Policy Evaluation: 
-    - 先遍历所有的States，`根据Policy`的$V^\pi(s')$ 去更新 $V^\pi(s)$。
+ 1) **Policy Evaluation:**
+    - 先遍历所有的States，`根据Policy`的$V^\pi(s')$ 等参数去更新 $V^\pi(s)$。
     $$V^\pi(s) =  \sum_{s' \in S} P_{\pi(s)} (s' \mid s)\ [r(s,a,s') +  \gamma\ V^\pi(s') ]$$
 
- 2) Policy Improvement:
+ 2) **Policy Improvement:**
     - 再遍历每个State，然后每个State遍历每个action，然后看哪个action根据policy的Q-value最大更新policy。
     $$Q^{\pi}(s,a)  =  \sum_{s' \in S} P_a(s' \mid s)\ [r(s,a,s') \, + \,  \gamma\ V^{\pi}(s')]$$
     $$ Update:  \pi(s) \leftarrow \textrm{argmax}_{a \in A(s)}Q^{\pi}(s,a)$$
@@ -296,7 +302,7 @@ $$
 
 ---
 ### 7) Policy Gradient
- - Policy Gradient 有点抽象，之前学的时候这里没有例子，可能是因为是随机的policy吧，例子不好找。
+ - Model-free Method
  - `两个特点:`
     1) 要求Function`可微 differentiable`.
-    2) 一般来说，Polies是`随机Stochastic`的，$π(s,a)$返回一个probability。
+    2) 一般来说，Polies是`随机Stochastic`的，$π(s,a)$ 返回一个probability。

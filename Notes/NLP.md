@@ -19,6 +19,8 @@ Transformer 的核心是**Attention**机制，它和其他 NLP 模型（如 RNN�
 
 **微调**是指在一个已经预训练好的模型上进行少量任务特定的数据训练，使其适应特定任务。微调通常可以大幅提高模型在特定任务上的表现。
 
+- 微调的一个Trick就是学习率一定要小 (记得上次在NLP项目的微调BERT).
+
 参考讨论：[什么是微调？](https://www.zhihu.com/question/298203515/answer/3355179300)
 
 
@@ -330,11 +332,11 @@ BERT-BASE模型的总参数数量为 **约88M**。
 ## 6) 机器翻译
 $$argmax(y) : p(x|y) P(y)$$
 
-- **x**: 源语 (source language)
-- **y**: 目标语 (target language)
+- **$x$**: 源语 (source language)
+- **$y$**: 目标语 (target language)
 
-- **p(x|y)**: 翻译模型，反映真实性 (Fidelity)
-- **p(y)**: 语言模型，反映流畅性 (Fluency)
+- **$p(x|y)$**: 翻译模型，反映真实性 (Fidelity)
+- **$p(y)$**: 语言模型，反映流畅性 (Fluency)
 
 
 ## NLP 预训练的各种模式
