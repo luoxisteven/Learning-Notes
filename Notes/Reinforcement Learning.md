@@ -4,6 +4,7 @@
 
 - 大部分参考 COMP90051 AI Planning & Autonomy：https://gibberblot.github.io/rl-notes/index.html#
 - 小部分参考 Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
+- 还有一些参考知乎和CSDN等的Blogs。
 - 我没怎么看 Sutton and Barto 的经典RL的书。
 
 ## 目录 Table of Contents
@@ -22,9 +23,9 @@
     - [Reward Shaping](#7-reward-shaping)
     - [Policy Iteration](#6-policy-iteration-直接更新policy)
     - [Policy Gradient](#7-policy-gradient)
-        - [REINFORCE](#)
-        - [Actor Critic](#)
-    - [Backward Induction (Min-Max)](#)
+        - [REINFORCE](#reinforce)
+        - [Actor Critic](#actor-critic)
+    - [Backward Induction (MinMax)](#backward-induction-minmax)
 
 
 ## 基础 Foundations
@@ -301,8 +302,141 @@ $$
  3) 进行Policy Evaluation + Policy Improvement多次，直到变化小于某个值或者达到某个次数。
 
 ---
-### 7) Policy Gradient
+### 7) 策略梯度 Policy Gradient
  - Model-free Method
  - `两个特点:`
     1) 要求Function`可微 differentiable`.
     2) 一般来说，Polies是`随机Stochastic`的，$π(s,a)$ 返回一个probability。
+
+---
+The goal of gradient ascent is to find weights of a policy function $\pi_{\theta}(s, a)$ that maximises the expected return.
+
+The expected value of a policy $\pi_{\theta}$ with parameters $\theta$ is defined as:
+
+$$J(\theta) = V^{\pi_{\theta}}(s_0)$$
+
+- $s_0$ 是 起始点
+- 参数 $\theta$ 作为变量定义 $\pi_{\theta}(s, a)$。
+- 目标函数是最大化 $J(\theta) = V^{\pi_{\theta}}(s_0)$
+- $J(\theta)$ 定义了，根据Policy $\pi$, 从起始点 $s_0$ 可以获得的最大期望回报
+- 在 policy gradient 中，优化的目标是通过梯度上升调整策略的参数 $\theta$，使得从初始状态开始，所期望的累积回报最大化。
+---- 
+Given a policy objective 策略目标函数 $J(\theta)$, the **policy gradient 策略梯度** of $J$ with respect to $\theta$, written $\nabla_{\theta}J(\theta)$ is defined as:
+
+$$
+\nabla_{\theta}J(\theta) = \begin{pmatrix} \frac{\partial J(\theta)}{\partial \theta_1} \\ \vdots \\ \frac{\partial J(\theta)}{\partial \theta_n} \end{pmatrix}
+$$
+
+where $\frac{\partial J(\theta)}{\partial \theta_i}$ is the partial derivative of $J$ with respective to $\theta_i$.
+
+Update Method for $J(\theta)$：
+$$\theta \leftarrow \theta + \alpha \nabla J(\theta)$$
+where $\alpha$ 是 Learning Rate 学习率。
+
+---
+The **policy gradient theorem** (see Sutton and Barto, Section 13.2) says that for any differentiable policy $\pi_{\theta}$, state $s$, and action $a$, that $\nabla J(\theta)$ is:
+
+- 连续动作空间:
+    $$\nabla J(\theta) = \mathbb{E}[(\nabla_{\theta}\ \textrm{ln} \pi_{\theta}(s, a)  Q(s,a)]$$
+
+- 离散动作空间:
+    $$
+    \nabla J(\theta) = \sum_s d^{\pi}(s) \sum_a \pi_{\theta}(s, a) \nabla_{\theta} \ln \pi_{\theta}(s, a) Q(s, a)
+    $$
+
+    其中，$d^{\pi}(s)$ 是状态 $s$ 的稳态分布，表示在策略 $\pi_{\theta}$ 下，智能体处于状态 $s$ 的概率。
+
+
+表达式 $\ln \pi_{\theta}(s, a)$ 告诉我们如何改变权重 $\theta$：如果在状态 $s$ 中选择动作 $a$ 的 Q-value 是正的，我们将增加选择该动作的概率；否则，我们会减少选择该动作的概率。因此，这是采取动作 $\pi_{\theta}(s, a)$ 所获得的期望回报乘以梯度。
+
+这里用期望值 $\mathbb{E}$，因为我们的策略是用概率进行估算，我们的 $Q(s,a)$ 要用期望值。
+
+---
+这里假设我们在状态 $s$ 有两个行动 $a_0$ 和 $a_1$，我们用逻辑回归计算他们的概率（这里我们进行简化，如果多个行动用Softmax）：
+$$
+\begin{aligned}
+        \pi_{\theta}(s, a_0) &= \frac{1}{1 + e^{-\theta \cdot s}}\\[1mm]
+        \pi_{\theta}(s, a_1) &= 1 - \pi_{\theta}(s, a_0) 
+\end{aligned}
+$$
+
+这两个公式对 $\theta$ 导入公式$\nabla \textrm{ln} \pi_{\theta}(s, a)$得到:
+
+$$
+\begin{aligned}
+  \nabla \textrm{ln} \pi_{\theta}(s, a_0) &= s - s\cdot \pi_{\theta}(s, a_0)\\[1mm]
+  \nabla \textrm{ln} \pi_{\theta}(s, a_1) &= -s \cdot \pi_{\theta}(s, a_0)
+\end{aligned}
+$$
+
+`重点:`
+- REINFORCE 对 $\theta$ 的梯度计算:
+    $$
+    \nabla_{\theta} J(\theta) = \sum_{t} \nabla_{\theta} \ln \pi_{\theta}(s_t, a_t) G_t
+    $$
+    - $G_t$是由Epsiode求得。
+- Actor Critic 对 $\theta$ 的梯度计算:
+    $$
+    \nabla_{\theta} J(\theta) = \sum_{t} \nabla_{\theta} \ln \pi_{\theta}(s_t, a_t) \left( A(s,a) \right)
+    $$
+ 
+    - $A(s,a)=Q(s,a)−V(s)$ 优势函数，评价在状态 $s$ 下，行动 $a$ 在这个状态下是否更好，更有优势。
+    - $G_t - V(s_t)$ 是对优势函数的估计形式。
+
+----
+#### REINFORCE
+https://blog.csdn.net/qq_41262334/article/details/137771108
+
+$$
+\begin{array}{l}
+\textbf{Input:}\  \text{A differentiable policy}\ \pi_{\theta}(s,a),\\ \text{an MDP}\ M = \langle S, s_0, A, P_a(s' \mid s), r(s,a,s')\rangle\\
+\textbf{Output:}\  \text{Policy}\ \pi_{\theta}(s,a)\\\\[2mm]
+\text{Initialise parameters}\ \theta\ \text{arbitrarily}\\[2mm]
+\textbf{Repeat:}\\
+\quad\quad \text{Generate episode}\ (s_0, a_0, r_1, \ldots s_{T-1}, a_{T-1}, r_T)\ \text{by following}\ \pi_{\theta}\\
+\quad\quad \textbf{For each}\ (s_t, a_t)\ \text{in the episode:}\\
+\quad\quad\quad\quad G \leftarrow \sum_{k=t+1}^{T} \gamma^{k-t-1} r_k\\
+\quad\quad\quad\quad \theta \leftarrow \theta + \alpha \gamma^{t} G\ \nabla\ \ln\ \pi_{\theta}(s_t, a_t)\\
+\textbf{Until}\ \pi_{\theta}\ \text{converges}
+\end{array}
+$$
+
+
+**REINFORCE** 算法 (on-policy 算法) 通过遵循当前的策略，使用蒙特卡洛模拟生成整个 episode（回合）；因此，随着策略 $\pi$ 的改进，它会生成越来越好的策略。然后，它会遍历 episode 中的每一个动作，计算 $G$，即该轨迹的未来折扣回报总和。利用这个回报，它计算策略的梯度 $\pi$ 并沿着 $G$ 的方向进行梯度更新。
+
+- **REINFOCE** 用 the most recently sampled action and its reward are used to calculate the gradient and update, 这一点和前面的Monte-Carlo Reinforcement Learning相似，只不过这个是更新策略函数 $\pi_{\theta}(s, a)$。
+- 当 action space or state space are continuous时，**REINFOCE** 会更有优势。
+- **Deep REINFOCE** 用深度学习的方法拟合 $J(\theta)$。
+
+----
+#### Actor Critic
+
+https://blog.csdn.net/qq_33302004/article/details/115530428
+
+$$
+\begin{array}{l}
+\textbf{Input:}\ \text{MDP}\ M = \langle S, s_0, A, P_a(s' \mid s), r(s,a,s')\rangle\\
+\textbf{Input:}\ \text{A differentiable actor policy}\ \pi_{\theta}(s,a)\\
+\textbf{Input:}\ \text{A differentiable critic Q-function}\ Q_w(s,a)\\
+\textbf{Output:}\ \text{Policy}\ \pi_{\theta}(s,a) \\[2mm]
+\text{Initialise actor parameters}\ \theta\ \text{and critic parameters}\ w\ \text{arbitrarily}\\[2mm]
+\textbf{Repeat (for each episode}\ e\text{):}\\
+\quad s \leftarrow\ \text{the first state in episode}\ e\\
+\quad \text{Select action}\ a \sim \pi_\theta(s, a)\\
+\quad \textbf{Repeat (for each step in episode e):}\\
+\quad\quad \text{Execute action}\ a\ \text{in state}\ s\\
+\quad\quad \text{Observe reward}\ r\ \text{and new state}\ s'\\
+\quad\quad \text{Select action}\ a' \sim \pi_\theta(s', a')\\
+\quad\quad \delta \leftarrow r + \gamma \cdot  Q_w(s',a') - Q_w(s,a)\\
+\quad\quad w  \leftarrow w + \alpha_w \cdot \delta \cdot \nabla Q_w(s,a)\\
+\quad\quad \theta \leftarrow \theta + \alpha_{\theta} \cdot \delta \cdot \nabla \ln\ \pi_{\theta}(s,a)\\
+\quad\quad s \leftarrow s'; a \leftarrow a'\\
+\quad \textbf{Until}\ s\ \text{is the last state of episode}\ e\ \text{(a terminal state)}\\
+\textbf{Until}\ \pi_{\theta}\ \text{converges}
+\end{array}
+
+$$
+
+The reason the actor critic methods still work like this is because the actor policy $\pi_{\theta}$ selects actions for us, while the critic $Q_w(s,a)$ is only ever used to calculate the temporal difference estimate for an already selected action. We do not have to iterate over the critic Q-function to select actions, so we do not have to iterate over the set of actions -- we just use the policy. As such, this will still extend to continuous and large state spaces and be more efficient for large action space.
+
+## Backward Induction (MinMax)
