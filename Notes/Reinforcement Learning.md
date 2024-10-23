@@ -4,8 +4,8 @@
 
 - 大部分参考 COMP90051 AI Planning & Autonomy：https://gibberblot.github.io/rl-notes/index.html#
 - 小部分参考 Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
+- 从Policy Gradient开始，推荐看Sutton and Barto 的经典RL的书
 - 还有一些参考知乎和CSDN等的Blogs。
-- 我没怎么看 Sutton and Barto 的经典RL的书。
 
 ## 目录 Table of Contents
 - [基础 Foundations](#基础-foundations)
@@ -436,7 +436,20 @@ $$
 \end{array}
 
 $$
+- Actor Critic其实是拟合了两个函数, 
+一个是Q-function $Q_w(s,a)$，
+另一个Policy Function $\pi_{\theta}(s,a)$。
+在更新Q-function的参数同时，
+也用拟合的Q-value利用Temporal Difference更新Policy function的参数。
+对比于上面的REINFORCE，它没有用自己Episode的值去更新，policy function。
+-  Actor Critic 也是类似于Mote-Carlo RL对比于Temporal Difference的一种优化，
+    无需等待整个Episode完成，直接对Policy function进行更新。
 
-The reason the actor critic methods still work like this is because the actor policy $\pi_{\theta}$ selects actions for us, while the critic $Q_w(s,a)$ is only ever used to calculate the temporal difference estimate for an already selected action. We do not have to iterate over the critic Q-function to select actions, so we do not have to iterate over the set of actions -- we just use the policy. As such, this will still extend to continuous and large state spaces and be more efficient for large action space.
+- The reason the actor critic methods still work like this is because the actor policy $\pi_{\theta}$ selects actions for us, while the critic $Q_w(s,a)$ is only ever used to calculate the temporal difference estimate for an already selected action. We do not have to iterate over the critic Q-function to select actions, so we do not have to iterate over the set of actions -- we just use the policy. As such, this will still extend to continuous and large state spaces and be more efficient for large action space.
+
+-----
+> 总结: 我们用Approximation的方法，不管是Q-function的approximation还是Policy Function的approximation，
+都是希望绕开更新Q-Table（Q-Table对于状态空间或者行动空间巨大时，不是一种好办法）。
 
 ## Backward Induction (MinMax)
+没什么好讲的，就是博弈论倒推。
