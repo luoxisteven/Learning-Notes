@@ -17,7 +17,7 @@ This repository contains some of the notes I've taken over the years.
     - [Algorithms (Pending)](Notes/Algorithms.md)
 3) Machine Learning
     - [Machine Learning](Notes/Machine%20Learning.md)
-    - [Reinforcement Learning (Pending)](Notes/Reinforcement%20Learning.md)
+    - [Reinforcement Learning](Notes/Reinforcement%20Learning.md)
     - [Computer Vision (Pending)](Notes/CV.md)
     - [Natural Language Processing](Notes/NLP.md)
     - [LLM](Notes/LLM.md)
