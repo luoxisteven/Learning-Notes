@@ -10,7 +10,7 @@ This repository contains some of the notes I've taken over the years.
     - [Statistics](Notes/Statistics.md)
     - [Probability](Notes/Probability.md)
 2) Computer Science
-    - [Java (Pending)](Notes/Java.md)
+    - [Java](Notes/Java.md)
     - [SQL](Notes/SQL.md)
     - [Pandas](Notes/Pandas.md)
     - [Git](Notes/git.md)
