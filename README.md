@@ -14,7 +14,7 @@ This repository contains some of the notes I've taken over the years.
     - [SQL](Notes/SQL.md)
     - [Pandas](Notes/Pandas.md)
     - [Git](Notes/git.md)
-    - [Algorithms (Pending)](Notes/Algorithms.md)
+    - [Algorithms](Notes/Algorithms.md)
 3) Machine Learning
     - [Machine Learning](Notes/Machine%20Learning.md)
     - [Reinforcement Learning](Notes/Reinforcement%20Learning.md)
@@ -25,6 +25,6 @@ This repository contains some of the notes I've taken over the years.
     - [Time Series Analysis (Pending)](/Notes/Time%20Series%20Analysis.md)
     - [CFA Level 1](./CFA%20Level%201/)
 
-5) [Others](./Notes/others.md)
+5) [Others](./Notes/Others.md)
 
 `Notes:` Machine Learning的集成学习还要再看一下
