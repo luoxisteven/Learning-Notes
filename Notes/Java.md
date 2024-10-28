@@ -14,10 +14,145 @@
 - **char**: 2 Bytes
 
 ## 修饰符
-- **Default**
-- **Public**
-- **Private**
-- **Protected**
+- **default**: 默认类（什么都不写），同一包内任意访问，不同包内不能访问
+- **public**：不同包之间也可以访问
+- **private**：只有当前类可以访问，同一个包不同类也不可以访问
+- **protected**：它和default一样都是用在同一包内任意访问，它不可以被包pacakge外直接访问，需要用到继承的方法来访问。
+   ```java
+   package otherpackage;
+
+   import mypackage.ParentClass;
+
+   public class ChildClass extends ParentClass {
+      public void accessProtectedMember() {
+         System.out.println(protectedField); // 子类访问父类的受保护字段
+         protectedMethod(); // 子类访问父类的受保护方法
+      }
+   }
+
+   ```
+
+## Package 打包
+把各个类class打包成一个package包，比方说：`com.example.myapp`。同一个包的各个类class，可以相互引用。那当我import的时候，我可以引用某个包的类，如`import java.util.ArrayList;`，我也可以引用整个包`import java.util.*;`，但是不推荐。
+
+如果要用同一个名字的类，要用`包的全限定名称`来进行区分。如：
+```java
+import java.util.Date; // 导入 java.util 包中的 Date 类
+
+public class DateExample {
+    public static void main(String[] args) {
+        // 使用导入的 java.util.Date 类
+        Date utilDate = new Date();
+        System.out.println("java.util.Date: " + utilDate);
+
+        // 使用全限定名称来使用 java.sql.Date 类
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        System.out.println("java.sql.Date: " + sqlDate);
+    }
+}
+
+```
+
+## 关键字
+- **static 静态**: 
+   ```java
+   // 1) 静态变量：修饰变量，整个类的所有实例共享相同的值。
+   public class MyClass {
+      static int staticCounter2 = 0; // 共享的静态变量
+      public void abc() {
+         //在方法里面定义静态变量会compile失败
+         static int staticCounter2;
+    }
+   }
+
+   // 2) 静态方法：可以在类上直接调用不用创建实例。
+   public class Utility {
+      public static int add(int a, int b) {
+         return a + b;
+      }
+   }
+   // 调用静态方法
+   int result = Utility.add(5, 3);
+
+   // 3) 静态代码块：静态代码块在类加载时执行一次，常用于初始化静态变量或执行一些只需运行一次的代码。
+   public class MyClass {
+      static int staticVar;
+      static {
+         staticVar = 10; // 静态代码块用于初始化
+         System.out.println("静态代码块被调用！");
+      }
+   }
+
+   // 4) 静态内部类：静态内部类是没有对外部类的实例引用的内部类，可以独立于外部类的实例创建。
+   public class OuterClass {
+      static class InnerClass {
+         public void display() {
+               System.out.println("静态内部类的方法被调用！");
+         }
+      }
+   }
+   // 调用静态内部类
+   OuterClass.InnerClass inner = new OuterClass.InnerClass();
+   inner.display();
+   ```
+- **synchronized**
+- **transient**
+- **volatile**
+
+## 注释
+```java
+// 这是一个单行注释
+
+/*
+这是一个多行注释
+可以用来注释多行代码
+*/
+int y = 20; // 初始化一个变量y为20
+
+/**
+ * 这是一个文档注释示例
+ * 它通常包含有关类、方法或字段的详细信息
+ */
+public class MyClass {
+    // 类的成员和方法
+}
+```
+
+## 代码块
+- 代码块就是用`{ }`包裹起来的一段代码
+   1) **普通代码块**
+      - Java在一般情况下由`{ }`包裹起来，这个就是普通代码块
+   2) **静态代码块**
+      - 在加载类时会执行一些初始化操作。这些操作例如给静态变量（类变量）赋值，或者输出一些东西。`静态代码块只执行一次，无论创建多少个该类的对象。`
+      ```java
+      public class MyClass {
+         static int staticCounter;
+         static {
+            staticCounter = 1;
+            System.out.println("Static block executed.");
+         }
+      }
+      MyClass myClass = new MyClass()
+      ```
+   3) **实例初始化代码块**
+      - 没有 static 关键字，直接放在类中，但在构造方法之前执行，`每次创建对象时都会执行`。
+      ```java
+      public class MyClass {
+         {
+            System.out.println("Instance block executed.");
+         }
+      }
+      ```
+   4) **同步代码块**
+      - 用于多线程环境中，在代码前加上 `synchronized` 关键字，使代码块内的内容在同一时间只能被一个线程访问。
+      ```java
+      public void syncMethod() {
+         synchronized (this) {
+            // code inside synchronized block
+         }
+      }
+      ```
+
 
 ## 数组 Array
 ```java
