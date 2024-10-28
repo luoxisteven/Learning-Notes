@@ -58,7 +58,7 @@ git log
 ## Step 3 强制退回 到某个 commit id
 git reset --hard commit_id
 # 例如
-git reset --hard 0c94efe3c5c62d5961b03ad2e574e4039a838cc5
+git reset --hard 71181c3bb0d4c5701dbfead5c531875bc8754130
 ```
 
 ### 3) Push
