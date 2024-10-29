@@ -1,15 +1,20 @@
 # Java
 
+重点记忆:
 - 面向对象编程 (Object-Oriented Programming)
+- Java 三大特性 (封装，继承，多态)
+- 修饰符 (default, public, private, protected)
+- 关键字 (abstract, static, synchronized, transient, volatile)
+- Package 打包
 
-## Java 三大特性 (封装，继承， 多态)
+## Java 三大特性 (封装，继承，多态)
 
 ### 封装 (Encapsulation)
    - 隐藏对象的内部实现细节，仅对外暴露必要的接口。
    - 通过访问修饰符（如`private`、`public`、`protected`）来实现。
 
 ### 多态 (Polymorphism)
-   通过 `重载 Overload ` 和  `重写 Override`实现。
+   通过 `重载 Overload ` 和 `重写 Override`实现。
    1) `Override 重写`:
       - 子类对父类允许访问的方法进行重新实现，返回值和形参都不能改变。
    2) `Overload 重载`:
@@ -57,10 +62,10 @@
 - **char**: 2 Bytes
 
 ## 修饰符
-- **default**: 默认类（什么都不写），同一包内任意访问，不同包内不能访问
-- **public**：不同包之间也可以访问
-- **private**：只有当前类可以访问，同一个包不同类也不可以访问
-- **protected**：它和default一样都是用在同一包内任意访问，它不可以被包pacakge外直接访问，需要用到继承的方法来访问。
+- **Default**: 默认类（什么都不写），同一包内任意访问，不同包内不能访问
+- **Public**：不同包之间也可以访问
+- **Private**：只有当前类可以访问，同一个包不同类也不可以访问
+- **Protected**：它和default一样都是用在同一包内任意访问，它不可以被包pacakge外直接访问，需要用到继承的方法来访问。
    ```java
    package otherpackage;
 
@@ -72,7 +77,6 @@
          protectedMethod(); // 子类访问父类的受保护方法
       }
    }
-
    ```
 
 ## Package 打包
@@ -93,11 +97,11 @@ public class DateExample {
         System.out.println("java.sql.Date: " + sqlDate);
     }
 }
-
 ```
 
 ## 关键字
 - **abstract 抽象**
+   - abstract类通过extends继承
    ```java
    public abstract class Animal {
       // 抽象方法，没有方法体
@@ -156,14 +160,15 @@ public class DateExample {
    - 对于同一个实例instance，同一时刻只有一个线程可以访问这个方法，其他线程需要等待锁释放。
    - `对于不同实例，不同实例间的锁不会相互干扰，所以可以同时访问这个方法。`
 
-
 - **transient**
    - 在序列化 (Serialization) 过程中被忽略, 修饰的变量不会被持久化(Persistence)。
    ```java
-   // 用ObjectOutputStream，输出这个变量，为null
+   // 用 ObjectOutputStream，输出这个变量，为null
    private transient String password;
    ```
+
 - **volatile**
+
 
 ## 注释
 ```java
