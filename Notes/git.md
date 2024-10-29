@@ -1,3 +1,8 @@
+## 快捷键
+```
+"command + shift + ." 查看隐藏文件
+```
+
 ## Terminal
 ```bash
 # 显示目前路径

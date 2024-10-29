@@ -126,6 +126,7 @@ J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (
     - 减少过拟合
 
 ## 损失函数 Loss Functions：
+-  还有如0-1损失函数，绝对值损失函数，平方损失函数等
 
 ### 1) 二进制交叉熵 Binary Cross-Entropy (BCE)
 - 常用于二分类问题
