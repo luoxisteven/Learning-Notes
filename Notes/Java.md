@@ -1,10 +1,53 @@
 # Java
 
-## 封装，多态，继承
+- 面向对象编程 (Object-Oriented Programming)
+
+## Java 三大特性 (封装，继承， 多态)
+
+### 封装 (Encapsulation)
+   - 隐藏对象的内部实现细节，仅对外暴露必要的接口。
+   - 通过访问修饰符（如`private`、`public`、`protected`）来实现。
+
+### 多态 (Polymorphism)
+   通过 `重载 Overload ` 和  `重写 Override`实现。
+   1) `Override 重写`:
+      - 子类对父类允许访问的方法进行重新实现，返回值和形参都不能改变。
+   2) `Overload 重载`:
+      - 同一个类中，方法名字相同，但参数不同。返回类型可以相同也可以不同。
+
+### 继承 (Inheritance)
+   - 子类可以继承父类的属性和方法，从而复用父类的功能，并在此基础上扩展或重写已有方法。
+   - `extends`: 继承父类的属性和方法。
+      - 规则1: 单继承一个类只能有一个直接父类，`只能extends一个父类`。
+      - 规则2: 继承父类的属性和方法，但`不继承构造方法`。
+      - 规则3: 子类可以使用`super()调用父类的构造方法`。
+      - 规则4: `子子类可以调用父父类的接口。`（不支持多继承，支持多重继承）
+
+## Implements 实现接口 Interface
+   - 对于接口Interface，我的理解就是一开始把这个需求写出来，可以更好的让不同的编程人员，进行并行开发，有利于效率。
+   - 接口定义的是“是什么”而不是“如何做”，`用于描述类的行为能力而不是实现细节`。
+   - 和`extends`继承多个不一样，接口可以`implements多个`。
+   - 接口类interface不能被实例化。
+   ```java
+   interface Animal {
+      public void eat();
+      public void travel();
+   }
+   public class MammalInt implements Animal{
+ 
+      public void eat(){
+         System.out.println("Mammal eats");
+      }
+   
+      public void travel(){
+         System.out.println("Mammal travels");
+      } 
+   }
+   ```
+
 
 ## 数据类型
 - 1 Byte = 8 bits
-- **byte**: 1 Byte
 - **short**: 2 Bytes
 - **int**: 4 Bytes
 - **long**: 8 Bytes
@@ -54,6 +97,19 @@ public class DateExample {
 ```
 
 ## 关键字
+- **abstract 抽象**
+   ```java
+   public abstract class Animal {
+      // 抽象方法，没有方法体
+      public abstract void makeSound();
+
+      // 具体方法，包含方法体
+      public void sleep() {
+         System.out.println("Sleeping...");
+      }
+   }
+   public class Dog extends Animal {}
+   ```
 - **static 静态**: 
    ```java
    // 1) 静态变量：修饰变量，整个类的所有实例共享相同的值。
@@ -96,7 +152,17 @@ public class DateExample {
    inner.display();
    ```
 - **synchronized**
+   - 在方法声明中使用 synchronized关键字，整个方法会在对象级别上加锁。
+   - 对于同一个实例instance，同一时刻只有一个线程可以访问这个方法，其他线程需要等待锁释放。
+   - `对于不同实例，不同实例间的锁不会相互干扰，所以可以同时访问这个方法。`
+
+
 - **transient**
+   - 在序列化 (Serialization) 过程中被忽略, 修饰的变量不会被持久化(Persistence)。
+   ```java
+   // 用ObjectOutputStream，输出这个变量，为null
+   private transient String password;
+   ```
 - **volatile**
 
 ## 注释
@@ -200,22 +266,7 @@ Array.equals();
 - **keySet()**: 获取所有键的集合
 - **values()**: 获取所有值的集合
 
-## 方法重写与重载
 
-### 1) Override 重写:
-重写（Overriding）是子类对父类允许访问的方法进行重新实现，返回值和形参都不能改变。
-
-### 2) Overload 重载:
-重载（Overloading）是在同一个类中，方法名字相同，但参数不同。返回类型可以相同也可以不同。
-
-## 多态
-多态是指同一个行为具有多个不同表现形式的能力。多态通过以下机制实现：
-- 继承 (Inheritance)
-- 方法重写 (Override)
-- 方法重载 (Overload)
-
-## 封装 (Encapsulation)
-封装是指通过将类的实现细节隐藏起来，只暴露必要的接口来进行数据保护。通常使用 **private** 关键字来实现封装。
 
 ## Iterator 迭代器
 迭代器用于遍历集合，最常用的方法有以下几个：
