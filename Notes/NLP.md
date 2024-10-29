@@ -1,50 +1,5 @@
 ## Natural Language Processing
 
-## Transformer
-
-- 详细看 [Machine_Learning.Transformer](Machine%20Learning.md#变形金刚-transformer)
-
-Transformer 的结构包括一个编码器（Encoder）和解码器（Decoder），并可以有三种变体：
-1. **单独编码器**结构。
-2. **单独解码器**结构（如 GPT）。
-3. **编码器和解码器都有**的完整结构。
-
-GPT 就采用了**单独解码器**的结构。  
-Transformer 的核心是**Attention**机制，它和其他 NLP 模型（如 RNN、LSTM 等）不同。传统的这些 NLP 模型在处理长序列时，由于信息传递的限制，前面的信息容易丢失。而 **Attention** 模型能够同时关注序列的不同位置，从而更好地解决长序列依赖问题，使模型表现提升。
-
-参考资料：[Transformer 详解](https://zhuanlan.zhihu.com/p/607423406)
-
-
-## 微调（Fine-tuning）
-
-**微调**是指在一个已经预训练好的模型上进行少量任务特定的数据训练，使其适应特定任务。微调通常可以大幅提高模型在特定任务上的表现。
-
-- 微调的一个Trick就是学习率一定要小 (记得上次在NLP项目的微调BERT).
-
-参考讨论：[什么是微调？](https://www.zhihu.com/question/298203515/answer/3355179300)
-
-
-## Attention机制
-
-**QKV**（Query, Key, Value）是 Attention 机制的核心思想。通过将输入映射为 Q（查询）、K（键）和 V（值），计算出注意力权重，从而捕捉输入的不同部分之间的相关性。
-
-## BERT
-
-BERT 是一个预训练模型，返回的是根据上下文推测的某个词的语义。  
-BERT 的网络结构类似于 Transformer 的**编码器（Encoder）**部分，而 GPT 类似于 Transformer 的**解码器（Decoder）**部分。
-
-**结构差异**：  
-- BERT 使用 **Multi-Head-Attention**，而 GPT 使用的是 **Masked Multi-Head-Attention**。
-
-更多内容参考：[BERT 模型解析](https://zhuanlan.zhihu.com/p/607605399)
-
-
-## T5
-
-T5（Text-to-Text Transfer Transformer）模型的核心思想是将**所有 NLP 任务都转化为 Text-to-Text**（文本到文本）的生成任务。无论是翻译、问答还是文本分类，T5 都将输入转换为文本，输出同样是文本。
-
-更多内容参考：[T5 模型详解](https://zhuanlan.zhihu.com/p/88438851)
-
 ## 1. 预处理
 
 ## 2. N-grams
@@ -432,3 +387,48 @@ GAN 模型主要用于文本生成，通常涉及生成器和判别器两个网�
 	- XLNet不再使用掩码，但是通过打乱语序，学习上下文。
 	- $X = [x1, x2, x3, x4]$ 生成 $[x2, x4, x1, x3], [x3, x1, x4, x2], [x1, x3, x2, x4]$
 
+
+## Transformer
+
+- 详细看 [Machine_Learning.Transformer](Machine%20Learning.md#变形金刚-transformer)
+
+Transformer 的结构包括一个编码器（Encoder）和解码器（Decoder），并可以有三种变体：
+1. **单独编码器**结构。
+2. **单独解码器**结构（如 GPT）。
+3. **编码器和解码器都有**的完整结构。
+
+GPT 就采用了**单独解码器**的结构。  
+Transformer 的核心是**Attention**机制，它和其他 NLP 模型（如 RNN、LSTM 等）不同。传统的这些 NLP 模型在处理长序列时，由于信息传递的限制，前面的信息容易丢失。而 **Attention** 模型能够同时关注序列的不同位置，从而更好地解决长序列依赖问题，使模型表现提升。
+
+参考资料：[Transformer 详解](https://zhuanlan.zhihu.com/p/607423406)
+
+
+## 微调（Fine-tuning）
+
+**微调**是指在一个已经预训练好的模型上进行少量任务特定的数据训练，使其适应特定任务。微调通常可以大幅提高模型在特定任务上的表现。
+
+- 微调的一个Trick就是学习率一定要小 (记得上次在NLP项目的微调BERT).
+
+参考讨论：[什么是微调？](https://www.zhihu.com/question/298203515/answer/3355179300)
+
+
+## Attention机制
+
+**QKV**（Query, Key, Value）是 Attention 机制的核心思想。通过将输入映射为 Q（查询）、K（键）和 V（值），计算出注意力权重，从而捕捉输入的不同部分之间的相关性。
+
+## BERT
+
+BERT 是一个预训练模型，返回的是根据上下文推测的某个词的语义。  
+BERT 的网络结构类似于 Transformer 的**编码器（Encoder）**部分，而 GPT 类似于 Transformer 的**解码器（Decoder）**部分。
+
+**结构差异**：  
+- BERT 使用 **Multi-Head-Attention**，而 GPT 使用的是 **Masked Multi-Head-Attention**。
+
+更多内容参考：[BERT 模型解析](https://zhuanlan.zhihu.com/p/607605399)
+
+
+## T5
+
+T5（Text-to-Text Transfer Transformer）模型的核心思想是将**所有 NLP 任务都转化为 Text-to-Text**（文本到文本）的生成任务。无论是翻译、问答还是文本分类，T5 都将输入转换为文本，输出同样是文本。
+
+更多内容参考：[T5 模型详解](https://zhuanlan.zhihu.com/p/88438851)
