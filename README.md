@@ -1,4 +1,4 @@
-## Notes
+## Learning Notes
 This repository contains some of the notes I've taken over the years.
 - `@Author:` Xi Luo
 - `@Languages:` Mainly Chinese, Some English
