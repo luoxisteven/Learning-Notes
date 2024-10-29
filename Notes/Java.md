@@ -1,11 +1,11 @@
 # Java
 
 重点记忆:
-- 面向对象编程 (Object-Oriented Programming)
-- Java 三大特性 (封装，继承，多态)
-- 修饰符 (default, public, private, protected)
-- 关键字 (abstract, static, synchronized, transient, volatile)
-- Package 打包
+- **面向对象编程 (Object-Oriented Programming)**
+- **Java 三大特性 (封装，继承，多态)**
+- **修饰符 (default, public, private, protected)**
+- **关键字 (abstract, static, synchronized, transient, volatile)**
+- **Package 打包**
 
 ## Java 三大特性 (封装，继承，多态)
 
@@ -168,7 +168,8 @@ public class DateExample {
    ```
 
 - **volatile**
-
+   - volatile 修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。
+   - 当成员变量发生变化时，会强制线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。
 
 ## 注释
 ```java
