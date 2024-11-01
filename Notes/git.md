@@ -76,7 +76,7 @@ git commit -m "***"
 git push origin main
 
 # Force push
-git push -u origin main -- force 
+git push -u origin main --force 
 
 ```
 
@@ -86,8 +86,8 @@ git push -u origin main -- force
 git remote -v
 
 # 修改远程仓库
+git remote set-url origin "url"
 git remote set-url origin git@github.com:luoxisteven/Management_System.git
-
 ```
 
 ### 5)用户名和邮箱

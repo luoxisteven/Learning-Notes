@@ -1,11 +1,11 @@
 # Java
 
 重点记忆:
-- **面向对象编程 (Object-Oriented Programming)**
-- **Java 三大特性 (封装，继承，多态)**
-- **修饰符 (default, public, private, protected)**
-- **关键字 (abstract, static, synchronized, transient, volatile)**
-- **Package 打包**
+   - **面向对象编程 (Object-Oriented Programming)**
+   - **Java 三大特性 (封装，继承，多态)**
+   - **修饰符 (default, public, private, protected)**
+   - **关键字 (abstract, static, synchronized, transient, volatile)**
+   - **Package 打包**
 
 ## Java 三大特性 (封装，继承，多态)
 
@@ -255,11 +255,13 @@ Array.equals();
 - **indexOf(obj)**: 获取某元素的索引位置
 - **toArray()**: 转换为数组
 
+
 ## HashSet
 - **add(obj)**: 添加元素
 - **contains(obj)**: 判断是否包含元素
 - **remove(obj)**: 移除元素
 - **size()**: 获取集合大小
+
 
 ## HashMap
 - **put(key, value)**: 插入键值对
@@ -271,7 +273,6 @@ Array.equals();
 - **containsValue(value)**: 判断是否包含指定值
 - **keySet()**: 获取所有键的集合
 - **values()**: 获取所有值的集合
-
 
 
 ## Iterator 迭代器
@@ -356,34 +357,34 @@ Array.equals();
 * 编程式：自己写代码实现功能
 * 声明式：通过配置让框架实现功能
 
-### 1. Service 层：业务层
-- **功能**：控制业务逻辑
-- **职责**：业务模块的逻辑功能设计。先设计接口，再创建实现类，然后在配置文件中配置其实现关联。Service 层调用 DAO 层的接口进行业务逻辑处理。
-- **好处**：封装 Service 层的业务逻辑有助于业务逻辑的独立性和复用性。
+   ### 1. Service 层：业务层
+   - **功能**：控制业务逻辑
+   - **职责**：业务模块的逻辑功能设计。先设计接口，再创建实现类，然后在配置文件中配置其实现关联。Service 层调用 DAO 层的接口进行业务逻辑处理。
+   - **好处**：封装 Service 层的业务逻辑有助于业务逻辑的独立性和复用性。
 
-### 2. Controller 层：控制层
-- **功能**：调用 Service 层方法来控制业务逻辑
-- **职责**：Controller 层主要调用 Service 层的接口，控制具体的业务流程。配置文件中需对 Controller 层进行相应的配置。
-- **区别**：
-  - **Controller**：负责具体业务模块流程的控制
-  - **Service**：负责业务模块的逻辑设计
+   ### 2. Controller 层：控制层
+   - **功能**：调用 Service 层方法来控制业务逻辑
+   - **职责**：Controller 层主要调用 Service 层的接口，控制具体的业务流程。配置文件中需对 Controller 层进行相应的配置。
+   - **区别**：
+   - **Controller**：负责具体业务模块流程的控制
+   - **Service**：负责业务模块的逻辑设计
 
-### 3. Dao 层：持久层
-- **功能**：与数据库交互
-- **职责**：Dao 层首先创建 Dao 接口，并在配置文件中定义该接口的实现类。模块中可以调用 Dao 接口进行数据处理，而不需关心具体的实现类。Dao 层的数据源和数据库连接参数都在配置文件中进行配置。
+   ### 3. Dao 层：持久层
+   - **功能**：与数据库交互
+   - **职责**：Dao 层首先创建 Dao 接口，并在配置文件中定义该接口的实现类。模块中可以调用 Dao 接口进行数据处理，而不需关心具体的实现类。Dao 层的数据源和数据库连接参数都在配置文件中进行配置。
 
-### 4. Entity 层：实体层
-- **功能**：用于数据库在项目中的类
-- **职责**：定义与数据库表对应的属性，提供 `get` 和 `set` 方法、`toString()` 方法、有参和无参构造函数。
+   ### 4. Entity 层：实体层
+   - **功能**：用于数据库在项目中的类
+   - **职责**：定义与数据库表对应的属性，提供 `get` 和 `set` 方法、`toString()` 方法、有参和无参构造函数。
 
 
-### Bean 概念
-在 Spring 框架中，**bean** 是一个非常重要的概念，它代表了应用程序中的一个组件或对象。从概念上讲，bean 是由 Spring 容器实例化、组装和管理的对象。它们是应用程序的核心构建块，通过**依赖注入 (Dependency Injection, DI)** 的方式被引入和使用。
+   ### Bean 概念
+   在 Spring 框架中，**bean** 是一个非常重要的概念，它代表了应用程序中的一个组件或对象。从概念上讲，bean 是由 Spring 容器实例化、组装和管理的对象。它们是应用程序的核心构建块，通过**依赖注入 (Dependency Injection, DI)** 的方式被引入和使用。
 
 ---
 
-### Spring 框架概述
-**Spring 框架** 是一个开源的 Java 应用开发框架，提供了一种便捷的方式来创建和管理对象。它使用了**控制反转 (Inversion of Control, IoC)** 和 **依赖注入 (Dependency Injection, DI)** 的原理来简化对象的创建和依赖管理。
+   ### Spring 框架概述
+   **Spring 框架** 是一个开源的 Java 应用开发框架，提供了一种便捷的方式来创建和管理对象。它使用了**控制反转 (Inversion of Control, IoC)** 和 **依赖注入 (Dependency Injection, DI)** 的原理来简化对象的创建和依赖管理。
 
 ---
 
