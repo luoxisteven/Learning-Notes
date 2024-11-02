@@ -28,6 +28,10 @@ rm -f file1
 
 # 删除’dir1’⽬录
 rmdir dir1
+
+# 删除文件夹和文件夹内所有内容
+rm -rf folder_name
+
 ```
 
 ## Git
@@ -61,9 +65,13 @@ git checkout main
 # Step 2 log 查看回滚的commit id
 git log 
 ## Step 3 强制退回 到某个 commit id
-git reset --hard commit_id
+git reset --hard "commit_id"
 # 例如
 git reset --hard 71181c3bb0d4c5701dbfead5c531875bc8754130
+
+# 如果强制回滚不行试试
+git fetch --all
+
 ```
 
 ### 3) Push
@@ -76,8 +84,7 @@ git commit -m "***"
 git push origin main
 
 # Force push
-git push -u origin main --force 
-
+git push -u origin main --force x
 ```
 
 ### 4) Remote
@@ -104,4 +111,13 @@ git config --global user.email "429066012@qq.com"
 ### 6) Log
 ```bash
 git log
+```
+
+### 7) Requirements.txt
+```bash
+# Freeze
+pip freeze > requirements.txt
+
+# Install requirements
+pip install -r requirements.txt
 ```

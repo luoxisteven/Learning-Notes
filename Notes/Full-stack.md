@@ -79,13 +79,29 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
 ## Deloyment 
 ```bash
-# 安装git
-sudo yum install git -y
+Amazon Linux: yum
+Ubuntu: apt
 
-# 安装包
+# 安装git
+sudo apt install git -y
+
+# 安装git的包
 git clone "url"
 
 # 安装python
 sudo yum install python3 -y
+sudo apt install python3
+
+# 安装pip
+sudo yum install python3-pip -y
+sudo apt install python3-pip
+
+# 虚拟环境
+sudo apt install python3-venv
+python3 -m venv venv
+source venv/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
 
 ```
