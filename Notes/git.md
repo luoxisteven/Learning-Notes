@@ -32,6 +32,8 @@ rmdir dir1
 # 删除文件夹和文件夹内所有内容
 rm -rf folder_name
 
+# 中断执行
+control + c 
 ```
 
 ## Git
@@ -117,6 +119,11 @@ git log
 ```bash
 # Freeze
 pip freeze > requirements.txt
+
+# 生成没版本号的
+pip freeze | awk -F '==' '{print $1}' > requirements.txt
+pip freeze | sed 's/==.*//' > requirements.txt
+
 
 # Install requirements
 pip install -r requirements.txt

@@ -106,7 +106,11 @@ sudo apt install python3-venv
 python3 -m venv venv
 source venv/bin/activate
 
-# Install requirements
-pip install -r requirements.txt
+# 安装包冲突
+pip install pip-tools
+pip-compile requirements.txt -o requirements.lock.txt
+
+# 安装包
+pip install -r requirements.lock.txt
 
 ```
