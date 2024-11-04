@@ -138,4 +138,5 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
 sudo chmod -R 775 /var/www/
 sudo chown -R ubuntu:ubuntu /var/www
 
+sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
 ```
