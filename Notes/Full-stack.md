@@ -2,6 +2,11 @@
 ## Frontend
 
 ### 1) Vue
+```bash
+# 运行
+npm rum build
+
+```
 
 ### 2) Angular
 
