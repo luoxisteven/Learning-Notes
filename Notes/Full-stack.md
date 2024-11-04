@@ -88,6 +88,7 @@ Amazon Linux: yum
 Ubuntu: apt
 
 # 安装git
+sudo apt update
 sudo apt install git -y
 
 # 安装git的包
@@ -104,13 +105,37 @@ sudo apt install python3-pip
 # 虚拟环境
 sudo apt install python3-venv
 python3 -m venv venv
+
+# 每次进入都进入虚拟环境
 source venv/bin/activate
 
-# 安装包冲突
-pip install pip-tools
-pip-compile requirements.txt -o requirements.lock.txt
+# 安装包(可选)
+# 如果有langchain建议手动安装
+pip install -r requirements.txt
 
-# 安装包
-pip install -r requirements.lock.txt
+# Apache网络服务器
+# Install Apache2 package
+sudo apt install apache2
+
+# After the Apache installation process, the web server service should be started automatically, you can check if it is up and running with the following command.
+sudo systemctl status apache2
+
+# 安装npm 
+sudo apt install npm
+
+# 安装Vue CLI
+sudo npm install -g @vue/cli
+
+# 先进入vue目录，再
+npm install
+
+# 再vue目录构建./dist
+npm run build
+
+# 把`./dist/`文件夹内的内容移动到`/var/www/html`
+scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:/var/www/html/
+
+sudo chmod -R 775 /var/www/
+sudo chown -R ubuntu:ubuntu /var/www
 
 ```
