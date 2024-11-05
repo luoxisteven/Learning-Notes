@@ -157,6 +157,7 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
 
 ## 后台运行
 ```bash
+# 后台运行代码（记得先弄好环境）
 nohup python3 manage.py runserver 0.0.0.0:8000 &
 
 # 查看后台运行代码（先进入文件的目录下）
