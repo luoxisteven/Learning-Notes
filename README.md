@@ -15,7 +15,7 @@ This repository contains some of the notes I've taken over the years.
     - [Pandas](Notes/Pandas.md)
     - [Git](Notes/git.md)
     - [Algorithms](Notes/Algorithms.md)
-    - [Full-stack](Notes/full-stack.md)
+    - [Full-stack](Notes/Full-stack.md)
 3) **Machine Learning**
     - [Machine Learning](Notes/Machine%20Learning.md)
     - [Reinforcement Learning](Notes/Reinforcement%20Learning.md)

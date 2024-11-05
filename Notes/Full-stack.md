@@ -86,6 +86,11 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 ```bash
 Amazon Linux: yum
 Ubuntu: apt
+# 安全组 SSH22 服务器端口
+    类型：Custom SSH
+    协议：TCP
+    端口范围：22
+    来源：0.0.0.0/0
 
 # 安装git
 sudo apt update
@@ -148,8 +153,8 @@ sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
 # 复制：服务器外复制
 scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:/var/www/html/
 
-# 安全组设置https, http
-    类型：http
+# 安全组设置Https, Http
+    类型：Http, Http
     协议：TCP
     端口范围：80, 443
     来源Source：0.0.0.0/0, :/0 (ipv4/ipv6都加上就行)
