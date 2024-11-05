@@ -149,4 +149,23 @@ sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
 scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:/var/www/html/
 
 # 安全组设置https, http
+    类型：http
+    协议：TCP
+    端口范围：80, 443
+    来源Source：0.0.0.0/0, :/0 (ipv4/ipv6都加上就行)
+```
+
+## 后台运行
+```bash
+nohup python3 manage.py runserver 0.0.0.0:8000 &
+
+# 查看后台运行代码（先进入文件的目录下）
+ps aux | grep manage.py
+
+# 显示
+ubuntu 457123
+ubuntu 457124
+
+# 删除
+kill 457123 457124
 ```
