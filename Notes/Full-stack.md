@@ -106,37 +106,47 @@ sudo apt install python3-pip
 sudo apt install python3-venv
 python3 -m venv venv
 
-# 每次进入都进入虚拟环境
+# 每次进入都进入虚拟环境(要在运行上面语句的目录下运行下面语句)
 source venv/bin/activate
 
 # 安装包(可选)
 # 如果有langchain建议手动安装
 pip install -r requirements.txt
 
+# Django 部署
+# Django修改settings.py, ALLOWED_HOSTS里面加上服务器公网IP
+ALLOWED_HOSTS = ['your-ec2-public-ip', 'localhost']
+ALLOWED_HOSTS = ["*"]
+# 设置安全组
+    类型：Custom TCP
+    协议：TCP
+    端口范围：8000
+    来源：0.0.0.0/0
+
+# Run Django
+python3 manage.py runserver 0.0.0.0:8000
+
 # Apache网络服务器
 # Install Apache2 package
 sudo apt install apache2
 
-# After the Apache installation process, the web server service should be started automatically, you can check if it is up and running with the following command.
+# 查看apache2是否正确运行
 sudo systemctl status apache2
 
 # 安装npm 
 sudo apt install npm
-
 # 安装Vue CLI
 sudo npm install -g @vue/cli
 
-# 先进入vue目录，再
-npm install
-
-# 再vue目录构建./dist
-npm run build
-
 # 把`./dist/`文件夹内的内容移动到`/var/www/html`
+# 记得把axios的request的ip换成 http://<公有IP>:8000，接入Django
+# **重要**: 修改权限
+sudo chown -R ubuntu:ubuntu /var/
+
+# 复制：服务器内复制
+sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
+# 复制：服务器外复制
 scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:/var/www/html/
 
-sudo chmod -R 775 /var/www/
-sudo chown -R ubuntu:ubuntu /var/www
-
-sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
+# 安全组设置https, http
 ```
