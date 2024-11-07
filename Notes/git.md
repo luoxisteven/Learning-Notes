@@ -33,7 +33,7 @@ rmdir dir1
 rm -rf folder_name
 
 # 中断执行
-control + c 
+control(^) + c 
 ```
 
 ## Git
@@ -73,10 +73,9 @@ git reset --hard 71181c3bb0d4c5701dbfead5c531875bc8754130
 
 # 如果强制回滚不行试试
 git fetch --all
-
 ```
 
-### 3) Push
+### 3) 普通Push
 ```bash
 # 简单 push
 # add：将文件添加到缓存区
@@ -99,7 +98,7 @@ git remote set-url origin "url"
 git remote set-url origin git@github.com:luoxisteven/Learning-Notes.git
 ```
 
-### 5)用户名和邮箱
+### 5) 用户名和邮箱
 ```bash
 # 查看
 git config --global user.name
@@ -123,7 +122,6 @@ pip freeze > requirements.txt
 # 生成没版本号的
 pip freeze | awk -F '==' '{print $1}' > requirements.txt
 pip freeze | sed 's/==.*//' > requirements.txt
-
 
 # Install requirements
 pip install -r requirements.txt

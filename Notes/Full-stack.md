@@ -7,9 +7,7 @@
 npm rum build
 ```
 
-### 2) Angular
-
-### 3) React
+### 2) React
 
 ## Backend
 
@@ -103,33 +101,63 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
             ```
 
+    - #### 跨域
+        - Step 1 
+            - `pip install django-cors-headers`
+        - Step 2 在settings.py中配置
+            ```python
+            # settings.py
 
-#### 跨域
-- Step 1 
-    - `pip install django-cors-headers`
-- Step 2 在settings.py中配置
-    ```python
-    # settings.py
+            # 添加 corsheaders 到已安装应用
+            INSTALLED_APPS = [
+                ...,
+                'corsheaders',
+                ...,
+            ]
 
-    # 添加 corsheaders 到已安装应用
-    INSTALLED_APPS = [
-        ...,
-        'corsheaders',
-        ...,
-    ]
+            # 添加 corsheaders.middleware.CorsMiddleware 到中间件的顶部
+            MIDDLEWARE = [
+                'corsheaders.middleware.CorsMiddleware',  # 放在中间件的第一位
+                ...,
+            ]
 
-    # 添加 corsheaders.middleware.CorsMiddleware 到中间件的顶部
-    MIDDLEWARE = [
-        'corsheaders.middleware.CorsMiddleware',  # 放在中间件的第一位
-        ...,
-    ]
+            # 设置允许的跨域源
+            CORS_ALLOW_ALL_ORIGINS = True  # 允许所有源访问
+            # 或者可以指定允许的源
+            # CORS_ALLOWED_ORIGINS = [
+            #     "http://localhost:8080",  # 你的前端应用URL
+            # ]
+            ```
 
-    # 设置允许的跨域源
-    CORS_ALLOW_ALL_ORIGINS = True  # 允许所有源访问
-    # 或者可以指定允许的源
-    # CORS_ALLOWED_ORIGINS = [
-    #     "http://localhost:8080",  # 你的前端应用URL
-    # ]
+### 3) .Net
+
+- #### Create and Run
+    ```bash
+    # 创建项目
+    dotnet new console -o <MyApp Name>
+    # 运行.Net
+    cd <MyApp Name>
+    dotnet run
+    ```
+
+### 4) Node.js
+https://blog.csdn.net/m0_67844671/article/details/133278228
+- #### 初始化
+    ```bash
+    # 初始化项目 -y使用 -y 参数可以快速创建一个带默认配置的 package.json 文件。
+    npm init -y 
+
+    # 创建 index.js 文件
+    touch index.js
+
+    # 安装express
+    npm install express
+    ```
+
+- #### 运行
+    ```bash
+    node index.js
+    node <.js>
     ```
 
 ## Deloyment 
