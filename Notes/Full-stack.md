@@ -3,11 +3,24 @@
 
 ### 1) Vue
 ```bash
-# 运行
+# Crate
+vue create <filename>
+# run
+npm run serve
+# Compile
 npm rum build
 ```
 
 ### 2) React
+```bash
+# Create app
+npx create-react-app <my-app>
+# Run
+npm run
+# Compile
+npm rum build
+```
+
 
 ## Backend
 
