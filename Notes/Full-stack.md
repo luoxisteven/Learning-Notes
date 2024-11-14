@@ -1,6 +1,13 @@
 # Full-Stack Enginnering
 ## Frontend
 
+### npm
+```bash
+# 安装package.json的所有依赖
+npm i
+npm install
+```
+
 ### 1) Vue
 ```bash
 # Crate
@@ -16,11 +23,10 @@ npm rum build
 # Create app
 npx create-react-app <my-app>
 # Run
-npm run
+npm run dev
 # Compile
 npm rum build
 ```
-
 
 ## Backend
 
@@ -72,7 +78,6 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
     - `增加数据`
         - 语法：`类名.objects.create()`
-
         ```python
         # 插入数据到 index_studentinfo 表中
         StudentInfo.objects.create(title="zm")
@@ -220,7 +225,7 @@ ALLOWED_HOSTS = ["*"]
     来源：0.0.0.0/0
 
 # Run Django
-python3 manage.py runserver 0.0.0.0:8000
+python3 django_back/manage.py runserver 0.0.0.0:8000
 
 # Apache网络服务器
 # Install Apache2 package
@@ -254,10 +259,10 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
 ## 后台运行
 ```bash
 # 后台运行代码（记得先弄好环境）
-nohup python3 manage.py runserver 0.0.0.0:8000 &
+nohup python3 django_back/manage.py runserver 0.0.0.0:8000 &
 
 # 查看后台运行代码（先进入文件的目录下）
-ps aux | grep manage.py
+ps aux | grep django_back/manage.py
 
 # 显示
 ubuntu 457123
