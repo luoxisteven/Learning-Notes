@@ -95,7 +95,7 @@ git remote -v
 
 # 修改远程仓库
 git remote set-url origin "url"
-git remote set-url origin git@github.com:luoxisteven/Learning-Notes.git
+git remote set-url origin git@github.com:addaxis/POC-RFP-Automation.git
 ```
 
 ### 5) 用户名和邮箱
