@@ -27,5 +27,6 @@ This repository contains some of the notes I've taken over the years.
     - [CFA Level 1](./CFA%20Level%201/)
 
 5) [Others](./Notes/Others.md)
+6) [Thoughts](./Notes/Thoughts.md)
 
 `Notes:` Machine Learning的集成学习还要再看一下

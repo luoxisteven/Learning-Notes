@@ -30,6 +30,12 @@ npm rum build
 
 ## Backend
 
+- 后端技术栈大全：
+https://blog.csdn.net/weixin_46768610/article/details/124358392
+- nginx: 正向代理、反向代理、负载均衡
+https://blog.csdn.net/qq_40036754/article/details/102463099
+
+
 ### 1) Springboot
 
 ### 2) Django
@@ -258,7 +264,10 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
 
 ## 后台运行
 ```bash
-# 后台运行代码（记得先弄好环境）
+# 记得激活环境
+source venv/bin/activate
+
+# 后台运行代码
 nohup python3 django_back/manage.py runserver 0.0.0.0:8000 &
 
 # 查看后台运行代码（先进入文件的目录下）
