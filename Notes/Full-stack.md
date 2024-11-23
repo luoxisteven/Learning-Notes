@@ -1,4 +1,5 @@
 # Full-Stack Enginnering
+
 ## Frontend
 
 ### npm
@@ -152,6 +153,26 @@ https://blog.csdn.net/Ans_min/article/details/123146335
             #     "http://localhost:8080",  # 你的前端应用URL
             # ]
             ```
+    - #### 数据库
+        ```python
+        from django.db import models
+
+        class User(models.Model):
+            username = models.CharField(max_length=150, unique=True)  # 用户名，唯一
+            password = models.CharField(max_length=128)  # 密码
+            email = models.EmailField(unique=True)  # 邮箱，唯一
+
+            def __str__(self):
+                return self.username
+
+        ```
+        ```bash
+        # 生成迁移文件
+        python manage.py makemigrations
+
+        # 应用迁移到数据库
+        python manage.py migrate
+        ```
 
 ### 3) .Net
 
@@ -183,6 +204,9 @@ https://blog.csdn.net/m0_67844671/article/details/133278228
     node index.js
     node <.js>
     ```
+
+## Nginx
+https://blog.csdn.net/weixin_50003028/article/details/132567183
 
 ## Deloyment 
 ```bash
