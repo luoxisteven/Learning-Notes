@@ -1,9 +1,12 @@
 ## 快捷键
 ```
-"command + shift + ." 查看隐藏文件
+"Command + C" 复制
+"Command + V" 粘贴
+"Option + Command + V" 剪切
+"Command + Shift + ." 查看隐藏文件
 ```
 
-## Terminal
+## Terminalß
 ```bash
 # 显示目前路径
 pwd

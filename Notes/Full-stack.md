@@ -9,7 +9,7 @@ npm i
 npm install
 ```
 
-### 1) Vue
+### 1) Vueß
 ```bash
 # Crate
 vue create <filename>
@@ -164,7 +164,6 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
             def __str__(self):
                 return self.username
-
         ```
         ```bash
         # 生成迁移文件
@@ -172,6 +171,10 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
         # 应用迁移到数据库
         python manage.py migrate
+        ```
+        ```python
+        # 给数据库添加数据
+        user = User.objects.create(username=username, password=password, email=email)
         ```
 
 ### 3) .Net
