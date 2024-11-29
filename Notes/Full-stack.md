@@ -6,7 +6,15 @@
 ```bash
 # 安装package.json的所有依赖
 npm i
+# 上下两个命令等价
 npm install
+
+# 路由安装
+npm install react-router-dom
+
+# 安装Meterial UI
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
+
 ```
 
 ### 1) Vueß
@@ -123,7 +131,6 @@ https://blog.csdn.net/Ans_min/article/details/123146335
             # 返回的结果是一个 QuerySet 列表，可以使用 first() 获取第一个单独的元素
             data = UserInfo.objects.filter(id=1).first()
             print(data.id, data.name, data.password, data.age)
-
             ```
 
     - #### 跨域
@@ -221,8 +228,13 @@ Ubuntu: apt
     端口范围：22
     来源：0.0.0.0/0
 
-# 安装git
+# Update
 sudo apt update
+
+# 这个做个备用
+sudo apt install pkexec
+
+# 安装git
 sudo apt install git -y
 
 # 安装git的包
@@ -276,6 +288,7 @@ sudo npm install -g @vue/cli
 # 记得把axios的request的ip换成 http://<公有IP>:8000，接入Django
 # **重要**: 修改权限
 sudo chown -R ubuntu:ubuntu /var/
+sudo chown -R ubuntu:ubuntu /var/www/
 
 # 复制：服务器内复制
 sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
@@ -296,14 +309,56 @@ source venv/bin/activate
 
 # 后台运行代码
 nohup python3 django_back/manage.py runserver 0.0.0.0:8000 &
+nohup python3 manage.py runserver 0.0.0.0:8000 &
 
 # 查看后台运行代码（先进入文件的目录下）
 ps aux | grep django_back/manage.py
 
-# 显示
-ubuntu 457123
-ubuntu 457124
-
-# 删除
+# 假若显示，
+ubuntu 457123 ...
+ubuntu 457124 ...
+# 则删除
 kill 457123 457124
 ```
+
+## HTTPS 安装证书
+```bash
+# 安装SSL证书
+sudo apt install certbot python3-certbot-apache -y
+
+# 配置 certbot
+sudo certbot --apache
+sudo certbot --nginx
+```
+## 配置www
+- 先在配置TypeA，Host: www 和 @，Value是你的IP。
+- 创建`xiluo.net.conf`
+    ```bash
+    sudo nano /etc/apache2/sites-available/xiluo.net.conf
+    ```
+- 添加，记得换行（不换行不行）
+    ```apache
+    <VirtualHost *:80>
+        ServerName xiluo.net
+        ServerAlias www.xiluo.net
+        DocumentRoot /var/www/html
+    </VirtualHost>
+    ```
+- 系统里运行以下命令
+    ```bash
+    sudo a2ensite xiluo.net
+    sudo systemctl reload apache2
+    ```
+- 安装HTTPS-SSL证书（确保上面已经HTTPS了普通的网站）
+    ```bash
+    # 根据命令行去执行（要看清楚了）
+    sudo certbot --apache
+    # 重启apache2
+    sudo systemctl reload apache2
+    ```
+
+## 配置路由
+
+## 网络安全
+- 可以看看Cloudflare
+![alt text](img/image2.png)
