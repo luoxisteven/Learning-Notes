@@ -357,8 +357,88 @@ sudo certbot --nginx
     sudo systemctl reload apache2
     ```
 
-## 配置路由
+    ## 配置路由
+    - 获取修改文件的权限
+        ```bash
+        sudo chown ubuntu:ubuntu /etc/apache2/sites-available/
+        ```
+    - !重要：一定要把除了xiluo.net.conf的其他.conf删掉
+    -  修改文件`/etc/apache2/sites-available/xiluo.net.conf`
+        ```apache
+        <VirtualHost *:80>
+            ServerName xiluo.net
+            ServerAlias www.xiluo.net
+            DocumentRoot /var/www/html
 
+            # Redirect HTTP to HTTPS
+            RewriteEngine On
+            RewriteCond %{SERVER_NAME} =xiluo.net [OR]
+            RewriteCond %{SERVER_NAME} =www.xiluo.net
+            RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+        </VirtualHost>
+
+        <VirtualHost *:443>
+            ServerName xiluo.net
+            ServerAlias www.xiluo.net
+            DocumentRoot /var/www/html
+
+            # Enable SSL
+            SSLEngine On
+            SSLCertificateFile /etc/letsencrypt/live/xiluo.net/fullchain.pem
+            SSLCertificateKeyFile /etc/letsencrypt/live/xiluo.net/privkey.pem
+            Include /etc/letsencrypt/options-ssl-apache.conf
+
+            # Allow React's front-end routing
+            <Directory /var/www/html>
+                Options Indexes FollowSymLinks
+                AllowOverride All
+                Require all granted
+
+                # Redirect all unknown routes to index.html
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteCond %{REQUEST_FILENAME} !-d
+                RewriteRule ^ /index.html [L]
+            </Directory>
+
+            # Optional: Cache static files for performance
+            <IfModule mod_headers.c>
+                <FilesMatch "\.(js|css|html|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|json)$">
+                    Header set Cache-Control "max-age=31536000, public"
+                </FilesMatch>
+            </IfModule>
+        </VirtualHost>
+
+        ```
+    - !重要：一定要把除了xiluo.net.conf的其他.conf删掉
+    - https django
+        ```bash
+        pip install django-extensions
+        pip install Werkzeug
+        pip install pyOpenSSL
+
+        # 设置settings.py
+        INSTALLED_APPS = [
+        'corsheaders',
+        'django_extensions',
+        ...
+        ]
+    
+        # 这里要先改变这几个pem的权限
+        sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/privkey.pem
+        sudo chmod 640 /etc/letsencrypt/live/xiluo.net/privkey.pem
+
+        sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/fullchain.pem
+        sudo chmod 640 /etc/letsencrypt/live/xiluo.net/fullchain.pem
+
+        python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
+
+        # 最后用nohup
+        nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
+
+        # 查看8000端口被谁占用
+        lsof -i :8000
+        ```
 ## 网络安全
 - 可以看看Cloudflare
 ![alt text](img/image2.png)
