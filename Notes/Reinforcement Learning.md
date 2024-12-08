@@ -46,7 +46,7 @@
 
 ---
 2) **Value Function - V(s)**
-指的是 Bellman Equation。它是给定一个状态 State，从该状态开始采取最优策略后所能获得的最大期望回报 (Reward)。
+   指的是 Bellman Equation。它是给定一个状态 State，从该状态开始采取最优策略后所能获得的最大期望回报 (Reward)。
 
     - Bellman Equation有两层：
         - 遍历该state的所有action，然后对这些action的可能到达的state进行相加（你会看到连加符号下面是所有state，是因为 $P_a(s' \mid s)$ 一般来说很多都是0。 
@@ -90,7 +90,7 @@ $$
 
 5) **Stochastic Policies - $π(s,a)$**
     - This means that for a given state $s$, the policy 
-$π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
+    $π(s,a)$ assigns a probability to each action $a$, indicating how likely the agent is to select each action.
 
 
 ## 分类 Classification
@@ -101,7 +101,7 @@ $π(s,a)$ assigns a probability to each action $a$, indicating how likely the ag
 ### Value-based methods
 训练一个价值函数 (Value Function) 来学习哪个状态更有价值，并使用此价值函数来选择能够导致更高价值的行动。
 
---- 
+---
 ### Model-based Methods
 直接获得转移函数（矩阵）和 Reward 函数。例如，值迭代 (Value Iteration) 或策略迭代 (Policy Iteration)。
 
@@ -186,7 +186,7 @@ MCTS 是一种 Model-based 方法，可以直接观察转移矩阵。它通过�
 - 损失函数的目标是最小化当前的 Q函数估计 和 目标Q值 之间的误差。
     $$ L(w) = \frac{1}{2} \left( r(s, a, s') + \gamma \cdot \max_{a'} Q(s', a'; w') - Q(s, a; w) \right)^2
 $$
-    - $f_n(s,a)$ 代表特征feature的具体值。
+	- $f_n(s,a)$ 代表特征feature的具体值。
         - 比方说，它可以是我这辆车和前面车的距离；也可以是前面车的速度或者加速度等等。
         - 也可以是我某个行动之后，和前面车的距离
     - $w^a_n$ 代表特征的系数。
@@ -268,7 +268,6 @@ So, instead of defining $F : S \times S \to \mathbb{R}$, we define $\Phi : S \to
 **Theoretical guarantee**: this will still converge to the optimal policy under the assumption that all state-action pairs are sampled infinitely often.
 
 `例子:`
-
 $$
 \Phi(s) = 1 - \frac{|x(g) - x(s)| + |y(g) - y(s)|}{width + height - 2}
 $$
@@ -322,11 +321,9 @@ $$J(\theta) = V^{\pi_{\theta}}(s_0)$$
 - 在 policy gradient 中，优化的目标是通过梯度上升调整策略的参数 $\theta$，使得从初始状态开始，所期望的累积回报最大化。
 ---- 
 Given a policy objective 策略目标函数 $J(\theta)$, the **policy gradient 策略梯度** of $J$ with respect to $\theta$, written $\nabla_{\theta}J(\theta)$ is defined as:
-
 $$
 \nabla_{\theta}J(\theta) = \begin{pmatrix} \frac{\partial J(\theta)}{\partial \theta_1} \\ \vdots \\ \frac{\partial J(\theta)}{\partial \theta_n} \end{pmatrix}
 $$
-
 where $\frac{\partial J(\theta)}{\partial \theta_i}$ is the partial derivative of $J$ with respective to $\theta_i$.
 
 Update Method for $J(\theta)$：
@@ -340,10 +337,10 @@ The **policy gradient theorem** (see Sutton and Barto, Section 13.2) says that f
     $$\nabla J(\theta) = \mathbb{E}[(\nabla_{\theta}\ \textrm{ln} \pi_{\theta}(s, a)  Q(s,a)]$$
 
 - 离散动作空间:
-    $$
+$$
     \nabla J(\theta) = \sum_s d^{\pi}(s) \sum_a \pi_{\theta}(s, a) \nabla_{\theta} \ln \pi_{\theta}(s, a) Q(s, a)
     $$
-
+    
     其中，$d^{\pi}(s)$ 是状态 $s$ 的稳态分布，表示在策略 $\pi_{\theta}$ 下，智能体处于状态 $s$ 的概率。
 
 
@@ -379,7 +376,7 @@ $$
     $$
     \nabla_{\theta} J(\theta) = \sum_{t} \nabla_{\theta} \ln \pi_{\theta}(s_t, a_t) \left( A(s,a) \right)
     $$
- 
+
     - $A(s,a)=Q(s,a)−V(s)$ 优势函数，评价在状态 $s$ 下，行动 $a$ 在这个状态下是否更好，更有优势。
     - $G_t - V(s_t)$ 是对优势函数的估计形式。
 
@@ -434,7 +431,6 @@ $$
 \quad \textbf{Until}\ s\ \text{is the last state of episode}\ e\ \text{(a terminal state)}\\
 \textbf{Until}\ \pi_{\theta}\ \text{converges}
 \end{array}
-
 $$
 - Actor Critic其实是拟合了两个函数, 
 一个是Q-function $Q_w(s,a)$，

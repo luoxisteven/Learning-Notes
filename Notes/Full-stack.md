@@ -310,9 +310,12 @@ source venv/bin/activate
 # 后台运行代码
 nohup python3 django_back/manage.py runserver 0.0.0.0:8000 &
 nohup python3 manage.py runserver 0.0.0.0:8000 &
+nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
+
 
 # 查看后台运行代码（先进入文件的目录下）
 ps aux | grep django_back/manage.py
+ps aux | grep manage.py
 
 # 假若显示，
 ubuntu 457123 ...

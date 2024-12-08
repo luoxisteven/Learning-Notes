@@ -129,7 +129,7 @@ h_t = o_t \circ \tanh(C_t)\\
 - RNN: One direction 
     - Only captures context to the left
 - ELMO: 双向，即BiLSTM
-    ![alt text](<Pasted Graphic 3.png>)
+    ![alt text](<img/Pasted Graphic 3.png>)
     ![alt text](img/Padding.jpg)
     ![alt text](<img/Pasted Graphic 06.jpg>)
     - EMLo 用字母嵌入，生成单词嵌入。（所以可以接受所有的词，包括没见过的词）
