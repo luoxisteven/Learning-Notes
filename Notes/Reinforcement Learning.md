@@ -185,7 +185,7 @@ MCTS 是一种 Model-based 方法，可以直接观察转移矩阵。它通过�
     $$
 - 损失函数的目标是最小化当前的 Q函数估计 和 目标Q值 之间的误差。
     $$ L(w) = \frac{1}{2} \left( r(s, a, s') + \gamma \cdot \max_{a'} Q(s', a'; w') - Q(s, a; w) \right)^2
-$$
+    $$
 	- $f_n(s,a)$ 代表特征feature的具体值。
         - 比方说，它可以是我这辆车和前面车的距离；也可以是前面车的速度或者加速度等等。
         - 也可以是我某个行动之后，和前面车的距离
@@ -337,7 +337,7 @@ The **policy gradient theorem** (see Sutton and Barto, Section 13.2) says that f
     $$\nabla J(\theta) = \mathbb{E}[(\nabla_{\theta}\ \textrm{ln} \pi_{\theta}(s, a)  Q(s,a)]$$
 
 - 离散动作空间:
-$$
+    $$
     \nabla J(\theta) = \sum_s d^{\pi}(s) \sum_a \pi_{\theta}(s, a) \nabla_{\theta} \ln \pi_{\theta}(s, a) Q(s, a)
     $$
     

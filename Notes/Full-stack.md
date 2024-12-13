@@ -17,7 +17,7 @@ npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
 
 ```
 
-### 1) Vueß
+### 1) Vue
 ```bash
 # Crate
 vue create <filename>
@@ -49,6 +49,16 @@ https://blog.csdn.net/qq_40036754/article/details/102463099
 
 ### 2) Django
 https://blog.csdn.net/Ans_min/article/details/123146335
+
+- #### **Migrate Database**
+    ```bash
+    python manage.py makemigrations blogs
+    python manage.py migrate blogs
+
+    python manage.py migrate --fake blogs zero
+    python manage.py migrate blogs
+
+    ```
 
 - #### **Build Project**
     ```bash
@@ -217,6 +227,15 @@ https://blog.csdn.net/m0_67844671/article/details/133278228
 
 ## Nginx
 https://blog.csdn.net/weixin_50003028/article/details/132567183
+
+## MongoDB
+```bash
+# macos 安装
+brew tap mongodb/brew
+brew install mongodb-community@8.0
+# 启动
+brew services start mongodb/brew/mongodb-community
+```
 
 ## Deloyment 
 ```bash
