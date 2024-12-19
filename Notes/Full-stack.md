@@ -52,9 +52,15 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 
 - #### **Migrate Database**
     ```bash
+
+    python manage.py dbshell
+    DROP TABLE blogs;
+    .exit
+
     python manage.py makemigrations blogs
     python manage.py migrate blogs
 
+    先删除 "blogs/migrations/" 文件夹底下所有内容
     python manage.py migrate --fake blogs zero
     python manage.py migrate blogs
 
@@ -461,6 +467,8 @@ sudo certbot --nginx
         # 查看8000端口被谁占用
         lsof -i :8000
         ```
+## 配置WWW
+![alt text](img/www.png)
 ## 网络安全
 - 可以看看Cloudflare
-![alt text](img/image2.png)
+![alt text](img/Nginx-RateLimiting.png)
