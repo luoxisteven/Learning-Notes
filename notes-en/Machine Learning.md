@@ -174,10 +174,10 @@ Apart from gradient descent, Newton-Raphson is a second-order derivative iterati
     - **Hessian Matrix**: In Newton's method, each iteration requires calculating the first derivative (gradient) and the second derivative (Hessian matrix), and inverting this matrix.
     - **Assume $n$ features**: The Hessian matrix is an $n × n$ matrix, where calculating the Hessian has a time complexity of $O(n^2)$, and inverting it has a time complexity of $O(n^3)$. Therefore, the overall complexity is $O(n^3)$, which is computationally expensive in high-dimensional spaces.
 5. **Basic Principle**
-    ![alt text](<img/newton.png>)
+    ![alt text](<img-en/newton.png>)
 
 6. **Example**
-    ![alt text](<img/newton2.png>)
+    ![alt text](<img-en/newton2.png>)
 
 ## Why Do We Need Gradient Descent?
 To calculate the optimal parameters. However, not all models have a closed-form solution, which is why gradient descent is required.
@@ -213,15 +213,15 @@ To calculate the optimal parameters. However, not all models have a closed-form 
 ### 1) **Categorical Naive Bayes (CNB)**
    - Assumes a categorical distribution.
    - Typically used for handling discrete features, especially when the features are categorical data.
-   ![alt text](<img/CNB.jpg>)
+   ![alt text](<img-en/CNB.jpg>)
 
 ### 2) **Multinomial Naive Bayes (MNB)**
    - Assumes a multinomial distribution.
-   ![alt text](img/MNB.jpg)
+   ![alt text](img-en/MNB.jpg)
 
 ### 3) **Gaussian Naive Bayes (GNB)**
    - Assumes a Gaussian distribution for the features.
-   ![alt text](<img/GNB.jpg>)
+   ![alt text](<img-en/GNB.jpg>)
 
 ## K-Nearest Neighbors (KNN)
 
@@ -267,12 +267,12 @@ Logistic Regression is a linear model used for binary classification.
 ## Linear Discriminant Analysis (LDA)
 
 - LDA projects the samples onto a line that maximizes the between-class variance and minimizes the within-class variance.
-![alt text](<img/LDA.jpg>)
+![alt text](<img-en/LDA.jpg>)
 
 ---
 
 ## Hidden Markov Model (HMM)
-![alt text](<img/HMM.jpg>)
+![alt text](<img-en/HMM.jpg>)
 
 **Two assumptions:**
 1) **Output Assumption**: The observed event (word) depends only on the hidden state (tag).
@@ -373,7 +373,7 @@ Logistic Regression is a linear model used for binary classification.
     2) "One vs. Rest" (OvR)
     3) "Many vs. Many" (MvM)
 
-![alt text](<img/Multi-class Models.jpg>)
+![alt text](<img-en/Multi-class Models.jpg>)
 
 ---
 
@@ -397,7 +397,7 @@ Logistic Regression is a linear model used for binary classification.
 
 ## Recurrent Neural Networks (RNN)
 
-![alt text](<img/RNN.jpg>)
+![alt text](<img-en/RNN.jpg>)
 
 - Useful for variable-length inputs, making them effective for processing textual data.
 - **Training Method**: Backpropagation Through Time (BPTT)
@@ -431,7 +431,7 @@ Logistic Regression is a linear model used for binary classification.
     2) Difficult to capture long-range dependencies in practice.
 
 ## LSTM 公式
-![alt text](<img/LSTM.jpg>)
+![alt text](<img-en/LSTM.jpg>)
 ```math
 f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\\
 
@@ -527,7 +527,7 @@ Self-Attention allows the model to simultaneously consider other parts of the se
 
 ## Transformer
 
-![alt text](img/Transformer.jpg)
+![alt text](img-en/Transformer.jpg)
 
 - **Original Transformer**: Both the Encoder and Decoder blocks have 6 layers each.
 - **Positional Encoding**: Uses Trigonometric functions. Unlike BERT’s position embeddings, which are trainable, Transformer’s position encoding is fixed during training.
@@ -542,7 +542,7 @@ For training, both the raw input and the correct answer are fed into the model. 
 
 ### Scaled Dot-Product Attention
 
-![alt text](<img/Scaled Dot-Product Attention.jpg>)
+![alt text](<img-en/Scaled Dot-Product Attention.jpg>)
 
 This figure illustrates the formula $A(Q,K,V)$, where MatMul refers to Matrix Multiplication.
 
@@ -554,7 +554,7 @@ This figure illustrates the formula $A(Q,K,V)$, where MatMul refers to Matrix Mu
 - Can be understood as CNN extracting different feature maps, here it extracts different semantics, which are then concatenated and passed through a fully connected layer.
 - Self-Attention uses a single set of QKV weights, whereas Multi-Head Attention uses multiple sets of weights.
 
-![alt text](<img/Multi-Head Attention.jpg>)
+![alt text](<img-en/Multi-Head Attention.jpg>)
 
 - $h$ represents the number of heads in Multi-Head Attention.
 
@@ -675,7 +675,7 @@ BERT uses **WordPiece** tokenization, which is a variant of **Byte Pair Encoding
     - Learns a unique embedding vector for each position in the sequence, allowing the model to capture the order of tokens.
     - Unlike the fixed positional encoding in Transformers, BERT’s Position Embedding is trainable.
 
-![alt text](<img/BertEmbeddings.jpg>)
+![alt text](<img-en/BertEmbeddings.jpg>)
 
 ### Word Embeddings
 - Vocabulary size: 28,996 (simplified version)

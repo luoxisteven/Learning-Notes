@@ -10,7 +10,7 @@ N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the informa
 - **Trigram**: $P(w^t| w^{t-1}, w^{t-2})$
 
 ## 3. Hidden Markov Model (HMM)
-![alt text](<img/HMM.jpg>)
+![alt text](<img-en/HMM.jpg>)
 `Two assumptions:`
 1) **Output assumption**: The observed event (word) depends only on the hidden state (tag).
 2) **Markov assumption**: The current state (tag) depends only on the previous state.
@@ -18,7 +18,7 @@ N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the informa
 ## 4. Sequence Models
 
 ### 4.1 Recurrent Neural Networks (RNN)
-![alt text](<img/RNN.jpg>)
+![alt text](<img-en/RNN.jpg>)
 
 - RNNs are effective for processing language text because they handle inputs of variable lengths.
 - `Training method`: Backpropagation Through Time (BPTT)
@@ -51,7 +51,7 @@ N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the informa
     2) It is still difficult to record long-range dependencies in practical applications.
 
 ### LSTM Formula
-![alt text](<img/LSTM.jpg>)
+![alt text](<img-en/LSTM.jpg>)
 ```math
 f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\\
 
@@ -131,9 +131,9 @@ The meaning of a word depends on its:
 - **RNN**: Unidirectional
     - Only captures context to the left.
 - **ELMo**: Bidirectional, i.e., BiLSTM
-    ![alt text](<img/ELMO-1.png>)
-    ![alt text](<img/ELMO-2.jpg>)
-    ![alt text](<img/EMLO-3.jpg>)
+    ![alt text](<img-en/ELMO-1.png>)
+    ![alt text](<img-en/ELMO-2.jpg>)
+    ![alt text](<img-en/EMLO-3.jpg>)
     - ELMo uses character embeddings to generate word embeddings, allowing it to handle all words, including unseen ones.
     - The final vector for each word in ELMo is formed by concatenating the hidden layers of the bidirectional LSTM and then applying specific weighting with the word vectors. (These weights $s_0, s_1, s_2$ can be fine-tuned based on the task.)
     - **Lower Layer Representation** = captures syntax
@@ -202,7 +202,7 @@ BERT uses the **WordPiece** tokenization method, which is a variant of **Byte-Pa
     - Learns an embedding vector for each position in the sequence, allowing the model to capture the order of tokens.
     - Unlike the fixed positional encoding in Transformers, BERT's Position Embedding is trainable.
 
-![alt text](<img/BertEmbeddings.jpg>)
+![alt text](<img-en/BertEmbeddings.jpg>)
 
 ### Word Embeddings
 - Vocabulary size: 28,996, embedding dimension: 768 (simplified version)

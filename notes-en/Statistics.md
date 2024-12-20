@@ -113,7 +113,7 @@ Suppose two doctors, Doctor A and Doctor B, treat two groups of patients in a ho
 **Parameter Estimation** is used to infer population parameters from sample data and is divided into two methods:
 1. **Point Estimation**: Directly estimates the population parameter using a sample statistic (e.g., mean).
 2. **Interval Estimation**: Constructs an interval within a given confidence level to estimate the population parameter. For example, a 95% confidence interval implies there is a 95% probability that the population parameter lies within this interval.
- ![alt text](<img/parameter-estimation.jpg>)
+ ![alt text](<img-en/parameter-estimation.jpg>)
  - Note: When the variance is unknown, a normal distribution can be used even with large samples.
  
  $$

@@ -79,7 +79,7 @@ $$
 - $Z_{\alpha/2}$是显著性水平对应的标准正态分布值（1.96 对应于 95% 的显著性水平）
 - $Z_{\beta}$是检验功效对应的标准正态分布值（0.84 对应于 80% 的检验功效）
 
-![alt text](<img/ABtest-samples.jpg>)
+![alt text](<img-cn/ABtest-samples.jpg>)
 
 ## AB 实验流量分桶时需要保证的原则
 

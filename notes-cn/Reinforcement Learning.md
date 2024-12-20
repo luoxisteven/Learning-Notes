@@ -212,7 +212,7 @@ $$
 其中：
 $\nabla_{\theta} Q(s, a; \theta)$ 是Q-function的梯度（损失函数Loss对特征$\theta$的偏导数）
 
-![alt text](img/Deep_QLearning.png)
+![alt text](img-cn/Deep_QLearning.png)
 
 - 这个Deep Q-Learning怎么做呢？具体可以想象一下，从Linear Q-learning的 $Q(s,a)$ 特征的线性组合，那我们可以想象一下用MLP传入这些特征，输出为$Q(s,a)$。
 - 输出层的大小为在这个理state的action的数量的大小。

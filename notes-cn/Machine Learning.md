@@ -178,10 +178,10 @@ f(x) = \max(0, x)
     - **Hessian 矩阵**：在牛顿法中，每次迭代不仅需要计算一阶导数，还需要计算 Hessian 矩阵（函数的二阶导数矩阵），并且还需要对这个矩阵进行求逆。
     - **假设有 $n$ 个特征（变量）**: Hessian 矩阵是一个 $n × n$ 的矩阵，计算 Hessian 的时间复杂度为 $O(n^2)$，而求逆的复杂度为 $O(n^3)$。因此，整体复杂度为 $O(n^3)$，尤其在高维情况下，计算代价较高。
 5. **基本原理**
-    ![alt text](<img/newton.png>)
+    ![alt text](<img-cn/newton.png>)
 
 6. **例子**
-    ![alt text](<img/newton2.png>)
+    ![alt text](<img-cn/newton2.png>)
 
 ## 为什么需要进行梯度下降？
 为了计算出最优的参数，然而不是所有模型的参数都有闭解(closed-formed solution)，所以说要进行梯度下降。
@@ -213,14 +213,14 @@ f(x) = \max(0, x)
 1) 类别朴素贝叶斯 Categorical Naive Bayes (CNB)
 - 服从类别分布。
 - 通常用于处理离散特征，特别适用于那些特征为类别数据的情形。
-![alt text](<img/CNB.jpg>)
+![alt text](<img-cn/CNB.jpg>)
 
 2) 多项式朴素贝叶斯 Multinomial Naive Bayes (MNB)
 - 服从多项式分布
-![alt text](img/MNB.jpg)
+![alt text](img-cn/MNB.jpg)
 
 3) 高斯朴素贝叶斯 Gaussian Naive Bayes (GNB)
-![alt text](<img/GNB.jpg>)
+![alt text](<img-cn/GNB.jpg>)
 
 ## K近邻（K-Nearest Neighbors, KNN）
 
@@ -262,10 +262,10 @@ Logistic Regression 是一种二分类的线性模型。
 
 ## LDA 线性判别分析 （Linear Discriminant Analysis）
 - 把样本投影到直线上，让组间间隔最大，让组内间隔最小。
-![alt text](<img/LDA.jpg>)
+![alt text](<img-cn/LDA.jpg>)
 
 ## 隐马尔可夫 Hidden Markov Model (HMM)
-![alt text](<img/HMM.jpg>)
+![alt text](<img-cn/HMM.jpg>)
 `两个假设：`
 1) 输出假设：观察事件（word）仅取决于隐藏状态（tag)
 2) 马尔可夫假设：现在状态（tag)仅取决于之前的状态	
@@ -354,7 +354,7 @@ SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割
     2) "一对 其余" (One vs. Rest, 简称 OvR)
     3) "多对多" (Many vs. Ma, 简称 MvM).
 
-![alt text](<img/Multi-class Models.jpg>)
+![alt text](<img-cn/Multi-class Models.jpg>)
 
 ## 感知机 Perceptron:
 损失函数为是否正确的被分类
@@ -368,7 +368,7 @@ SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割
 Sliding window over sequence (序列中进行滑动窗口计算)
 
 ## 循环神经网络 Recurrent Neural Networks (RNN)
-![alt text](<img/RNN.jpg>)
+![alt text](<img-cn/RNN.jpg>)
 
 - 对于输入的长度可变，所以对于处理语言文本很有效果。
 - `训练方法：`通过时间反向传播 Backpropagation Through Time（BPTT）
@@ -399,7 +399,7 @@ Sliding window over sequence (序列中进行滑动窗口计算)
     2) 实际运用还是很难去记录远的依赖 Long-range Dependency
 
 ## LSTM 公式
-![alt text](<img/LSTM.jpg>)
+![alt text](<img-cn/LSTM.jpg>)
 ```math
 f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\\
 
@@ -479,7 +479,7 @@ where:
 
 
 ## 变形金刚 Transformer 
-![alt text](img/Transformer.jpg)
+![alt text](img-cn/Transformer.jpg)
 - `原始的Transformer：`Encoder和Decoder的Block数量都为6 
 - `Positional Encoding 位置编码: `Trigonometric Function 三角函数
 和BERT的位置编码Position Embeddings不一样，BERT的位置编码是可训练的。
@@ -493,7 +493,7 @@ Transformer的位置编码是固定的，在训练过程中固定。
 
 ------
 #### Scaled Dot-Product Attention
-![alt text](<img/Scaled Dot-Product Attention.jpg>)
+![alt text](<img-cn/Scaled Dot-Product Attention.jpg>)
 - 这个图就是底下那个 $A(Q,K,V)$的公式，MatMul为Matrix Multiplication，即矩阵乘法
 
 ------
@@ -502,7 +502,7 @@ Transformer的位置编码是固定的，在训练过程中固定。
 - 得到多组特征，多头数量为8
 - 可以理解为CNN不同Kernel提取的特征图，那这里就是提取的不同语意，然后经过拼接，然后最后通过一个全连接层。
 - Self-Attention 只使用了一组QKV的权重，而Multi-Head Attention 用了多组权重
-    ![alt text](<img/Multi-Head Attention.jpg>)
+    ![alt text](<img-cn/Multi-Head Attention.jpg>)
     - h代表多头的头数
 
 - `Add&Norm`
@@ -615,7 +615,7 @@ BERT使用的分词方法为**WordPiece**，这是**BPE（Byte-Pair Encoding**�
     - 为序列中的每个位置学习一个嵌入向量，这使得模型能够捕捉 token 之间的顺序关系。
     - 和Transformer中固定的位置编码不同，BERT的Position Embedding是可训练的。
 
-![alt text](<img/BertEmbeddings.jpg>)
+![alt text](<img-cn/BertEmbeddings.jpg>)
 
 ### 词嵌入（Word Embeddings）
 - 词汇表大小为28996，嵌入维度为768（简化版）

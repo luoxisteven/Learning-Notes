@@ -10,7 +10,7 @@ N-grams 由链式法则简化 $P(w^t, w^t-1, …w^1)$，用单词前面的信息
 - **Trigram**: $P(w^t| w^t-1, w^t-2)$
 
 ## 3. 隐马尔可夫 Hidden Markov Model (HMM)
-![alt text](<img/HMM.jpg>)
+![alt text](<img-cn/HMM.jpg>)
 `两个假设：`
 1) 输出假设：观察事件（word）仅取决于隐藏状态 (tag)
 2) 马尔可夫假设：现在状态 (tag) 仅取决于之前的状态	
@@ -19,7 +19,7 @@ N-grams 由链式法则简化 $P(w^t, w^t-1, …w^1)$，用单词前面的信息
 ## 4. 序列模型
 
 ### 4.1 循环神经网络 Recurrent Neural Networks (RNN)
-![alt text](<img/RNN.jpg>)
+![alt text](<img-cn/RNN.jpg>)
 
 - 对于输入的长度可变，所以对于处理语言文本很有效果。
 - `训练方法：`通过时间反向传播 Backpropagation Through Time（BPTT）
@@ -50,7 +50,7 @@ N-grams 由链式法则简化 $P(w^t, w^t-1, …w^1)$，用单词前面的信息
     2) 实际运用还是很难去记录远的依赖 Long-range Dependency
 
 ### LSTM 公式
-![alt text](<img/LSTM.jpg>)
+![alt text](<img-cn/LSTM.jpg>)
 ```math
 f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)\\
 
@@ -129,9 +129,9 @@ h_t = o_t \circ \tanh(C_t)\\
 - RNN: One direction 
     - Only captures context to the left
 - ELMO: 双向，即BiLSTM
-    ![alt text](<img/ELMO-1.png>)
-    ![alt text](img/ELMO-2.jpg)
-    ![alt text](<img/EMLO-3.jpg>)
+    ![alt text](<img-cn/ELMO-1.png>)
+    ![alt text](img-cn/ELMO-2.jpg)
+    ![alt text](<img-cn/EMLO-3.jpg>)
     - EMLo 用字母嵌入，生成单词嵌入。（所以可以接受所有的词，包括没见过的词）
     - ELMo的最终每个词的向量，为双向LSTM隐藏层拼接后，再和词向量进行特定加权，形成最终的词向量。(这些权重s0,s1,s2根据任务的不同，可以进行微调）
     - Lower layer representation = captures syntax 
@@ -199,7 +199,7 @@ BERT使用的分词方法为**WordPiece**，这是**BPE（Byte-Pair Encoding**�
     - 为序列中的每个位置学习一个嵌入向量，这使得模型能够捕捉 token 之间的顺序关系。
     - 和Transformer中固定的位置编码不同，BERT的Position Embedding是可训练的。
 
-![alt text](<img/BertEmbeddings.jpg>)
+![alt text](<img-cn/BertEmbeddings.jpg>)
 
 ### 词嵌入（Word Embeddings）
 - 词汇表大小为28996，嵌入维度为768（简化版）

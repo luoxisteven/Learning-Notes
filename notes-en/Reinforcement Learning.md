@@ -208,7 +208,7 @@ $$
 $$
 where $\nabla_{\theta} Q(s, a; \theta)$ is the gradient of the Q-function (the partial derivative of the loss function with respect to the features $\theta$).
 
-![alt text](img/Deep_QLearning.png)
+![alt text](img-en/Deep_QLearning.png)
 
 - How does Deep Q-Learning work? You can think of it as taking the linear combination of $Q(s,a)$ features from linear Q-learning and then passing them through an MLP to output $Q(s,a)$.
 - The output layer size is the number of actions for the given state.
