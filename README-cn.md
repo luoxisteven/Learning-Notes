@@ -2,7 +2,7 @@
 - 这个仓库包含了我多年来记录的部分笔记。
 - 原始仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
 - 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。
-- 每天服务器会用`crontab`定时从上述链接下载最新版本的笔记，并持续集成和部署`（CI/CD）`到网站的后端。
+- 每天服务器会用`crontab`定时从上述链接下载最新版本的笔记，并`持续集成和部署（CI/CD）`到网站的后端。
 
 ## 目录
 1) **Maths**

@@ -2,7 +2,7 @@
 - This repository contains some of the notes I’ve taken over the years.
 - The original repository is located at [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes).
 - I take notes in an IDE like VS Code and then upload them to the GitHub repository above.
-- The newest version of the notes will be downloaded from the link above at scheduled times every day and continuously integrated and deployed `(CI/CD)` through `crontab` into the backend of the website.
+- The newest version of the notes will be downloaded from the link above at scheduled times every day and `continuously integrated and deployed (CI/CD)` through `crontab` into the backend of the website.
 
 
 ## Table of Contents
