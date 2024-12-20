@@ -1,8 +1,9 @@
 ## Learning Notes
-This repository contains some of the notes I've taken over the years.
-- `@Author:` Xi Luo
-- `@Languages:` Mainly Chinese, Some English
-- `@Format:` Markdown, PDF
+- This repository contains some of the notes I’ve taken over the years.
+- The original repository is located at [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes).
+- I take notes in an IDE like VS Code and then upload them to the GitHub repository above.
+- The newest version of the notes will be downloaded from the link above at scheduled times every day and continuously integrated and deployed (CI/CD) into the backend of the website.
+
 
 ## Table of Contents
 1) **Maths**
@@ -28,5 +29,3 @@ This repository contains some of the notes I've taken over the years.
 
 5) [Others](notes-en/Others.md)
 6) [Thoughts](notes-en/Thoughts.md)
-
-`Notes:` Machine Learning的集成学习还要再看一下
