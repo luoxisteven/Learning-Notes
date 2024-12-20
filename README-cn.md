@@ -1,4 +1,4 @@
-## 学习笔记
+## 学习笔记 Learning Notes
 - 这个仓库包含了我多年来记录的部分笔记。
 - 原始仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
 - 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。

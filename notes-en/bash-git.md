@@ -132,3 +132,9 @@ pip freeze | sed 's/==.*//' > requirements.txt
 # Install requirements
 pip install -r requirements.txt
 ```
+
+
+### 8) gitignore
+```bash
+git rm -r --cached .
+```
