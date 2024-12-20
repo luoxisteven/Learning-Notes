@@ -444,3 +444,195 @@ Array.equals();
 
 #### 反射机制
 **反射机制**是指程序在运行时可以获取自身信息的能力，包括类的属性、方法、构造函数等。这为动态操作提供了强大的灵活性和可扩展性。
+
+## ArrayList
+- **Collections.sort()**
+- **add(obj)**: Adds an element.
+- **get(index)**: Gets the element at the specified position.
+- **set(index, obj)**: Sets the element at the specified position.
+- **remove(index)**: Removes the element at the specified position.
+- **size()**: Gets the size of the list.
+- **contains(obj)**: Checks if the list contains a specific element.
+- **indexOf(obj)**: Gets the index of an element.
+- **toArray()**: Converts to an array.
+
+## HashSet
+- **add(obj)**: Adds an element.
+- **contains(obj)**: Checks if an element is contained.
+- **remove(obj)**: Removes an element.
+- **size()**: Gets the size of the set.
+
+## HashMap
+- **put(key, value)**: Inserts a key-value pair.
+- **get(key)**: Gets the value for the specified key.
+- **getOrDefault(key, defaultValue)**: Gets the value for the specified key, or returns the default value if the key is not present.
+- **remove(key)**: Removes the key-value pair for the specified key.
+- **size()**: Gets the number of key-value pairs.
+- **containsKey(key)**: Checks if the map contains the specified key.
+- **containsValue(value)**: Checks if the map contains the specified value.
+- **keySet()**: Gets a set of all keys.
+- **values()**: Gets a collection of all values.
+
+## Iterator
+An iterator is used to traverse a collection. The most common methods are:
+1. **next()**: Returns the next element and moves the pointer to the next position.
+2. **hasNext()**: Checks if there are any more elements in the collection.
+3. **remove()**: Removes the last element accessed by the iterator (optional operation).
+
+> **Note**: Using traditional iteration methods to remove elements from an array can cause errors. Using an iterator ensures safe removal during iteration.
+
+## Processes and Threads
+
+- **Process**: A "running program." A program may contain multiple threads.
+- **Thread**: The smallest unit of program execution and the smallest unit of CPU scheduling.
+
+---
+
+### ACID Properties of Transactions
+
+1. **Atomicity**: A transaction is an indivisible unit. Either all SQL statements in a transaction execute successfully or none do.
+2. **Consistency**: The state of the database remains consistent before and after a transaction. For example, the total balance remains unchanged after a money transfer.
+3. **Isolation**: Transactions are isolated from each other, ensuring no interference.
+4. **Durability**: Once a transaction is committed, the changes to the database are permanent, even if the system crashes.
+
+---
+
+### CAP Theorem
+
+1. **Consistency**: All nodes have the same data at the same time, meaning the operation's result must be visible to all nodes.
+2. **Availability**: Every request must receive a response, either success or failure, within a limited time.
+3. **Partition Tolerance**: The system can continue to operate even when some nodes cannot communicate due to network issues.
+
+---
+
+### Transaction Isolation and Concurrency Issues
+
+Transaction isolation ensures transactions do not interfere with each other, but when multiple transactions operate on the same data concurrently, concurrency issues may arise:
+
+1. **Dirty Read**: A transaction reads data that has not yet been committed by another transaction.
+2. **Non-repeatable Read**: A transaction reads the same data multiple times, but gets different results because another transaction modified the data.
+3. **Phantom Read**: A transaction reads a different number of records in subsequent reads because another transaction inserted or deleted records.
+
+### Difference Between Non-repeatable Read and Phantom Read
+
+1. **Non-repeatable Read**: Occurs when another transaction modifies the data, causing inconsistent results on multiple reads.
+2. **Phantom Read**: Occurs when another transaction inserts or deletes records, causing inconsistent results in the number of records read.
+
+---
+
+### Database Isolation Levels
+
+1. **Read Uncommitted**:
+   - A transaction can see changes made by other transactions, even if they haven't been committed.
+   - Possible issues: Dirty Read, Non-repeatable Read, Phantom Read.
+
+2. **Read Committed**:
+   - A transaction can only see committed changes from other transactions.
+   - Possible issues: Non-repeatable Read, Phantom Read.
+
+3. **Repeatable Read**:
+   - Ensures that the same data read in a transaction will remain consistent.
+   - Possible issue: Phantom Read.
+
+4. **Serializable**:
+   - Transactions are executed serially, ensuring no concurrency issues, but at a high cost, suitable for low concurrency and absolute consistency requirements.
+
+---
+
+## Iterator
+
+1. **next()**: Returns the next element and moves the pointer forward.
+2. **hasNext()**: Checks if there are more elements in the collection.
+3. **remove()**: Removes the last accessed element by the iterator (optional operation).
+
+Using an iterator ensures safe removal of elements during iteration, avoiding errors from traditional iteration methods.
+
+## Spring
+
+* Programmatic: Write your own code to implement functionality
+* Declarative: Let the framework implement functionality through configuration
+
+   ### 1. Service Layer
+   - **Function**: Controls business logic.
+   - **Responsibilities**: Designs the logic of business modules. Define interfaces, create implementation classes, then configure their implementation in the configuration file. The Service layer calls DAO layer interfaces for business logic processing.
+   - **Benefits**: Encapsulating the business logic in the Service layer promotes the independence and reusability of business logic.
+
+   ### 2. Controller Layer
+   - **Function**: Calls Service layer methods to control business logic.
+   - **Responsibilities**: The Controller layer primarily calls the Service layer's interfaces to control specific business flows. Appropriate configuration of the Controller layer is required in the configuration file.
+   - **Differences**:
+   - **Controller**: Responsible for controlling the flow of a specific business module.
+   - **Service**: Responsible for designing the business module's logic.
+
+   ### 3. DAO Layer
+   - **Function**: Interacts with the database.
+   - **Responsibilities**: The DAO layer first creates DAO interfaces and defines their implementation classes in the configuration file. The modules can then call the DAO interfaces to process data without needing to care about the implementation classes. The data source and database connection parameters are also configured in the configuration file.
+
+   ### 4. Entity Layer
+   - **Function**: Represents database tables in the project.
+   - **Responsibilities**: Defines properties corresponding to database tables, provides `get` and `set` methods, `toString()` method, and both parameterized and non-parameterized constructors.
+
+   ### Bean Concept
+   In the Spring framework, a **bean** is a very important concept. It represents a component or object in the application. Conceptually, a bean is an object that is instantiated, assembled, and managed by the Spring container. Beans are the core building blocks of the application and are brought into use via **Dependency Injection (DI)**.
+
+---
+
+   ### Overview of Spring Framework
+   The **Spring Framework** is an open-source Java application development framework that provides an easy way to create and manage objects. It uses **Inversion of Control (IoC)** and **Dependency Injection (DI)** principles to simplify object creation and dependency management.
+
+---
+
+### Inversion of Control (IoC)
+**Inversion of Control (IoC)** refers to transferring the responsibility of object creation and dependency management from application code to the framework. In traditional development, the application code directly handles object creation, but in Spring, the **Spring container** is responsible for object instantiation, lifecycle management, and dependency injection.
+
+- **Goals of Inversion of Control**:
+  - Reduces coupling between components.
+  - Increases extensibility of the program.
+
+#### How IoC Works:
+1. **Object Creation Reversal**: Object creation is delegated to the Spring container rather than being handled by application code.
+2. **Object Relationship Reversal**: Dependencies between objects are managed by the Spring container.
+
+---
+
+### Dependency Injection (DI)
+**Dependency Injection (DI)** refers to the process of injecting other objects' references into an object when it is created. The Spring container identifies the objects and their dependencies through configuration files or annotations and automatically performs dependency injection during object creation. This eliminates the need for explicit dependency management in the code, as the Spring container handles it.
+
+---
+
+### Java Objects Managed by IoC Container as Beans
+- Java objects managed by the Spring IoC container are called **beans**.
+- The core idea of IoC is to delegate object creation and dependency management to the Spring container, reducing coupling and enhancing flexibility.
+
+### Spring Annotations and Dependency Injection
+
+#### @Autowire Annotation
+- **Default byType**: Matches a compatible bean by type from the IoC container and automatically injects it into the property.
+- **byType**: Automatically injects beans by type.
+- **byName**: If using the `@Qualifier` annotation, it matches the bean by name.
+
+#### @Resource Annotation
+- **Default byName**: Matches the bean by name. If the `name` attribute is not specified, it uses the property name as the bean name.
+- **byType**: If no match is found by name, it defaults to matching by type.
+
+---
+
+### Defining Beans with Annotations
+
+- **@Component**: Marks a component class to be registered as a Spring bean.
+- **@Repository**: Marks a DAO layer component that focuses on data persistence.
+- **@Service**: Marks a Service layer component that handles business logic.
+- **@Controller**: Marks a SpringMVC controller layer that handles user requests and responses.
+
+---
+
+### Data Persistence
+**Data Persistence** refers to the process and techniques used to store data for the long term in a computer system, ensuring that data remains available even after the program ends or the system restarts.
+
+---
+
+### Object-Relational Mapping (ORM)
+**Object-Relational Mapping (ORM)** frameworks are used to map objects in the program to relational database data, simplifying data access and persistence operations.
+
+#### Reflection Mechanism
+**Reflection** refers to the ability of a program to inspect and modify its own structure during runtime, including class properties, methods, constructors, etc. This provides powerful flexibility and extensibility for dynamic operations.

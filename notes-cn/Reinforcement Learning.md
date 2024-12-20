@@ -142,7 +142,6 @@ $$
   \quad\quad V \leftarrow V' \\
   \textbf{Until:}\ \Delta \leq \theta 
 \end{array}
-
 ```
 
 ### 2) Multi-armed Bandit Algorithm (MAB) 多臂老虎机

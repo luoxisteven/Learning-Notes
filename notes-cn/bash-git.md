@@ -88,7 +88,7 @@ git commit -m "***"
 git push origin main
 
 # Force push
-git push -u origin main --force x
+git push -u origin main --force
 ```
 
 ### 4) Remote

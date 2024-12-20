@@ -116,7 +116,7 @@
 ```math
 J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (|w_1| + |w_2|)
 ```
-2) L2 正则化 (Lasso
+2) L2 正则化 (Lasso Regression)
 ```math
 J(w_1, w_2, b) = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \ast (w_1^2 + w_2^2))
 ```
@@ -354,7 +354,7 @@ SVM可以通过**核函数** (Kernel Function) 使超平面具有非线性分割
     2) "一对 其余" (One vs. Rest, 简称 OvR)
     3) "多对多" (Many vs. Ma, 简称 MvM).
 
-![alt text](<img/多分类模型.jpg>)
+![alt text](<img/Multi-class Models.jpg>)
 
 ## 感知机 Perceptron:
 损失函数为是否正确的被分类

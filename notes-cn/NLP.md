@@ -432,3 +432,4 @@ BERT 的网络结构类似于 Transformer 的**编码器（Encoder）**部分，
 T5（Text-to-Text Transfer Transformer）模型的核心思想是将**所有 NLP 任务都转化为 Text-to-Text**（文本到文本）的生成任务。无论是翻译、问答还是文本分类，T5 都将输入转换为文本，输出同样是文本。
 
 更多内容参考：[T5 模型详解](https://zhuanlan.zhihu.com/p/88438851)
+
