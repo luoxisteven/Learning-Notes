@@ -18,14 +18,14 @@
     - [Algorithms](notes-en/Algorithms.md)
     - [Full-stack](notes-en/Full-stack.md)
 3) **Machine Learning**
-    - [Machine Learning](notes-en/Machine%20Learning.md)
+    - [Machine Learning Fundamentals](notes-en/Machine%20Learning.md)
     - [Reinforcement Learning](notes-en/Reinforcement%20Learning.md)
     - [Computer Vision (Pending)](notes-en/CV.md)
     - [Natural Language Processing](notes-en/NLP.md)
     - [LLM](notes-cn/LLM.md)
 4) **Finance**
     - [Time Series Analysis (Pending)](notes-en/Time%20Series%20Analysis.md)
-    - [CFA Level 1](./CFA%20Level%201/)
+    - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
 5) [Others](notes-en/Others.md)
 6) [Thoughts](notes-en/Thoughts.md)
