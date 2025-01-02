@@ -4,17 +4,16 @@
 
 ### npm
 ```bash
-# 安装package.json的所有依赖
+# Install all dependencies from package.json
 npm i
-# 上下两个命令等价
+# The two commands below are equivalent
 npm install
 
-# 路由安装
+# Install React Router
 npm install react-router-dom
 
-# 安装Meterial UI
+# Install Material UI
 npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
-
 ```
 
 ### 1) Vue
@@ -39,12 +38,6 @@ npm rum build
 
 ## Backend
 
-- 后端技术栈大全：
-https://blog.csdn.net/weixin_46768610/article/details/124358392
-- nginx: 正向代理、反向代理、负载均衡
-https://blog.csdn.net/qq_40036754/article/details/102463099
-
-
 ### 1) Springboot
 
 ### 2) Django
@@ -60,7 +53,7 @@ https://blog.csdn.net/Ans_min/article/details/123146335
     python manage.py makemigrations blogs
     python manage.py migrate blogs
 
-    先删除 "blogs/migrations/" 文件夹底下所有内容
+    To delete all the contents of the folder "blogs/migrations/"
     python manage.py migrate --fake blogs zero
     python manage.py migrate blogs
 
@@ -74,16 +67,18 @@ https://blog.csdn.net/Ans_min/article/details/123146335
     ```
 - #### **Build App**
     ```
-    Step1:
+    Step 1:
     python manage.py startapp <app_name>
-    Step2:
-    在主setting.py 注册 <app_name>/apps.py的config，
-    如rfp_llm/apps.py里面RfpLlmConfig，则在主settings.pyd的INSTALL_APPS加上"rfp_llm.apps.RfpLlmConfig"
+
+    Step 2:
+    Register <app_name>/apps.py's config in the main settings.py.
+    For example, in rfp_llm/apps.py, if it contains RfpLlmConfig, then add "rfp_llm.apps.RfpLlmConfig" to the INSTALL_APPS in the main settings.py.
+
     ```
 
 - #### **Build API**
     ```
-    在urls.py注册views函数
+    register views functions in urls.py
     ```
 
 - #### **Run**
@@ -94,138 +89,147 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 - #### **Layout**
     ```
     django_study_demo
-    │─ manage.py			【项目管理的脚本，不要修改，eg：启动、创建app、数据库管理等】
-    └─django_study_demo		【与项目同名的文件夹】
-        │─ asgi.py			【和wsgi.py一起，接收网络请求的】【不用修改】【Django接收异步的】
-        │─ settings.py		【项目的配置文件，eg：数据库连接信息、注册app等】【常操作】
-        │─ urls.py			【全部的URL和函数的对应关系】【常操作】
-        │─ wsgi.py			【和asgi.py一起，接收网络请求的】【不用修改】【Django接收同步的】
+    │─ manage.py            【Project management script, do not modify, e.g., start, create app, database management, etc.】
+    └─ django_study_demo    【Folder with the same name as the project】
+        │─ asgi.py           【Receives network requests along with wsgi.py】【Do not modify】【Django for async requests】
+        │─ settings.py       【Project configuration file, e.g., database connection information, registering apps, etc.】【Commonly modified】
+        │─ urls.py           【Mapping of all URLs to functions】【Commonly modified】
+        │─ wsgi.py           【Receives network requests along with asgi.py】【Do not modify】【Django for sync requests】
         │─ __init__.py
     ```
 
-- #### 数据库增删改查
+- #### Database's create, read, update, and delete (CRUD) 
 
-    在Django中，可以通过操作对象的方式，简化SQL语句的书写，方便地操作数据库表中的数据。以下是增、删、改、查的基本操作示例：
+    In Django, you can simplify SQL queries and easily manipulate data in database tables by working with objects. Here are basic examples for creating, deleting, updating, and querying data:
 
-    - `增加数据`
-        - 语法：`类名.objects.create()`
+    - `Add Data`
+        - Syntax: `ClassName.objects.create()`
         ```python
-        # 插入数据到 index_studentinfo 表中
+        # Insert data into the index_studentinfo table
         StudentInfo.objects.create(title="zm")
-        # 插入数据到 index_userinfo 表中
+        # Insert data into the index_userinfo table
         UserInfo.objects.create(name="gzh", password="123", age=18)
         ```
-    - `删除数据`
-        - 语法1: `类名.objects.filter().delete()`：筛选内容，再删除
-        - 语法2: `类名.objects.all().delete()`：删除表内全部内容
+
+    - `Delete Data`
+        - Syntax 1: `ClassName.objects.filter().delete()` — Filter data first, then delete
+        - Syntax 2: `ClassName.objects.all().delete()` — Delete all data in the table
         ```python
-        # 删除 UserInfo 表中 id 为 2 的数据
+        # Delete data with id 2 from the UserInfo table
         UserInfo.objects.filter(id=2).delete()
-        # 删除 StudentInfo 表中所有内容
+        # Delete all data from the StudentInfo table
         StudentInfo.objects.all().delete()
         ```
-    - `修改数据`
-        - 语法1: `类名.objects.all().update()`：修改全部数据
-        - 语法2: `类名.objects.filter().update()`：筛选内容，再修改
+
+    - `Update Data`
+        - Syntax 1: `ClassName.objects.all().update()` — Update all data
+        - Syntax 2: `ClassName.objects.filter().update()` — Filter data first, then update
         ```python
-        # 将 UserInfo 表中所有记录的 password 修改为 "123"
+        # Update the password of all records in the UserInfo table to "123"
         UserInfo.objects.all().update(password="123")
-        # 将 UserInfo 表中 id 为 2 的记录的 password 修改为 "1"
+        # Update the password of the record with id 2 in the UserInfo table to "1"
         UserInfo.objects.filter(id=2).update(password="1")
         ```
-    - `查询数据`
-        - 语法1: `类名.objects.all()`：查询表中所有数据
-        - 语法2: `类名.objects.filter()`：筛选相应的数据
-        - 返回的数据是一个 QuerySet 类型的数据，可以理解为列表，只是每个元素是一个对象。
+
+    - `Query Data`
+        - Syntax 1: `ClassName.objects.all()` — Query all data in the table
+        - Syntax 2: `ClassName.objects.filter()` — Filter specific data
+        - The returned data is of type QuerySet, which can be understood as a list, but each element is an object.
             ```python
-            # 查询 UserInfo 表中所有数据
+            # Query all data from the UserInfo table
             all_data = UserInfo.objects.all()
             for obj in all_data:
                 print(obj.id, obj.name, obj.password, obj.age)
 
-            # 查询 UserInfo 表中 id 为 1 的数据
-            # 返回的结果是一个 QuerySet 列表，可以使用 first() 获取第一个单独的元素
+            # Query data with id 1 from the UserInfo table
+            # The result is a QuerySet list, and you can use first() to get the first single element
             data = UserInfo.objects.filter(id=1).first()
             print(data.id, data.name, data.password, data.age)
             ```
 
-    - #### 跨域
-        - Step 1 
-            - `pip install django-cors-headers`
-        - Step 2 在settings.py中配置
-            ```python
-            # settings.py
 
-            # 添加 corsheaders 到已安装应用
-            INSTALLED_APPS = [
-                ...,
-                'corsheaders',
-                ...,
-            ]
-
-            # 添加 corsheaders.middleware.CorsMiddleware 到中间件的顶部
-            MIDDLEWARE = [
-                'corsheaders.middleware.CorsMiddleware',  # 放在中间件的第一位
-                ...,
-            ]
-
-            # 设置允许的跨域源
-            CORS_ALLOW_ALL_ORIGINS = True  # 允许所有源访问
-            # 或者可以指定允许的源
-            # CORS_ALLOWED_ORIGINS = [
-            #     "http://localhost:8080",  # 你的前端应用URL
-            # ]
-            ```
-    - #### 数据库
+- #### Cross-Origin Resource Sharing (CORS)
+    - Step 1 
+        - `pip install django-cors-headers`
+    - Step 2: Configure in settings.py
         ```python
-        from django.db import models
+        # settings.py
 
-        class User(models.Model):
-            username = models.CharField(max_length=150, unique=True)  # 用户名，唯一
-            password = models.CharField(max_length=128)  # 密码
-            email = models.EmailField(unique=True)  # 邮箱，唯一
+        # Add 'corsheaders' to installed apps
+        INSTALLED_APPS = [
+            ...,
+            'corsheaders',
+            ...,
+        ]
 
-            def __str__(self):
-                return self.username
-        ```
-        ```bash
-        # 生成迁移文件
-        python manage.py makemigrations
+        # Add 'corsheaders.middleware.CorsMiddleware' to the top of middleware
+        MIDDLEWARE = [
+            'corsheaders.middleware.CorsMiddleware',  # Place it at the top of middleware
+            ...,
+        ]
 
-        # 应用迁移到数据库
-        python manage.py migrate
+        # Set allowed cross-origin sources
+        CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins to access
+        # Alternatively, specify allowed origins
+        # CORS_ALLOWED_ORIGINS = [
+        #     "http://localhost:8080",  # Your frontend application URL
+        # ]
         ```
-        ```python
-        # 给数据库添加数据
-        user = User.objects.create(username=username, password=password, email=email)
-        ```
+
+- #### Database
+    ```python
+    from django.db import models
+
+    class User(models.Model):
+        username = models.CharField(max_length=150, unique=True)  # Username, unique
+        password = models.CharField(max_length=128)  # Password
+        email = models.EmailField(unique=True)  # Email, unique
+
+        def __str__(self):
+            return self.username
+    ```
+
+    ```bash
+    # Generate migration files
+    python manage.py makemigrations
+
+    # Apply migration to the database
+    python manage.py migrate
+    ```
+
+    ```python
+    # Add data to the database
+    user = User.objects.create(username=username, password=password, email=email)
+    ```
+
 
 ### 3) .Net
 
 - #### Create and Run
     ```bash
-    # 创建项目
+    # Create a project
     dotnet new console -o <MyApp Name>
-    # 运行.Net
+    # Run .Net application
     cd <MyApp Name>
     dotnet run
     ```
 
 ### 4) Node.js
-https://blog.csdn.net/m0_67844671/article/details/133278228
-- #### 初始化
+[https://blog.csdn.net/m0_67844671/article/details/133278228](https://blog.csdn.net/m0_67844671/article/details/133278228)
+
+- #### Initialize
     ```bash
-    # 初始化项目 -y使用 -y 参数可以快速创建一个带默认配置的 package.json 文件。
+    # Initialize the project -y option creates a package.json file with default configuration
     npm init -y 
 
-    # 创建 index.js 文件
+    # Create index.js file
     touch index.js
 
-    # 安装express
+    # Install express
     npm install express
     ```
 
-- #### 运行
+- #### Run
     ```bash
     node index.js
     node <.js>
@@ -236,135 +240,135 @@ https://blog.csdn.net/weixin_50003028/article/details/132567183
 
 ## MongoDB
 ```bash
-# macos 安装
+# macOS Installation
 brew tap mongodb/brew
 brew install mongodb-community@8.0
-# 启动
+# Start MongoDB
 brew services start mongodb/brew/mongodb-community
 ```
 
-## Deloyment 
+## Delpoyment
 ```bash
 Amazon Linux: yum
 Ubuntu: apt
-# 安全组 SSH22 服务器端口
-    类型：Custom SSH
-    协议：TCP
-    端口范围：22
-    来源：0.0.0.0/0
+# Security Group SSH22 Server Port
+    Type: Custom SSH
+    Protocol: TCP
+    Port Range: 22
+    Source: 0.0.0.0/0
 
 # Update
 sudo apt update
 
-# 这个做个备用
+# Install pkexec (for backup)
 sudo apt install pkexec
 
-# 安装git
+# Install git
 sudo apt install git -y
 
-# 安装git的包
+# Install git package
 git clone "url"
 
-# 安装python
+# Install python
 sudo yum install python3 -y
 sudo apt install python3
 
-# 安装pip
+# Install pip
 sudo yum install python3-pip -y
 sudo apt install python3-pip
 
-# 虚拟环境
+# Install virtual environment
 sudo apt install python3-venv
 python3 -m venv venv
 
-# 每次进入都进入虚拟环境(要在运行上面语句的目录下运行下面语句)
+# Enter the virtual environment every time (run this command in the directory where the previous command was executed)
 source venv/bin/activate
 
-# 安装包(可选)
-# 如果有langchain建议手动安装
+# Install dependencies (optional)
+# If langchain is used, manually install it
 pip install -r requirements.txt
 
-# Django 部署
-# Django修改settings.py, ALLOWED_HOSTS里面加上服务器公网IP
+# Django Deployment
+# Modify settings.py in Django, add the server's public IP to ALLOWED_HOSTS
 ALLOWED_HOSTS = ['your-ec2-public-ip', 'localhost']
 ALLOWED_HOSTS = ["*"]
-# 设置安全组
-    类型：Custom TCP
-    协议：TCP
-    端口范围：8000
-    来源：0.0.0.0/0
+# Set security group
+    Type: Custom TCP
+    Protocol: TCP
+    Port Range: 8000
+    Source: 0.0.0.0/0
 
 # Run Django
 python3 django_back/manage.py runserver 0.0.0.0:8000
 
-# Apache网络服务器
+# Apache Web Server
 # Install Apache2 package
 sudo apt install apache2
 
-# 查看apache2是否正确运行
+# Check if apache2 is running properly
 sudo systemctl status apache2
 
-# 安装npm 
+# Install npm
 sudo apt install npm
-# 安装Vue CLI
+# Install Vue CLI
 sudo npm install -g @vue/cli
 
-# 把`./dist/`文件夹内的内容移动到`/var/www/html`
-# 记得把axios的request的ip换成 http://<公有IP>:8000，接入Django
-# **重要**: 修改权限
+# Move content from `./dist/` folder to `/var/www/html`
+# Remember to change the axios request IP to http://<Public-IP>:8000 to integrate with Django
+# **Important**: Modify Permissions
 sudo chown -R ubuntu:ubuntu /var/
 sudo chown -R ubuntu:ubuntu /var/www/
 
-# 复制：服务器内复制
+# Copy files from server (inside the server)
 sudo cp -r /home/ubuntu/Learning-Notes/dist/* /var/www/html/
-# 复制：服务器外复制
+# Copy files from external machine to server
 scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:/var/www/html/
 
-# 安全组设置Https, Http
-    类型：Http, Http
-    协议：TCP
-    端口范围：80, 443
-    来源Source：0.0.0.0/0, :/0 (ipv4/ipv6都加上就行)
+# Configure Security Group for HTTPS and HTTP
+    Type: Http, Http
+    Protocol: TCP
+    Port Range: 80, 443
+    Source: 0.0.0.0/0, :/0 (include both ipv4 and ipv6)
 ```
 
-## 后台运行
+## Background Running
 ```bash
-# 记得激活环境
+# Remember to activate the environment
 source venv/bin/activate
 
-# 后台运行代码
+# Run code in the background
 nohup python3 django_back/manage.py runserver 0.0.0.0:8000 &
 nohup python3 manage.py runserver 0.0.0.0:8000 &
 nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-
-# 查看后台运行代码（先进入文件的目录下）
+# Check background running processes (go to the directory of the file)
 ps aux | grep django_back/manage.py
 ps aux | grep manage.py
 
-# 假若显示，
+# If you see output like:
 ubuntu 457123 ...
 ubuntu 457124 ...
-# 则删除
+# Then terminate the processes
 kill 457123 457124
+
 ```
 
-## HTTPS 安装证书
+## HTTPS SSL Certificate Installation
 ```bash
-# 安装SSL证书
+# Install SSL certificate
 sudo apt install certbot python3-certbot-apache -y
 
-# 配置 certbot
+# Configure certbot
 sudo certbot --apache
 sudo certbot --nginx
 ```
-## 配置www
-- 先在配置TypeA，Host: www 和 @，Value是你的IP。
-- 创建`xiluo.net.conf`
+## Configure www
+- First, configure Type A, Host: www and @, and Value as your IP address.
+- Create`xiluo.net.conf`
     ```bash
     sudo nano /etc/apache2/sites-available/xiluo.net.conf
     ```
-- 添加，记得换行（不换行不行）
+- Add the following (make sure to add a new line after):
     ```apache
     <VirtualHost *:80>
         ServerName xiluo.net
@@ -372,26 +376,26 @@ sudo certbot --nginx
         DocumentRoot /var/www/html
     </VirtualHost>
     ```
-- 系统里运行以下命令
+- Run the following system commands
     ```bash
     sudo a2ensite xiluo.net
     sudo systemctl reload apache2
     ```
-- 安装HTTPS-SSL证书（确保上面已经HTTPS了普通的网站）
+- Install HTTPS-SSL certificate (ensure HTTP is already set up for the regular website)
     ```bash
-    # 根据命令行去执行（要看清楚了）
+    # Execute based on the command line (be sure to read carefully)
     sudo certbot --apache
-    # 重启apache2
+    # Restart apache2
     sudo systemctl reload apache2
     ```
 
-    ## 配置路由
-    - 获取修改文件的权限
+    ## Configure Routes
+    - Get file modification permissions
         ```bash
         sudo chown ubuntu:ubuntu /etc/apache2/sites-available/
         ```
-    - !重要：一定要把除了xiluo.net.conf的其他.conf删掉
-    -  修改文件`/etc/apache2/sites-available/xiluo.net.conf`
+    - !Important: Ensure other `.conf` files (except xiluo.net.conf) are deleted
+    -  Modify the `/etc/apache2/sites-available/xiluo.net.conf` file:
         ```apache
         <VirtualHost *:80>
             ServerName xiluo.net
@@ -438,21 +442,21 @@ sudo certbot --nginx
         </VirtualHost>
 
         ```
-    - !重要：一定要把除了xiluo.net.conf的其他.conf删掉
+    - !Important: Ensure other .conf files (except xiluo.net.conf) are deleted
     - https django
         ```bash
         pip install django-extensions
         pip install Werkzeug
         pip install pyOpenSSL
 
-        # 设置settings.py
+        # Set settings.py
         INSTALLED_APPS = [
         'corsheaders',
         'django_extensions',
         ...
         ]
     
-        # 这里要先改变这几个pem的权限
+        # Change permissions for these PEM files first
         sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/privkey.pem
         sudo chmod 640 /etc/letsencrypt/live/xiluo.net/privkey.pem
 
@@ -461,14 +465,13 @@ sudo certbot --nginx
 
         python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-        # 最后用nohup
+        # Finally, use nohup
         nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-        # 查看8000端口被谁占用
+        # Check who is using port 8000
         lsof -i :8000
         ```
-## 配置WWW
-![alt text](img-cn/www.png)
-## 网络安全
-- 可以看看Cloudflare
-![alt text](img-cn/Nginx-RateLimiting.png)
+    
+## Network Security
+- Consider Cloudflare
+![alt text](img-en/Nginx-RateLimiting.png)

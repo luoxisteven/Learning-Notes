@@ -18,30 +18,30 @@ When we talk about machine learning, almost 99% of it is based on probability to
     - [Loss Functions](#loss-functions)
     - [Activation Functions](#activation-functions)
 - `How to get parameters:`
-    - [Newton-Raphson Method](#newton-raphson-method)
-    - [Why Gradient Descent?](#why-gradient-descent)
-    - [How to Avoid Local Optimum?](#how-to-avoid-local-optimum)
+    - [Newton-Raphson Method](#newton-raphson-irls-method)
+    - [Why Gradient Descent?](#why-do-we-need-gradient-descent)
+    - [How to Avoid Local Optimum?](#how-to-avoid-getting-stuck-in-local-optima)
 - `Models:`
     - [Naive Bayes](#naive-bayes)
     - [K-Nearest Neighbors (KNN)](#k-nearest-neighbors-knn)
     - [Logistic Regression](#logistic-regression)
-    - [Linear Discriminant Analysis (LDA)](#lda)
-    - [Hidden Markov Models (HMM)](#hmm)
-    - [Principal Component Analysis (PCA)](#pca)
+    - [Linear Discriminant Analysis (LDA)](#linear-discriminant-analysis-lda)
+    - [Hidden Markov Models (HMM)](#hidden-markov-model-hmm)
+    - [Principal Component Analysis (PCA)](#principal-component-analysis-pca)
     - [Decision Tree](#decision-tree)
     - [Ensemble Learning](#ensemble-learning)
     - [Random Forest](#random-forest)
-    - [Support Vector Machine (SVM)](#svm)
+    - [Support Vector Machine (SVM)](#support-vector-machine-svm)
     - [Perceptron](#perceptron)
     - [Neural Network](#neural-network)
-    - [Convolutional Neural Network (CNN)](#cnn)
-    - [Recurrent Neural Network (RNN)](#rnn)
-    - [Long Short-Term Memory (LSTM)](#lstm)
-    - [Gated Recurrent Unit (GRU)](#gru)
-    - [Attention Mechanism](#attention)
+    - [Convolutional Neural Network (CNN)](#convolutional-neural-networks-cnn)
+    - [Recurrent Neural Network (RNN)](#recurrent-neural-networks-rnn)
+    - [Long Short-Term Memory (LSTM)](#long-short-term-memory-lstm)
+    - [Gated Recurrent Unit (GRU)](#gated-recurrent-unit-gru)
+    - [Attention Mechanism](#attention-mechanism)
     - [Self-Attention](#self-attention)
     - [Transformer](#transformer)
-    - [BERT](#bert)
+    - [BERT](#bert-bidirectional-encoder-representations-from-transformers)
 
 ## Machine Learning Classification
 
@@ -237,8 +237,6 @@ To calculate the optimal parameters. However, not all models have a closed-form 
 2) Difficult to handle imbalanced data.
 3) Slow output (since it requires a lot of distance calculations).
 
----
-
 ## Logistic Regression
 
 Logistic Regression is a linear model used for binary classification.
@@ -262,14 +260,12 @@ Logistic Regression is a linear model used for binary classification.
 - Linear Model Assumption: $p(y | x)$ follows $Normal(x^T w, \sigma)$, i.e., it follows a normal distribution.
 - Logistic Regression Assumption: $p(y | x)$ follows $Bernoulli(Logistic(x^T w))$, i.e., it follows a Bernoulli distribution.
 
----
 
 ## Linear Discriminant Analysis (LDA)
 
 - LDA projects the samples onto a line that maximizes the between-class variance and minimizes the within-class variance.
 ![alt text](<img-en/LDA.jpg>)
 
----
 
 ## Hidden Markov Model (HMM)
 ![alt text](<img-en/HMM.jpg>)
@@ -278,13 +274,11 @@ Logistic Regression is a linear model used for binary classification.
 1) **Output Assumption**: The observed event (word) depends only on the hidden state (tag).
 2) **Markov Assumption**: The current state (tag) depends only on the previous state.
 
----
 
 ## Principal Component Analysis (PCA)
 
 - A widely used dimensionality reduction technique that aims to map high-dimensional data to a lower-dimensional space while retaining as much variance from the original data as possible.
 
----
 
 ## Decision Tree
 
@@ -380,20 +374,16 @@ Logistic Regression is a linear model used for binary classification.
 ## Perceptron
    - The loss function is based on whether the classification is correct.
 
----
 
 ## Neural Network
    - A neural network consists of multiple perceptron models to classify data in a higher-dimensional space.
    - The loss function is based on whether the classification is correct.
-
----
 
 ## Convolutional Neural Networks (CNN)
 
 - Mostly used in Computer Vision (CV), but also used in some Natural Language Processing (NLP) tasks.
 - Sliding window over sequences for calculations (sliding window over the sequence).
 
----
 
 ## Recurrent Neural Networks (RNN)
 
@@ -469,14 +459,10 @@ h_t = o_t \circ \tanh(C_t)\\
 3) **Output Gate**:
    - Computes the new hidden state.
 
----
-
 ## Gated Recurrent Unit (GRU)
 
 - A simplified variant with only 2 gates and no memory cell.
 - **Update Gate** and **Reset Gate**.
-
----
 
 ## Attention Mechanism
 
@@ -523,7 +509,6 @@ Self-Attention allows the model to simultaneously consider other parts of the se
 3) **Flexibility**:  
    Self-Attention provides a flexible way to capture information within a sequence, allowing the model to automatically learn which parts of the sequence are more important.
 
----
 
 ## Transformer
 
@@ -538,7 +523,6 @@ Self-Attention allows the model to simultaneously consider other parts of the se
 ### Transformer Training Process:
 For training, both the raw input and the correct answer are fed into the model. During training, **Teacher Forcing** is used, and for the correct answer input, **Masking** is applied to prevent the model from seeing information beyond the current word, which allows parallel processing.
 
----
 
 ### Scaled Dot-Product Attention
 
@@ -570,7 +554,6 @@ This figure illustrates the formula $A(Q,K,V)$, where MatMul refers to Matrix Mu
 
 - **Mask**: Masks certain values so that they have no effect on the parameter updates.
 
----
 
 ## Normalization: Effects on Model Fitting
 
@@ -579,8 +562,6 @@ This figure illustrates the formula $A(Q,K,V)$, where MatMul refers to Matrix Mu
 
 2) **Reduces overfitting**:
    Normalization mainly improves the stability of the optimization and training process, indirectly mitigating overfitting.
-
----
 
 ## Normalization Types:
 1) Batch Norm (CNN, Linear)

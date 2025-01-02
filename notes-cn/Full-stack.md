@@ -14,7 +14,6 @@ npm install react-router-dom
 
 # 安装Meterial UI
 npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
-
 ```
 
 ### 1) Vue

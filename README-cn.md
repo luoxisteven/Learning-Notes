@@ -16,6 +16,7 @@
     - [Bash & Git](notes-cn/bash-git.md)
     - [算法](notes-cn/Algorithms.md)
     - [全栈开发](notes-cn/Full-stack.md)
+    - [操作系统](http://staff.ustc.edu.cn/~ykli/os2024/index.html)
 3) **Machine Learning**
     - [机器学习](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
