@@ -79,6 +79,27 @@ $$
 - $Z_{\alpha/2}$ is the Z-score corresponding to the significance level (1.96 for a 95% confidence level).
 - $Z_{\beta}$ is the Z-score corresponding to the statistical power (0.84 for 80% power).
 
+## Sample Size Calculation for Two Proportions
+
+The formula for calculating the sample size $ N $ is:
+
+$$
+N = \frac{{\left( Z_{\alpha/2} + Z_{\beta} \right)^2 \cdot \sigma^2}}{{\delta^2}} \approx \frac{{8 \cdot \sigma^2}}{{\delta^2}}
+$$
+
+Where:
+- $ \alpha = 0.05 $, $ Z_{\alpha/2} = 1.96 $ (for a 95% confidence level)
+- $ \beta = 0.2 $, $ Z_{\beta} = 0.84 $ (for 80% power)
+- $ \sigma $ is the standard deviation of the sample
+- $ \delta $ is the minimal detectable difference between the two proportions
+
+### General Case:
+
+- Significance level: $ \alpha = 0.05 $, $ Z_{\alpha/2} = 1.96 $
+- Statistical power: $ \beta = 0.2 $, $ Z_{\beta} = 0.84 $
+- $ \sigma $ represents the standard deviation, and $ \delta $ is the minimum difference between the groups.
+
+
 ## Principles for Traffic Allocation in A/B Tests
 
 1. **Randomness**:

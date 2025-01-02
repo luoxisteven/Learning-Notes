@@ -174,10 +174,52 @@ Apart from gradient descent, Newton-Raphson is a second-order derivative iterati
     - **Hessian Matrix**: In Newton's method, each iteration requires calculating the first derivative (gradient) and the second derivative (Hessian matrix), and inverting this matrix.
     - **Assume $n$ features**: The Hessian matrix is an $n × n$ matrix, where calculating the Hessian has a time complexity of $O(n^2)$, and inverting it has a time complexity of $O(n^3)$. Therefore, the overall complexity is $O(n^3)$, which is computationally expensive in high-dimensional spaces.
 5. **Basic Principle**
-    ![alt text](<img-en/newton.png>)
+    - **Principle of Newton's Method**
+
+        Newton's method is an iterative numerical approach. Each step in the direction of the solution follows the descent direction of the function value at the current point.
+
+        The goal is to find the extreme value of a function $ f(x) $. If the first derivative of the function $ f'(x) = 0 $, we apply the following approximation:
+
+        $$
+        f(x) = f(x_k) + f'(x_k)(x - x_k) + \frac{1}{2}f''(x_k)(x - x_k)^2
+        $$
+
+        To find the point where the derivative equals zero, we solve for:
+
+        $$
+        f'(x_k) + f''(x_k)(x - x_k) = 0
+        $$
+
+        Solving for $ x $, we get:
+
+        $$
+        x = x_k - \frac{f'(x_k)}{f''(x_k)}
+        $$
+
+        This is the updated Newton's method formula.
+
+        ---
+
+    - **Steps of Newton's Method**
+
+        1. Set the final error tolerance $ 0 \leq \epsilon \leq 1 $, initial point $ x_0 \in \mathbb{R}^n $, and $ k = 0 $.
+        2. Compute $ g_k = \nabla f(x_k) $. If $ \|g_k\| \leq \epsilon $, stop and output $ x^* \approx x_k $.
+        3. Compute $ G_k = \nabla^2 f(x_k) $ and solve for the direction $ d_k $ in the linear system $ G_k d_k = -g_k $.
+        4. Update the solution: $ x_{k+1} = x_k + d_k $, set $ k = k + 1 $, and repeat.
+
 
 6. **Example**
-    ![alt text](<img-en/newton2.png>)
+
+    Suppose we need to solve the equation $ f(x) = x^2 - 2 = 0 $ (i.e., $ x = \sqrt{2} $).
+
+    1. Start with the initial point $ x_0 = 1 $.
+    2. The derivative is $ f'(x) = 2x $, and applying the Newton's update formula:
+
+    $$
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)} = x_n - \frac{x_n^2 - 2}{2x_n}
+    $$
+
+    3. By iteration, we approach the approximation $ x = \sqrt{2} $.
 
 ## Why Do We Need Gradient Descent?
 To calculate the optimal parameters. However, not all models have a closed-form solution, which is why gradient descent is required.
@@ -213,15 +255,47 @@ To calculate the optimal parameters. However, not all models have a closed-form 
 ### 1) **Categorical Naive Bayes (CNB)**
    - Assumes a categorical distribution.
    - Typically used for handling discrete features, especially when the features are categorical data.
-   ![alt text](<img-en/CNB.jpg>)
+   - In multinomial Naive Bayes, we assume that the features come from a categorical distribution, known as the **Multinomial Naive Bayes (CNB)**. The typical example of this distribution is the bag-of-words model, where each word is assumed to be chosen independently from the others. The probability of a word given a class is modeled as: 
+
+- In the categorical distribution, let the random variable $ X $ take on multiple discrete values, denoted as $ X \sim \text{Categorical}(p) $, where $ p = (p_1, p_2, \dots, p_k) $, and $ X = k $ has probability $ p_k $ (where $ 0 \leq p_k \leq 1 $). Furthermore, we have:
+   
+   $$
+   p_1 + p_2 + \dots + p_k = 1
+   $$
+   Thus, the probability mass function $ f(x; p) $ is:
+
+   $$
+   f(x; p) = \prod_{k=1}^{K} p_k^{I(x = k)} \quad \text{(1.1)}
+   $$
+
+   Where $ I(\cdot) $ is the indicator function, which is 1 if the condition inside is true, and 0 otherwise.
 
 ### 2) **Multinomial Naive Bayes (MNB)**
-   - Assumes a multinomial distribution.
-   ![alt text](img-en/MNB.jpg)
+- Assumes a multinomial distribution.
+- In Multinomial Naive Bayes (MNB), we assume that the features come from a multinomial distribution. A typical example of this distribution is multiple draws from a category. A single draw follows a categorical distribution, while multiple draws follow a multinomial distribution.
+
+- In the multinomial distribution, the random variable $ X $ describes $ n $ trials, each having $ K $ outcomes. Let the outcome of the $ k $-th trial occur $ n_k $ times, and we denote $ X \sim \text{Multinomial}(p, n) $, where $ p = (p_1, p_2, \dots, p_K) $ is the probability vector, with $ 0 \leq p_k \leq 1 $. Additionally, we have:
+
+$$
+p_1 + p_2 + \dots + p_K = 1, \quad n_1 + n_2 + \dots + n_K = n
+$$
+
+The probability mass function of $ X $ is:
+
+$$
+f(n_1, n_2, \dots, n_K | p, n) = \frac{n!}{n_1! n_2! \dots n_K!} p_1^{n_1} p_2^{n_2} \dots p_K^{n_K} = n! \prod_{k=1}^{K} \frac{p_k^{n_k}}{n_k!} \quad \text{(1.2)}
+$$
+
+**Note**: The multinomial distribution requires a specific understanding of how the parameters work.
 
 ### 3) **Gaussian Naive Bayes (GNB)**
-   - Assumes a Gaussian distribution for the features.
-   ![alt text](<img-en/GNB.jpg>)
+- Assumes a Gaussian distribution for the features.
+- In Gaussian Naive Bayes, we assume that the features come from a Gaussian distribution, which is widely present in the natural world. The Gaussian distribution has two parameters: the mean $ \mu $ and variance $ \sigma^2 $. The random variable $ X $ can take any real value, and we represent it as $ X \sim N(\mu, \sigma^2) $. The probability density function is given by:
+
+$$
+f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} \quad \text{(1.3)}
+$$
+
 
 ## K-Nearest Neighbors (KNN)
 
