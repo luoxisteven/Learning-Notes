@@ -1,6 +1,109 @@
 ## Natural Language Processing (NLP)
 
-## 1. 预处理
+## 1. 数据预处理
+
+1. **移除不必要的格式**（例如HTML标签）  
+   - 示例：移除HTML文档中的`<div>`、`<br>`标签。  
+     输入：`<div>Hello <b>World</b></div>`  
+     输出：`Hello World`
+
+2. **句子分割**：将文档划分为句子  
+   - 示例：将段落分割为句子。  
+     输入：`This is a sentence. This is another one.`  
+     输出：`["This is a sentence.", "This is another one."]`
+
+3. **单词分词**：将句子划分为单词  
+   - 示例：将句子分割为单独的单词。  
+     输入：`This is a sentence.`  
+     输出：`["This", "is", "a", "sentence"]`
+
+4. **单词规范化**：将单词转换为标准形式  
+   - 示例：将单词转换为词根形式。  
+     输入：`running`, `ran`, `runner`  
+     输出：`run`
+
+5. **停用词移除**：删除不必要的单词  
+   - 示例：移除常见的停用词如“is”、“a”、“the”。  
+     输入：`This is a sentence.`  
+     输出：`["This", "sentence"]`
+
+### 句子分割
+- **`简单方法`**：根据标点符号（[.?!]）进行分割
+- 使用 **`正则表达式`**，要求句号后跟大写字母（[.?!] [A-Z]）  
+    - 缩写（如Mr. Brown）后通常跟随姓名
+- **`最新方法`**：使用**机器学习**而非规则
+    - 判断每个“.”是否是句子结尾
+    - 特征：
+        - 考察“.”前后的单词
+        - 单词形式：
+            - 大写、小写、全大写、数字
+            - 字符长度
+        - 词性标注：
+            - 限定词通常出现在句子开头
+
+### 单词分词
+- 简单方法：基于空格分割字母字符串（\w+）
+- 某些亚洲语言（如中文）书写时没有空格
+![中文分词](img-cn/Chinese_Tokenisation.png)
+- **`最大匹配法（MaxMatch）`**：贪心匹配词汇表中的最长单词
+![最大匹配法](img-cn/max_match.png)
+
+### 子词分词
+- 将单词分解为更小的部分（例如：happily -> happy ily, ideas -> idea s）
+- **`字节对编码（BPE）`**
+    - 核心思想：迭代合并最频繁的字符对
+    - 优势：
+        - 数据驱动的分词
+        - 适用于不同语言
+        - **更好地处理未知单词**
+    - 高频单词通常作为完整单词表示
+    - 低频单词将分解为子词
+    - 最糟情况下，测试数据中的未知单词将被分解为单个字母
+![BPE](img-cn/bpe.png)
+
+### 单词规范化
+- 转为小写（Australia → australia）  
+- 去除形态变化（cooking → cook）  
+- 拼写校正（definately → definitely）  
+- 扩展缩写（U.S.A → USA）  
+- **`目标：`**
+    1. **减少词汇量**
+    2. **将单词映射到同一类型**
+
+1) **屈折形态学**
+- 屈折形态学创造**`语法变体`**：
+    - 英语对名词、动词和形容词进行屈折变化
+    - 名词：表示数量（-s）
+    - 动词：表示主语数量（-s）、动作的进行时（-ing）和动作的时态（-ed）
+    - 形容词：比较级（-er）和最高级（-est）
+- **词形还原（Lemmatisation）**
+    - 词形还原指**`去掉所有屈折变化`**以得到未屈折的形式，即**词元**
+    - 示例：
+        - speaking → speak  
+        - stopping → stop（不是stopp）  
+        - watches → watch（不是watche）
+
+2) **派生形态学**
+- 派生形态学创造**`不同单词`**
+- 英语派生**后缀**常改变词类
+    - -ly（personal → personally）  
+    - -ise（final → finalise）  
+    - -er（write → writer）  
+- 英语派生**前缀**常改变意义但不改变词类
+    - write → rewrite  
+    - healthy → unhealthy  
+- **词干提取（Stemming）**
+    - **`去掉所有后缀`**，保留词干
+    - 示例：
+        - automate, automatic, automation → automat  
+    - **Porter Stemmer**：英语中最流行的词干提取器
+
+### 停用词移除
+- 一个从文档中移除的单词列表：
+    - 所有闭类词或功能词（例如：the, a, of, for, he, …）
+    - 任何高频单词
+    - NLTK、spaCy等NLP工具包提供停用词列表
+
 
 ## 2. N-grams
 N-grams 由链式法则简化 $P(w^t, w^t-1, …w^1)$，用单词前面的信息，推测下个单词的信息。如果遇到从未见过的实例比较麻烦，需要用平滑 Smoothing。

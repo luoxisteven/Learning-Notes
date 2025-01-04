@@ -2,6 +2,116 @@
 
 ## 1. Preprocessing
 
+1. **Remove unwanted formatting** (e.g. HTML)  
+   - Example: Remove `<div>`, `<br>` tags from HTML documents.  
+     Input: `<div>Hello <b>World</b></div>`  
+     Output: `Hello World`
+
+2. **Sentence segmentation**: break documents into sentences  
+   - Example: Split a paragraph into sentences.  
+     Input: `This is a sentence. This is another one.`  
+     Output: `["This is a sentence.", "This is another one."]`
+
+3. **Word tokenisation**: break sentences into words  
+   - Example: Split sentences into individual words.  
+     Input: `This is a sentence.`  
+     Output: `["This", "is", "a", "sentence"]`
+
+4. **Word normalisation**: transform words into canonical forms  
+   - Example: Convert words to their base forms.  
+     Input: `running`, `ran`, `runner`  
+     Output: `run`
+
+5. **Stopword removal**: delete unwanted words  
+   - Example: Remove common stopwords like "is", "a", "the".  
+     Input: `This is a sentence.`  
+     Output: `["This", "sentence"]`
+
+### Sentence Segmentation
+- **`Naïve approach`**: break on sentence punctuation ([.?!])
+- Use **`regex`** to require capital ([.?!] [A-Z])
+    - Abbreviations often followed by names (Mr. Brown)
+- State-of-the-art uses **`machine learning`**, not rules
+    - Looks at every “.” and decides whether it is the end of a sentence.
+    - Features: 
+        - Look at the words before and after “.”
+        - Word shapes:
+            - Uppercase, lowercase, ALL_CAPS, number
+            - Character length
+        -  Part-of-speech tags
+            -  Determiners tend to start a sentence
+
+### Word Tokenisation
+- Naïve approach: separate out alphabetic strings (based on space) (\w+) 
+-  Some Asian languages are written without spaces
+between words. (For example, Chinese)
+![alt text](img-en/Chinese_Tokenisation.png)
+- **`MaxMatch`**: Greedily match longest word in the vocabulary 
+![alt text](img-en/max_match.png)
+
+### Subword Tokenisation
+- Tokenize a word into smaller pieces (e.g. happily -> happy ily, ideas -> idea s)
+- **`Byte-pair encoding (BPE)`**
+    - Core idea: iteratively merge frequent pairs of
+characters 
+    - Advantages:
+        - Data-informed tokenisatio
+        - Works for different languages 
+        - **Deals better with unknown words**
+    - Most frequent words will be represented as full
+words 
+    - Rarer words will be broken into subwords 
+    -  In the worst case, unknown words in test data will
+be broken into individual letter
+![alt text](img-en/bpe.png)
+
+### Word Normalisation
+- Lower casing (Australia → australia) 
+- Removing morphology (cooking → cook) 
+- Correcting spelling (definately → definitely) 
+- Expanding abbreviations (U.S.A → USA) 
+- **`Goal:`**
+    1) **Reduce vocabulary**
+    2) **Maps words into the same type**
+
+1) **Inflectional Morphology**
+-  Inflectional morphology creates **`grammatical variants`** 
+    - English inflects nouns, verbs, and adjectives
+    - Nouns: number of the noun (-s)
+    - Verbs: number of the subject (-s), the aspect (-ing) of the action and the tense (-ed) of the action 
+    - Adjectives: comparatives (-er) and superlatives (-est)
+- **Lemmatisation**
+    - Lemmatisation means **`removing any inflection`** to reach the uninflected form, **the lemma**
+    - For example:
+        - speaking → speak 
+        - stopping → stop (not stopp)
+        - watches → watch (not watche)
+2) Derivational Morphology
+- Derivational morphology creates **`distinct words `**
+- English derivational **suffixes** often change the lexical
+category
+    -  -ly (personal → personally) 
+    -  -ise (final → finalise) 
+    -  -er (write → writer)
+- English derivational **prefixes** often change the meaning
+without changing the lexical category
+    - write → rewrite
+    - healthy → unhealthy
+- **Stemming**
+    - **`Strips off all suffixes`**, leaving a stem 
+    - For exmaple:
+        - automate, automatic, automation →
+automat 
+    - **The Porter Stemmer**: Most popular stemmer for English 
+
+### Stopword Removal
+- A list of words to be removed from the
+document
+    - All closed-class or function words (e.g. the, a, of, for, he, …)
+    - Any high frequency words 
+    - NLTK, spaCy NLP toolkits
+
+
 ## 2. N-grams
 N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the information of previous words to predict the next word. It can be tricky when encountering unseen instances, which requires smoothing.
 

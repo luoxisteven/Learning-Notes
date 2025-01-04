@@ -7,7 +7,7 @@ When we talk about machine learning, almost 99% of it is based on probability to
 
 ## Table of Contents
 - `Foundations:`
-    - [Machine Learning Classification](#machine-learning-classification)
+    - [Classification](#classification)
     - [Metrics](#metrics)
     - [Schools](#schools)
     - [Discriminative vs Generative Models](#discriminative-vs-generative-models)
@@ -43,7 +43,7 @@ When we talk about machine learning, almost 99% of it is based on probability to
     - [Transformer](#transformer)
     - [BERT](#bert-bidirectional-encoder-representations-from-transformers)
 
-## Machine Learning Classification
+## Classification
 
 1) **Supervised Learning**: Learning with labeled data, typically used for classification and regression tasks.
 
@@ -376,8 +376,6 @@ Logistic Regression is a linear model used for binary classification.
 - **Disadvantages:**
     - Prone to overfitting (requires pruning).
 
----
-
 ## Ensemble Learning
 
 ### 1) **Bagging**
@@ -399,7 +397,6 @@ Logistic Regression is a linear model used for binary classification.
 ### 3) **Stacking**
    - Stacking involves learning multiple weak learners and then using a final learner (e.g., MLP) to summarize the results.
 
----
 
 ## Random Forest
 
@@ -416,8 +413,6 @@ Logistic Regression is a linear model used for binary classification.
 
 - **Disadvantages:**
     - Can overfit.
-
----
 
 ## Support Vector Machine (SVM)
 
@@ -442,8 +437,6 @@ Logistic Regression is a linear model used for binary classification.
     3) "Many vs. Many" (MvM)
 
 ![alt text](<img-en/Multi-class Models.jpg>)
-
----
 
 ## Perceptron
    - The loss function is based on whether the classification is correct.
@@ -476,8 +469,6 @@ Logistic Regression is a linear model used for binary classification.
     4) The loss is summed across all outputs.
 
 - **Disadvantage**: Vanishing gradients problem.
-
----
 
 ## Long Short-Term Memory (LSTM)
 
@@ -569,7 +560,6 @@ For models like RNNs and LSTMs, the output of the next hidden layer depends on t
 - **Disadvantages**:  
 For Sequence-to-Sequence tasks, the Attention mechanism's Encoder still depends on the previous step's calculation.
 
----
 
 ## Self-Attention
 
