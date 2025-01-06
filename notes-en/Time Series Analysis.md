@@ -6,11 +6,11 @@ In time series analysis, "tailing off" and "cutoff" in ARMA (AutoRegressive Movi
 
 > **Tailing Off**: Always has non-zero values and does not rapidly approach zero after a certain lag (but fluctuates around zero). It can be simply understood as never being zero regardless of the lag order, but fluctuating randomly near zero after a certain lag.
 
-> **Cutoff**: Rapidly approaches zero after a certain lag \( k \). It can be simply understood as becoming zero directly after a certain lag \( k \).
+> **Cutoff**: Rapidly approaches zero after a certain lag $ k $. It can be simply understood as becoming zero directly after a certain lag \( k $.
 
 | Model        | ACF         | PACF        |
 |--------------|-------------|-------------|
-| AR(p)        | Tailing Off | Cutoff at p |
+| AR (p)       | Tailing Off | Cutoff at p |
 | MA(q)        | Cutoff at q | Tailing Off |
 | ARMA(p, q)   | Tailing Off | Tailing Off |
 | Not Suitable | Cutoff      | Cutoff      |
@@ -24,11 +24,11 @@ In time series analysis, "tailing off" and "cutoff" in ARMA (AutoRegressive Movi
 ### 2. Tailing Off and Cutoff Characteristics of Different Models
 
 - **AR(p) Model**:
-  - **PACF** cuts off at lag \( p \), meaning that after the \( p \)-th lag, the PACF approaches zero.
+  - **PACF** cuts off at lag $ p $, meaning that after the $ p $-th lag, the PACF approaches zero.
   - **ACF** exhibits tailing off, gradually decaying towards zero as the lag increases.
 
 - **MA(q) Model**:
-  - **ACF** cuts off at lag \( q \), meaning that after the \( q \)-th lag, the ACF approaches zero.
+  - **ACF** cuts off at lag $ q $, meaning that after the $ q $-th lag, the ACF approaches zero.
   - **PACF** exhibits tailing off, gradually decaying towards zero as the lag increases.
 
 - **ARMA(p, q) Model**:

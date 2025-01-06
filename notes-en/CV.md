@@ -1,4 +1,4 @@
-# Computer Vision
+# Computer Vision (CV)
 - Most references come from COMP90086 Natural Language Processing(University of Melbourne)
 - Some come from Hugging face computer vision course:
 https://huggingface.co/learn/computer-vision-course/unit0/welcome/welcome (Not Recomended)
@@ -10,8 +10,8 @@ https://huggingface.co/learn/computer-vision-course/unit0/welcome/welcome (Not R
         - Light source
         - Surface properties 
     2) Camera parameters
-        - Focal length / angle of view
-        - Aperture size / depth of field
+        - Focal length / Angle of view
+        - Aperture size / Depth of field
         - Lens distortion
 - **Digital Image**
     - Pixel = smallest unit of an image
@@ -321,7 +321,7 @@ faint/broken edges (thresholding with hysteresis)
 
 - **VGG innovations**
     - A Deeper Network
-    - Stacked Convolutional Layers
+    - **Stacked Convolutional Layers**
         - Using smaller kernels (smaller width and height) to achieve a larger receptive field with fewer parameters (smaller model size).
         - For the same input size and the same stride (stride=1), stacking two 3×3 convolutional kernels and using a single 5×5 convolutional kernel will produce the same output size.
         - Smaller in size. (2 x 3 x 3 = 18 parameters, 5 x 5 = 25 parameters.)
@@ -329,7 +329,16 @@ faint/broken edges (thresholding with hysteresis)
             - Two 3 x 3 conv. layers = effective receptive field of 5 x 5 
             - Three 3 x 3 conv. layers = effective receptive field of 7 x 7
 
-## InceptionNet
+## GoogLeNet/Inception
+![alt text](img-en/inception.png)
+- Extracts more features in more scales with different kernels.
+- The Inception block is a module designed to efficiently **`extract features at multiple scales and levels of abstraction`**.
+- The width and depth of the outputs with differnt kernels remain the the same by padding and pooling - then concatenate those outputs into one.
+- 1x1 convolutions with smaller channels can conduct `dimensionality reduction` comparing the input size.
+    - For example:
+        - Feature map: $H \times W \times 256$
+        - $1 \times 1$ convolution with $64$ filters (channels).
+        - Ouput map: $H \times W \times 64$
 
 
 ## ResNet
@@ -348,9 +357,55 @@ some layers
 
 ## MobileNets
 ![alt text](img-en/MobileNets.png)
-- Using pointwide and depthwise separable convolution to achieve fewer parameters.
+- **Sacrifice some performance and reduce the amount of computation and the number of parameters.**
+- Using **`pointwide and depthwise separable convolution`**ß to achieve fewer parameters.
+
+### Parameter Calculation for Standard Convolution
+Assume the input feature map has dimensions $ H \times W $ (height × width), with $ C_{\text{in}} $ input channels, a kernel size of $ k \times k $, and $ C_{\text{out}} $ output channels.
+
+The parameter count for standard convolution is calculated as:
+
+$$
+\text{Number of parameters} = k \cdot k \cdot C_{\text{in}} \cdot C_{\text{out}}
+$$
+
+---
+
+### Parameter Calculation for Depthwise Separable Convolution
+Depthwise Separable Convolution consists of two steps:
+
+1. **Depthwise Convolution**:
+   - Performs a $ k \times k $ convolution independently for each input channel.
+   - Parameter count:
+     $$
+     \text{Number of parameters} = k \cdot k \cdot C_{\text{in}}
+     $$
+
+2. **Pointwise Convolution**:
+   - Uses a $ 1 \times 1 $ convolution to map the $ C_{\text{in}} $ input channels to $ C_{\text{out}} $ output channels.
+   - Parameter count:
+     $$
+     \text{Number of parameters} = C_{\text{in}} \cdot C_{\text{out}}
+     $$
+
+### Total Parameter Count for Depthwise Separable Convolution
+The total parameter count is the sum of the parameters for both steps:
+
+$$
+\text{Number of parameters} = k \cdot k \cdot C_{\text{in}} + C_{\text{in}} \cdot C_{\text{out}}
+$$
 
 ## Vision Transformer (ViT)
+![alt text](img-en/ViT.png)
+- See `Transformer` in [Machine Learning Fundamentals](Machine%20Learning.md) or [Natural Language Processing](NLP.md)
+- **Linear Projection of Flattened Patches**
+    - **`transform three dimension image (width, height, channels) into two dimension (flatten, channels)`**
+    - Use a `convolutional layer` to achieve this.
+    - **Step1:** For example, we have a picture of [224, 224, 3] applying a convolutional kernel with size 16 x 16 and stride 16, and we can have an output of [14, 14, 768].
+    - **Step2:** Flatten the [14, 14, 768] into [14 x 14, 768] = [196, 768].
+    - **Step3:** Add a [class] token into the front ([0,*]) in the image, and finally with a shape of [196 + 1, 768] = [197, 768]
+    - **Step4:** Positional Embedding (Similar to normal Transformer)
+- Others remains similar compared to normal Transformer. 
 
 ## Generative Adversarial Networks (GANs)
 ### Autoencoder
@@ -358,9 +413,28 @@ some layers
 ### VAE
 
 ## Image Segmentation
+### SLIC
+
+### U-Net
 
 
 ## Object Detection
+### Sliding Window Approach
+- **Applies image classfication model into sliding windows.**
+- **Free parameters:**
+    - Stride
+    - Scale (size of window)
+    - Shape (aspect ratio) 
+- **Problems:**
+    - Very large number of possible windows (slow, increases
+probability of false detections)
+    - Overall evaluation of images with multiple targets can
+be complicated (multiple targets, multiple detection
+windows, different IoUs)
+
+
 ### R-CNN
+- R-CNN = Region-based Convolutional Neural
+Network 
 
 ### YOLO
