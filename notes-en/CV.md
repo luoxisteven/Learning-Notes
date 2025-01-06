@@ -346,3 +346,19 @@ some layers
 ![alt text](img-en/MobileNets.png)
 - Using pointwide and depthwise separable convolution to achieve fewer parameters.
 
+## Generative Adversarial Networks (GANs)
+### Autoencoder
+
+### VAE
+
+### ViT
+
+### U-Net
+
+## Image Segmentation
+
+
+## Object Detection
+### R-CNN
+
+### YOLO
