@@ -88,7 +88,7 @@ be broken into individual letter
         - speaking → speak 
         - stopping → stop (not stopp)
         - watches → watch (not watche)
-2) Derivational Morphology
+2) **Derivational Morphology**
 - Derivational morphology creates **`distinct words `**
 - English derivational **suffixes** often change the lexical
 category

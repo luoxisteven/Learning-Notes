@@ -361,7 +361,8 @@ some layers
 - Using **`pointwide and depthwise separable convolution`**ß to achieve fewer parameters.
 
 ### Parameter Calculation for Standard Convolution
-Assume the input feature map has dimensions $ H \times W $ (height × width), with $ C_{\text{in}} $ input channels, a kernel size of $ k \times k $, and $ C_{\text{out}} $ output channels.
+Assume the input feature map has dimensions $ H \times W $ (height × width), with $ C_{\text{in}} $ input channels, 
+a kernel size of $ k \times k $, and $ C_{\text{out}} $ output channels.
 
 The parameter count for standard convolution is calculated as:
 
@@ -407,18 +408,29 @@ $$
     - **Step4:** Positional Embedding (Similar to normal Transformer)
 - Others remains similar compared to normal Transformer. 
 
-## Generative Adversarial Networks (GANs)
-### Autoencoder
-
-### VAE
-
 ## Image Segmentation
-### SLIC
+
+**Image Segmentation** is a fundamental task in computer vision that involves dividing an image into distinct parts or regions. Each region corresponds to a particular object, structure, or feature in the image. 
+### Pixel Clustering
+- K-means
+    - Need to choose K
+- Gaussian Mixture Model
+    - Need to choose K
+- Mean Shift
+    - Kernel Density Estimation (KDE)
+        - Common Kernel: Gaussian
+    - Need to choose bandwidth (width)
+
+### Superpixels
+- **Oversegmentation** methods segment image into
+regions that are smaller than objects
 
 ### U-Net
-
+![alt text](img-en/u-net.png)
 
 ## Object Detection
+**Object Detection** is a computer vision task that involves **identifying** and **locating** objects within an image or a video. 
+
 ### Sliding Window Approach
 - **Applies image classfication model into sliding windows.**
 - **Free parameters:**
@@ -432,9 +444,58 @@ probability of false detections)
 be complicated (multiple targets, multiple detection
 windows, different IoUs)
 
-
 ### R-CNN
-- R-CNN = Region-based Convolutional Neural
-Network 
+![alt text](img-en/R-CNN.png)
+- R-CNN = Region-based Convolutional Neural Network
+- **Two separate things:**
+    1) One algorithm for finding ROI
+    2) The other algorithm for image classification, and the prediction of bounding box transform.
+- R-CNN uses Selective Search to generate ROI (regions of interest)
+- **Step 1:** Oversegment image into superpixels
+- **Step 2:** Iteratively combine adjacent superpixels based on similarity in colour + texture, size, and compactness (Createa ROI)
+- **Step 3:** Image Classification based on ROI.
+- **Advantages**
+    - Much more efficient than classifying every window 
+- **Disadvantages**
+    - Still requires classifying many windows (e.g., 2000)
+    - Region proposal step could miss some objects
+
+### Fast R-CNN
+![alt text](img-en/Fast-R-CNN.png)
+- **Still two separate things:**
+    1) One algorithm for finding ROI
+    2) The other algorithm for image classification, and the prediction of bounding box transform.
+- **Differences with R-CNN**
+    - **`Run whole image through Convnet`** (Not image classifcation per ROI but image classification per image)
+    - Put the ROI in the middle of ConvNet, and run the same ConvNet for each ROI.
+
+![alt text](img-en/Fast-R-CNN-crop.png)
+
+- **Advantages:**
+    - Faster than R-CNN (~9x faster training, ~140x faster test) 
+    - Slightly more accurate than R-CNN
+- **Disadvantage:**
+    - ROIs aren’t learned; region proposal step could miss
+some object
+
+### Faster R-CNN
+![alt text](img-en/Faster-R-CNN.png)
+- **Major change:** network learns region proposals,
+instead of using Selective Search.
+- ROI is learned form a reigion proposal network.
+- ROI and Image Classfication still shared part of the networks.
 
 ### YOLO
+![alt text](img-en/yolo-v1.png)
+- 5 parameters: (x,y) coordinates, (width, height) bbox, classification probability.
+- n Bounding Box System: v1 choose 2. (So 2 x 5 = 10 parameters in total.)
+    - Some bounding box system may have a larger width and height;
+    - Some may have a smaller width and height.
+- Main idea: instead of going through multiple steps
+(region proposals, region classification), just predict
+a heatmap for each class directly in **`one CNN`**
+
+## Generative Adversarial Networks (GANs)
+### Autoencoder
+
+### VAE
