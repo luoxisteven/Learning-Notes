@@ -1,4 +1,8 @@
 # Computer Vision
+- Most references come from COMP90086 Natural Language Processing(University of Melbourne)
+- Some come from Hugging face computer vision course:
+https://huggingface.co/learn/computer-vision-course/unit0/welcome/welcome (Not Recomended)
+- Others come from Zhihu, CSDN, and other blogs, as well as papers.
 
 ## Image Basic
 - **Image Formation**
@@ -346,14 +350,12 @@ some layers
 ![alt text](img-en/MobileNets.png)
 - Using pointwide and depthwise separable convolution to achieve fewer parameters.
 
+## Vision Transformer (ViT)
+
 ## Generative Adversarial Networks (GANs)
 ### Autoencoder
 
 ### VAE
-
-### ViT
-
-### U-Net
 
 ## Image Segmentation
 

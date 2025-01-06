@@ -1,4 +1,6 @@
 ## Natural Language Processing (NLP)
+- Most references come from COMP90042 Natural Language Processing (University of Melbounrne)
+- Others come from Zhihu, CSDN, and other blogs, as well as papers.
 
 ## 1. Preprocessing
 
@@ -119,15 +121,69 @@ N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the informa
 - **Bigram**: $P(w^t| w^{t-1})$
 - **Trigram**: $P(w^t| w^{t-1}, w^{t-2})$
 
-## 3. Hidden Markov Model (HMM)
+### N-grams and more
+
+## 3. Distributional Semantics
+
+- **Word Sense**: A single meaning of a word.
+- When a word has multiple meanings, it is **Polysemous**.
+
+### 1) Distributional Semantics
+The meaning of a word depends on its:
+1. **Document Context**
+2. **Word Window**
+
+> "You shall know a word by the company it keeps."
+
+- **Term Frequency-Inverse Document Frequency (TF-IDF)**
+    Measures the importance of a word in a document (parameters are the word and the document it appears in).
+
+    - $TF$ = Frequency of the word / Total number of words in the document
+    - $IDF$ = $\log(\frac{\text{Total number of documents}}{\text{Number of documents containing the word}})$
+
+    $$TF-IDF(t, d) = TF(t, d) \times IDF(t)$$
+
+- **Pointwise Mutual Information (PMI)**
+    $$PMI(x, y) = \log\left(\frac{P(x, y)}{P(x) \times P(y)}\right)$$
+
+- **Word Embeddings (Word2Vec)**
+    - e.g., Skip-Gram, CBOW
+    - "You shall know a word by the company it keeps."
+    - Predict a word based on its context.
+    - **Skip-Gram**:
+        - Given a word, predict its surrounding words.
+        - Predict surrounding words of the target word.
+        - Fake task: Predict surrounding words.
+        - The actual task is to obtain the hidden layer in the middle as the representation.
+    - **CBOW**:
+        - Use surrounding words to predict the target word.
+        - Predict the target word using surrounding words.
+
+## 4. Contextual Semantics
+
+- **RNN**: Unidirectional
+    - Only captures context to the left.
+- **ELMo**: Bidirectional, i.e., BiLSTM
+    ![alt text](<img-en/ELMO-1.png>)
+    ![alt text](<img-en/ELMO-2.jpg>)
+    ![alt text](<img-en/EMLO-3.jpg>)
+    - ELMo uses character embeddings to generate word embeddings, allowing it to handle all words, including unseen ones.
+    - The final vector for each word in ELMo is formed by concatenating the hidden layers of the bidirectional LSTM and then applying specific weighting with the word vectors. (These weights $s_0, s_1, s_2$ can be fine-tuned based on the task.)
+    - **Lower Layer Representation** = captures syntax
+        (e.g., syntactic parsing, named entity recognition)
+    - **Higher Layer Representation** = captures semantics
+        (e.g., sentiment analysis, textual entailment)
+- **BERT**: See BERT Below
+
+## 5. Hidden Markov Model (HMM)
 ![alt text](<img-en/HMM.jpg>)
 `Two assumptions:`
 1) **Output assumption**: The observed event (word) depends only on the hidden state (tag).
 2) **Markov assumption**: The current state (tag) depends only on the previous state.
 
-## 4. Sequence Models
+## 6. Sequence Models
 
-### 4.1 Recurrent Neural Networks (RNN)
+### 6.1 Recurrent Neural Networks (RNN)
 ![alt text](<img-en/RNN.jpg>)
 
 - RNNs are effective for processing language text because they handle inputs of variable lengths.
@@ -146,7 +202,7 @@ N-grams simplify the chain rule $P(w^t, w^{t-1}, …, w^1)$ by using the informa
 - `Drawbacks:`
     Vanishing Gradient problem.
 
-## 4.2 Long Short-Term Memory (LSTM)
+## 6.2 Long Short-Term Memory (LSTM)
 - `A memory cell consists of:`
     - Forget Gate
     - Input Gate
@@ -195,61 +251,10 @@ h_t = o_t \circ \tanh(C_t)\\
 3) **Output Gate**:
     - Computes the new hidden state.
 
-## 4.3 Gated Recurrent Unit (GRU)
+## 6.3 Gated Recurrent Unit (GRU)
 
 - A simplified variant with only 2 gates and no memory cell.
 - **Update Gate** and **Reset Gate**.
-
-## 5. Distributional Semantics
-
-- **Word Sense**: A single meaning of a word.
-- When a word has multiple meanings, it is **Polysemous**.
-
-### 1) Distributional Semantics
-The meaning of a word depends on its:
-1. **Document Context**
-2. **Word Window**
-
-> "You shall know a word by the company it keeps."
-
-- **Term Frequency-Inverse Document Frequency (TF-IDF)**
-    Measures the importance of a word in a document (parameters are the word and the document it appears in).
-
-    - $TF$ = Frequency of the word / Total number of words in the document
-    - $IDF$ = $\log(\frac{\text{Total number of documents}}{\text{Number of documents containing the word}})$
-
-    $$TF-IDF(t, d) = TF(t, d) \times IDF(t)$$
-
-- **Pointwise Mutual Information (PMI)**
-    $$PMI(x, y) = \log\left(\frac{P(x, y)}{P(x) \times P(y)}\right)$$
-
-- **Word Embeddings (Word2Vec)**
-    - e.g., Skip-Gram, CBOW
-    - "You shall know a word by the company it keeps."
-    - Predict a word based on its context.
-    - **Skip-Gram**:
-        - Given a word, predict its surrounding words.
-        - Predict surrounding words of the target word.
-        - Fake task: Predict surrounding words.
-        - The actual task is to obtain the hidden layer in the middle as the representation.
-    - **CBOW**:
-        - Use surrounding words to predict the target word.
-        - Predict the target word using surrounding words.
-
-## 6. Contextual Semantics
-
-- **RNN**: Unidirectional
-    - Only captures context to the left.
-- **ELMo**: Bidirectional, i.e., BiLSTM
-    ![alt text](<img-en/ELMO-1.png>)
-    ![alt text](<img-en/ELMO-2.jpg>)
-    ![alt text](<img-en/EMLO-3.jpg>)
-    - ELMo uses character embeddings to generate word embeddings, allowing it to handle all words, including unseen ones.
-    - The final vector for each word in ELMo is formed by concatenating the hidden layers of the bidirectional LSTM and then applying specific weighting with the word vectors. (These weights $s_0, s_1, s_2$ can be fine-tuned based on the task.)
-    - **Lower Layer Representation** = captures syntax
-        (e.g., syntactic parsing, named entity recognition)
-    - **Higher Layer Representation** = captures semantics
-        (e.g., sentiment analysis, textual entailment)
 
 ## 7. BERT
 

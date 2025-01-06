@@ -2,7 +2,7 @@
 
 Reinforcement Learning is my favorite, but it is also the most difficult to understand compared to CV and NLP. I will skip POMDP for now, and focus on MDP in this note.
 
-- Most references come from COMP90051 AI Planning & Autonomy: https://gibberblot.github.io/rl-notes/index.html#
+- Most references come from COMP90051 AI Planning & Autonomy (University of Melbourne): https://gibberblot.github.io/rl-notes/index.html#
 - Some references come from Hugging Face RL Course: https://huggingface.co/learn/deep-rl-course/unit0/introduction
 - Starting from Policy Gradient, I recommend reading the classic RL book by Sutton and Barto.
 - Also some references from blogs on Zhihu and CSDN.
