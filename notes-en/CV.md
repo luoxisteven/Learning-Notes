@@ -493,7 +493,8 @@ instead of using Selective Search.
     - Some may have a smaller width and height.
 - Main idea: instead of going through multiple steps
 (region proposals, region classification), just predict
-a heatmap for each class directly in **`one CNN`**
+a heatmap for each class directly in **`one CNN`**.
+![alt text](img-en/yolo-v1-heat.png)
 
 ## Generative Adversarial Networks (GANs)
 ### Autoencoder
