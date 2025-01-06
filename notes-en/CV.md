@@ -246,7 +246,7 @@ faint/broken edges (thresholding with hysteresis)
         - The **`higher convoluational layers`** extract more **`complex, high-level`** features.
             - Examples: textures, object parts (like eyes or wheels), and eventually the whole object or even the context of the scene.
 
-        ![alt text](convolutional-layer.gif)
+        ![alt text](img-en/convolutional-layer.gif)
     - **Advantages**
         - Efficient – learns to recognize the same features anywhere in the image, with fewer parameters compared to fully-connected layer
         - Preserves spatial relations – output is an image with values indicating where features are present
