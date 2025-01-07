@@ -1,10 +1,9 @@
 ## Shortcut
-```
+```bash
 "Command + C" Copy 
 "Command + V" Paste 
 "Option + Command + V" Cut 
 "Command + Shift + ." Show hidden files
-
 ```
 
 

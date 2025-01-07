@@ -1,5 +1,5 @@
 ## 快捷键
-```
+```bash
 "Command + C" 复制
 "Command + V" 粘贴
 "Option + Command + V" 剪切
