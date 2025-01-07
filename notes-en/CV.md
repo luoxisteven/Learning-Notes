@@ -93,7 +93,7 @@ around the input pixel
     1 & 1 & 1
     \end{bmatrix}
     $$
-4. **Sobael Filter**
+4. **Sobel Filter**
     - Derivative Filter
     - Edge Detection
     1) **Gx**
