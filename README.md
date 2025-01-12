@@ -20,11 +20,11 @@
 3) **Machine Learning**
     - [Machine Learning Fundamentals](notes-en/Machine%20Learning.md)
     - [Reinforcement Learning](notes-en/Reinforcement%20Learning.md)
-    - [Computer Vision (Incomplete)](notes-en/CV.md)
-    - [Natural Language Processing (Incomplete)](notes-en/NLP.md)
+    - [Computer Vision](notes-en/CV.md)
+    - [Natural Language Processing](notes-en/NLP.md)
     - [LLM](notes-cn/LLM.md)
 4) **Finance**
-    - [Time Series Analysis (Incomplete)](notes-en/Time%20Series%20Analysis.md)
+    - [Time Series Analysis](notes-en/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
 5) [Others](notes-en/Others.md)

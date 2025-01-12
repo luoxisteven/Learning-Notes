@@ -197,8 +197,6 @@ faint/broken edges (thresholding with hysteresis)
     1) **Invariant** to translation, rotation, and changes in lighting.
     2) **Not invariant** to scale
 
-
-
 ## Convolutional Nuural Network
 
 ![alt text](img-en/CNN.png)
@@ -407,6 +405,20 @@ $$
     - **Step3:** Add a [class] token into the front ([0,*]) in the image, and finally with a shape of [196 + 1, 768] = [197, 768]
     - **Step4:** Positional Embedding (Similar to normal Transformer)
 - Others remains similar compared to normal Transformer. 
+
+## Image Features
+1) **Bag of features**
+![alt text](bag-of-features.png)
+    - Based on the method from NLP – represent a document using a histogram of word frequency 
+    - In an image, “words” are local features
+    - **Solution:** combine similar local features, e.g., with
+k-means clustering
+2) **Feature Detection**
+
+## Depth from stereo
+![alt text](depth-from-stereo.png)
+- Measure distance/depth with two parallel cameras
+- Hard to implement when light condition becomes worse
 
 ## Image Segmentation
 
