@@ -32,7 +32,120 @@ sorted(list)
 
 # 从大到小排序
 sorted(list, reverse=True)
+
+# 把list变成字符串
+list = []
+str = ''.join(list)
 ```
+
+## Stack
+- **Last In, First Out (LIFO)**
+    ```python
+    # Last In, First Out (LIFO) 
+    stack = []
+
+    # Push elements onto the stack
+    stack.append(1)
+    stack.append(2)
+    stack.append(3)
+
+    print("Stack after pushes:", stack)
+
+    # Pop elements from the stack
+    top = stack.pop()
+    print("Popped element:", top)
+    print("Stack after pop:", stack)
+
+    class Stack:
+        def __init__(self):
+            self.items = []
+
+        def push(self, item):
+            self.items.append(item)
+
+        def pop(self):
+            if not self.is_empty():
+                return self.items.pop()
+            raise IndexError("Pop from an empty stack")
+
+        def peek(self):
+            if not self.is_empty():
+                return self.items[-1]
+            raise IndexError("Peek from an empty stack")
+
+        def is_empty(self):
+            return len(self.items) == 0
+
+        def size(self):
+            return len(self.items)
+
+    # Example usage
+    stack = Stack()
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+
+    print("Top element:", stack.peek())
+    print("Stack size:", stack.size())
+
+    stack.pop()
+    print("Stack after pop:", stack.items)
+
+    ```
+
+## Queue
+-  **First In, First Out (FIFO)**
+    ```python
+    queue = []
+
+    # Enqueue elements
+    queue.append(1)
+    queue.append(2)
+    queue.append(3)
+
+    print("Queue after enqueues:", queue)
+
+    # Dequeue elements
+    front = queue.pop(0)
+    print("Dequeued element:", front)
+    print("Queue after dequeue:", queue)
+
+    class Queue:
+        def __init__(self):
+            self.items = []
+
+        def enqueue(self, item):
+            self.items.append(item)
+
+        def dequeue(self):
+            if not self.is_empty():
+                return self.items.pop(0)
+            raise IndexError("Dequeue from an empty queue")
+
+        def peek(self):
+            if not self.is_empty():
+                return self.items[0]
+            raise IndexError("Peek from an empty queue")
+
+        def is_empty(self):
+            return len(self.items) == 0
+
+        def size(self):
+            return len(self.items)
+
+    # Example usage
+    queue = Queue()
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+
+    print("Front element:", queue.peek())
+    print("Queue size:", queue.size())
+
+    queue.dequeue()
+    print("Queue after dequeue:", queue.items)
+
+    ```
 
 
 ## Is Subsequence (按顺序的子字符串)
