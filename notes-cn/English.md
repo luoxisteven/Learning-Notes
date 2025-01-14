@@ -67,6 +67,110 @@ https://zhuanlan.zhihu.com/p/166221321
 - What she has is nothing but money.  
 - How they got separated is a serious problem they need to rethink.
 
+## 现在分词作后置定语
+I also host a personal website xiluo.net **sharing** some blogs and having a personal chatbot to answer any query about me.
+
+
+## 关于 "any" 后面加单数还是复数
+
+**"any"** 后面既可以接单数名词，也可以接复数名词，具体要根据语境来决定。
+
+#### 1. **"any" + 单数名词**
+- 通常用于强调**任何一个**具体的事物。
+- 适用场景：表示一种单一的、不限定的选择。
+- 示例：
+  - Do you have any question? （你有任何一个问题吗？）
+  - You can pick any book from the shelf. （你可以从书架上选任意一本书。）
+
+#### 2. **"any" + 复数名词**
+- 通常用于强调**任何一些**事物，可能包含多个选项。
+- 适用场景：更广泛地指代某类事物，而非单一的一个。
+- 示例：
+  - Do you have any questions? （你有任何问题吗？）
+  - I couldn’t find any answers in the book. （我在书中找不到任何答案。）
+
+#### 在你的句子中：
+**"to answer any query about me"** 和 **"to answer any queries about me"** 都是正确的：
+- **"any query"**：更正式，强调单一的可能性。
+- **"any queries"**：更常见，指多个可能性，更符合日常表达。
+
+#### 推荐：
+根据句子上下文，**"any queries"** 更自然，因为提到“关于我的问题”时，通常是可能涉及多个问题的场景。
+
+
+## What are you surprised at?
+"What are you surprising at?" 是不符合英语语法规则的，存在问题。
+
+错误分析：
+"surprising" 是一个主动语态的现在分词或形容词，表示“令人惊讶的”。但在这个句子中，描述的是主语 you 的情绪或状态，应该用 "surprised"（被动语态的形容词）来表示“感到惊讶”。
+
+"surprising" 用于描述某事令人惊讶，而不是某人感到惊讶。
+"at" 的用法虽然可以搭配 "surprised"，但需要正确的句式，比如 "What are you surprised at?"
+
+正确的表达应该是：
+
+"What are you surprised at?"
+
+翻译：你对什么感到惊讶？
+
+
+## **I just simply sowed as many seeds as I could.**
+
+#### **句子**
+I just simply sowed as many seeds as I could.
+
+---
+
+### **句子结构**
+1. **主语 (Subject)**：
+   - **I**  
+     这是句子的主语，表示动作的执行者。
+
+2. **谓语 (Verb Phrase)**：
+   - **just simply sowed**  
+     - **just** 和 **simply** 是副词，用于修饰动词 **sowed**，表示“只是/仅仅/简单地”。
+     - **sowed** 是动词，过去式，表示动作“播种”。
+
+3. **宾语 (Object)**：
+   - **as many seeds as I could**  
+     这是宾语，从句结构如下：
+     - **as many seeds as I could** 是一个比较从句，表示“我能播种的尽可能多的种子”。  
+     - **seeds** 是宾语的中心词。  
+     - **as...as** 是比较结构，表示程度上的比较。
+
+4. **从句 (Embedded Clause)**：
+   - **as I could**  
+     这是一个省略了动词补足成分的比较从句。完整形式为 **as many seeds as I could sow**，其中 **sow** 被省略，因为上下文已经清楚。
+
+---
+
+### **语法结构层级**
+- **主句**：  
+  - **I (主语) + sowed (谓语) + as many seeds as I could (宾语)**  
+
+- **宾语从句**：  
+  - **as many seeds (比较结构) + as I could (比较从句)**  
+
+---
+
+### **语法知识点**
+1. **副词修饰动词：**  
+   - **just** 和 **simply** 修饰 **sowed**，强调动作的简单和随意性。  
+     如果想更简洁，可以选择一个副词，例如：
+     - "I simply sowed as many seeds as I could."
+
+2. **比较结构 (as...as...)：**  
+   - **as many seeds as I could** 表示“尽可能多的种子”。  
+   - **as...as** 表示程度相等。
+
+3. **省略：**  
+   - 从句 **as I could** 中省略了 **sow**，因为主句的动词已经表明了动作的具体内容。
+
+---
+
+### **总结**
+这是一个主句加宾语从句的复合句，结构简单，但通过副词和比较从句让句子更生动形象。
+
 
 ## when you are on the beach 和 at the beach以及when you go to the beach 有什么不同
 

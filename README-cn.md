@@ -29,3 +29,4 @@
 
 5) [Others](notes-en/Others.md)
 6) [Thoughts](notes-en/Thoughts.md)
+7) [English](notes-cn/English.md)

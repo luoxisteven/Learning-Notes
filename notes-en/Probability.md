@@ -18,7 +18,7 @@
    $$
 
 4. **Independent Events**:
-   When \( A \) and \( B \) are independent:
+   When $ A $ and $ B $ are independent:
    $$
    P(AB) = P(A) \times P(B)
    $$
@@ -27,8 +27,8 @@
 
 # Permutations and Combinations
 
-- **Ordered**: Use \( A \) (Permutations)
-- **Unordered**: Use \( C \) (Combinations)
+- **Ordered**: Use $ A $ (Permutations)
+- **Unordered**: Use $ C $ (Combinations)
 
 ### Formulas:
 1. **Permutations**:
@@ -63,16 +63,16 @@
 
 ### Steps:
 1. Calculate total arrangements for the dance performances:
-   - \( 4! = 4 \times 3 \times 2 \times 1 = 24 \)
+   - \( 4! = 4 \times 3 \times 2 \times 1 = 24 $
 
 2. Place the 4 dance performances in order, leaving 5 available slots:  
    \[ _ D _ D _ D _ D _ \]
 
 3. Choose 2 slots from the 5 available slots for the singing performances:
-   - \( 5C2 = \frac{5 \times 4}{2 \times 1} = 10 \)
+   - $ 5C2 = \frac{5 \times 4}{2 \times 1} = 10 $
 
 4. Arrange the 2 singing performances in the chosen slots:
-   - \( 2! = 2 \times 1 = 2 \)
+   - $ 2! = 2 \times 1 = 2 $
 
 5. Total arrangements:
    $$
