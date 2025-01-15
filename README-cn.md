@@ -20,11 +20,11 @@
 3) **Machine Learning**
     - [机器学习基础](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
-    - [计算机视觉 (Incomplete)](notes-cn/CV.md)
-    - [自然语言处理 （Incomplete)](notes-cn/NLP.md)
+    - [计算机视觉](notes-cn/CV.md)
+    - [自然语言处理](notes-cn/NLP.md)
     - [大语言模型](notes-cn/LLM.md)
 4) **Finance**
-    - [时间序列分析 (Pending)](notes-cn/Time%20Series%20Analysis.md)
+    - [时间序列分析](notes-cn/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
 5) [Others](notes-en/Others.md)
