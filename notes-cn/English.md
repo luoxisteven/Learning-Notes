@@ -29,7 +29,6 @@ https://zhuanlan.zhihu.com/p/166221321
 3. **表变化**：become, grow, turn, go, get, fall  
 4. **表状态**：remain, keep, hold, stay, seem  
 
-
 ## 主语 (Subject)
 ### 1. 名词/代词/数词做主语
 - 示例：
@@ -66,6 +65,14 @@ https://zhuanlan.zhihu.com/p/166221321
 - Whether she will keep it a secret is unknown to us all.  
 - What she has is nothing but money.  
 - How they got separated is a serious problem they need to rethink.
+
+## I end up doing this job.
+
+### 句子结构分析
+- I (主语)：表示句子的执行者。
+- end up (谓语动词短语)：是一个固定短语动词，表示“最终”或“结果是”。
+- doing this job (宾语，动名词短语)：作为 end up 的补充说明，表示“做这份工作”这一动作。
+
 
 ## 现在分词作后置定语
 I also host a personal website xiluo.net **sharing** some blogs and having a personal chatbot to answer any query about me.
@@ -120,6 +127,7 @@ I also host a personal website xiluo.net **sharing** some blogs and having a per
 I just simply sowed as many seeds as I could.
 
 ---
+
 
 ### **句子结构**
 1. **主语 (Subject)**：

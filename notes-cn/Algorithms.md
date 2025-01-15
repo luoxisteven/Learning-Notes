@@ -16,9 +16,102 @@
 | 基数排序   | O(n * k)       | O(n * k)    | O(n * k)    | O(n + k)   | 内排序   | 稳定   |
 
 
-## 模拟退火
-- 基于爬山算法，爬山算法只有是凸函数才有可能找到最优，不然的话会陷入局部最优。
-- 而模拟退火在进入某个最优的时候，会有一定概率跳出最优寻找其他点位，从而跳出局部最优。这个概率是衰竭的，在一次一次跳出后，衰竭为0。
+### 冒泡排序 Bubble Sort
+- Bubble Sort is an algorithm that sorts an array from the lowest value to the highest value.
+- 冒泡排序通过多次相邻元素的比较和交换，将未排序部分中的最大或最小值“冒泡”到数组的一端。
+
+    ![alt text](img-cn/bubble-sort.gif)
+    ```python
+    def bubble_sort(num_list):
+        for a in range(len(num_list) - 1):
+            # 每次都把最大的推到最前面
+            for b in range(len(num_list) - a - 1):
+                if num_list[b] > num_list[b+1]:
+                    num_list[b], num_list[b+1] = num_list[b+1], num_list[b]
+        return num_list
+    ```
+
+
+### 选择排序 Selection Sort
+- The Selection Sort algorithm finds the lowest value in an array and moves it to the front of the array.
+- 选择排序通过在未排序部分中找到最小或最大的元素，并将其放到排序部分的末尾或开头。
+
+    ![alt text](img-cn/selection-sort.gif)
+    ```python
+    def selection_sort(num_list):
+        for a in range(len(num_list) - 1):
+            min_num = num_list[a]
+            idx = a
+            # 找到每次迭代中最小的
+            for b in range(a + 1, len(num_list)):
+                if num_list[b] < min_num:
+                    min_num = num_list[b]
+                    idx = b
+            # 放在这个位置
+            num_list[a], num_list[idx] = num_list[idx], num_list[a]
+        return num_list
+    ```
+
+### 插入排序 Insertion Sort
+- The Insertion Sort algorithm uses one part of the array to hold the sorted values, and the other part of the array to hold values that are not sorted yet.
+
+    ![alt text](img-cn/insertion-sort.gif)
+    ```python
+    def insertion_sort(num_list):
+        for a in range(1, len(num_list)):
+            for b in range(a, 0, -1):
+                if num_list[b] < num_list[b-1]:
+                    num_list[b], num_list[b-1] = num_list[b-1], num_list[b]
+                else:
+                    break
+        return num_list
+    ```
+
+### 希尔排序 Shell Sort
+
+### 归并算法 Merge Sort
+- 分而治之 Divide and Conquer
+- Step1: Divide 阶段把划分到最小
+- Step2: Conquer 阶段使用 **双指针法** 或 **两路归并算法**
+    - 输入：两个已经排序的子数组。
+    - 输出：将两个子数组合并成一个排序后的数组。
+    - 算法思想：
+        - 使用两个指针分别指向两个子数组的起始位置。
+        - 比较两个指针所指的元素，将较小的元素加入结果数组，并移动对应指针。
+        - 如果其中一个子数组的所有元素都已经被处理完，直接将另一个子数组的剩余部分追加到结果数组。
+- Step3: 递归返回Step1
+
+![alt text](img-cn/merge-sort.png)
+```python
+def merge_sort(num_list):
+    def conquer(num_list1, num_list2):
+        left = 0
+        right = 0
+        num_list = []
+        while left < len(num_list1) and right < len(num_list2):
+            if num_list1[left] <= num_list2[right]:
+                num_list.append(num_list1[left])
+                left += 1
+            else:
+                num_list.append(num_list2[right])
+                right += 1
+        if left < len(num_list1):
+            num_list += num_list1[left:]
+        if right < len(num_list2):
+            num_list += num_list2[right:]
+        return num_list
+    
+    def divide(num_list):
+        if len(num_list) == 1:
+            return num_list
+        else:
+            return conquer(divide(num_list[:len(num_list)//2]), divide(num_list[len(num_list)//2: len(num_list)]))
+    
+    return divide(num_list)
+```
+
+## 快速排序 Quick Sort
+![alt text](img-cn/quick-sort.png)
 
 ## Python
 ```python
@@ -177,3 +270,7 @@ dict[i] = dict.get(i,0) + 1
 
 ## 双指针
 https://zhuanlan.zhihu.com/p/657981698
+
+## 模拟退火
+- 基于爬山算法，爬山算法只有是凸函数才有可能找到最优，不然的话会陷入局部最优。
+- 而模拟退火在进入某个最优的时候，会有一定概率跳出最优寻找其他点位，从而跳出局部最优。这个概率是衰竭的，在一次一次跳出后，衰竭为0。
