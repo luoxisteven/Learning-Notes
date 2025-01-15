@@ -4,7 +4,6 @@
 - I take notes in an IDE like VS Code and then upload them to the GitHub repository above.
 - In order to keep everything up to date, the newest version of the notes will be automatically pulled from the link above at scheduled times every day and **`continuously integrated and deployed (CI/CD)`** into the backend of the website through **`crontab`** .
 
-
 ## Table of Contents
 1) **Maths**
     - [A/B Test](notes-en/AB%20Test.md)

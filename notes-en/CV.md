@@ -408,7 +408,7 @@ $$
 
 ## Image Features
 1) **Bag of features**
-![alt text](bag-of-features.png)
+![alt text](img-en/bag-of-features.png)
     - Based on the method from NLP – represent a document using a histogram of word frequency 
     - In an image, “words” are local features
     - **Solution:** combine similar local features, e.g., with
@@ -416,7 +416,7 @@ k-means clustering
 2) **Feature Detection**
 
 ## Depth from stereo
-![alt text](depth-from-stereo.png)
+![alt text](img-en/depth-from-stereo.png)
 - Measure distance/depth with two parallel cameras
 - Hard to implement when light condition becomes worse
 

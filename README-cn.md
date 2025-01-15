@@ -26,7 +26,6 @@
 4) **Finance**
     - [时间序列分析](notes-cn/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
-
 5) [Others](notes-en/Others.md)
 6) [Thoughts](notes-en/Thoughts.md)
 7) [English](notes-cn/English.md)
