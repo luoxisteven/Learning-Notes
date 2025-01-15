@@ -15,6 +15,7 @@
 | 桶排序     | O(n + k)       | O(n + k)    | O(n²)       | O(n + k)   | 外排序   | 稳定   |
 | 基数排序   | O(n * k)       | O(n * k)    | O(n * k)    | O(n + k)   | 内排序   | 稳定   |
 
+---
 
 ### 冒泡排序 Bubble Sort
 - Bubble Sort is an algorithm that sorts an array from the lowest value to the highest value.
