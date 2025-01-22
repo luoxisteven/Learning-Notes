@@ -9,6 +9,7 @@
     - [A/B 测试](notes-cn/AB%20Test.md)
     - [统计学](notes-cn/Statistics.md)
     - [概率论](notes-cn/Probability.md)
+
 2) **Computer Science**
     - [Java](notes-cn/Java.md)
     - [SQL](notes-cn/SQL.md)
@@ -17,12 +18,14 @@
     - [算法](notes-cn/Algorithms.md)
     - [全栈开发](notes-cn/Full-stack.md)
     - [操作系统](http://staff.ustc.edu.cn/~ykli/os2024/index.html)
+
 3) **Machine Learning**
     - [机器学习基础](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
     - [计算机视觉](notes-cn/CV.md)
     - [自然语言处理](notes-cn/NLP.md)
     - [大语言模型](notes-cn/LLM.md)
+
 4) **Finance**
     - [时间序列分析](notes-cn/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)

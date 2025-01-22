@@ -331,6 +331,50 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
     Source: 0.0.0.0/0, :/0 (include both ipv4 and ipv6)
 ```
 
+## Ngix Installing
+```bash
+# Install
+sudo apt install nginx
+
+# Run
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Auth
+sudo chown -R ubuntu:ubuntu /etc/nginx
+
+# Create "/etc/nginx/sites-available/example"
+server {
+    listen 80;
+    server_name example.com;
+
+    root /var/www/example;
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock; # 根据你的 PHP 版本调整
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+# Link
+sudo ln -s /etc/nginx/sites-available/example /etc/nginx/sites-enabled/
+
+# Check and test
+sudo nginx -t
+sudo systemctl reload nginx
+
+# Going back to deployment, and copy react build to /var/html
+```
+
 ## Background Running
 ```bash
 # Remember to activate the environment
@@ -350,19 +394,80 @@ ubuntu 457123 ...
 ubuntu 457124 ...
 # Then terminate the processes
 kill 457123 457124
-
 ```
 
 ## HTTPS SSL Certificate Installation
 ```bash
-# Install SSL certificate
+# Install SSL certificate (Apache, nginx)
 sudo apt install certbot python3-certbot-apache -y
+sudo apt install certbot python3-certbot-nginx
 
 # Configure certbot
 sudo certbot --apache
 sudo certbot --nginx
 ```
-## Configure www
+
+## SSL Nginx
+```bash
+# /etc/nginx/sites-available/xiluo.net
+server {
+    listen 80;
+    server_name xiluo.net www.xiluo.net;
+
+    # Redirect all HTTP traffic to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name xiluo.net www.xiluo.net;
+
+    root /var/www/html;
+    index index.html;
+
+    # Placeholder SSL config (to be replaced by Certbot)
+    ssl_certificate /etc/ssl/certs/placeholder-cert.pem;
+    ssl_certificate_key /etc/ssl/private/placeholder-key.pem;
+
+    location / {
+        try_files $uri /index.html;
+    }
+}
+
+# Link two folders
+sudo ln -s /etc/nginx/sites-available/xiluo.net /etc/nginx/sites-enabled/
+
+# This may needs to delete some files
+sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/example
+
+# Certbot
+sudo apt install certbot
+
+# 还需要把/etc/nginx/sites-available/xiluo.net的
+把listen 443 ssl; 修改为 listen 443;
+
+ssl_certificate /etc/letsencrypt/live/xiluo.net/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/xiluo.net/privkey.pem;
+# 注释掉
+
+# Restart
+sudo nginx -t
+
+# 配置certbot
+sudo certbot certonly --nginx -d xiluo.net -d www.xiluo.net
+
+# Restart
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+# 自动续期
+sudo certbot renew --dry-run
+```
+
+
+## Configure www (Apache 2)
 - First, configure Type A, Host: www and @, and Value as your IP address.
 - Create`xiluo.net.conf`
     ```bash
@@ -389,89 +494,94 @@ sudo certbot --nginx
     sudo systemctl reload apache2
     ```
 
-    ## Configure Routes
-    - Get file modification permissions
-        ```bash
-        sudo chown ubuntu:ubuntu /etc/apache2/sites-available/
-        ```
-    - !Important: Ensure other `.conf` files (except xiluo.net.conf) are deleted
-    -  Modify the `/etc/apache2/sites-available/xiluo.net.conf` file:
-        ```apache
-        <VirtualHost *:80>
-            ServerName xiluo.net
-            ServerAlias www.xiluo.net
-            DocumentRoot /var/www/html
+## Configure Routes
+- Get file modification permissions
+    ```bash
+    sudo chown ubuntu:ubuntu /etc/apache2/sites-available/
+    ```
+- !Important: Ensure other `.conf` files (except xiluo.net.conf) are deleted
+-  Modify the `/etc/apache2/sites-available/xiluo.net.conf` file:
+    ```apache
+    <VirtualHost *:80>
+        ServerName xiluo.net
+        ServerAlias www.xiluo.net
+        DocumentRoot /var/www/html
 
-            # Redirect HTTP to HTTPS
+        # Redirect HTTP to HTTPS
+        RewriteEngine On
+        RewriteCond %{SERVER_NAME} =xiluo.net [OR]
+        RewriteCond %{SERVER_NAME} =www.xiluo.net
+        RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+    </VirtualHost>
+
+    <VirtualHost *:443>
+        ServerName xiluo.net
+        ServerAlias www.xiluo.net
+        DocumentRoot /var/www/html
+
+        # Enable SSL
+        SSLEngine On
+        SSLCertificateFile /etc/letsencrypt/live/xiluo.net/fullchain.pem
+        SSLCertificateKeyFile /etc/letsencrypt/live/xiluo.net/privkey.pem
+        Include /etc/letsencrypt/options-ssl-apache.conf
+
+        # Allow React's front-end routing
+        <Directory /var/www/html>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+
+            # Redirect all unknown routes to index.html
             RewriteEngine On
-            RewriteCond %{SERVER_NAME} =xiluo.net [OR]
-            RewriteCond %{SERVER_NAME} =www.xiluo.net
-            RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-        </VirtualHost>
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule ^ /index.html [L]
+        </Directory>
 
-        <VirtualHost *:443>
-            ServerName xiluo.net
-            ServerAlias www.xiluo.net
-            DocumentRoot /var/www/html
+        # Optional: Cache static files for performance
+        <IfModule mod_headers.c>
+            <FilesMatch "\.(js|css|html|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|json)$">
+                Header set Cache-Control "max-age=31536000, public"
+            </FilesMatch>
+        </IfModule>
+    </VirtualHost>
 
-            # Enable SSL
-            SSLEngine On
-            SSLCertificateFile /etc/letsencrypt/live/xiluo.net/fullchain.pem
-            SSLCertificateKeyFile /etc/letsencrypt/live/xiluo.net/privkey.pem
-            Include /etc/letsencrypt/options-ssl-apache.conf
+    ```
+- !Important: Ensure other .conf files (except xiluo.net.conf) are deleted
+- https django
+    ```bash
+    pip install django-extensions
+    pip install Werkzeug
+    pip install pyOpenSSL
 
-            # Allow React's front-end routing
-            <Directory /var/www/html>
-                Options Indexes FollowSymLinks
-                AllowOverride All
-                Require all granted
+    # Set settings.py
+    INSTALLED_APPS = [
+    'corsheaders',
+    'django_extensions',
+    ...
+    ]
 
-                # Redirect all unknown routes to index.html
-                RewriteEngine On
-                RewriteCond %{REQUEST_FILENAME} !-f
-                RewriteCond %{REQUEST_FILENAME} !-d
-                RewriteRule ^ /index.html [L]
-            </Directory>
+    # Change permissions for these PEM files first
+    sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/privkey.pem
+    sudo chmod 640 /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-            # Optional: Cache static files for performance
-            <IfModule mod_headers.c>
-                <FilesMatch "\.(js|css|html|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|json)$">
-                    Header set Cache-Control "max-age=31536000, public"
-                </FilesMatch>
-            </IfModule>
-        </VirtualHost>
+    sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/fullchain.pem
+    sudo chmod 640 /etc/letsencrypt/live/xiluo.net/fullchain.pem
 
-        ```
-    - !Important: Ensure other .conf files (except xiluo.net.conf) are deleted
-    - https django
-        ```bash
-        pip install django-extensions
-        pip install Werkzeug
-        pip install pyOpenSSL
+    python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-        # Set settings.py
-        INSTALLED_APPS = [
-        'corsheaders',
-        'django_extensions',
-        ...
-        ]
-    
-        # Change permissions for these PEM files first
-        sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/privkey.pem
-        sudo chmod 640 /etc/letsencrypt/live/xiluo.net/privkey.pem
+    # Finally, use nohup
+    nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
 
-        sudo chown root:ubuntu /etc/letsencrypt/live/xiluo.net/fullchain.pem
-        sudo chmod 640 /etc/letsencrypt/live/xiluo.net/fullchain.pem
+    # Check who is using port 8000
+    lsof -i :8000
+    ```
 
-        python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
-
-        # Finally, use nohup
-        nohup python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file /etc/letsencrypt/live/xiluo.net/fullchain.pem --key-file /etc/letsencrypt/live/xiluo.net/privkey.pem
-
-        # Check who is using port 8000
-        lsof -i :8000
-        ```
-    
 ## Network Security
 - Consider Cloudflare
 ![alt text](img-en/Nginx-RateLimiting.png)
+
+## 防火墙denial
+```bash
+sudo ufw status numbered
+```
