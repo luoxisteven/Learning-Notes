@@ -68,7 +68,6 @@
         return num_list
     ```
 
-### 希尔排序 Shell Sort
 
 ### 归并算法 Merge Sort
 - 分而治之 Divide and Conquer
@@ -112,7 +111,26 @@ def merge_sort(num_list):
 ```
 
 ## 快速排序 Quick Sort
+![alt text](img-cn/quick-sort.gif)
 ![alt text](img-cn/quick-sort.png)
+``` python
+def quick_sort(num_list):
+    if len(num_list) == 0:
+        return []
+    pivot_num = num_list[len(num_list)//2]
+    larger = []
+    smaller = []
+    pivot = []
+    for num in num_list:
+        if num > pivot_num:
+            larger.append(num)
+        elif num < pivot_num:
+            smaller.append(num)
+        else:
+            pivot.append(num)
+    return quick_sort(smaller) + pivot + quick_sort(larger)
+```
+
 
 ## Python
 ```python
@@ -271,6 +289,12 @@ dict[i] = dict.get(i,0) + 1
 
 ## 双指针
 https://zhuanlan.zhihu.com/p/657981698
+
+## Hash 哈希
+- key -> index 
+    - index = hash_value % table_size (取模运算，得到余数)
+    - 哈希表的大小范围 [0, table_size-1]
+    
 
 ## 模拟退火
 - 基于爬山算法，爬山算法只有是凸函数才有可能找到最优，不然的话会陷入局部最优。

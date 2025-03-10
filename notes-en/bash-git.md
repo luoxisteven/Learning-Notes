@@ -1,5 +1,5 @@
 ## Shortcut
-```bash
+``` bash
 "Command + C" Copy 
 "Command + V" Paste 
 "Option + Command + V" Cut 
@@ -9,6 +9,9 @@
 
 ## Terminal
 ```bash
+# For " " in filename
+cd Coding\ Questions
+
 # Display current path
 pwd
 
@@ -75,6 +78,8 @@ git log
 git reset --hard "commit_id"
 # Example:
 git reset --hard 71181c3bb0d4c5701dbfead5c531875bc8754130
+# Step 4 删除那些未跟踪的文件
+git clean -fd
 
 # If force reset doesn’t work, try:
 git fetch --all

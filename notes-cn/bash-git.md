@@ -6,8 +6,11 @@
 "Command + Shift + ." 查看隐藏文件
 ```
 
-## Terminalß
+## Terminal
 ```bash
+# 当在终端里进入带有空格的文件夹，需要加上"\"转义符
+cd Coding\ Questions
+
 # 显示目前路径
 pwd
 
@@ -73,6 +76,8 @@ git log
 git reset --hard "commit_id"
 # 例如
 git reset --hard 71181c3bb0d4c5701dbfead5c531875bc8754130
+# Step 4 删除那些未跟踪的文件
+git clean -fd
 
 # 如果强制回滚不行试试
 git fetch --all

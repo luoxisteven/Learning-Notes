@@ -28,6 +28,12 @@ npm rum build
 
 ### 2) React
 ```bash
+# 推荐使用vite创建
+npm create vite@latest my-react-app
+# npm install预先安装
+cd my-react-app
+npm install
+
 # Create app
 npx create-react-app <my-app>
 # Run
@@ -44,7 +50,14 @@ https://blog.csdn.net/weixin_46768610/article/details/124358392
 https://blog.csdn.net/qq_40036754/article/details/102463099
 
 
-### 1) Springboot
+### 1) Node.js
+``` JavaScript
+// 初始化
+npm init -y
+// 安装Express
+npm install express
+
+```
 
 ### 2) Django
 https://blog.csdn.net/Ans_min/article/details/123146335
@@ -518,7 +531,6 @@ sudo cp /etc/letsencrypt/archive/xiluo.net/privkey1.pem ~/Personal-Website/djang
 sudo chmod 600 ~/Personal-Website/django_back/fullchain.pem ~/Personal-Website/django_back/privkey.pem
 
 python3 manage.py runserver_plus 0.0.0.0:8000 --cert-file ~/Personal-Website/django_back/fullchain.pem --key-file ~/Personal-Website/django_back/privkey.pem
-
 ```
 
 ## 配置WWW

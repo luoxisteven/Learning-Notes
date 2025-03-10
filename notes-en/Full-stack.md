@@ -28,6 +28,12 @@ npm rum build
 
 ### 2) React
 ```bash
+# Recommend: vit 
+npm create vite@latest my-react-app
+# npm install 
+cd my-react-app
+npm install
+
 # Create app
 npx create-react-app <my-app>
 # Run
@@ -38,7 +44,14 @@ npm rum build
 
 ## Backend
 
-### 1) Springboot
+### 1) Node.js
+``` JavaScript
+// Init
+npm init -y
+// Install Express
+npm install express
+
+```
 
 ### 2) Django
 https://blog.csdn.net/Ans_min/article/details/123146335
@@ -580,8 +593,3 @@ sudo certbot renew --dry-run
 ## Network Security
 - Consider Cloudflare
 ![alt text](img-en/Nginx-RateLimiting.png)
-
-## 防火墙denial
-```bash
-sudo ufw status numbered
-```
