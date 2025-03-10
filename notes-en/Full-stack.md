@@ -50,7 +50,6 @@ npm rum build
 npm init -y
 // Install Express
 npm install express
-
 ```
 
 ### 2) Django
@@ -73,13 +72,13 @@ https://blog.csdn.net/Ans_min/article/details/123146335
     ```
 
 - #### **Build Project**
-    ```bash
+    ``` bash
     django-admin startproject <myproject_name>
     cd myproject
     python manage.py startapp <myapp_name>
     ```
 - #### **Build App**
-    ```
+    ``` bash
     Step 1:
     python manage.py startapp <app_name>
 
@@ -90,17 +89,17 @@ https://blog.csdn.net/Ans_min/article/details/123146335
     ```
 
 - #### **Build API**
-    ```
+    ``` bash
     register views functions in urls.py
     ```
 
 - #### **Run**
-    ```bash
+    ``` bash
     python manage.py runserver
     ```
 
 - #### **Layout**
-    ```
+    ```bash
     django_study_demo
     │─ manage.py            【Project management script, do not modify, e.g., start, create app, database management, etc.】
     └─ django_study_demo    【Folder with the same name as the project】
@@ -345,7 +344,7 @@ scp -i /path/to/your-key.pem -r /path/to/your/project/dist/* ubuntu@your-ec2-ip:
 ```
 
 ## Ngix Installing
-```bash
+``` bash
 # Install
 sudo apt install nginx
 

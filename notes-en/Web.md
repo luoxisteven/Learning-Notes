@@ -594,8 +594,6 @@ function App() {
 ### Redux
 - Store Global State
 
-
-
 ## GraphQL 
 GrapghQL is similar to database. GraphQL has schema, datatype, and query.
 - https://blog.csdn.net/qq_41882147/article/details/82966783
@@ -603,7 +601,6 @@ GrapghQL is similar to database. GraphQL has schema, datatype, and query.
 - Schema: Define the data desciprtion. Define each dataname stands for.
 - DataType, Query
 
-## PH
 
 ## .NET
 ``` bash
