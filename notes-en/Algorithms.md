@@ -114,7 +114,7 @@ def merge_sort(num_list):
 def quick_sort(num_list):
     if len(num_list) == 0:
         return []
-    pivot_num = num_list[int(len(num_list)/2)]
+    pivot_num = num_list[len(num_list)//2]
     larger = []
     smaller = []
     pivot = []
