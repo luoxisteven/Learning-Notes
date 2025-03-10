@@ -15,7 +15,7 @@
 8) **Close Connection or Continue: Depends on the request Headers**
 
 ## 注释 Comments
-```
+``` bash
 // HTML
 <!-- abcdefg -->
 
@@ -183,7 +183,6 @@ nodeValue: 返回节点的值（对于文本节点和注释节点）
       p#intro {
         /* 选择特定 id 的 <p> */
       }
-
       ```
 
 ### Position 位置
