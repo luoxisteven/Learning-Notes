@@ -1,7 +1,5 @@
 # Python
 
-# Python
-
 ## General
 ``` python
 # Define your interpreter
