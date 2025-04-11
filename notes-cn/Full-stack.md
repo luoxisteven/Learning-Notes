@@ -217,11 +217,21 @@ https://blog.csdn.net/Ans_min/article/details/123146335
 - #### Create and Run
     ```bash
     # 创建项目
+    dotnet new web -n <MyApp Name>
     dotnet new console -o <MyApp Name>
+
     # 运行.Net
     cd <MyApp Name>
     dotnet run
     ```
+
+- Dependency Injection - Services
+| Lifetime    | Instance Creation        | Scope               | Best For                                 |
+|-------------|--------------------------|---------------------|------------------------------------------|
+| Singleton   | Once per application     | Entire application  | Stateless, shared resources, caching     |
+| Scoped      | Once per HTTP request    | Current HTTP request| Per-request state, DbContext             |
+| Transient   | Every time requested     | Only when used      | Lightweight, stateless services          |
+| Hosted      | Once at application start| Runs independently  | Background processing                    |
 
 ### 4) Node.js
 https://blog.csdn.net/m0_67844671/article/details/133278228

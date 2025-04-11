@@ -59,13 +59,22 @@ git push -u origin main
 
 ### 2) Pull 回滚
 ``` bash
+# Pull最新的
+git pull origin main
+
+# 切换分支
+# 把现有修改都删掉
+git restore .
+# or 把现有修改都保存
+git stash
+# 用于切换分支或恢复文件状态的命令
+git checkout feature-branch  # 切换到 feature-branch 分支
+
 # Pull 从远程仓库获取最新的更改，并与本地分支进行合并。
 # 它相当于执行了两个操作的组合：
 # git fetch（从远程仓库获取最新的更新）和 git merge（将这些更新合并到当前分支）。
-git pull origin main  # 从远程仓库的 main 分支拉取最新更改并合并
+git pull origin feature-branch  # 从远程仓库的 feature-branch 分支拉取最新更改并合并
 
-# 用于切换分支或恢复文件状态的命令
-git checkout feature-branch  # 切换到 feature-branch 分支
 
 # 强制回滚
 # Step 1 切换到分支
@@ -134,3 +143,7 @@ pip freeze | sed 's/==.*//' > requirements.txt
 # Install requirements
 pip install -r requirements.txt
 ```
+### 8) 重做gitignore
+```bash
+git rm -r --cached .
+git add .

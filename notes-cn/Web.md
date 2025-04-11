@@ -152,6 +152,12 @@ nodeValue: 返回节点的值（对于文本节点和注释节点）
 ## CSS
 ![alt text](img-cn/css.png)
 
+### Tricks
+``` css
+/* top and bottom is zero, and left and right are auto (middle) */
+margin: 0 auto
+```
+
 ### CSS Syntax
   1) tag selector
   2) id selector

@@ -66,6 +66,12 @@ git push -u origin main
 # git fetch (fetch updates) + git merge (merge updates).
 git pull origin main  # Pull and merge changes from the main branch
 
+# Discard all 
+git restore .
+
+# Save all
+git stash
+
 # Commands for switching branches or restoring file states
 git checkout feature-branch  # Switch to the feature-branch branch
 
@@ -138,7 +144,8 @@ pip install -r requirements.txt
 ```
 
 
-### 8) gitignore
+### 8) Redo gitignore
 ```bash
 git rm -r --cached .
+git add .
 ```
