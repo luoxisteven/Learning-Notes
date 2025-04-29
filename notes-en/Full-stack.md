@@ -600,4 +600,3 @@ sudo certbot renew --dry-run
 
 ## Network Security
 - Consider Cloudflare
-![alt text](img-en/Nginx-RateLimiting.png)

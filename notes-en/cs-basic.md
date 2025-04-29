@@ -2,11 +2,62 @@
 
 - [Internet Technology](#internet-technology)
 - [Database](#database)
+- [Operating Systems](#operating-systems)
 
 ## Internet Technology
-https://zhuanlan.zhihu.com/p/147370653
+Refrence Website: 
+1) https://zhuanlan.zhihu.com/p/147370653
+2) https://blog.csdn.net/qq_46101869/article/details/118108697
 
-![alt text](img-cn/osi-tcpip.png)
+
+![alt text](img-en/osi-tcpip.png)
+
+## OSI (8 Layer)
+- **Physical Layer**
+- **Data Link Layer**
+- **Network Layer**
+- **Transport Layer**
+- **Session Layer**
+- **Presentation Layer**
+- **Application Layer**
+
+### Data Link Layer
+
+- Implements data transfer between neighboring network entities
+- Framing: Extracts complete frames from the bitstream of the physical layer
+- Error detection and correction: Provides potential for reliable data communication
+- Physical address (MAC address): 48 bits, theoretically unique network identifier, hardcoded in the network card, difficult to change
+- Flow control, avoiding "overwhelming": When a fast sender meets a slow receiver, the receiver’s buffer may overflow
+- Access control on shared channels (MAC): When multiple devices on the same Wi-Fi hotspot (AP) need to transmit data simultaneously, how to control the order of transmission?
+
+### Network Layer
+
+- Transmits data packets across networks from source device to destination device (host to host)
+- Routing: Selects the forwarding path from the source to the destination in the network, often dynamically selecting the best path based on network reachability, or using static routing
+- Routing protocol: The protocol specification that routers follow to exchange routing information, enabling a single router to obtain network reachability information
+- Quality of Service (QoS) control: Manages network congestion, load balancing, admission control, and guarantees delay
+- Interconnection of heterogeneous networks: Routing and forwarding across heterogeneous addressing and networks
+
+### Transport Layer
+
+- Sends data from source port to destination port (process to process)
+- The network layer locates a host, while the transport layer narrows down to a specific process on that host
+- Network layer control is mainly for service providers, while the transport layer provides end-to-end data transmission control for end users
+- Two modes: Reliable transmission mode, or unreliable transmission mode
+  - Reliable transmission: Ensures end-to-end reliable data transmission, suitable for applications requiring communication quality, such as file transfers
+  - Unreliable transmission: Faster and lighter end-to-end data transmission, suitable for applications with less strict communication quality requirements and higher responsiveness, such as voice calls or video conferencing
+
+### Session Layer
+
+- Establishes and maintains sessions between applications using the services provided by the transport layer, and synchronizes the session
+
+### Presentation Layer
+
+- Focuses on the syntax and semantics of the transmitted information, manages data representation methods, and structures the transmitted data
+
+### Application Layer
+
+- Provides convenient network service calls for applications through application layer protocols
 
 ## TCP/IP (4 layers)
 - **Datalink Layer:**
@@ -30,16 +81,33 @@ https://zhuanlan.zhihu.com/p/147370653
    - The application layer refers to **`programs`** that need TCP/IP to help them communicate with each other. 
    - Examples: HTTP, HTTPS
 
-## IP Address
+## IPv4 Address
 - IP address, 256:256:256:256, so a total of 32 bits, 4 bytes
 - 2^8 (2 to the power of 8) = 256
 - 8 bits = 1 Byte
 - LAN (Local Area Network)
 
+## IPv6 Address
+- 128 bits = 16 bytes
+- e.g. 2001:0DA8:0000:0000:200C:0000:0000:00A5
+
 ## MAC
 The unique ID of a device. MAC address acquisition is implemented through the ARP (Address Resolution Protocol).
 
 Each MAC address is a 48-bit identifier, usually written as six groups of hexadecimal numbers (e.g., 8a:3f:80:c9:9a:28). These MAC addresses are assigned during hardware manufacturing to ensure each interface on the network has a unique identifier.
+
+### Why Do We Need MAC Addresses?
+While it’s true that IP address + Port number can help identify specific services (such as HTTP, FTP) on a host, the MAC address is necessary for local network communication. Here's why:
+
+1. IP Addresses Are Used for Routing (Layer 3)
+   - IP addresses work at the Network Layer (Layer 3) of the OSI model. They are used for routing data between different networks, like across the internet or between different subnets in a local network.
+
+   - When a device needs to communicate with another device over long distances (e.g., from one city to another), the IP address is used to determine the path that the data should take.
+
+2. MAC Addresses Are Used for Local Communication (Layer 2)
+   - MAC addresses work at the Data Link Layer (Layer 2), which deals with local communication within a network.
+
+   - The MAC address is a unique identifier assigned to each network interface card (NIC). It allows devices to communicate directly with each other over the local link (such as within a LAN).
 
 ## Private IP, Public IP
 - **Private IP**
@@ -62,6 +130,12 @@ Each MAC address is a 48-bit identifier, usually written as six groups of hexade
    - The table records the correspondence between internal private IP addresses, ports, and external connections
    - When data packets leave the LAN, NAT replaces the source private IP with the public IP and records this mapping
    - When a response returns, NAT consults the table to correctly forward the data to the corresponding device within the LAN
+
+   | Public IP      | Public Port | NAT Mapping | Internal Device IP | Internal Port |
+   |----------------|-------------|-------------|---------------------|----------------|
+   | 203.0.113.5    | 50001       | →           | 192.168.1.10        | 80             |
+   | 203.0.113.5    | 50002       | →           | 192.168.1.20        | 80             |
+
 
 ## Gateway
 ### Subnet Mask
@@ -92,6 +166,42 @@ A gateway is a device that connects two different networks, usually a router, re
 * **Example**: Home routers typically have two IP addresses
   * WAN port IP: Assigned by ISP, used to connect to the Internet
   * LAN port IP: Usually 192.168.1.1, serving as the default gateway for internal devices
+
+## Transmission Layer
+### TCP and UDP
+- TCP (Transmission Control Protocol) provides a `reliable`, `error-checked`, and `connection-oriented communication`.
+- UDP (User Datagram Protocol) is `unreliable` (no guarantee of delivery, order, or error correction) but is `faster` and `more efficient` in terms of `latency` and `computational overhead`.
+
+### Three-way Handshake (TCP-Only)
+- TCP uses a three-way handshake to `establish a connection` between two devices before data transfer begins.
+- The three-way handshake is a process used in TCP/IP networks to establish a reliable connection between two devices (hosts).
+- **SYN**: The client sends a SYN (synchronize) packet to the server to request a connection.
+- **SYN-ACK**: The server responds with a SYN-ACK (synchronize-acknowledge) packet to acknowledge the request and establish its own connection.
+- **ACK**: The client sends an ACK (acknowledge) packet back to the server, confirming the connection.
+- **`Main Purpose`**: The main purpose of the three-way handshake is to establish a reliable connection by ensuring that `both client and server are ready to communicate (both sides can send and receive)`.
+
+### Four-way Handshake (TCP-Only)
+- TCP uses a four-way handshake to `terminate a connection` between two devices after data transfer ends.
+- The four-way handshake ensures that `both sides have finished sending data` and can safely close the connection.
+- **FIN (Client → Server)**: The client sends a FIN (finish) packet to the server, indicating it has finished sending data.
+- **ACK (Server → Client)**: The server acknowledges the client's FIN with an ACK packet.
+- **FIN (Server → Client)**: After the server finishes sending all its data, it sends its own FIN packet to the client.
+- **ACK (Client → Server)**: The client acknowledges the server’s FIN with an ACK packet, completing the connection termination.
+- **`Main Purpose`**: The main purpose of the four-way handshake is to terminate a TCP connection, ensuring that `both client and server have finished all data transmission and acknowledge each other's termination`.
+
+### Error Control for TCP:
+1) Checksum
+2) Acknowledgments (ACK)
+ - The receiver sends an ACK (acknowledgment) back to the sender when it successfully receives a segment.
+ - Each ACK contains `the next expected sequence number` (implying all previous bytes were received correctly).
+3) Retransmission
+ - If the sender does not receive an ACK for a segment within a certain timeout period (called Retransmission Timeout, RTO), it retransmits that segment.
+ - Also, if the sender receives duplicate ACKs (e.g., 3 duplicate ACKs for the same sequence number), it can trigger fast retransmission without waiting for timeout.
+4) Sliding Windows 
+ - To maximize the efficiency and time for transmission of the data.
+ - TCP uses a sliding window mechanism to avoid overwhelming the receiver.
+ - The receiver tells the sender how much data it can accept (window size).
+ - If too many packets are lost or delayed, TCP shrinks the window to slow down transmission.
 
 ## Database
 
@@ -139,3 +249,5 @@ A gateway is a device that connects two different networks, usually a router, re
  - **Shrinking Phase**: Once the transaction has acquired all necessary locks, it enters the shrinking phase, during which the transaction can begin releasing locks but cannot acquire new locks.
 - **Strict Two-phase Locking**: No Shrinking Phase
 - **Two-version Locking**
+
+## Operating Systems

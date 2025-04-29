@@ -1,4 +1,6 @@
 ## Natural Language Processing (NLP)
+- Most references come from COMP90042 Natural Language Processing (University of Melbounrne)
+- Others come from Zhihu, CSDN, and other blogs, as well as papers.
 
 ## 1. 数据预处理
 

@@ -1,5 +1,5 @@
 # Computer Vision (CV)
-- Most references come from COMP90086 Natural Language Processing(University of Melbourne)
+- Most references come from COMP90086 Computer Vision (University of Melbourne)
 - Some come from Hugging face computer vision course:
 https://huggingface.co/learn/computer-vision-course/unit0/welcome/welcome (Not Recomended)
 - Others come from Zhihu, CSDN, and other blogs, as well as papers.
