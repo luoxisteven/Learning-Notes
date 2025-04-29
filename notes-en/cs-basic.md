@@ -131,6 +131,7 @@ While it’s true that IP address + Port number can help identify specific servi
    - When data packets leave the LAN, NAT replaces the source private IP with the public IP and records this mapping
    - When a response returns, NAT consults the table to correctly forward the data to the corresponding device within the LAN
 
+
    | Public IP      | Public Port | NAT Mapping | Internal Device IP | Internal Port |
    |----------------|-------------|-------------|---------------------|----------------|
    | 203.0.113.5    | 50001       | →           | 192.168.1.10        | 80             |
