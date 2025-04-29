@@ -2,7 +2,7 @@
 - 这个仓库包含了我多年来记录的部分笔记。
 - 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。
 - 原始git仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
-- 为了能让我的笔记能够自动的保持更新，每天服务器会用**crontab**定时从上面的链接下载最新版本的笔记，并`持续集成和部署(CI/CD)`到网站的后端。
+- 为了能让我的笔记能够自动保持更新，每天服务器会用**crontab**定时从上面的链接下载最新版本的笔记，并自动更新到网站的后端。
 - **Last Update:** 29/APR/2025
 
 ## 目录
@@ -11,18 +11,21 @@
     - [概率论](notes-cn/Probability.md)
 
 2) **Computer Science**
+    - [计算机基础](notes-cn/cs-basic.md)
+    - [算法](notes-cn/Algorithms.md)
     - [Python](notes-cn/Python.md)
     - [Java](notes-cn/Java.md)
     - [JavaScript](notes-cn/JavaScript.md)
     - [SQL](notes-cn/SQL.md)
+
+3) **Development**
     - [Bash & Git](notes-cn/bash-git.md)
     - [SDLC](notes-cn/SDLC.md)
-    - [计算机基础](notes-cn/cs-basic.md)
-    - [算法](notes-cn/Algorithms.md)
+    - [CURD](https://github.com/luoxisteven/CRUD-Demo)
     - [全栈开发](notes-cn/Full-stack.md)
     - [网站开发](notes-cn/Web.md)
 
-3) **Machine Learning**
+4) **Machine Learning**
     - [机器学习基础](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
     - [计算机视觉](notes-cn/CV.md)
@@ -33,6 +36,6 @@
     - [时间序列分析](notes-cn/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
-5) [Others](notes-en/Others.md)
-6) [Thoughts](notes-en/Thoughts.md)
-7) [English](notes-cn/English.md)
+6) [**Others**](notes-en/Others.md)
+7) [**Thoughts**](notes-en/Thoughts.md)
+8) [**English**](notes-cn/English.md)
