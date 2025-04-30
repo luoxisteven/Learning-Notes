@@ -4,6 +4,8 @@
 - [Database](#database)
 - [Operating Systems](#operating-systems)
 
+References include Zhihu, CSDN, geeksforgeeks.org
+
 ## Internet Technology
 Refrence Website: 
 1) https://zhuanlan.zhihu.com/p/147370653
@@ -131,7 +133,6 @@ While it’s true that IP address + Port number can help identify specific servi
    - When data packets leave the LAN, NAT replaces the source private IP with the public IP and records this mapping
    - When a response returns, NAT consults the table to correctly forward the data to the corresponding device within the LAN
 
-
    | Public IP      | Public Port | NAT Mapping | Internal Device IP | Internal Port |
    |----------------|-------------|-------------|---------------------|----------------|
    | 203.0.113.5    | 50001       | →           | 192.168.1.10        | 80             |
@@ -252,3 +253,36 @@ A gateway is a device that connects two different networks, usually a router, re
 - **Two-version Locking**
 
 ## Operating Systems
+An Operating System(OS) is a software that manages and handles hardware and software resources of a computing device.
+
+- Responsible for managing and controlling all the activities and sharing of computer resources among different running applications.
+- A low-level Software that includes all the basic functions like processor management, memory management, file management, etc.
+- It mainly acts a government for your system that has different departments to manage different resources.
+- Examples are Linux, Unix, Windows 11, MS DOS, Android, macOS and iOS.
+
+### Process v.s. Thread
+| Feature                | Process                                      | Thread                                         |
+|------------------------|----------------------------------------------|------------------------------------------------|
+| **Definition**         | An independent program in execution          | A lightweight unit of execution within a process |
+| **Memory**             | Has its own memory space (heap, stack, etc.) | Shares memory with other threads in the same process |
+| **Isolation**          | Completely isolated from other processes     | Threads share the same address space          |
+| **Creation Overhead**  | Higher – creating a process is expensive     | Lower – creating a thread is faster and cheaper |
+| **Communication**      | Needs inter-process communication (IPC)      | Easier via shared memory                      |
+| **Failure Impact**     | One process crashing usually doesn't affect others | One thread crashing can crash the entire process |
+| **Concurrency**        | Can run concurrently on multiple CPUs        | Can also run concurrently, but within the same process |
+| **Examples**           | Running two separate apps (e.g., Chrome and Word) | Multiple tabs in a browser using threads      |
+
+
+### Software Thread v.s. CPU Thread
+| Feature                | **Software Thread**                                      | **CPU Thread (Hardware Thread)**                               |
+|------------------------|----------------------------------------------------------|-----------------------------------------------------------------|
+| **Definition**         | A thread created and managed by software (e.g., OS, runtime) | A physical or logical execution unit in a CPU core             |
+| **Managed By**         | Operating system or user-level threading library         | CPU hardware and microarchitecture                             |
+| **Existence**          | Exists conceptually within programs                      | Exists physically/logically inside the CPU                     |
+| **Scheduling**         | Scheduled by OS or runtime scheduler                     | Scheduled by hardware (via simultaneous multithreading - SMT)  |
+| **Concurrency**        | Allows concurrent execution at software level            | Enables true parallelism using multiple hardware threads       |
+| **Example**            | Java thread, Python threading module, pthread            | Intel Hyper-Threading where one core has 2 hardware threads    |
+| **Performance Impact** | Depends on OS scheduling and resource sharing            | Offers faster context switching and better CPU utilization     |
+| **Count**              | Can be many times more than CPU threads                  | Limited by hardware, e.g., 8-core CPU with 16 threads max      |
+
+![alt text](img-en/process-and-thread.png)
