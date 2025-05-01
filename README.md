@@ -21,7 +21,7 @@
 3) **Development**
     - [Bash & Git](notes-en/bash-git.md)
     - [SDLC](notes-en/SDLC.md)
-    - [CURD](https://github.com/luoxisteven/CRUD-Demo)
+    - [CRUD](notes-en/CRUD.md)
     - [Full Stack](notes-en/Full-stack.md)
     - [Web Development](notes-en/Web.md)
 

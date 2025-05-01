@@ -21,7 +21,7 @@
 3) **Development**
     - [Bash & Git](notes-cn/bash-git.md)
     - [SDLC](notes-cn/SDLC.md)
-    - [CURD](https://github.com/luoxisteven/CRUD-Demo)
+    - [CRUD](notes-cn/CRUD.md)
     - [全栈开发](notes-cn/Full-stack.md)
     - [网站开发](notes-cn/Web.md)
 
