@@ -1,6 +1,14 @@
 # CRUD
 CRUD (Create, Read, Update, and Delete) are basic operations for backend frameworks. The original repo locates at https://github.com/luoxisteven/CRUD-Demo.
 
+- **Frontend**
+  - [React](#react)
+  - [Angular](#angular)
+- **Backend**
+  - [Node.js](#nodejs)
+  - [.NET](#dotnet)
+  - [Django](#django)
+
 ## React
 
 ### Features
@@ -826,6 +834,41 @@ function About() {
 export default About;
 ```
 
+## Angular
+
+### Create
+```bash
+# Install and verify
+npm install -g @angular/cli
+ng version
+
+# Create a new Angular project
+ng new angular-front
+```
+
+### Run
+```bash
+ng serve 
+# or
+npm start
+```
+
+### Add Components / Services
+```bash
+# Add Components
+ng generate component components/task-list
+
+# Add Services
+ng generate service services/task
+```
+
+### Building for Production
+``` bash
+ng build --prod
+```
+
+
+
 ## Node.js
 
 ### Features
@@ -849,15 +892,28 @@ Each task includes:
 - or MongoDB
 - or JSON
 
+## Init
+``` bash
+# This is important for `npm start`
+npm init -y
+
+# Make sure you have 
+"scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+# in your package.json
+```
+
 ### Installation
 
 1. Install dependencies:
-``` bash
-npm install
+    ``` bash
+    npm install
 
-# If without package.json
-npm install dotenv express cors
-```
+    # If without package.json
+    npm install dotenv express cors
+    ```
 
 2. Configure the database:
    - Open `.env.example`
@@ -866,11 +922,24 @@ npm install dotenv express cors
    - Rename filename of `.env.example` into `.env`
 
 3. Start the server:
-```bash
-npm start
-```
+    ```bash
+    npm start
+    ```
 
 The server will automatically create the database if it doesn't exist and set up the required tables.
+
+
+### Dependencies
+```bash
+npm install express mysql2 sequelize dotenv cors mongoose
+```
+- Express.js: Web framework
+- MySQL2: MySQL database driver
+- Sequelize: ORM for MySQL database interactions
+- Mongoose: ORM for MongoDB interactions
+- Express-GraphQL: Create GraphQL API
+- Dotenv: Configuration management
+- Cors: For cross-origin resource sharing (CORS)
 
 ### API Endpoints
 
@@ -941,7 +1010,7 @@ GET /api/tasks
 
 ### Project Structure
 ``` bash
-task-manager-api/
+task-manager/
 ├── app.js              # Main application entry point
 ├── config/
 │   └── config.js       # Database configuration
@@ -954,17 +1023,6 @@ task-manager-api/
 └── README.md           # Project documentation
 ```
 
-### Dependencies
-```bash
-npm install express mysql2 sequelize dotenv cors mongoose
-```
-- Express.js: Web framework
-- MySQL2: MySQL database driver
-- Sequelize: ORM for MySQL database interactions
-- Mongoose: ORM for MongoDB interactions
-- Express-GraphQL: Create GraphQL API
-- Dotenv: Configuration management
-- Cors: For cross-origin resource sharing (CORS)
 
 ### .env
 ``` bash
@@ -994,7 +1052,7 @@ API_TYPE = restapi
 // Configure Backend
 require('dotenv').config();
 const DB_TYPE = process.env.DB_TYPE || 'json';
-const API_TYPE = process.env.API_TYPE || 'rest';
+const API_TYPE = process.env.API_TYPE || 'restapi';
 const PORT = process.env.PORT || 3000;
 const { syncDatabase } = require(`./models/index-${DB_TYPE}`);
 const taskRoutes = require(`./routes/tasks-${API_TYPE}`);
@@ -1280,7 +1338,6 @@ module.exports = router;
 
 ### routes/graphql/schema.js (For GraphQL)
 ``` js
-
 // routes/graphql/schema.js - Schema definition combining types, queries and mutations
 const { 
     GraphQLSchema, 
@@ -1595,7 +1652,7 @@ const Task = sequelize.define('Task', {
   //   allowNull: false
   // }
 }, {
-  timestamps: true // createdAt, updatedAt
+  timestamps: false // createdAt, updatedAt
 });
 
 // Sync database
@@ -1716,18 +1773,19 @@ module.exports = { mongoose, Task, syncDatabase };
 ### Init
 ``` bash
 # dotnet webapi
+mkdir dotnet-back
 cd dotnet-back
 dotnet new webapi
 
 # add packages
-dotnet add package Microsoft.EntityFrameworkCore --version 8.0.13
-dotnet add package Microsoft.EntityFrameworkCore.Relational --version 8.0.13
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Relational
 
 # add package for InMemoryDatabase
 dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 # add package for MySQL
-dotnet add package Pomelo.EntityFrameworkCore.MySql --version 8.0.3
+dotnet add package Pomelo.EntityFrameworkCore.MySql
 
 # add package for MongoDB
 dotnet add package MongoDB.Driver
@@ -1755,6 +1813,27 @@ dotnet run
   },
   "AllowedHosts": "*"
 }
+```
+
+### Notice
+``` bash
+# Remember to modify your port in `Properties/launchSettings.json`
+ "applicationUrl": "http://localhost:3000",
+```
+
+### Project Structure
+``` bash
+task-manager/
+├── Controllers/
+│   └── TaskController.cs    # API Route Controller
+├── Models/
+│   ├── TaskDBContext.cs     # DB Context for datbase and table
+│   ├── TaskDTO.cs           # Task Entity DTO
+│   └── TaskEntity.cs        # Task Entity
+├── Services/
+│   └── TaskService.cs       # Task Service
+├── appsettings.json         # Project enviornment
+└── Program.cs               # Main Entry
 ```
 
 ### Program.cs
@@ -1788,13 +1867,6 @@ builder.Services.AddScoped<TaskService>();
 // builder.Services.AddDbContext<TaskDBContext>(options =>
 //     options.UseInMemoryDatabase("TaskDB"));
 
-// Create database if it doesn't exist (For MySQL and In-memory database only)
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//     var context = services.GetRequiredService<TaskDBContext>();
-//     context.Database.EnsureCreated();
-// }
 
 // Add CORS support
 builder.Services.AddCors(options =>
@@ -1809,6 +1881,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Create database if it doesn't exist (For MySQL and In-memory database only)
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//     var context = services.GetRequiredService<TaskDBContext>();
+//     context.Database.EnsureCreated();
+// }
+
 // Redirect Http to https (optional)
 // app.UseHttpsRedirection();
 
@@ -1820,7 +1900,96 @@ app.MapControllers();
 app.Run();
 ```
 
-### Controllers/TaskController.cs
+### Controllers/TaskController.cs (For JSON, InMemory, MySQL Database)
+``` cs
+using Microsoft.AspNetCore.Mvc;
+using TaskManager.Api.Models;
+using TaskManager.Api.Services;
+
+namespace TaskManager.Api.Controllers
+{
+    // will be 'api/Tasks': because the class name TasksController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TaskController : ControllerBase
+    {
+        private readonly TaskService _taskService;
+
+        public TaskController(TaskService taskService)
+        {
+            _taskService = taskService;
+        }
+
+        // GET: api/Tasks
+        // Task<ActionResult<IEnumerable<TaskEntity>>>
+        [HttpGet]
+        public async Task<IActionResult> GetTasks()
+        {
+            var tasks = await _taskService.GetAllTasksAsync();
+            return Ok(tasks);
+        }
+
+        // GET: api/Tasks/5
+        // Task<ActionResult<TaskEntity>> 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTask(int id)
+        {
+            var task = await _taskService.GetTaskByIdAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
+        // POST: api/Tasks
+        [HttpPost]
+        public async Task<IActionResult> CreateTask(CreateTaskDto taskDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var task = await _taskService.CreateTaskAsync(taskDto);
+
+            return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
+        }
+
+        // PUT: api/Tasks/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTask(int id, UpdateTaskDto taskDto)
+        {
+            var task = await _taskService.UpdateTaskAsync(id, taskDto);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
+        // DELETE: api/Tasks/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var result = await _taskService.DeleteTaskAsync(id);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+    }
+}
+```
+
+### Controllers/TaskController.cs (For MongoDB-Only)
 ``` cs
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Api.Models;
@@ -1906,7 +2075,7 @@ namespace TaskManager.Api.Controllers
 }
 ```
 
-### Models/TaskDBContext (For JSON, In-Memory, and MySQL Database)
+### Models/TaskDBContext.cs (For JSON, In-Memory, and MySQL Database)
 ``` cs
 using Microsoft.EntityFrameworkCore;
 
@@ -1982,7 +2151,7 @@ namespace TaskManager.Api.Models
 }
 ```
 
-### Models/TaskEntity.cs
+### Models/TaskEntity.cs (For MongoDB only)
 ``` cs
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -2020,7 +2189,7 @@ namespace TaskManager.Api.Models
 }
 ```
 
-### Services/TaskService.cs (JSON)
+### Services/TaskService.cs (For JSON only)
 ``` cs
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
@@ -2130,7 +2299,7 @@ namespace TaskManager.Api.Services
 }
 ```
 
-### Task/TaskService.cs (In-Memory Database)
+### Task/TaskService.cs (For In-Memory Database only)
 ``` cs
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Api.Models;
@@ -2221,7 +2390,7 @@ namespace TaskManager.Api.Services
 }
 ```
 
-### Services/TaskService.cs (MySQL)
+### Services/TaskService.cs (For MySQL only)
 ```cs
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Api.Models;
@@ -2312,7 +2481,7 @@ namespace TaskManager.Api.Services
 }
 ```
 
-### Services/TaskService.cs (MongoDB)
+### Services/TaskService.cs (For MongoDB only)
 ``` cs
 using MongoDB.Driver;
 using TaskManager.Api.Models;
@@ -2394,4 +2563,393 @@ namespace TaskManager.Api.Services
         }
     }
 }
+```
+
+## Django
+
+## Init
+```bash
+# Install django
+pip install django
+
+# Create a new Django project "django_back"
+django-admin startproject django_back
+# Configure settings.py "ALLOWED_HOSTS = ["*"]"
+
+# Create a new app
+cd django_back
+python manage.py startapp task
+# Configure settings.py "INSTALLED_APPS" for app "task"
+
+# Run initial migrations (Init sqlite database)
+python manage.py migrate
+
+# CORS
+pip install django-cors-headers
+# Configure settings.py "INSTALLED_APPS", "MIDDLEWARE", "CORS_ALLOW_ALL_ORIGINS" for CORS
+
+# For MySQL
+# pip install mysqlclient
+
+# For Django: djongo pymongo
+# pip install djongo pymongo
+
+# If you finish coding models.py
+python manage.py makemigrations
+python manage.py migrate
+```
+
+## django_back/settings.py
+``` py
+"""
+Django settings for django_back project.
+
+Generated by 'django-admin startproject' using Django 5.2.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/5.2/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/5.2/ref/settings/
+"""
+
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-5^rg2%97&64gvwjiokp&+#n!=uh@&@9y9_r1r61s8yy28t1o-p'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ["*"] #!!!!!!!!!!!!
+
+# Application definition
+
+INSTALLED_APPS = [
+    'task', #!!!!!!!!!!!!
+    'corsheaders', #!!IMPORTANT: CORS headers for Django (pip install django-cors-headers)
+    'rest_framework', #!!IMPORTANT: Django REST framework (pip install djangorestframework)
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True #!!IMPORTANT: CORS headers for Django (pip install django-cors-headers)
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', #!!IMPORTANT: CORS headers for Django (pip install django-cors-headers)
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'django_back.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'django_back.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+DATABASE_CHOICE = "SQLite" #!!IMPORTANT: Choose your database here. Options: "MySQL", "MongoDB", "SQLite"
+
+if (DATABASE_CHOICE == "MySQL"):
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'task_manager',
+        'USER': 'root',
+        'PASSWORD': 'abc123',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    }
+}
+elif (DATABASE_CHOICE == "MongoDB"):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'task_manager',
+            'CLIENT': {
+                'host': 'mongodb://localhost:27017',
+            }
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+
+
+
+# Password validation
+# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
+STATIC_URL = 'static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+```
+
+### django_back/urls.py
+``` py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('task.url')),  # Include the URLs from the task app
+]
+```
+
+### task/url.py
+``` py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('task', views.tasks, name='tasks'),  # Handles GET (list) and POST (create)
+    path('task/<int:task_id>', views.task_detail, name='task_detail'),  # Handles GET (retrieve), PUT/PATCH (update), DELETE (delete)
+]
+```
+
+### task/models.py
+``` py
+from django.db import models
+
+# Create your models here.
+class Task(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    status = models.CharField(
+        max_length=20, 
+        choices=[('to_do', 'To Do'), ('in_progress', 'In Progress'), ('done', 'Done')],
+        default='to_do'
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+         # Explicitly set the table name to 'task'. 
+         # If not set, Django will use 'appname_task' as the default table name.
+         # "task_task" in this case
+        db_table = 'tasks'
+```
+
+### task/serializers.py (rest_framework)
+``` py
+from rest_framework import serializers
+from .models import Task
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['id', 'title', 'description', 'status']
+```
+
+### task.views.py (basic)
+``` py
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
+import json
+from .models import Task
+
+# Handle GET (list) and POST (create) for /tasks/
+@csrf_exempt
+def tasks(request):
+    if request.method == 'GET':
+        # List all tasks
+        tasks = list(Task.objects.values('id', 'title', 'description', 'status'))
+        return JsonResponse(tasks, safe=False)
+    elif request.method == 'POST':
+        # Create a new task
+        try:
+            data = json.loads(request.body)
+            title = data.get('title')
+            description = data.get('description')
+            status = data.get('status', 'to_do')
+
+            if not title:
+                return JsonResponse({"error": "Title cannot be empty"}, status=400)
+
+            task = Task.objects.create(
+                title=title,
+                description=description,
+                status=status
+            )
+
+            return JsonResponse({
+                "id": task.id,
+                "title": task.title,
+                "description": task.description,
+                "status": task.status
+            }, status=201)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+    return JsonResponse({"error": "Method Not Allowed"}, status=405)
+
+# Handle GET (retrieve), PUT/PATCH (update), DELETE for /tasks/<task_id>/
+@csrf_exempt
+def task_detail(request, task_id):
+    try:
+        task = Task.objects.get(id=task_id)
+    except ObjectDoesNotExist:
+        return JsonResponse({"error": "Task not found"}, status=404)
+
+    if request.method == 'GET':
+        # Retrieve a specific task
+        return JsonResponse({
+            "id": task.id,
+            "title": task.title,
+            "description": task.description,
+            "status": task.status
+        })
+
+    elif request.method in ['PUT', 'PATCH']:
+        # Update a specific task
+        try:
+            data = json.loads(request.body)
+            if 'title' in data:
+                task.title = data['title']
+            if 'description' in data:
+                task.description = data['description']
+            if 'status' in data:
+                task.status = data['status']
+            task.save()
+
+            return JsonResponse({
+                "id": task.id,
+                "title": task.title,
+                "description": task.description,
+                "status": task.status
+            })
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+
+    elif request.method == 'DELETE':
+        # Delete a specific task
+        task.delete()
+        return JsonResponse({"message": "Task deleted successfully"}, status=204)
+
+    return JsonResponse({"error": "Method Not Allowed"}, status=405)
+```
+
+### task/views.py (rest_framework)
+``` py
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+from .models import Task
+from .serializers import TaskSerializer
+
+@api_view(['GET', 'POST'])
+def tasks(request):
+    if request.method == 'GET':
+        # List all tasks
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # Create a new task
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({"error": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
+def task_detail(request, task_id):
+    # Retrieve the task or return 404 if not found
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == 'GET':
+        # Retrieve a specific task
+        serializer = TaskSerializer(task)
+        return Response(serializer.data)
+
+    elif request.method in ['PUT', 'PATCH']:
+        # Update a specific task
+        serializer = TaskSerializer(task, data=request.data, partial=(request.method == 'PATCH'))
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response({"error": "Invalid JSON data"}, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        # Delete a specific task
+        task.delete()
+        return Response({"message": "Task deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 ```
