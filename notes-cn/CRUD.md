@@ -1,13 +1,100 @@
 # CRUD
-CRUD (Create, Read, Update, and Delete) are basic operations for backend frameworks. The original repo locates at https://github.com/luoxisteven/CRUD-Demo.
+-  This is a demonstration project and notes showcasing basic CRUD (Create, Read, Update, Delete) operations implemented with the ability to switch between different backend frameworks, databases, and API patterns while maintaining a consistent frontend. 
+- This repository features minimalistic code and package usage, designed for interview scenarios and code tests.
+- The original repository is located at https://github.com/luoxisteven/CRUD-Demo.
+
+## Table of Contents
 
 - **Frontend**
   - [React](#react)
+    - RestAPI
+    - GraphQL
   - [Angular](#angular)
 - **Backend**
   - [Node.js](#nodejs)
+    - JSON
+    - MySQL
+    - MongoDB
+    - RestAPI
+    - GraphQL
   - [.NET](#dotnet)
+    - JSON
+    - In-Memory Database
+    - MySQL
+    - MongoDB
   - [Django](#django)
+    - SQLite
+    - MySQL
+
+
+## Task Module
+### API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | /api/task     | Get all tasks |
+| GET | /api/task/:id | Get a specific task by ID |
+| POST | /api/task    | Create a new task |
+| PUT | /api/task/:id | Update an existing task |
+| DELETE | /api/task/:id | Delete a task |
+
+### API Usage Examples
+
+#### 1) Create a Task 
+
+**Request:**
+```http
+POST /api/tasks
+Content-Type: application/json
+
+{
+  "title": "Complete project",
+  "description": "Finish the task management API",
+  "status": "In Progress"
+}
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Complete project",
+  "description": "Finish the task management API",
+  "status": "In Progress",
+  "createdAt": "2025-03-15T10:30:00.000Z",
+  "updatedAt": "2025-03-15T10:30:00.000Z"
+}
+```
+
+#### 2) Get All Tasks
+
+**Request:**
+```http
+GET /api/tasks
+```
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "title": "Complete project",
+    "description": "Finish the task management API",
+    "status": "In Progress",
+    "createdAt": "2025-03-15T10:30:00.000Z",
+    "updatedAt": "2025-03-15T10:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Test API",
+    "description": "Test all API endpoints",
+    "status": "To Do",
+    "createdAt": "2025-03-15T10:35:00.000Z",
+    "updatedAt": "2025-03-15T10:35:00.000Z"
+  }
+]
+```
+
 
 ## React
 
@@ -941,72 +1028,6 @@ npm install express mysql2 sequelize dotenv cors mongoose
 - Dotenv: Configuration management
 - Cors: For cross-origin resource sharing (CORS)
 
-### API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/task     | Get all tasks |
-| GET | /api/task/:id | Get a specific task by ID |
-| POST | /api/task    | Create a new task |
-| PUT | /api/task/:id | Update an existing task |
-| DELETE | /api/task/:id | Delete a task |
-
-### API Usage Examples
-
-#### Create a Task
-
-**Request:**
-```http
-POST /api/tasks
-Content-Type: application/json
-
-{
-  "title": "Complete project",
-  "description": "Finish the task management API",
-  "status": "In Progress"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 1,
-  "title": "Complete project",
-  "description": "Finish the task management API",
-  "status": "In Progress",
-  "createdAt": "2025-03-15T10:30:00.000Z",
-  "updatedAt": "2025-03-15T10:30:00.000Z"
-}
-```
-
-#### Get All Tasks
-
-**Request:**
-```http
-GET /api/tasks
-```
-
-**Response:**
-```json
-[
-  {
-    "id": 1,
-    "title": "Complete project",
-    "description": "Finish the task management API",
-    "status": "In Progress",
-    "createdAt": "2025-03-15T10:30:00.000Z",
-    "updatedAt": "2025-03-15T10:30:00.000Z"
-  },
-  {
-    "id": 2,
-    "title": "Test API",
-    "description": "Test all API endpoints",
-    "status": "To Do",
-    "createdAt": "2025-03-15T10:35:00.000Z",
-    "updatedAt": "2025-03-15T10:35:00.000Z"
-  }
-]
-```
 
 ### Project Structure
 ``` bash
