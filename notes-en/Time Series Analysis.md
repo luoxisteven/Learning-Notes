@@ -2,6 +2,37 @@
 
 https://www.kaggle.com/code/iamleonie/time-series-interpreting-acf-and-pacf/notebook
 
+## ARMA
+
+ARMA stands for **AutoRegressive Moving Average**, a statistical model used for modeling and forecasting **stationary time series data**.
+
+### 1. AutoRegressive (AR) Component
+
+Represents the relationship between the current value and several past values:
+
+$$
+X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \dots + \phi_p X_{t-p} + \varepsilon_t
+$$
+
+- $\phi_1$, $\dots$, $\phi_p$: Autoregressive coefficients  
+- $\varepsilon_t$: White noise
+
+### 2. Moving Average (MA) Component
+
+Represents the relationship between the current value and several past error terms (noise):
+
+$$
+X_t = \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} + \dots + \theta_q \varepsilon_{t-q}
+$$
+
+- $\theta_1$, $\dots$, $\theta_q$: Moving average coefficients
+
+### 3. Combined ARMA(p, q) Model
+
+$$
+X_t = \phi_1 X_{t-1} + \dots + \phi_p X_{t-p} + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \dots + \theta_q \varepsilon_{t-q}
+$$
+
 ## ACF and PACF
 
 Before building ARMA/ARIMA models, we typically use ACF and PACF to identify the structure of the time series (e.g., selecting the order of AR or MA).
