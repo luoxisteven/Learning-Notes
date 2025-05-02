@@ -1,49 +1,92 @@
 # Time Series Analysis
 
-## Tailing Off and Cutoff
+https://www.kaggle.com/code/iamleonie/time-series-interpreting-acf-and-pacf/notebook
 
-In time series analysis, "tailing off" and "cutoff" in ARMA (AutoRegressive Moving Average) models refer to the characteristics of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF). Determining whether a time series is suitable for AR, MA, or ARMA models can be done by observing the tailing off and cutoff features of the ACF and PACF to determine the model's order.
+## ACF and PACF
 
-> **Tailing Off**: Always has non-zero values and does not rapidly approach zero after a certain lag (but fluctuates around zero). It can be simply understood as never being zero regardless of the lag order, but fluctuating randomly near zero after a certain lag.
+Before building ARMA/ARIMA models, we typically use ACF and PACF to identify the structure of the time series (e.g., selecting the order of AR or MA).
 
-> **Cutoff**: Rapidly approaches zero after a certain lag $ k $. It can be simply understood as becoming zero directly after a certain lag \( k $.
+### ACF (AutoCorrelation Function)
 
-| Model        | ACF         | PACF        |
-|--------------|-------------|-------------|
-| AR (p)       | Tailing Off | Cutoff at p |
-| MA(q)        | Cutoff at q | Tailing Off |
-| ARMA(p, q)   | Tailing Off | Tailing Off |
-| Not Suitable | Cutoff      | Cutoff      |
+- **Description**: Measures the **linear correlation** between the current value and its past values.
+- For a time lag $k$, ACF calculates the correlation coefficient between $X_t$ and $X_{t-k}$:
 
-### 1. Definitions of Tailing Off and Cutoff
+$$
+\rho_k = \frac{\mathrm{Cov}(X_t, X_{t-k})}{\sqrt{\mathrm{Var}(X_t)\mathrm{Var}(X_{t-k})}} = \frac{\mathbb{E}[(X_t - \mu)(X_{t-k} - \mu)]}{\sigma^2}
+$$
 
-- **Cutoff**: Refers to the autocorrelation function or partial autocorrelation function rapidly decaying to zero after a certain lag order. This is manifested as ACF or PACF values approaching zero after that lag.
+- The sample estimate is:
 
-- **Tailing Off**: Refers to the autocorrelation function or partial autocorrelation function gradually decaying without a clear cutoff point. This means that as the lag order increases, the ACF or PACF gradually approaches zero.
+$$
+\hat{\rho}_k = \frac{\sum_{t=k+1}^{T}(X_t - \bar{X})(X_{t-k} - \bar{X})}{\sum_{t=1}^{T}(X_t - \bar{X})^2}
+$$
 
-### 2. Tailing Off and Cutoff Characteristics of Different Models
+- **Graph**: The **ACF plot** shows the autocorrelation coefficients for each lag $k$.
 
+**Usage:**
+- ACF **cuts off quickly** after a certain lag → Likely an **MA(q)** model.
+- ACF **decays slowly** → Likely an **AR** or **ARMA** model.
+
+### PACF (Partial AutoCorrelation Function)
+
+- **Description**: Measures the **direct linear relationship** between $X_t$ and $X_{t-k}$ after removing the effects of all smaller lags (e.g., $X_{t-1}, ..., X_{t-k+1}$).
+- PACF at lag $k$ can be calculated as the coefficient of $X_{t-k}$ in the following regression model:
+
+$$
+X_t = \phi_{k1} X_{t-1} + \phi_{k2} X_{t-2} + \cdots + \phi_{kk} X_{t-k} + \epsilon_t
+$$
+
+Where:  
+- $ \phi_{kk} $ is the PACF value at lag $k$.
+
+**Usage:**
+- PACF **cuts off quickly** after a certain lag → Likely an **AR(p)** model.
+- PACF **decays slowly** → Likely an **MA** or **ARMA** model.
+
+### ACF vs PACF Comparison and Model Identification
+
+| Model Type | ACF Behavior       | PACF Behavior       |
+|------------|--------------------|---------------------|
+| AR(p)      | Gradual decay      | **Cuts off at lag p** |
+| MA(q)      | **Cuts off at lag q** | Gradual decay       |
+| ARMA(p,q)  | Gradual decay      | Gradual decay       |
+
+- Use the patterns in ACF and PACF plots to determine the appropriate order for AR, MA, or ARMA models.
+
+### Tailing Off and Cutoff
+
+In time series analysis, the "tailing off" and "cutoff" behaviors of ACF and PACF are used to determine whether a time series is suitable for AR, MA, or ARMA models. These behaviors help identify the model order.
+
+> **Tailing Off**: ACF or PACF values do not quickly approach zero after a certain lag but instead fluctuate around zero. This indicates no clear cutoff and suggests a gradual decay.
+
+> **Cutoff**: ACF or PACF values quickly approach zero after a certain lag (e.g., lag $k$). This indicates a clear cutoff at lag $k$.
+
+| Model       | ACF Behavior | PACF Behavior |
+|-------------|--------------|---------------|
+| AR(p)       | Tailing off  | Cuts off at lag p |
+| MA(q)       | Cuts off at lag q | Tailing off  |
+| ARMA(p, q)  | Tailing off  | Tailing off   |
+| Not Suitable| Cuts off     | Cuts off      |
+
+#### 1. Definitions of Tailing Off and Cutoff
+- **Cutoff**: Refers to when ACF or PACF values quickly decay to zero after a certain lag. This is observed as ACF or PACF values becoming negligible beyond a specific lag.
+- **Tailing Off**: Refers to when ACF or PACF values decay slowly without a clear cutoff point, gradually approaching zero as the lag increases.
+
+#### 2. Characteristics of Different Models
 - **AR(p) Model**:
-  - **PACF** cuts off at lag $ p $, meaning that after the $ p $-th lag, the PACF approaches zero.
-  - **ACF** exhibits tailing off, gradually decaying towards zero as the lag increases.
-
+  - PACF cuts off at lag $p$, meaning PACF values become negligible beyond lag $p$.
+  - ACF tails off, gradually decaying to zero as lag increases.
 - **MA(q) Model**:
-  - **ACF** cuts off at lag $ q $, meaning that after the $ q $-th lag, the ACF approaches zero.
-  - **PACF** exhibits tailing off, gradually decaying towards zero as the lag increases.
-
+  - ACF cuts off at lag $q$, meaning ACF values become negligible beyond lag $q$.
+  - PACF tails off, gradually decaying to zero as lag increases.
 - **ARMA(p, q) Model**:
-  - Both **ACF** and **PACF** exhibit tailing off, meaning that autocorrelations and partial autocorrelations gradually decay.
+  - Both ACF and PACF tail off, gradually decaying to zero.
 
-### 3. Methods to Determine Model Order
+#### 3. Steps to Determine Model Order
+1. **Plot ACF and PACF** for the time series.
+2. **Observe the cutoff and tailing off behaviors** in ACF and PACF:
+   - If ACF cuts off and PACF tails off, consider an MA model.
+   - If PACF cuts off and ACF tails off, consider an AR model.
+   - If both ACF and PACF tail off, consider an ARMA model.
 
-By analyzing the ACF and PACF plots of a time series, one can preliminarily determine the type of model:
-
-1. **Plot the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF)**.
-
-2. **Observe the cutoff and tailing off characteristics of ACF and PACF**, referencing the features described above:
-   - If **ACF cuts off** and **PACF tails off**, it is recommended to use an **MA** model.
-   - If **PACF cuts off** and **ACF tails off**, it is recommended to use an **AR** model.
-   - If both **ACF and PACF tail off**, it is recommended to use an **ARMA** model.
-
-This method is informal; after selecting a model, information criteria such as AIC (Akaike Information Criterion) or BIC (Bayesian Information Criterion) are usually used to further confirm the model's suitability and order. This ensures the model's explanatory power and forecasting performance.
-
+This method is informal. After selecting a model, use criteria like AIC or BIC to confirm the model's suitability and order, ensuring good interpretability and predictive performance.
