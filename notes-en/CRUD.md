@@ -4,7 +4,6 @@
 - The original repository is located at https://github.com/luoxisteven/CRUD-Demo.
 
 ## Table of Contents
-
 - **Frontend**
   - [React](#react)
     - RestAPI

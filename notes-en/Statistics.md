@@ -114,7 +114,16 @@ Suppose two doctors, Doctor A and Doctor B, treat two groups of patients in a ho
 **Parameter Estimation** is used to infer population parameters from sample data and is divided into two methods:
 1. **Point Estimation**: Directly estimates the population parameter using a sample statistic (e.g., mean).
 2. **Interval Estimation**: Constructs an interval within a given confidence level to estimate the population parameter. For example, a 95% confidence interval implies there is a 95% probability that the population parameter lies within this interval.
- ![alt text](<img-en/parameter-estimation.jpg>)
+
+| Parameter | Sampling Distribution | Confidence Interval |
+|-----------|------------------------|----------------------|
+| $\mu$, $\sigma^2$ known | $\dfrac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim N(0,1)$ | $\left[\bar{X} - \dfrac{\sigma}{\sqrt{n}} z_{\alpha/2},\ \bar{X} + \dfrac{\sigma}{\sqrt{n}} z_{\alpha/2} \right]$ |
+| $\mu$, $\sigma^2$ unknown | $\dfrac{\bar{X} - \mu}{S / \sqrt{n}} \sim t(n-1)$ | $\left[\bar{X} - \dfrac{S}{\sqrt{n}} t_{\alpha/2}(n-1),\ \bar{X} + \dfrac{S}{\sqrt{n}} t_{\alpha/2}(n-1) \right]$ |
+| $\sigma^2$ | $\dfrac{(n - 1) S^2}{\sigma^2} \sim \chi^2(n - 1)$ | $\left[\dfrac{(n - 1) S^2}{\chi^2_{1 - \alpha/2}},\ \dfrac{(n - 1) S^2}{\chi^2_{\alpha/2}} \right]$ |
+| $\mu_1 - \mu_2$ <br> ($\sigma_1^2,\ \sigma_2^2$ known) | $\dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{m}}} \sim N(0,1)$ | $\left[(\bar{X} - \bar{Y}) \pm z_{\alpha/2} \sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{m}} \right]$ |
+| $\mu_1 - \mu_2$ <br> ($\sigma_1^2 = \sigma_2^2 = \sigma^2$ unknown) | $\dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w \sqrt{1/n + 1/m}} \sim t(n + m - 2)$ | $\left[(\bar{X} - \bar{Y}) \pm t_{\alpha/2}(n + m - 2) S_w \sqrt{\dfrac{1}{n} + \dfrac{1}{m}} \right]$ |
+| $\dfrac{\sigma_1^2}{\sigma_2^2}$ | $\dfrac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F(n - 1,\ m - 1)$ | $\left[\dfrac{S_1^2}{S_2^2 F_{1 - \alpha/2}(n - 1,\ m - 1)},\ \dfrac{S_1^2}{S_2^2 F_{\alpha/2}(n - 1,\ m - 1)} \right]$ |
+
  - Note: When the variance is unknown, a normal distribution can be used even with large samples.
  
  $$

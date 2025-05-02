@@ -120,7 +120,16 @@ $$
 **参数估计**用于通过样本来推断总体参数，分为两种方法：
 1. **点估计**：使用样本统计量（如均值）直接估计总体参数。  
 2. **区间估计**：在给定的置信水平下，构建一个区间来估计总体参数。例如 95% 置信区间表示 95% 的可能性下总体参数落在该区间内。
- ![alt text](<img-cn/parameter-estimation.jpg>)
+
+ | 参数 | 抽样分布 | 置信区间 |
+|------|----------|----------|
+| $\mu$，$\sigma^2$ 已知 | $\dfrac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim N(0,1)$ | $\left[\bar{X} - \dfrac{\sigma}{\sqrt{n}} z_{\alpha/2},\ \bar{X} + \dfrac{\sigma}{\sqrt{n}} z_{\alpha/2} \right]$ |
+| $\mu$，$\sigma^2$ 未知 | $\dfrac{\bar{X} - \mu}{S / \sqrt{n}} \sim t(n-1)$ | $\left[\bar{X} - \dfrac{S}{\sqrt{n}} t_{\alpha/2}(n-1),\ \bar{X} + \dfrac{S}{\sqrt{n}} t_{\alpha/2}(n-1) \right]$ |
+| $\sigma^2$ | $\dfrac{(n - 1) S^2}{\sigma^2} \sim \chi^2(n - 1)$ | $\left[\dfrac{(n - 1) S^2}{\chi^2_{1 - \alpha/2}},\ \dfrac{(n - 1) S^2}{\chi^2_{\alpha/2}} \right]$ |
+| $\mu_1 - \mu_2$ <br> ($\sigma_1^2,\ \sigma_2^2$ 已知) | $\dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{\sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{m}}} \sim N(0,1)$ | $\left[(\bar{X} - \bar{Y}) \pm z_{\alpha/2} \sqrt{\dfrac{\sigma_1^2}{n} + \dfrac{\sigma_2^2}{m}} \right]$ |
+| $\mu_1 - \mu_2$ <br> ($\sigma_1^2 = \sigma_2^2 = \sigma^2$ 未知) | $\dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w \sqrt{1/n + 1/m}} \sim t(n + m - 2)$ | $\left[(\bar{X} - \bar{Y}) \pm t_{\alpha/2}(n + m - 2) S_w \sqrt{\dfrac{1}{n} + \dfrac{1}{m}} \right]$ |
+| $\dfrac{\sigma_1^2}{\sigma_2^2}$ | $\dfrac{S_1^2 / \sigma_1^2}{S_2^2 / \sigma_2^2} \sim F(n - 1,\ m - 1)$ | $\left[\dfrac{S_1^2}{S_2^2 F_{1 - \alpha/2}(n - 1,\ m - 1)},\ \dfrac{S_1^2}{S_2^2 F_{\alpha/2}(n - 1,\ m - 1)} \right]$ |
+
  - 注意: 在未知方差时，如果大样本也可以用正态分布。$$z=（x-μ）/σ$$
 
 ### 置信区间
