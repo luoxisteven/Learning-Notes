@@ -41,7 +41,7 @@ rm -rf folder_name
 
 # Interrupt execution
 control(^) + c 
-
+```
 
 ## Git
 ### 1) Initialize Git
@@ -148,4 +148,14 @@ pip install -r requirements.txt
 ```bash
 git rm -r --cached .
 git add .
+```
+
+
+### 9) Branch
+```bash
+# Create a new branch and switch it
+git checkout -b <new-branch-name>
+
+# Create a new branch without switching to it
+git branch <new-branch-name>
 ```
