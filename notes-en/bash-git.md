@@ -14,6 +14,7 @@ nohup dotnet run > output.log 2>&1 &
 
 # Discard all
 git restore .
+git checkout -- .
 # Create a new branch and switch it
 git checkout -b <new-branch-name>
 # Create a new branch without switching to it
@@ -92,6 +93,7 @@ git pull origin main  # Pull and merge changes from the main branch
 
 # Discard all 
 git restore .
+git checkout -- .
 
 # Save all
 git stash

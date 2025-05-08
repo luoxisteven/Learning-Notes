@@ -1,3 +1,28 @@
+# Bash
+
+## 常用命令
+``` bash
+# Server
+# Virtrual Enviornment
+source venv/bin/activate
+# See nohup background
+ps aux | grep dotnet
+# Kill background
+kill -9 118590 118683
+# Run Background and Log
+nohup dotnet run > output.log 2>&1 &
+
+# Discard all
+git restore .
+git checkout -- .
+# Create a new branch and switch it
+git checkout -b <new-branch-name>
+# Create a new branch without switching to it
+git branch <new-branch-name>
+# Remove Tracking
+git rm -r --cached .
+```
+
 ## 快捷键
 ```bash
 "Command + C" 复制
@@ -65,6 +90,7 @@ git pull origin main
 # 切换分支
 # 把现有修改都删掉
 git restore .
+git checkout -- .
 # or 把现有修改都保存
 git stash
 # 用于切换分支或恢复文件状态的命令
