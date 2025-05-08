@@ -1,3 +1,27 @@
+# Bash
+
+## Commonly Use
+``` bash
+# Server
+# Virtrual Enviornment
+source venv/bin/activate
+# See nohup background
+ps aux | grep dotnet
+# Kill background
+kill -9 118590 118683
+# Run Background and Log
+nohup dotnet run > output.log 2>&1 &
+
+# Discard all
+git restore .
+# Create a new branch and switch it
+git checkout -b <new-branch-name>
+# Create a new branch without switching to it
+git branch <new-branch-name>
+# Remove Tracking
+git rm -r --cached .
+```
+
 ## Shortcut
 ``` bash
 "Command + C" Copy 

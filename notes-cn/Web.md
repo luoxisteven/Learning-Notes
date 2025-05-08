@@ -706,17 +706,15 @@ sudo crontab -e
 
 ### 查看
 ``` bash
-# 虚拟环境
+# Server
+# Virtrual Enviornment
 source venv/bin/activate
-
-# 查看后台
+# See nohup background
 ps aux | grep dotnet
-
-# 强制
+# Kill background
 kill -9 118590 118683
-
-# 运行
-nohup dotnet run &
+# Run Background and Log
+nohup dotnet run > output.log 2>&1 &
 ```
 
 ## Docker
