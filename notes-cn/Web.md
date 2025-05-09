@@ -738,3 +738,81 @@ docker run -d -p 8000:8000 --name xiluo_net_container xiluo.net
 sudo systemctl start docker  # 启动 Docker 服务
 ```
 
+## Nginx/site-available
+1) dotnet_back
+    ```bash
+    server {
+        server_name api.xiluo.net;
+
+        location / {
+            proxy_pass http://localhost:8000;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection keep-alive;
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+        }
+
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/xiluo.net/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/xiluo.net/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    }
+    server {
+        if ($host = api.xiluo.net) {
+            return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+
+        listen 80;
+        server_name api.xiluo.net;
+        return 404; # managed by Certbot
+
+
+    }
+    ```
+2) React_front
+    ```bash
+    server {
+        server_name xiluo.net www.xiluo.net;
+
+        root /var/www/xiluo.net;
+        index index.html;
+        location / {
+            try_files $uri /index.html;
+        }
+
+        # 确保静态资源正确加载
+        location /static/ {
+            root /var/www/xiluo.net;
+            expires 1y;
+            access_log off;
+            add_header Cache-Control "public, max-age=31536000, immutable";
+        }
+
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/xiluo.net/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/xiluo.net/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    }
+    server {
+        if ($host = www.xiluo.net) {
+            return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+
+        if ($host = xiluo.net) {
+            return 301 https://$host$request_uri;
+        } # managed by Certbot
+
+
+        listen 80;
+        server_name xiluo.net www.xiluo.net;
+        return 404; # managed by Certbot
+
+    }
+    ```
