@@ -4,7 +4,7 @@
 ``` bash
 # Server
 # Package update
-sudo apt update
+sudo apt upgrade
 
 # Virtrual Enviornment
 source venv/bin/activate
@@ -17,6 +17,7 @@ nohup dotnet run >> output.log 2>&1 &
 
 # Dotnet Release
 dotnet publish -c Release
+cd bin/Release/net8.0
 dotnet dotnet_back.dll
 nohup dotnet dotnet_back.dll >> output.log 2>&1 &
 
