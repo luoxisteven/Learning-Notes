@@ -10,7 +10,7 @@ ps aux | grep dotnet
 # Kill background
 kill -9 118590 118683
 # Run Background and Log
-nohup dotnet run > output.log 2>&1 &
+nohup dotnet run >> output.log 2>&1 &
 
 # Discard all
 git restore .
