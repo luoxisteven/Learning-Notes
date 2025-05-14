@@ -3,6 +3,9 @@
 ## 常用命令
 ``` bash
 # Server
+# Package update
+sudo apt update
+
 # Virtrual Enviornment
 source venv/bin/activate
 # See nohup background
@@ -11,6 +14,11 @@ ps aux | grep dotnet
 kill -9 118590 118683
 # Run Background and Log
 nohup dotnet run >> output.log 2>&1 &
+
+# Dotnet Release
+dotnet publish -c Release
+dotnet dotnet_back.dll
+nohup dotnet dotnet_back.dll >> output.log 2>&1 &
 
 # Discard all
 git restore .

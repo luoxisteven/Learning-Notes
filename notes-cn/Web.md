@@ -741,16 +741,23 @@ sudo systemctl start docker  # 启动 Docker 服务
 ## Nginx/site-available
 1) dotnet_back
     ```bash
+    limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
+    
     server {
         server_name api.xiluo.net;
 
         location / {
+            limit_req zone=api_limit burst=20 nodelay;
             proxy_pass http://localhost:8000;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection keep-alive;
             proxy_set_header Host $host;
             proxy_cache_bypass $http_upgrade;
+
+            # IP
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
 
         listen 443 ssl; # managed by Certbot
@@ -758,19 +765,16 @@ sudo systemctl start docker  # 启动 Docker 服务
         ssl_certificate_key /etc/letsencrypt/live/xiluo.net/privkey.pem; # managed by Certbot
         include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
     }
+
     server {
         if ($host = api.xiluo.net) {
             return 301 https://$host$request_uri;
         } # managed by Certbot
 
-
         listen 80;
         server_name api.xiluo.net;
         return 404; # managed by Certbot
-
-
     }
     ```
 2) React_front
