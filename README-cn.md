@@ -1,8 +1,7 @@
 ## 学习笔记 Learning Notes
 - 这个仓库包含了我多年来记录的部分笔记。
-- 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。
 - 原始git仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
-- 为了能让我的笔记能够自动保持更新，每天服务器会用**crontab**定时从上面的链接下载最新版本的笔记，并自动更新到网站的后端。
+- 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。然后，[**xiluo.net**](https://xiluo.net) 会从 GitHub 源获取最新笔记。
 - **Last Update:** 29/APR/2025
 
 ## 目录

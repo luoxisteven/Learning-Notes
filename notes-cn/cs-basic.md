@@ -291,4 +291,4 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 | **Performance Impact** | Depends on OS scheduling and resource sharing            | Offers faster context switching and better CPU utilization     |
 | **Count**              | Can be many times more than CPU threads                  | Limited by hardware, e.g., 8-core CPU with 16 threads max      |
 
-![alt text](img-en/process-and-thread.png)
+![alt text](img-cn/process-and-thread.png)
