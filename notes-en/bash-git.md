@@ -6,6 +6,26 @@
 # Package update
 sudo apt upgrade
 
+# Discard all
+git restore .
+git checkout -- .
+# Create a new branch and switch it
+git checkout -b <new-branch-name>
+# Create a new branch without switching to it
+git branch <new-branch-name>
+# Remove Tracking
+git rm -r --cached .
+
+# Remote Repo
+git remote -v
+# Add new remote repo
+git remote add origin <repo_address>
+# Update remote repo
+git remote set-url origin <repo_address>
+```
+
+## Deployment
+``` bash
 # Virtrual Enviornment
 source venv/bin/activate
 # See nohup background
@@ -20,16 +40,6 @@ dotnet publish -c Release
 cd bin/Release/net8.0
 dotnet dotnet_back.dll
 nohup dotnet dotnet_back.dll >> output.log 2>&1 &
-
-# Discard all
-git restore .
-git checkout -- .
-# Create a new branch and switch it
-git checkout -b <new-branch-name>
-# Create a new branch without switching to it
-git branch <new-branch-name>
-# Remove Tracking
-git rm -r --cached .
 ```
 
 ## Shortcut
@@ -193,4 +203,16 @@ git checkout -b <new-branch-name>
 
 # Create a new branch without switching to it
 git branch <new-branch-name>
+```
+
+### 10) Repo Address
+```bash
+# Lookup Remote Repo Address
+git remote -v
+
+# Add Remote Repo Address
+git remote add origin <repo_address>
+
+# Change Remote Repo Address
+git remote set-url origin
 ```
