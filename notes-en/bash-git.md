@@ -6,6 +6,9 @@
 # Package update
 sudo apt upgrade
 
+# Chinese Regex
+[\u4e00-\u9fff]
+
 # Discard all
 git restore .
 git checkout -- .
