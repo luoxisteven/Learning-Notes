@@ -820,3 +820,50 @@ sudo systemctl start docker  # 启动 Docker 服务
 
     }
     ```
+
+## Setting up new domain
+- You need to create a site-aviable setting first in etc/nginx
+- Link `site-available` to `site-enabled` using the command `sudo ln -s /etc/nginx/sites-available/your-site-config /etc/nginx/sites-enabled/`
+- Set up your Domain Record (Type A) for IPv4 record
+```bash
+server {
+    server_name crud.xiluo.net;
+
+    root /home/ubuntu/www/crud;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    location /static/ {
+        alias /home/ubuntu/www/crud/static/;
+        expires 1y;
+        access_log off;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    location ~ /.well-known/acme-challenge {
+        allow all;
+        root /home/ubuntu/www/crud;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/crud.xiluo.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/crud.xiluo.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}server {
+    if ($host = crud.xiluo.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name crud.xiluo.net;
+    return 404; # managed by Certbot
+
+
+}
+```
