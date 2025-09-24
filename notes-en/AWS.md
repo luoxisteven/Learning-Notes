@@ -1,0 +1,48 @@
+# AWS
+- Identity and Access Management (IAM)
+    - Authorization and Authentication
+    - Notions
+        - Polices (Permissions)
+        - User Group
+            - Having a certain numbers of predefined Polices
+        - Users
+            - Access Key
+            - Secret Key (Only shown when creating it)
+            - Setup through `aws configure` or use in API, or in AWS service
+- Compute
+    - Amazon Elastic Compute Cloud (Amazon EC2)
+        - Features
+            - On-Demand, Pay-as-you-go
+            - Inbound Traffic (Free), Charging Outbound Traffic
+            - Using EBS (Elastic Block Store)
+                - Scaleable without losing any data in the disk
+                - But can not share with different EC2 instances
+    - AWS Lightsail
+        - Features
+            - Subscription
+    - Lambda
+        - Running Code without using server
+        - How to use:
+            - Use `API Gateway` to create an endpoint
+            - Using `Certificate Manager` to create TLS/SSL Certificate and use customised domain
+                - Adding the CNAME Record to your DNS to register the Certificate
+                - SSL (Secure Sockets Layer) 
+                    - Old and Obselete
+                - TLS (Transport Layer Security)
+                    - Mordern
+        - Layers
+            - Adding python package
+- Container
+    - ECS (Elastic Container Service)
+- Cloud Storage
+    - S3
+        - Object Storage (Cloud Storage)
+        - Key-Value Store (Key = object name, Value = object data + metadata)
+        - Flat structure, but supports prefix-based naming to simulate folders/directories
+    - S3 Glacier
+        - Lower cost for data archiving and long-term backup
+        - Infrequently accessed data, and lower speed access
+    - EFS
+        - Similar to a virtual hard disk
+        - Mount an external hard drive (挂载一个外部硬盘)
+        - Shared file storage (Across different EC2 instances)
