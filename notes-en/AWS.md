@@ -36,7 +36,6 @@
         - Layers
             - Adding python package
     - App Runner
-        - 
 - Container
     - Docker
         - Creating an isolated enviornment for any application with containers
@@ -53,7 +52,10 @@
     - ECR (Elastic Container Registry)
         - Store and Distribute Images privately
     - ECS (Elastic Container Service)
-        - Run container and expose endpoint
+        - Run Container
+            1) AWS Fargate
+                - Run Container without server
+            2) EC2
         - Configure CNAME Record in DNS for Domain Customisation
 - Cloud Storage
     - S3
@@ -75,3 +77,8 @@
         - MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server，IBM Db2
     - DocumentDB
         - compatible with MongoDB
+    - ElastiCache
+        - Cloud version of Cache (like Redis)
+- Network
+    - VPC
+    - API Gateway
