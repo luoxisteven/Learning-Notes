@@ -19,21 +19,42 @@
                 - But can not share with different EC2 instances
     - AWS Lightsail
         - Features
-            - Subscription
+            - Subscription (More stable)
     - Lambda
         - Running Code without using server
         - How to use:
             - Use `API Gateway` to create an endpoint
             - Using `Certificate Manager` to create TLS/SSL Certificate and use customised domain
                 - Adding the CNAME Record to your DNS to register the Certificate
+                - CA (Certificate Authority)
+                    - Let's Encrypt
+                    - GlobalSign
                 - SSL (Secure Sockets Layer) 
                     - Old and Obselete
                 - TLS (Transport Layer Security)
                     - Mordern
         - Layers
             - Adding python package
+    - App Runner
+        - 
 - Container
+    - Docker
+        - Creating an isolated enviornment for any application with containers
+        - Image
+            - `docker run` to compile `Dockerfile` to `Image`
+            - Filesystem Layer
+                - OS packages, dependency, version
+            - Image layers stacked on top of each other
+            - Union of read-only layers with a writable layer on top
+        - Container
+            - An isolated enviornment for any application
+            - Able to expose endpoints
+        - Registry
+    - ECR (Elastic Container Registry)
+        - Store and Distribute Images privately
     - ECS (Elastic Container Service)
+        - Run container and expose endpoint
+        - Configure CNAME Record in DNS for Domain Customisation
 - Cloud Storage
     - S3
         - Object Storage (Cloud Storage)
@@ -46,3 +67,11 @@
         - Similar to a virtual hard disk
         - Mount an external hard drive (挂载一个外部硬盘)
         - Shared file storage (Across different EC2 instances)
+- Database
+    - RDS (Relational Database Service)
+        - Aurora (Compatible with MySQL and PostgreSQL)
+            - An optmized version of MySQL and PostgreSQL
+            - Can connect Aurora using `mysql -h ...` and `psql -h ...`
+        - MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server，IBM Db2
+    - DocumentDB
+        - compatible with MongoDB
