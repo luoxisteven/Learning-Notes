@@ -9,6 +9,10 @@ sudo apt upgrade
 # Chinese Regex
 [\u4e00-\u9fff]
 
+# Dotnet Memory Monitor
+dotnet-counters monitor --process-id <pid> System.Runtime
+dotnet tool install --global dotnet-counters
+
 # Discard all
 git restore .
 git checkout -- .
