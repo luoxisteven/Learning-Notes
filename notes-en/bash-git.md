@@ -219,3 +219,43 @@ git remote add origin <repo_address>
 # Change Remote Repo Address
 git remote set-url origin
 ```
+
+### 11) Stage
+```bash
+# diff of what is changed but not staged
+git diff
+
+# diff of what is staged but not yet committed
+git diff --staged
+```
+
+### 12) Stash
+```bash
+# Save your changes without committing
+git stash
+
+# Restore back
+git stash pop
+
+# Discard the changes
+git stash drop
+```
+
+### 13) Zone
+```bash
+Working Directory -- git add --> Staging Area -- git commit --> Local Repository -- git push --> Remote Repository
+
+# Download all the branches from Remote Repo but not merging it
+git fetch
+git fetch origin
+
+# Revert `git add`
+git restore --staged <filename>
+# Example
+git add index.js
+git restore --staged index.js
+git restore --staged *
+
+# Revert `git commit`
+git reset --soft HEAD^
+```
