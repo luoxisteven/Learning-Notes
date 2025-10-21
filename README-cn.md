@@ -30,11 +30,14 @@
     - [计算机视觉](notes-cn/CV.md)
     - [自然语言处理](notes-cn/NLP.md)
 
-4) **Finance**
+5) **Finance**
     - [Finance](notes-cn/Finance.md)
     - [时间序列分析](notes-cn/Time%20Series%20Analysis.md)
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
-6) [**Others**](notes-en/Others.md)
-7) [**Thoughts**](notes-en/Thoughts.md)
-8) [**English**](notes-cn/English.md)
+6) **English**
+    - [**English**](notes-cn/English.md)
+    - [**IELTS**](notes-cn/IELTS.md)
+
+7) [**Others**](notes-en/Others.md)
+8) [**Thoughts**](notes-en/Thoughts.md)
