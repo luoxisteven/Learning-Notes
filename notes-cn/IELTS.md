@@ -52,11 +52,16 @@ Part 1 来自 https://zhuanlan.zhihu.com/p/83528343
 
 - 句子间的连接方式
     - 方式一: 现在分词作状语: starting at, beginning from, 通常可以描述数据的开头时使用:
-        - Starting at 30, X fluctuated around this level in the first decade.（句型一）
+        - **Starting at 30**, X fluctuated around this level in the first decade.（句型一）
     - 方式二: 表示时间的连词: before, after, 后面接完整句子或者动词的进行时:
-        - X had fluctuated around this level in the first decade before it dropped abruptly to 23 in 1970.
+        - X had fluctuated around this level in the first decade **before** it dropped abruptly to 23 in 1970.
         - 连接上面的句子：
-            - Starting at 30, X had fluctuated around this level in the first decade before dropping abruptly to 23 in 1970.
+            - **Starting at 30**, X had fluctuated around this level in the first decade **before** dropping abruptly to 23 in 1970.
     - 方式三: 表示并列或转折的连词: but, however, and in addition
-        - However, the 1970s witnessed a considerable rise（句型三）, and then a peak of 60 took place in 1980.（句型四）
-    - 方式四: 
+        - **However**, the 1970s witnessed a considerable rise（句型三）, **and then** a peak of 60 took place in 1980.（句型四）
+    - 方式四: 过去分词作状语：followed by（紧接着...），后面接名词性的短语
+        - However, the 1970s witnessed a considerable rise, and then a peak of 60 took place in 1980, **followed by** a sharp fall over the next ten-year period.
+    - 方式五: 时间定语从句：在表示时间的词后用when引出一个非限制性定语从句
+        - Yet, there had been a stable pattern at 8 until 2000（句型二）, when it began to increase slowly.
+    - 方式六: 表示时间的副词：after this, following this period, thereafter
+        - Nonetheless, X is expected to show a downward trend between 2018 and 2022（句型五）, and after that, it will probably show an unnoticeable rise and fall.
