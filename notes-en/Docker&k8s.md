@@ -1,0 +1,91 @@
+- Docker
+    - Creating an isolated enviornment for any application with containers
+    - Docker uses a client-server architecture.
+    - The Docker client talks to the `Docker daemon`, which does the heavy lifting of building, running, and distributing your Docker containers. For exmaple, `docker build`, `docker run`.
+    - Docker Workflow
+        - Dockerfile → (docker build) → Image → (docker run) → Container
+    - Image
+        - `docker run` to compile `Dockerfile` to `Image`
+        - Filesystem Layer
+            - OS packages, dependency, version
+        - Image layers stacked on top of each other
+        - Union of read-only layers with a writable layer on top
+    - Container
+        - An isolated and standardised enviornment for any application
+        - Able to expose endpoints
+    - Registry
+        - A place to store the image
+        - `docker login` - Login Docker Account
+        - Pull from registry
+            - `docker pull luoxisteven/personal-website-backend:latest` - Pull from remote
+            - `docker run -d -p 8888:8888 --name xiluo-backend luoxisteven/personal-website-backend:latest`
+        - Push to registry
+            - `docker build -t luoxisteven/personal-website-backend:latest ./dotnet_back` - Build first
+            - `docker push luoxisteven/personal-website-backend:latest` - then push
+    - CLI
+        - `docker build`
+            - Create an **image** only without creating the container based on the **Dockerfile**
+            - These are all equal
+                - `docker build -tag xiluo-backend -file ./dotnet_back .`
+                - `docker build -t xiluo-backend -f ./dotnet_back .`
+                - `docker build -t xiluo-backend ./dotnet_back`
+            - Platform
+                - `docker build --platform linux/amd64 -t xiluo-backend ./dotnet_back`
+        - `docker run`
+            - Run the **image**
+            - `docker run -d -p 8888:8888 --name xiluo-backend xiluo-backend`
+                - `-d` means detached mode running in the **background**
+                - `-p 8888:8888` means port projection (Host port:Container port)
+                - `-name xiluo-backend` is the name of the container
+                - `xiluo-backend` is the name of the image
+        - `docker compose`
+            - **Build** Image first and then **Run** the Image
+            - `docker compose up -d`
+                - `up` means `run` the image
+                - `-d` means detached mode running in the **background**
+                - Even if the code is updated, this will only use the existing image. Use `--build` to rebuild.
+            - `docker compose up -d --build`
+                - `--build` means rebuild images first.
+                - Docker full rebuilding `docker compose build --no-cache && docker compose up -d`
+            - `docker compose start` - Run the containers again
+            - `docker compose stop` - Stop the containers
+            - `docker compose down` - Stop and Delete the containers
+        - List
+            - `docker ps`: list all running containers
+            - `docker ps -a`: list all running containers **including the ones stop**
+            - `docker image`: list all images
+        - Basic Operations
+            - `docker start xiluo-backend` - Start the container
+            - `docker stop xiluo-backend` - Stop the container
+            - `docker rm xiluo-backend` - Remove the container
+- Kubernetes (k8s)
+    - Cloud Service
+        - Azure Kubernetes Service (AKS)
+        - AWS Kubernetes Service (EKS)
+        - Google Kubernetes Engine (GKE)
+    - Application
+        - A Full Sets of Application
+        - Including backend, frontend, Pods, Deployments, Services
+    - Pod
+        - It is the smallest deployable unit
+        - Can have one container (More common), or more than one container (Less common, shared resources)
+        - Sharing IP, Shared Volumes (Storage Disk)
+        - Sharing Lifecycles (when creation and destory)
+        - Operating in the same node
+    - Deployment
+        - In the unit of Pod.
+    - Node 
+        - A node is corresponding to one virtual server.
+        - Normally, node will be automatically created when using Kubernetes Cloud Service like AWS EKS / Azure AKS / GCP GKE.
+    - Command
+        - Connect to aks cluster
+            - `az aks get-credentials --resource-group zhhen-prod --name aks-zhhen-prod`
+            - `az aks get-credentials --resource-group <your-rg> --name <your-aks-cluster>`
+            - `aws eks update-kubeconfig --region <region> --name <eks-cluster-name>`
+        - You can see the all contexts you have connected to
+            - `kubectl config get-contexts`
+        - You can check the current context
+            - `kubectl config current-context`
+        - You can switch between clusters/contexts
+            - `kubectl config use-context <context-name>`
+ 

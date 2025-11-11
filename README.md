@@ -23,6 +23,7 @@
     - [CRUD](notes-en/CRUD.md)
     - [Full Stack](notes-en/Full-stack.md)
     - [Web Development](notes-en/Web.md)
+    - [Docker and Kubernetes](notes-en/Docker&k8s.md)
     - [AWS](notes-en/AWS.md)
 
 4) **Machine Learning**
