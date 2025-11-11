@@ -26,6 +26,9 @@
         - Layers
             - Adding python package
     - App Runner
+        - Simple Container Runner 
+        - Expose Endpoints
+        - App Runner can host backend and frontend container.
 - Container Service
     - ECR (Elastic Container Registry)
         - Store and Distribute Images privately

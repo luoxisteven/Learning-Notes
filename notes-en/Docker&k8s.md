@@ -56,7 +56,7 @@
         - List
             - `docker ps`: list all running containers
             - `docker ps -a`: list all running containers **including the ones stop**
-            - `docker image`: list all images
+            - `docker images`: list all images
         - Basic Operations
             - `docker start xiluo-backend` - Start the container
             - `docker stop xiluo-backend` - Stop the container
