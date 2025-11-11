@@ -4,6 +4,9 @@
     - The Docker client talks to the `Docker daemon`, which does the heavy lifting of building, running, and distributing your Docker containers. For exmaple, `docker build`, `docker run`.
     - Docker Workflow
         - Dockerfile → (docker build) → Image → (docker run) → Container
+    - Virtual Machine v.s. Containers
+        - Virtual Machines have independent Operating Systems (including separate kernels).
+        - Containers share the host OS kernel but have independent file systems (root filesystems).
     - Image
         - `docker run` to compile `Dockerfile` to `Image`
         - Filesystem Layer
@@ -14,7 +17,7 @@
         - An isolated and standardised enviornment for any application
         - Able to expose endpoints
     - Registry
-        - A place to store the image
+        - A **registry** is a centralized location that stores and manages container images, whereas a **repository** is a collection of related container images within a registry. 
         - `docker login` - Login Docker Account
         - Pull from registry
             - `docker pull luoxisteven/personal-website-backend:latest` - Pull from remote
@@ -67,7 +70,7 @@
         - A Full Sets of Application
         - Including backend, frontend, Pods, Deployments, Services
     - Pod
-        - It is the smallest deployable unit
+        - It is the smallest deployable unit.
         - Can have one container (More common), or more than one container (Less common, shared resources)
         - Sharing IP, Shared Volumes (Storage Disk)
         - Sharing Lifecycles (when creation and destory)
