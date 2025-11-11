@@ -61,8 +61,16 @@
     - ElastiCache
         - Cloud version of Cache (like Redis)
 - Network
-    - VPC
+    - VPC (Virtual Private Cloud)
+        - Public Subnet: Subnet with route to Internet Gateway, resources can have public IPs and be accessed from the internet
+        - Private Subnet: Subnet without direct internet access, resources use private IPs and are only accessible within VPC or through NAT
+        - Security Group: Virtual firewall that controls inbound and outbound traffic for AWS resources (stateful)
+        - Network ACL: Optional subnet-level firewall that controls traffic in and out of subnets (stateless)
+        - Internet Gateway: Allows communication between VPC and the internet
+        - NAT Gateway: Allows private subnet resources to access the internet (outbound only)
     - API Gateway
+    - Route 53
+        - DNS Service
 - Security, Identity, & Compliance
     - Identity and Access Management (IAM)
         - Authorization and Authentication
