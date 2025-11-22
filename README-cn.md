@@ -36,8 +36,10 @@
     - [CFA Level 1](https://github.com/luoxisteven/Learning-Notes/tree/main/CFA%20Level%201)
 
 6) **English**
-    - [**English**](notes-cn/English.md)
-    - [**IELTS**](notes-cn/IELTS.md)
+    - [**English**](notes-cn/English/English.md)
+    - [**每周英语**](notes-cn/English/Everyweek-English.md)
+    - [**IELTS**](notes-cn/English/IELTS.md)
+    - [**可数名词和不可数名词**](notes-cn/English/Countable.md)
 
 7) [**Others**](notes-en/Others.md)
 8) [**Thoughts**](notes-en/Thoughts.md)
