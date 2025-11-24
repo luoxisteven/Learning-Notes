@@ -286,3 +286,13 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 | **Count**              | Can be many times more than CPU threads                  | Limited by hardware, e.g., 8-core CPU with 16 threads max      |
 
 ![alt text](img-en/process-and-thread.png)
+
+
+## IP Address
+- What counts as a private IP?
+   - Private IPv4 ranges:
+      - 10.0.0.0 – 10.255.255.255
+      - 172.16.0.0 – 172.31.255.255
+      - 192.168.0.0 – 192.168.255.255
+   - Private IPv6 range:
+      - fc00::/7 (“Unique local addresses” — ULA)
