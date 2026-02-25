@@ -11,7 +11,6 @@ Refrence Website:
 1) https://zhuanlan.zhihu.com/p/147370653
 2) https://blog.csdn.net/qq_46101869/article/details/118108697
 
-
 ![alt text](img-en/osi-tcpip.png)
 
 ## OSI (8 Layer)
