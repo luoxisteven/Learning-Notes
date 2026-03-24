@@ -1,87 +1,312 @@
 # AWS
-- Compute
-    - Amazon Elastic Compute Cloud (Amazon EC2)
-        - Features
-            - On-Demand, Pay-as-you-go
-            - Inbound Traffic (Free), Charging Outbound Traffic
-            - Using EBS (Elastic Block Store)
-                - Scaleable without losing any data in the disk
-                - But can not share with different EC2 instances
-    - AWS Lightsail
-        - Features
-            - Subscription (More stable)
-    - Lambda
-        - Running Code without using server
-        - How to use:
-            - Use `API Gateway` to create an endpoint
-            - Using `Certificate Manager` to create TLS/SSL Certificate and use customised domain
-                - Adding the CNAME Record to your DNS to register the Certificate
-                - CA (Certificate Authority)
-                    - Let's Encrypt
-                    - GlobalSign
-                - SSL (Secure Sockets Layer) 
-                    - Old and Obselete
-                - TLS (Transport Layer Security)
-                    - Mordern
-        - Layers
-            - Adding python package
-    - App Runner
-        - Simple Container Runner 
-        - Expose Endpoints
-        - App Runner can host backend and frontend container.
-- Container Service
-    - ECR (Elastic Container Registry)
-        - Store and Distribute Images privately
-    - ECS (Elastic Container Service)
-        - Run Container
-            1) AWS Fargate
-                - Run Container without server
-            2) EC2
-        - Configure CNAME Record in DNS for Domain Customisation
-- Cloud Storage
-    - S3
-        - Object Storage (Cloud Storage)
-        - Key-Value Store (Key = object name, Value = object data + metadata)
-        - Flat structure, but supports prefix-based naming to simulate folders/directories
-    - S3 Glacier
-        - Lower cost for data archiving and long-term backup
-        - Infrequently accessed data, and lower speed access
-    - EFS
-        - Similar to a virtual hard disk
-        - Mount an external hard drive (挂载一个外部硬盘)
-        - Shared file storage (Across different EC2 instances)
-- Database
-    - RDS (Relational Database Service)
-        - Aurora (Compatible with MySQL and PostgreSQL)
-            - An optmized version of MySQL and PostgreSQL
-            - Can connect Aurora using `mysql -h ...` and `psql -h ...`
-        - MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server，IBM Db2
+- Current
+    - 105
+- Important
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98**, 99, 102, 103, 104
+- Staging Environment
+    - 预生产环境
+- OLAP & OLTP
+    - Online Transaction Processing (OLTP)
+        - Tools: Regular Databases (MySQL, PostgreSQL)
+        - Frequent Access, Real-time
+        - Row Store
+            ```
+            [1, Tom, 20, 5000]
+            [2, Jack, 25, 8000]
+            [3, Lucy, 22, 6000]
+            ```
+    - Online Analytical Processing (OLAP)
+        - Tools: Data Warehouse
+        - AWS RedShift, SnowFlake
+        - Column Store
+            ```
+            id:     [1, 2, 3]
+            name:   [Tom, Jack, Lucy]
+            age:    [20, 25, 22]
+            salary: [5000, 8000, 6000]
+            ```
+- Computing
+    - EC2
+        - AWS Systems Manager Session Manager
+            - Login to server without using SSH key and exposing SSH port
+            - CloudTrail or CloudWatch to track logs
+            - CloudWatch can monitor the logs of the commands
+            - CloudTrail can monitor the logs of whom have accessed session
+        - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
+            - On-Demand Capacity Reservation
+                - `Reserve Instances for speical events` that requires a lots of instances
+                - If not, there might not be enough instances for a speical events.
+                - On-Demand Price
+            - Reserved Instances
+                - Reserving Discounts
+            - Spot Instances
+                - `Cheapest but will be taken away with 2 minutes notification`
+            - Spot Blocks
+                - Locking a certain period (7 a.m. to 10 a.m.)
+                - This functionality has been retried.
+        - Storage
+            - Elastic Block Services (EBS)
+                - SSD
+                - For one instance only
+                - `Single AZ`
+            - Elatsic File System (EFS)
+                - For one and more instances
+                - Does not support Windows Server
+                - `Multiple AZ`
+            - Amazon FSx for Windows File Server
+                - File System for Winows
+        - Patch Manager
+            - Install only security patches
+        - Amazon Machine Image (AMI)
+            - Includes OS, Apps (Node.js, Nginx), Environment Variables
+    - Lightsail
+    - AWS Lambda
+        - Reserved Concurrency
+            - Reserve a certain number of throughput
+        - Unreserved Concurrency
+            - Shared with other Lambda Functions
+    - Container Service
+    - Kubernetes Service
+    - Fast Deployment
+        - Elastic Beanstalk
+            - Upload only the code
+            - Use servers that can be accessed and managed
+            - AWS helps to manage the rest, including:
+                - Select and Launch EC2 instances
+                - Configure Auto Scaling
+                - Configure Load Balancer
+                - Install Node.js, Python .. environment
+                - Monitor
+        - App Runner
+            - Serverless
+            - Faster
+    - AWS Simple Notification Service (SNS)
+            - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
+    - AWS Simple Queue Service (SQS)
+        - FIFO (First-In-First-Out) Queue
+            - Time Sensitive
+            - Exactly-once processing
+        - Standard Queue
+            - Time Insensitive
+            - Best-effort ordering
+- Databases
+    - Aurora 
+        - AURORA is 5x performance improvement over MySQL on RDS and handles more read requests than write,; maintaining high availability
+        - Aurora Database Cloning
+            - Very Fast database cloning
+            - Theory: Cloning the metadata or the address instead of the whole database
+    - RDS
+        - Provisioned IOPS SSD
+            - Made for high levels of I/O opps for consistent, predictable performance.
     - DocumentDB
-        - compatible with MongoDB
-    - ElastiCache
-        - Cloud version of Cache (like Redis)
-- Network
-    - VPC (Virtual Private Cloud)
-        - Public Subnet: Subnet with route to Internet Gateway, resources can have public IPs and be accessed from the internet
-        - Private Subnet: Subnet without direct internet access, resources use private IPs and are only accessible within VPC or through NAT
-        - Security Group: Virtual firewall that controls inbound and outbound traffic for AWS resources (stateful)
-        - Network ACL: Optional subnet-level firewall that controls traffic in and out of subnets (stateless)
-        - Internet Gateway: Allows communication between VPC and the internet
-        - NAT Gateway: Allows private subnet resources to access the internet (outbound only)
-    - API Gateway
-    - Route 53
-        - DNS Service
-- Security, Identity, & Compliance
-    - Identity and Access Management (IAM)
-        - Authorization and Authentication
-        - Notions
-            - Polices (Permissions)
-            - User Group
-                - Having a certain numbers of predefined Polices
-            - Users
-                - Access Key
-                - Secret Key (Only shown when creating it)
-                - Setup through `aws configure` or use in API, or in AWS service
-    - Cognito
-        - WebApp's Authorization and Authentication
-        - Embed JWT with WebApp's roles and permissions
+        - NoSQL (Based on JSON, BSON, XML)
+        - Compatible with MongoDB
+    - DynamoDB
+        - NoSQL (Based on JSON, BSON, XML)
+        - `On-demand capacity`
+            - For demand that is unpredictable
+    - AWS S3
+        - Object Storage
+            - Key, Data, Metadata
+        - Versioning
+            - Keep historical versions of an object
+            - `For one file, it can have multiple files.`
+        - Cross-Region Replication
+            - Disaster Recovery, Back-up
+        - Bucket Policy
+            - Access control and permissions for bucket and its objects
+        - Lifecycle policy for the objects 
+            - Automated management of objects based on predefined rules
+            - e.g. 30 days later delete files or transfer it to Glacier
+        - Gateway VPC Endpoint
+            - Access S3 privately without using the Internet
+            - Traffic stays within AWS network
+        - S3 Transfer Acceleration
+            - Upload Acceleration
+        - S3 Object Lock
+            - Can't be modified and deleted
+        - S3 Access Control List
+            - Read, Write, Update, Delete Control on bucket and object
+    - Data Migration
+        - AWS Snowball & AWS Transfer Terminal
+            - `Physical Transfer`
+            - Data Migration in and out AWS services
+            - `Slow, expensive Internet`
+            - `Support File Migration`
+            - Indirect Support for Database Transfer (.sql, .csb)
+        - AWS DataSync
+            - File Migration
+            - On-premise File System -> S3
+            - s3 -> EFS -> FSx
+        - AWS Database Migration Service (AWS DMS)
+            - Database Migration
+    - Backup
+        - AWS Backup
+            - `Automatic Backup` and `Retain the data for a while`
+- Networks
+    - VPC
+        - Subnet
+            - Different Available Zone (AZ)
+        - Public Subnet
+            - Must have Public IP
+            - `Both Inbound and Outbound to public networks`
+        - NAT Gateway
+            - `IPv4 Only`
+            - Private Subnet access Internet
+            - EC2 -> Internet
+            - `Not` Internet -> EC2
+            - `Outbound only and no need to have public IP` 
+        - Egress-Only IGW
+            - `IPv6 Only`
+            - Private Subnet access Internet
+            - `Outbound only and no need to have public IP`
+        - AWS PrivateLink
+            - VPC Endpoint
+                - Connect AWS Services inside AWS
+                - Without accessing thourgh Internet reducing Network Cost
+    - AWS Direct Connect 
+        - Networks Connection between other Cloud providers or on-premises connection
+        - Without using Public Internet Networks
+        - Reduce the bandwidth costs
+        - Can connect you AWS VPC with your servers
+    - AWS Certificate Manager (ACM)
+        - `SSL Certificate`
+        - ACM can not renew any third-party SSL certificate
+        - Private Certificate Authority
+            - For Private Networks, VPN
+- Reduce Latency
+    - AWS CloudFront
+        - Content Delivery Network (CDN)
+        - Cache content in edge server
+    - AWS Global Accelerator
+        - CloudFront is in higher level (Application Level: HTTP and HTTPS)
+        - Global Accelerator is in lower level (TCP & UDP)
+        - Assigns the best available network path to your users
+        - Provide only one IP address for your services
+- Data-related
+    - AWS Athena
+        - Serverless
+        - `Data Analysis` run query in S3 or other data sources
+    - AWS Glue
+        - Extract, Transform, Load (`ETL`)
+        - Bulck Process, Process regularly, on a schedule, manually 
+        - `Job bookmarks help AWS Glue maintain state information and prevent the reprocessing of old data.`
+    - Amazon Kinesis services
+        - Collect, process, and `analyze data streams in real time`.
+        - Stream Process that requires instant action
+    - AWS RedShift
+        - `Data Warehouse` (Large numbers of Read not Write)
+        - `No visualisation` needs to work with AWS QuickSight for visualisation
+        - PostgreSQL Comptible
+        - For OLAP not OLTPs
+        - Database => ETL => Data Warehouse
+    - AWS QuickSight
+        - `Business Intelligence & Visualisation`
+        - Similar to Tableau and PowerBI
+        - Connect with other sources (Database, S3, Excel)
+    - AWS AppFlow
+        - `SaaS Integration`
+        - AppFlow connects other SaaS services with AWS services
+        - For example, connect Salesforce
+    - AWS EMR
+        - Elastic MapReduce
+        - Can do large data processing
+- AI
+    - Amazon Rekognition
+        - `Images, Computer Vision`
+        - Face Recognition, Object Detection, Scene Detection, `Content Moderation`
+    - Amazon Comprehend
+        - `Text, NLP`
+        - Sentiment Analysis, Entity Recognition, Key Phrase Extraction, Language Detection
+        - Amazon Comprehend Medical
+            - `Protected Health Information (PHI)`
+    - Amazon SageMaker
+        - `Full Set of Machine Learning Process`
+        - Data Preparation, Training, Hyperparameter Tuning, Deployment, Inference
+- Security
+    - IAM
+        - 
+    - Monitor
+        - AWS CloudWatch
+            - `Monitor` the status of different services
+            - e.g. Metrics, Logs, Events
+        - Amazon EventBridge (Amazon CloudWatch Events)
+            - Targets: Lambda / SQS / SNS / Step Functions
+            1) Trigger by AWS Services Event
+                - e.g. S3 File Upload, EC2 Status Changes
+            2) Scheduled Events
+                - Similar to Linux crontab
+            3) Customed Event
+        - AWS CloudTrail
+            - `Monitor AWS API` History of AWS Service
+            - Who did what with AWS API
+        - AWS Config
+            - AWS Config is a service that enables you to assess, audit, and evaluate the `configurations` of your AWS resources
+            1) Configuration Recording
+                - Record anything has been updated in configuration
+            2) Compliance Rules
+                - To define compliance rules and monitor whether services are following these rules
+                - For example, s3 can't be accessed by the public, certain port needs to be private
+            3) Configuration Timeline
+                - What is the configuration of a service three days ago
+        - Amazon Inspector
+            - Inspect EC2, Container for any CVE Vunlerability
+            - CVE (Common Vulnerabilities and Exposures)
+                - Any patches that haven't been installed.
+        - Amazon Macie
+            - Scaning S3 to search for any sensitive data
+    - Protection
+        - Amazon GuardDuty
+            - `Only Monitor and Identify the AWS environment Threat`
+            - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
+        - Amazon Shield
+            - AWS Sheild
+            - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
+            - Protect services from DDoS
+            - `DDoS Protection`
+- Load Balancer (Elastic Load Balancer)
+    - Application Load Balancer
+        - Application Layer
+        - Protocals: HTTP, HTTPs, WebSocket, gPRC
+        - Listener Rule
+            - Redirect HTTP traffic to HTTPS
+    - Network Load Balancer 
+        - Transport Layer
+        - Protocal: IP
+        - Distributes traffic using a flow hash algorithm depedning on the IP and Port
+        - Distributes traffic using a flow hash algorithm based on the 5-tuple:
+            - Source IP
+            - Source Port
+            - Destination IP
+            - Destination Port
+            - Protocol (TCP/UDP)
+        - If the client using the same IP and same port, it will always go to the same server.
+    - Gateway Load Balancer 
+        - Network Layer
+        - Protocal: IP
+        - Not Only HTTPS & HTTP
+- Utility
+    - AWS Key Management Service
+        - Customer managed multi-Region KMS key
+    - AWS Secret Manger
+        - For Secret Key
+        - `Not suitable for frequent access`
+        - Automatic Rotation
+            - RDS, Redshift, DoumentDB, Lambda Roatation Function
+    - AWS Systems Manager Parameter Store
+        - Parameter
+    - AWS Well-Architected Framework
+        - 6 Pillars
+            - Operational Excellence
+            - Security
+            - Reliability
+            - Performance Efficiency
+            - Cost Optimization
+            - Sustainability
+    - AWS SSO
+        - Auth0
+        - Azure AD (Active Directory)(Entra ID)
+    - AWS Textract
+        - `OCR`
+        - Supports JEPG, PNG, PDF
+    
