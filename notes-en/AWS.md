@@ -1,45 +1,75 @@
 # AWS
 - Current
-    - 105
+    - 1 - 150 (Done)
+    - 531 (1307)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98**, 99, 102, 103, 104
-- Staging Environment
-    - 预生产环境
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
+- Terms
+    - Bastion Server
+        - 壁垒机，跳板机
+    - Staging Environment
+        - 预生产环境
+    - Canary Release
+        - 金丝雀实验发布
+        - Assign a small portion of users to this release version
+        - Gradually promote the canary stage to the production stage.
+    - ACL
+        - Acess Control List
+    - IPOS
+        - Input/Output Operations Per Second
+- `Auto Scaling can not auto scale in region. You need to deploy in a second region.`
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
+        - `Many small reads/writes`
         - Tools: Regular Databases (MySQL, PostgreSQL)
         - Frequent Access, Real-time
-        - Row Store
+        - `Row Store`
             ```
             [1, Tom, 20, 5000]
             [2, Jack, 25, 8000]
             [3, Lucy, 22, 6000]
             ```
     - Online Analytical Processing (OLAP)
+        - `Few but massive reads`
         - Tools: Data Warehouse
         - AWS RedShift, SnowFlake
-        - Column Store
+        - `Column Store`
             ```
             id:     [1, 2, 3]
             name:   [Tom, Jack, Lucy]
             age:    [20, 25, 22]
             salary: [5000, 8000, 6000]
             ```
+- Differences Between PostgreSQL and MySQL
+    - MySQL is `Relational` Database
+    - PostgreSQL is `Object-Relational` Database
+        ```sql
+        -- You can create CUSTOM TYPES
+        CREATE TYPE address AS (
+        street  VARCHAR,
+        city    VARCHAR,
+        country VARCHAR
+        );
+
+        -- Use it like a column
+        CREATE TABLE users (
+        id      INT,
+        name    VARCHAR,
+        address address    ← custom type as a column!
+        );
+        ```
 - Computing
     - EC2
-        - AWS Systems Manager Session Manager
-            - Login to server without using SSH key and exposing SSH port
-            - CloudTrail or CloudWatch to track logs
-            - CloudWatch can monitor the logs of the commands
-            - CloudTrail can monitor the logs of whom have accessed session
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
-            - On-Demand Capacity Reservation
+            - On-Demand Reservation
                 - `Reserve Instances for speical events` that requires a lots of instances
                 - If not, there might not be enough instances for a speical events.
                 - On-Demand Price
             - Reserved Instances
-                - Reserving Discounts
+                - `Promise to use the instances for a long period` (e.g. 1 or 2 years) to have discount
             - Spot Instances
+                - `Instances might be stopped at any time`
                 - `Cheapest but will be taken away with 2 minutes notification`
             - Spot Blocks
                 - Locking a certain period (7 a.m. to 10 a.m.)
@@ -47,39 +77,57 @@
         - Storage
             - Elastic Block Services (EBS)
                 - SSD
+                - `❌ Does NOT auto-scale automatically`
                 - For one instance only
                 - `Single AZ`
             - Elatsic File System (EFS)
                 - For one and more instances
                 - Does not support Windows Server
+                - ` Auto-scales automatically!`
                 - `Multiple AZ`
             - Amazon FSx for Windows File Server
-                - File System for Winows
-        - Patch Manager
-            - Install only security patches
+                - `EFS for Windows`
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
-    - Lightsail
     - AWS Lambda
-        - Reserved Concurrency
+        - `Reserved Concurrency`
             - Reserve a certain number of throughput
-        - Unreserved Concurrency
+        - `Unreserved Concurrency`
             - Shared with other Lambda Functions
-    - Container Service
-    - Kubernetes Service
+        - `Provisioned Concurrency`
+            - `Warm Start` (The computing instance is prepared)
+            - `Lower Latency`
+    - AWS API Gateway
+        - Deployment Type
+            - Edge-Optimised
+                - Optimized by CloudFront
+            - Regional
+                - Only for regional Server
+            - Private
+                - Only Access through Private VPC/ VPC Endpoint
+    - Container Service (ECS)
+    - Kubernetes Service (EKS)
+        - Architecture
+            - `Control Plane`
+                - AWS Server, etcd, Scheduler, Controller Manager
+                - `Managed By AWS`
+            - `Data Plane`
+                - Nodes
+        - Auto-scaling (Two-ways)
+            - Scaling Pods
+            - Scaling Nodes
+        - Kubernetes Secret
+            - Save in etcd
     - Fast Deployment
-        - Elastic Beanstalk
-            - Upload only the code
+        - AWS Elastic Beanstalk
+            - Still Server-based PaaS
+            - Upload only the code or Docker Image
             - Use servers that can be accessed and managed
-            - AWS helps to manage the rest, including:
-                - Select and Launch EC2 instances
-                - Configure Auto Scaling
-                - Configure Load Balancer
-                - Install Node.js, Python .. environment
-                - Monitor
-        - App Runner
-            - Serverless
+        - AWS App Runner
+            - Container-based SUserverless
             - Faster
+        - AWAS Amplify
+            - Serverless with AWS Lambda, API, Storage
     - AWS Simple Notification Service (SNS)
             - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
     - AWS Simple Queue Service (SQS)
@@ -89,22 +137,94 @@
         - Standard Queue
             - Time Insensitive
             - Best-effort ordering
+    - AWS Batch
+        - Job, Job Queue, Compute Environment
+        - Compute environment only supports EC2, ECS Fargate
+- Load Balancer (Elastic Load Balancer)
+    - Application Load Balancer
+        - Application Layer
+        - Protocals: HTTP, HTTPs, WebSocket, gPRC
+        - Listener Rule
+            - Redirect HTTP traffic to HTTPS
+        - ACL & Security Group
+            - `ACL can block based on IP`
+            - `Security Group only allow but not deny`
+    - Network Load Balancer 
+        - Transport Layer
+        - Protocal: IP
+        - Distributes traffic using a flow hash algorithm depedning on the IP and Port
+        - Distributes traffic using a flow hash algorithm based on the 5-tuple:
+            - Source IP
+            - Source Port
+            - Destination IP
+            - Destination Port
+            - Protocol (TCP/UDP)
+        - If the client using the same IP and same port, it will always go to the same server.
+    - Gateway Load Balancer 
+        - Network Layer
+        - Protocal: IP
+        - Not Only HTTPS & HTTP
 - Databases
-    - Aurora 
-        - AURORA is 5x performance improvement over MySQL on RDS and handles more read requests than write,; maintaining high availability
-        - Aurora Database Cloning
-            - Very Fast database cloning
-            - Theory: Cloning the metadata or the address instead of the whole database
     - RDS
+        - Can do encryption at rest
         - Provisioned IOPS SSD
             - Made for high levels of I/O opps for consistent, predictable performance.
+        - RDS Event Notification
+            - Connect SNS
+            - When DB Instances, Failover, Backup, Low Storage..
+            - `But not the data or the schema is changed.`
+        - Read Replicas
+            - Have both cross-region replicas and cross-az replicas
+            - `Replicating data without taking up a lot of computing power comparing to snapshot`
+            - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
+        - Multi-AZ Standby Database
+            - Architecture: 1 Main + 1 Unreadable Stand-by
+            - Ideal for automatic failover
+            - Stand-by is `not hot-ready`.
+            - Synchronous replication, minimal data loss
+        - Multi-AZ DB Cluster
+            - Architecture: 1 Main + 2 Readable Stand-by
+        - RDS Proxy
+            - Effective with AWS Lambaa
+                - Each Lambda originallly requires to build one connection with database
+                - `With RDS Proxy fewer connection are needed, releasing the load of RDS`
+            - Combining with AWS Secret Manager
+            - Combing with Multi-AZ Standby Database
+                - Being able to mitigate the `failover `
+                - when a database fail, proxy will direct to another one
+        - `You can enable encryption for an Amazon RDS DB instance when you create it, but not after it's created. However, you can add encryption to an unencrypted DB instance by creating a snapshot of your DB instance, and then creating an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot to get an encrypted copy of your original DB instance.`
+    - Aurora 
+        - Two mode: `MySQL Compatible` and `PostgreSQL Compatible`
+        - AURORA is 5x performance improvement over MySQL on RDS and handles more read requests than write; maintaining high availability
+        - `Aurora Database Cloning`
+            - Very Fast database cloning
+            - Theory: `Cloning the metadata or the address instead of the whole database`
+        - Cross-Region Read Replicas
+            - `Replicating data without taking up a lot of computing power comparing to snapshot`
+        - Aurora Global Database
+            - Stronger and faster in availability comparing to cross-region read replicas
+            - Suitable for finance system that requires high availability
     - DocumentDB
+        - Type: `Document`
         - NoSQL (Based on JSON, BSON, XML)
-        - Compatible with MongoDB
+        - Not `Images, Videos, PDF`
+        - `Compatible with MongoDB`
     - DynamoDB
+        - Type: `Key-Value + Document`
+        - `Don't store files in RDS database`
+        - `Create GSI(Global Secondary Index) for fast filtering`
         - NoSQL (Based on JSON, BSON, XML)
-        - `On-demand capacity`
+        - `On-demand Read & Write`
             - For demand that is unpredictable
+        - `Provisioned Read & Write`
+            - Set up a certain throughput of read and write
+        - `Not compatible with MongoDB`
+        - **DynamoDB Global Table**
+            - Consistent across differnt regions
+            - `Not using Replicas`
+        - **DynamoDB Accelerator (DAX)**
+            - Database Cache
+            - Similar to Redis
     - AWS S3
         - Object Storage
             - Key, Data, Metadata
@@ -127,6 +247,24 @@
             - Can't be modified and deleted
         - S3 Access Control List
             - Read, Write, Update, Delete Control on bucket and object
+        - **Hide S3 URL**
+            - Configure `Cloudfront Origin Access Control (OAC)` or `Cloudfront OAI (Origin Access Identity)`
+                - For Security, and performance purposes
+        - S3 Event Notification
+            - `Trigger when an object is uploaded and deleted and others`
+            - Limitation: `Each S3 event can only fan out to one SQS, one SNS, or one Lambda destination per rule`
+            - `Use EventBridge to send multiple`
+    - Storage Gateway
+        - `Connect on-premise storage and AWS Cloud Storage together`
+        - Purposes:
+            - Keep both records in both on-premise and cloud (Back-up)
+            - Gradual Migration without interruptting the existing app
+    - AWS ElasticCache
+        - Redis
+            - Redis supports more formats
+            - This is `more recommended`
+        - Memcached
+            - Only supports key-value
     - Data Migration
         - AWS Snowball & AWS Transfer Terminal
             - `Physical Transfer`
@@ -143,13 +281,37 @@
     - Backup
         - AWS Backup
             - `Automatic Backup` and `Retain the data for a while`
+        - Metrics
+            - Recovery Point Objective (RPO)
+                - Maximum tolerable data loss
+                - For the backup ability
+            - Recovery Time Objective (RTO)
+                - Maximum tolerable downtime
+                - For the availablitiy ability
+        - Disaster Recovery Mode
+            - Warm Standby
+                - Cost Middle, RTO Short
+            - Pilot Light
+                - Cost Lowest, RTO Middle
+            - Hot/Active
+                - Cost Highest, RTO Shortest
+    - AWS Elastic Disaster Recovery
+        - Create a backup database on the Cloud for on-premise database
+        - Keeping on-premise database as the main database
 - Networks
     - VPC
         - Subnet
             - Different Available Zone (AZ)
-        - Public Subnet
-            - Must have Public IP
-            - `Both Inbound and Outbound to public networks`
+            - Private Subnet
+                - Networks that inside AWS that not exposing to the Public Internet
+            - Public Subnet
+                - Must have Public IP
+                - `Both Inbound and Outbound to public networks`
+        - AWS PrivateLink
+            - `VPC Endpoint`
+                - Connect AWS Services inside AWS
+                - Building private connection with the subnet and the services
+                - Without accessing thourgh Internet reducing Network Cost
         - NAT Gateway
             - `IPv4 Only`
             - Private Subnet access Internet
@@ -160,12 +322,17 @@
             - `IPv6 Only`
             - Private Subnet access Internet
             - `Outbound only and no need to have public IP`
-        - AWS PrivateLink
-            - VPC Endpoint
-                - Connect AWS Services inside AWS
-                - Without accessing thourgh Internet reducing Network Cost
+        - Route Table
+            - `Route IP to different targets (Internet Gateway, Ohter VPC with VPC peering)`
+        - VPC Peering
+            - Only between two AWS-to-AWS VPC
+            - Building connection between two subnet
+        - AWS Transit Gateway
+            - `Connect a lot of VPCs in different accounts`
+            - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
+            - Add "AWS Direct Connect" to conntect to On-premise
     - AWS Direct Connect 
-        - Networks Connection between other Cloud providers or on-premises connection
+        - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
         - Reduce the bandwidth costs
         - Can connect you AWS VPC with your servers
@@ -174,11 +341,26 @@
         - ACM can not renew any third-party SSL certificate
         - Private Certificate Authority
             - For Private Networks, VPN
+    - AWS App Mesh
+        - `For monitoring network`
+        - Suitable for EC2, ECS, EKS
 - Reduce Latency
+    - AWS Route 53
+        - `DNS`
+        - Active-Active Configuration
+            - When one endpoint become unhealthy
+            - Redirect to other healthy endpoint
+        - Active-Passive Failover Configuration
+            - Must Combining with Health Check
+        - Health Check
+            - Check whether the route is healthy
+            - Can redirect them to Error Pages
     - AWS CloudFront
         - Content Delivery Network (CDN)
         - Cache content in edge server
+        - `Can have Geographic restriction`
     - AWS Global Accelerator
+        - `Access AWS Edge to access AWS Backbone Networks`
         - CloudFront is in higher level (Application Level: HTTP and HTTPS)
         - Global Accelerator is in lower level (TCP & UDP)
         - Assigns the best available network path to your users
@@ -187,16 +369,27 @@
     - AWS Athena
         - Serverless
         - `Data Analysis` run query in S3 or other data sources
+        - Mainly for S3
+        - Amazon Athena Federated Query
+            - Run Query on Multiple sources including Database
     - AWS Glue
         - Extract, Transform, Load (`ETL`)
         - Bulck Process, Process regularly, on a schedule, manually 
         - `Job bookmarks help AWS Glue maintain state information and prevent the reprocessing of old data.`
+        - AWS Glue DataBrew
+            - `Lets you clean and transform data without writing any code.`
     - Amazon Kinesis services
+        - Kinesis Data Streams (KDS)
+        - Kinesis Data Firehose
+            - ETL
+        - Kinesis Data Analytics
+            - Real-time analytics with the data sources coming from KDS or Firehose
         - Collect, process, and `analyze data streams in real time`.
         - Stream Process that requires instant action
     - AWS RedShift
         - `Data Warehouse` (Large numbers of Read not Write)
         - `No visualisation` needs to work with AWS QuickSight for visualisation
+        - Supporting client-side and server-side encryption
         - PostgreSQL Comptible
         - For OLAP not OLTPs
         - Database => ETL => Data Warehouse
@@ -223,13 +416,18 @@
     - Amazon SageMaker
         - `Full Set of Machine Learning Process`
         - Data Preparation, Training, Hyperparameter Tuning, Deployment, Inference
+    - AWS Bedrock
+        - `AI model marketplace + API`
+        - Claude, Llama and others
 - Security
     - IAM
-        - 
     - Monitor
-        - AWS CloudWatch
-            - `Monitor` the status of different services
+        - AWS 
+            - `MoniCloudWatchtor` the status of different services
             - e.g. Metrics, Logs, Events
+            - Composite Alarm v.s. Single Metric Alarm
+                - Composite Alarm can have `logics (AND, OR, NOT)`
+                - Single Alarm only monitor single metric without logic.
         - Amazon EventBridge (Amazon CloudWatch Events)
             - Targets: Lambda / SQS / SNS / Step Functions
             1) Trigger by AWS Services Event
@@ -237,9 +435,34 @@
             2) Scheduled Events
                 - Similar to Linux crontab
             3) Customed Event
+            4) AWS Lambda
+                - Configure a resouce policy in AWS Lambda so that EventBridge can invoke Lambda Function
+                - Add a resource-based policy to the function with lambda:InvokeFunction as the action and Service: events.amazonaws.com as the principal.
         - AWS CloudTrail
             - `Monitor AWS API` History of AWS Service
             - Who did what with AWS API
+            - Logs
+                - Store logs in **Amazon S3**
+                - Use **AWS Athena** to query the logs of CloudTrail
+        - Amazon Inspector
+            - Inspect EC2, Container for any CVE Vunlerability
+            - CVE (Common Vulnerabilities and Exposures)
+                - Any patches that haven't been installed.
+        - Amazon Macie
+            - `Scaning S3 to search` for any PII and sensitive data
+            - However, not doing any application to encrypt the data
+    - Configuration
+        - **AWS Systems Manager**
+            - Parameter Store
+                - Parameter
+            - Patch Manager
+                - Install only security patches
+            - Session Manager
+                - `Login to server without using SSH key and exposing SSH port`
+            - Run Command
+                - Run a lot of CLI at one time
+            - Automation
+                - Run script and restart instances when something happen
         - AWS Config
             - AWS Config is a service that enables you to assess, audit, and evaluate the `configurations` of your AWS resources
             1) Configuration Recording
@@ -249,13 +472,22 @@
                 - For example, s3 can't be accessed by the public, certain port needs to be private
             3) Configuration Timeline
                 - What is the configuration of a service three days ago
-        - Amazon Inspector
-            - Inspect EC2, Container for any CVE Vunlerability
-            - CVE (Common Vulnerabilities and Exposures)
-                - Any patches that haven't been installed.
-        - Amazon Macie
-            - Scaning S3 to search for any sensitive data
+        - AWS CloudFormation
+            - Infrastructure as Code
+            - Infrastructure Template + Deployment Automation + Version Control
+            - `Similar to k8s yaml. However, it is in the infrastructure level.`
+            - Terraform - Multi-Cloud: AWS/AZure/GCP
+        - AWS Service Catalog
+            - `Encapsulation of AWS CloudFormation`
+            - `Make CloudFormation to be a product`
     - Protection
+        - Amazon WAF (Web Application Firewall)
+            - `HTTPS Application Layer`
+            - IP Black List, SQL Injection, XSS
+            - Combination
+                - CloudFront + AWS WAF
+                - Application Load Balancer + AWS WAF
+                - API Gateway + AWS WAF
         - Amazon GuardDuty
             - `Only Monitor and Identify the AWS environment Threat`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
@@ -264,37 +496,34 @@
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
             - Protect services from DDoS
             - `DDoS Protection`
-- Load Balancer (Elastic Load Balancer)
-    - Application Load Balancer
-        - Application Layer
-        - Protocals: HTTP, HTTPs, WebSocket, gPRC
-        - Listener Rule
-            - Redirect HTTP traffic to HTTPS
-    - Network Load Balancer 
-        - Transport Layer
-        - Protocal: IP
-        - Distributes traffic using a flow hash algorithm depedning on the IP and Port
-        - Distributes traffic using a flow hash algorithm based on the 5-tuple:
-            - Source IP
-            - Source Port
-            - Destination IP
-            - Destination Port
-            - Protocol (TCP/UDP)
-        - If the client using the same IP and same port, it will always go to the same server.
-    - Gateway Load Balancer 
-        - Network Layer
-        - Protocal: IP
-        - Not Only HTTPS & HTTP
+        - Amazon Firewall Manager
+            - `WAF for the entire AWS Organization`
+            - `Across different accounts`
+            - `Manages security policies`
+- Cost
+    - Cost Explorer
+        - `Cost Visualisation of last 38 months cost`
+        - Web Dashboard
+            - `Monthly Cost per Services`
+            - Daily Cost
+            - EC2 Running hours costs and usage
+            - and many more
+            - Support `CSV Export`
+        - `Cost Explorer API`
+        - `Cost Forecast`
+    - AWS Budget
+        - `Plan, Montior, and Warn based on your planned budget`
+        - Can make budget based on regions, services, and many more
 - Utility
     - AWS Key Management Service
+        - `On-demand cryptographic operations`
         - Customer managed multi-Region KMS key
+        - Can do automatic rotation
     - AWS Secret Manger
         - For Secret Key
         - `Not suitable for frequent access`
-        - Automatic Rotation
+        - `Automatic Rotation`
             - RDS, Redshift, DoumentDB, Lambda Roatation Function
-    - AWS Systems Manager Parameter Store
-        - Parameter
     - AWS Well-Architected Framework
         - 6 Pillars
             - Operational Excellence
@@ -303,10 +532,24 @@
             - Performance Efficiency
             - Cost Optimization
             - Sustainability
-    - AWS SSO
-        - Auth0
-        - Azure AD (Active Directory)(Entra ID)
+    - AWS Cognito
+        - **User Pool**
+            - `Authentication`
+            - Register, Login, MFA, Create JWT
+        - **Identity Pool**
+            - `Authorisation`
+            - Roles
+        - Similar to 
+            - Auth0
+            - Azure AD (Active Directory)(Entra ID)
+    - AWS OpenSearch Sevice (Elastic Search )
+        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
     - AWS Textract
         - `OCR`
         - Supports JEPG, PNG, PDF
-    
+    - Savings Plan
+        - Computing Savings Plan
+            - More Flexible
+            - EC2, AWS Lambda, AWS Fargate
+        - EC2 Instance Savings Plan
+            - Has the best discount
