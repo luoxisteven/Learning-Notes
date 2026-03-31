@@ -1,9 +1,10 @@
 # AWS
 - Current
     - 1 - 150 (Done)
+    - 181
     - 531 (1307)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
 - Terms
     - Bastion Server
@@ -18,7 +19,7 @@
         - Acess Control List
     - IPOS
         - Input/Output Operations Per Second
-- `Auto Scaling can not auto scale in region. You need to deploy in a second region.`
+- **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
         - `Many small reads/writes`
@@ -87,6 +88,9 @@
                 - `Multiple AZ`
             - Amazon FSx for Windows File Server
                 - `EFS for Windows`
+            - Amazon FSx for Lustre
+                - `HPC and Linux File System`
+                - HPC: High Performance Computing
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
     - AWS Lambda
@@ -106,6 +110,7 @@
             - Private
                 - Only Access through Private VPC/ VPC Endpoint
     - Container Service (ECS)
+        - Fargate
     - Kubernetes Service (EKS)
         - Architecture
             - `Control Plane`
@@ -131,12 +136,16 @@
     - AWS Simple Notification Service (SNS)
             - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
     - AWS Simple Queue Service (SQS)
+        - Retain the job for a long time
         - FIFO (First-In-First-Out) Queue
             - Time Sensitive
             - Exactly-once processing
         - Standard Queue
             - Time Insensitive
             - Best-effort ordering
+        - **Dead Letter Queue**
+            - When the job is failed, logs and message will be collected.
+            - You can add a AWS Lambda Function to rerun the job.
     - AWS Batch
         - Job, Job Queue, Compute Environment
         - Compute environment only supports EC2, ECS Fargate
@@ -173,17 +182,24 @@
             - Connect SNS
             - When DB Instances, Failover, Backup, Low Storage..
             - `But not the data or the schema is changed.`
+        - Data Retention
+            - Maximum 35 days
         - Read Replicas
             - Have both cross-region replicas and cross-az replicas
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
-        - Multi-AZ Standby Database
-            - Architecture: 1 Main + 1 Unreadable Stand-by
-            - Ideal for automatic failover
-            - Stand-by is `not hot-ready`.
+        - **Multi-AZ Standby Instance**
+            - Architecture: 1 Main + 1 Stand-by
+            - Much Cheaper
+            - Stand-by can't be used normally comparing to Read Replicas and Multi-AZ DB Cluster Readable Stand-by
             - Synchronous replication, minimal data loss
-        - Multi-AZ DB Cluster
+        - **Multi-AZ DB Cluster**
             - Architecture: 1 Main + 2 Readable Stand-by
+            - Better Availability, More Expensive, `Reduce the Load of the database
+            - Not Support:
+                - RDS for MariaDB
+                - RDS for Oracle
+                - RDS for SQL Server
         - RDS Proxy
             - Effective with AWS Lambaa
                 - Each Lambda originallly requires to build one connection with database
@@ -245,6 +261,12 @@
             - Upload Acceleration
         - S3 Object Lock
             - Can't be modified and deleted
+            - Governance Mode
+                - `Protected based on permission`
+                - Bypass with `s3:BypassGovernanceRetention`
+            - Compliance Mode
+                - `Absoulte Control (Even if Admin)`
+                - No user can delete and update
         - S3 Access Control List
             - Read, Write, Update, Delete Control on bucket and object
         - **Hide S3 URL**
@@ -264,6 +286,7 @@
             - Redis supports more formats
             - This is `more recommended`
         - Memcached
+            - Fast but have less functionality
             - Only supports key-value
     - Data Migration
         - AWS Snowball & AWS Transfer Terminal
@@ -281,6 +304,8 @@
     - Backup
         - AWS Backup
             - `Automatic Backup` and `Retain the data for a while`
+            - Backup data across different services (RDS + S3/FSx/EFS/DynamoDB/EC2)
+            - Can keep the data for a long time comparing to RDS Data Rentetion (35 days maximum)
         - Metrics
             - Recovery Point Objective (RPO)
                 - Maximum tolerable data loss
@@ -296,6 +321,7 @@
             - Hot/Active
                 - Cost Highest, RTO Shortest
     - AWS Elastic Disaster Recovery
+        - Architecture: 
         - Create a backup database on the Cloud for on-premise database
         - Keeping on-premise database as the main database
 - Networks
@@ -331,6 +357,8 @@
             - `Connect a lot of VPCs in different accounts`
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
+        - Security Group
+            - `Conrtrol the Inbound and Outbound rules`
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
@@ -356,9 +384,11 @@
             - Check whether the route is healthy
             - Can redirect them to Error Pages
     - AWS CloudFront
-        - Content Delivery Network (CDN)
-        - Cache content in edge server
+        - `Content Delivery Network (CDN)`- Cache content in edge server
         - `Can have Geographic restriction`
+        - Field-Level Encryption
+            - Encrypt specified field in a request from client-side to server-side
+            - e.g. 'credit_card'
     - AWS Global Accelerator
         - `Access AWS Edge to access AWS Backbone Networks`
         - CloudFront is in higher level (Application Level: HTTP and HTTPS)
@@ -397,6 +427,10 @@
         - `Business Intelligence & Visualisation`
         - Similar to Tableau and PowerBI
         - Connect with other sources (Database, S3, Excel)
+    - AWS Lake Formation
+        - `A central data lake from different sources` (RDS, S3, RedShift)
+        - Saving the data in S3
+        - IAM, Analytics, Logs
     - AWS AppFlow
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
@@ -420,7 +454,6 @@
         - `AI model marketplace + API`
         - Claude, Llama and others
 - Security
-    - IAM
     - Monitor
         - AWS 
             - `MoniCloudWatchtor` the status of different services
@@ -459,6 +492,7 @@
                 - Install only security patches
             - Session Manager
                 - `Login to server without using SSH key and exposing SSH port`
+                - Only EC2 not RDS
             - Run Command
                 - Run a lot of CLI at one time
             - Automation
@@ -488,18 +522,74 @@
                 - CloudFront + AWS WAF
                 - Application Load Balancer + AWS WAF
                 - API Gateway + AWS WAF
+            - `Geographic (Geo) Match Conditions`
+                - Restrict to specific countries
         - Amazon GuardDuty
             - `Only Monitor and Identify the AWS environment Threat`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
-        - Amazon Shield
-            - AWS Sheild
+        - AWS Shield
+            - Protect services from `DDoS`
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
-            - Protect services from DDoS
-            - `DDoS Protection`
         - Amazon Firewall Manager
             - `WAF for the entire AWS Organization`
             - `Across different accounts`
             - `Manages security policies`
+- User Control
+    - IAM
+        - Policy
+            - A policy is an object in AWS that defines permissions.
+            - Three types:
+                - AWS Managed Policy (e.g. AdministratorAccess, AmazonS3FullAccess)
+                - Customer Managed Policy (custom, reusable)
+                - Inline Policy (embedded directly into a User/Role/Group, not reusable)
+        - Role
+            - A temporary identity that can be "assumed" by someone/something
+            - Use cases:
+                - Cross-service: e.g. EC2 accessing S3
+                - Cross-account: User in Account A assumes a Role in Account B
+                - Federated identity: external users (Google, AD) logging into AWS
+            - Issues temporary credentials (auto-expire), safer than User access keys
+        - User
+            - Represents a person or application with a fixed identity
+            - Console access: `username` + `password`
+            - Programmatic access: `Access Key` + `Secret Key`
+            - Assign permissions via Policies or User Groups
+        - User Group
+            - User Group is a group of users sharing the same permissions/policy.
+    - AWS Organisation
+        - Service Control Policy
+            - `Manage Permissions on the whole organisation or OU or Specific Account`
+            - Upper Global Permissions
+            - Final Permissions = IAM Permissions ∩ SCP Permissions
+    - AWS Control Tower
+        - Under AWS Organisation
+        - `Manage AWS User Account Environment`
+        - Features:
+            - Landing Zone
+                - Logging
+                - Audit
+                - OU (Organizational Unit)
+            - Guardrails
+                - Limit the permissions of users
+                - e.g. Cannot turn off CloudTrail, Ban S3 public access
+            - Account Factory
+                - Create AWS Accounts with username, email
+            - Dashboard
+                - Who violate the rules
+                - Who does not violate the rules 
+    - AWS Cognito
+        - **User Pool**
+            - `Authentication`
+            - Register, Login, MFA, Create JWT
+        - **Identity Pool**
+            - `Authorisation`
+            - Roles
+        - Similar to 
+            - Auth0
+            - Azure AD (Active Directory)(Entra ID)
+    - Access Control List (ACL)
+        - Acccess Control List is resource-based.
+        - S3 and VPC have their own ACLs.
 - Cost
     - Cost Explorer
         - `Cost Visualisation of last 38 months cost`
@@ -519,7 +609,7 @@
         - `On-demand cryptographic operations`
         - Customer managed multi-Region KMS key
         - Can do automatic rotation
-    - AWS Secret Manger
+    - AWS Secret Manager
         - For Secret Key
         - `Not suitable for frequent access`
         - `Automatic Rotation`
@@ -532,17 +622,7 @@
             - Performance Efficiency
             - Cost Optimization
             - Sustainability
-    - AWS Cognito
-        - **User Pool**
-            - `Authentication`
-            - Register, Login, MFA, Create JWT
-        - **Identity Pool**
-            - `Authorisation`
-            - Roles
-        - Similar to 
-            - Auth0
-            - Azure AD (Active Directory)(Entra ID)
-    - AWS OpenSearch Sevice (Elastic Search )
+    - AWS OpenSearch Sevice (AWS Elastic Search)
         - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
     - AWS Textract
         - `OCR`
