@@ -1,10 +1,10 @@
 # AWS
 - Current
     - 1 - 150 (Done)
-    - 181
+    - 202 (564)
     - 531 (1307)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
 - Terms
     - Bastion Server
@@ -93,6 +93,7 @@
                 - HPC: High Performance Computing
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
+            - `Including the EBS`
     - AWS Lambda
         - `Reserved Concurrency`
             - Reserve a certain number of throughput
@@ -109,6 +110,7 @@
                 - Only for regional Server
             - Private
                 - Only Access through Private VPC/ VPC Endpoint
+        - You can use AWS Cognito with 
     - Container Service (ECS)
         - Fargate
     - Kubernetes Service (EKS)
@@ -128,10 +130,13 @@
             - Still Server-based PaaS
             - Upload only the code or Docker Image
             - Use servers that can be accessed and managed
+            - URL swapping
+                - Swapping environment quickly without stopping
+                - Zero-downtime deployment
         - AWS App Runner
             - Container-based SUserverless
             - Faster
-        - AWAS Amplify
+        - AWS Amplify
             - Serverless with AWS Lambda, API, Storage
     - AWS Simple Notification Service (SNS)
             - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
@@ -189,7 +194,7 @@
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
         - **Multi-AZ Standby Instance**
-            - Architecture: 1 Main + 1 Stand-by
+            - Architecture: 1 Main + 1 Stand-by (Only-2)
             - Much Cheaper
             - Stand-by can't be used normally comparing to Read Replicas and Multi-AZ DB Cluster Readable Stand-by
             - Synchronous replication, minimal data loss
@@ -241,6 +246,8 @@
         - **DynamoDB Accelerator (DAX)**
             - Database Cache
             - Similar to Redis
+        - **Time To Live (TTL)**
+            - Data tagged with TTL will be deleted after the designated period
     - AWS S3
         - Object Storage
             - Key, Data, Metadata
@@ -261,10 +268,10 @@
             - Upload Acceleration
         - S3 Object Lock
             - Can't be modified and deleted
-            - Governance Mode
+            - **Governance Mode**
                 - `Protected based on permission`
                 - Bypass with `s3:BypassGovernanceRetention`
-            - Compliance Mode
+            - **Compliance Mode**
                 - `Absoulte Control (Even if Admin)`
                 - No user can delete and update
         - S3 Access Control List
@@ -276,6 +283,9 @@
             - `Trigger when an object is uploaded and deleted and others`
             - Limitation: `Each S3 event can only fan out to one SQS, one SNS, or one Lambda destination per rule`
             - `Use EventBridge to send multiple`
+        - SSE-S3（Server-Side Encryption with Amazon S3 Managed Keys
+            - `Encrypt data in the saving level`
+            - Rotate every year
     - Storage Gateway
         - `Connect on-premise storage and AWS Cloud Storage together`
         - Purposes:
@@ -455,7 +465,7 @@
         - Claude, Llama and others
 - Security
     - Monitor
-        - AWS 
+        - AWS CloudWatch
             - `MoniCloudWatchtor` the status of different services
             - e.g. Metrics, Logs, Events
             - Composite Alarm v.s. Single Metric Alarm
@@ -497,7 +507,7 @@
                 - Run a lot of CLI at one time
             - Automation
                 - Run script and restart instances when something happen
-        - AWS Config
+        - **AWS Config**
             - AWS Config is a service that enables you to assess, audit, and evaluate the `configurations` of your AWS resources
             1) Configuration Recording
                 - Record anything has been updated in configuration
@@ -506,12 +516,12 @@
                 - For example, s3 can't be accessed by the public, certain port needs to be private
             3) Configuration Timeline
                 - What is the configuration of a service three days ago
-        - AWS CloudFormation
+        - **AWS CloudFormation**
             - Infrastructure as Code
             - Infrastructure Template + Deployment Automation + Version Control
             - `Similar to k8s yaml. However, it is in the infrastructure level.`
             - Terraform - Multi-Cloud: AWS/AZure/GCP
-        - AWS Service Catalog
+        - **AWS Service Catalog**
             - `Encapsulation of AWS CloudFormation`
             - `Make CloudFormation to be a product`
     - Protection
@@ -587,6 +597,7 @@
         - Similar to 
             - Auth0
             - Azure AD (Active Directory)(Entra ID)
+        - `Support API Gateway with Cognito Authorizer`
     - Access Control List (ACL)
         - Acccess Control List is resource-based.
         - S3 and VPC have their own ACLs.
@@ -604,16 +615,17 @@
     - AWS Budget
         - `Plan, Montior, and Warn based on your planned budget`
         - Can make budget based on regions, services, and many more
-- Utility
+- Secret
     - AWS Key Management Service
         - `On-demand cryptographic operations`
-        - Customer managed multi-Region KMS key
-        - Can do automatic rotation
+        - Customer managed multi-Region KMS key (This can be rotated.)
+        - Customer provided (imported) key (This can't be rotated.)
     - AWS Secret Manager
         - For Secret Key
         - `Not suitable for frequent access`
         - `Automatic Rotation`
             - RDS, Redshift, DoumentDB, Lambda Roatation Function
+- Utility
     - AWS Well-Architected Framework
         - 6 Pillars
             - Operational Excellence
@@ -623,10 +635,25 @@
             - Cost Optimization
             - Sustainability
     - AWS OpenSearch Sevice (AWS Elastic Search)
-        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
+        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service、
+    - AWS Connect
+        - `Call Center`
+        - 3 Ways
+            1) Traditional Agent
+                - Distribute to real person directly
+            2) Pure Chatbot/ IVR（Interactive Voice Response
+                - Can't manage complex senarios
+            3) `Mixed (Most Common)`
+                - First Virtual, then new person
+    - AWS Pinpoint
+        - `Marketing communications`
+        - One-way SMS & Two-way SMS
+        - Can save data for one year for analysis
     - AWS Textract
         - `OCR`
         - Supports JEPG, PNG, PDF
+    - AWS Transcribe
+        - `Speech-to-Text Recognition`
     - Savings Plan
         - Computing Savings Plan
             - More Flexible
