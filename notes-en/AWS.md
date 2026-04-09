@@ -1,10 +1,10 @@
 # AWS
 - Current
     - 1 - 150 (Done)
-    - 202 (564)
+    - 232 (646)
     - 531 (1307)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
 - Terms
     - Bastion Server
@@ -16,9 +16,17 @@
         - Assign a small portion of users to this release version
         - Gradually promote the canary stage to the production stage.
     - ACL
-        - Acess Control List
+        - Acess Control List\
+    - RDP
+        - Remote Desktop Protocol
     - IPOS
         - Input/Output Operations Per Second
+    - Stateful
+        - Stateful Application
+            - Meaning having memory or records
+            - `Can't fix the issues with Auto-Scaling`
+                - Having specific memory on one server
+            - `Solve it with increasing the RAM`
 - **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
@@ -82,18 +90,37 @@
                 - For one instance only
                 - `Single AZ`
             - Elatsic File System (EFS)
-                - For one and more instances
-                - Does not support Windows Server
-                - ` Auto-scales automatically!`
-                - `Multiple AZ`
+                - Features
+                    - For one and more instances
+                    - Supports EKS and ECS
+                    - Does not support Windows Server
+                    - No Public Access through URL
+                    - Faster and More Expensive than S3
+                - `Auto-scale automatically!`
+                - `Single Region and Multiple AZ`
+                - `For long-term archive, try to use "S3" instead cost-effectively`
             - Amazon FSx for Windows File Server
                 - `EFS for Windows`
-            - Amazon FSx for Lustre
+            - **Amazon FSx for Lustre**
                 - `HPC and Linux File System`
                 - HPC: High Performance Computing
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
-            - `Including the EBS`
+            - `AMI saves the data in EBS as well`
+        - Instance Type
+            | Letter | Meaning        | Optimization Focus        |
+            |--------|----------------|---------------------------|
+            | T      | Burstable      | Burst performance         |
+            | M      | Medium         | Balanced                  |
+            | C      | Compute        | CPU                       |
+            | R      | RAM            | Memory                    |
+            | X      | Extreme        | Extremely large memory    |
+            | I      | IOPS           | Disk I/O                  |
+            | D      | Dense          | High storage capacity     |
+            | H      | HDD            | High throughput storage   |
+            | P      | GPU            | ML training               |
+            | G      | GPU            | Graphics / inference      |
+            | F      | FPGA           | Hardware acceleration     |
     - AWS Lambda
         - `Reserved Concurrency`
             - Reserve a certain number of throughput
@@ -103,14 +130,14 @@
             - `Warm Start` (The computing instance is prepared)
             - `Lower Latency`
     - AWS API Gateway
-        - Deployment Type
+        - `Deployment Type`
             - Edge-Optimised
                 - Optimized by CloudFront
             - Regional
                 - Only for regional Server
             - Private
                 - Only Access through Private VPC/ VPC Endpoint
-        - You can use AWS Cognito with 
+        - `You can use AWS Cognito with Authoriser`
     - Container Service (ECS)
         - Fargate
     - Kubernetes Service (EKS)
@@ -128,9 +155,9 @@
     - Fast Deployment
         - AWS Elastic Beanstalk
             - Still Server-based PaaS
-            - Upload only the code or Docker Image
+            - Upload only the `code` or `Docker Image`
             - Use servers that can be accessed and managed
-            - URL swapping
+            - `URL swapping`
                 - Swapping environment quickly without stopping
                 - Zero-downtime deployment
         - AWS App Runner
@@ -188,8 +215,9 @@
             - When DB Instances, Failover, Backup, Low Storage..
             - `But not the data or the schema is changed.`
         - Data Retention
+            - Keeping the data before being automatically deleted
             - Maximum 35 days
-        - Read Replicas
+        - **Read Replicas**
             - Have both cross-region replicas and cross-az replicas
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
@@ -200,13 +228,13 @@
             - Synchronous replication, minimal data loss
         - **Multi-AZ DB Cluster**
             - Architecture: 1 Main + 2 Readable Stand-by
-            - Better Availability, More Expensive, `Reduce the Load of the database
+            - Better Availability, More Expensive, Reduce the Load of the database, Improving Database Performance
             - Not Support:
                 - RDS for MariaDB
                 - RDS for Oracle
                 - RDS for SQL Server
         - RDS Proxy
-            - Effective with AWS Lambaa
+            - Effective with AWS Lambda
                 - Each Lambda originallly requires to build one connection with database
                 - `With RDS Proxy fewer connection are needed, releasing the load of RDS`
             - Combining with AWS Secret Manager
@@ -260,7 +288,7 @@
             - Access control and permissions for bucket and its objects
         - Lifecycle policy for the objects 
             - Automated management of objects based on predefined rules
-            - e.g. 30 days later delete files or transfer it to Glacier
+            - e.g. 30 days/3 years later delete files or transfer it to Glacier
         - Gateway VPC Endpoint
             - Access S3 privately without using the Internet
             - Traffic stays within AWS network
@@ -283,15 +311,21 @@
             - `Trigger when an object is uploaded and deleted and others`
             - Limitation: `Each S3 event can only fan out to one SQS, one SNS, or one Lambda destination per rule`
             - `Use EventBridge to send multiple`
-        - SSE-S3（Server-Side Encryption with Amazon S3 Managed Keys
-            - `Encrypt data in the saving level`
+        - SSE-S3(Server-Side Encryption with Amazon S3 Managed Keys)
+            - `Encryption for S3` and `Encrypt data in the saving level`
             - Rotate every year
+    - AWS Transfer
+        - `Transfer Document to S3 or EFS with different protocals`
+        - Supported protocals
+            - SFTP, FTPS, FTP, AS2
     - Storage Gateway
         - `Connect on-premise storage and AWS Cloud Storage together`
         - Purposes:
             - Keep both records in both on-premise and cloud (Back-up)
             - Gradual Migration without interruptting the existing app
     - AWS ElasticCache
+        - `Caching`
+        - `Can do application-level session caching`
         - Redis
             - Redis supports more formats
             - This is `more recommended`
@@ -303,6 +337,7 @@
             - `Physical Transfer`
             - Data Migration in and out AWS services
             - `Slow, expensive Internet`
+            - **For Lowest Cost**, **hundreds of Terabytes => always use Snowball**
             - `Support File Migration`
             - Indirect Support for Database Transfer (.sql, .csb)
         - AWS DataSync
@@ -348,27 +383,40 @@
                 - Connect AWS Services inside AWS
                 - Building private connection with the subnet and the services
                 - Without accessing thourgh Internet reducing Network Cost
-        - NAT Gateway
-            - `IPv4 Only`
-            - Private Subnet access Internet
-            - EC2 -> Internet
-            - `Not` Internet -> EC2
-            - `Outbound only and no need to have public IP` 
-        - Egress-Only IGW
-            - `IPv6 Only`
-            - Private Subnet access Internet
-            - `Outbound only and no need to have public IP`
+        - Access to Internet
+            - NAT Instance
+                - Old Technology better to be `replaced with NAT Gateway`
+                - It is an Server Instance has Public IP connecting with other instances without public IP
+            - NAT Gateway
+                - `IPv4 Only`
+                - Private Subnet access Internet
+                - One way access
+                    - `Outbound only and no need to have public IP` 
+                    - EC2 -> Internet
+                    - `Not` Internet -> EC2
+            - Egress-Only IGW
+                - `IPv6 Only`
+                - Private Subnet access Internet
+                - `Outbound only and no need to have public IP`
         - Route Table
             - `Route IP to different targets (Internet Gateway, Ohter VPC with VPC peering)`
+            - After setting up the VPC Peering, you need to set up the route table to connect to the VPC.
         - VPC Peering
             - Only between two AWS-to-AWS VPC
             - Building connection between two subnet
+            - Supports cross-region peering
         - AWS Transit Gateway
-            - `Connect a lot of VPCs in different accounts`
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
-        - Security Group
-            - `Conrtrol the Inbound and Outbound rules`
+        - Traffic Control
+            - Security Group
+                - Stateful
+                - Conrtrol the Inbound and Outbound rules for `Instance`
+                - **If you allow incoming traffic, the response is automatically allowed.**
+            - ACL
+                - Conrtrol the Inbound and Outbound rules in `Subnet level`
+                - **You must explicitly allow both inbound AND outbound.**
+                - Outbound `Port 32768-65535` with destination `0.0.0.0/0`
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
@@ -385,14 +433,27 @@
 - Reduce Latency
     - AWS Route 53
         - `DNS`
-        - Active-Active Configuration
-            - When one endpoint become unhealthy
-            - Redirect to other healthy endpoint
-        - Active-Passive Failover Configuration
-            - Must Combining with Health Check
-        - Health Check
-            - Check whether the route is healthy
-            - Can redirect them to Error Pages
+        - Configuration
+            - Active-Active Configuration
+                - When one endpoint become unhealth, redirect to other healthy endpoint
+            - Active-Passive Failover Configuration
+                - Must Combining with `Health Check`
+                    - Health Check
+                        - Check whether the route is healthy
+                        - Can redirect them to Error Pages
+        - **Traffic Routing Strategy**
+            - Simple
+                - One IP
+            - Weighted
+                - For A/B Testing, and Pressure Division
+                - e.g. 70% to A, 30% to B
+            - Failover
+                - Health Check and direct to healthy IP
+            - Latency-based
+                - Regional/global routing based on latancy
+            - Geolocation
+            - Multi-value answer
+                - Completed Random
     - AWS CloudFront
         - `Content Delivery Network (CDN)`- Cache content in edge server
         - `Can have Geographic restriction`
@@ -410,22 +471,24 @@
         - Serverless
         - `Data Analysis` run query in S3 or other data sources
         - Mainly for S3
-        - Amazon Athena Federated Query
-            - Run Query on Multiple sources including Database
+        - **Amazon Athena Federated Query**
+            - Run Query on Multiple sources including Databases (RDS, NoSQL, CloudWatch)
     - AWS Glue
         - Extract, Transform, Load (`ETL`)
-        - Bulck Process, Process regularly, on a schedule, manually 
+        - Bulck Process
+            - `Process regularly, on a schedule, manually`
         - `Job bookmarks help AWS Glue maintain state information and prevent the reprocessing of old data.`
         - AWS Glue DataBrew
             - `Lets you clean and transform data without writing any code.`
+        - Data Sources
+            - S3, RDS, NoSQL, RedShift, Streaming (Kinesis Data Stream), On-premises
     - Amazon Kinesis services
         - Kinesis Data Streams (KDS)
+            - `Real-time data` ingestion and custom stream processing applications.
         - Kinesis Data Firehose
-            - ETL
+            - `ETL`
         - Kinesis Data Analytics
-            - Real-time analytics with the data sources coming from KDS or Firehose
-        - Collect, process, and `analyze data streams in real time`.
-        - Stream Process that requires instant action
+            - `Real-time analytics` with the data sources coming from KDS or Firehose
     - AWS RedShift
         - `Data Warehouse` (Large numbers of Read not Write)
         - `No visualisation` needs to work with AWS QuickSight for visualisation
@@ -527,7 +590,7 @@
     - Protection
         - Amazon WAF (Web Application Firewall)
             - `HTTPS Application Layer`
-            - IP Black List, SQL Injection, XSS
+            - `IP Black List, SQL Injection, XSS`
             - Combination
                 - CloudFront + AWS WAF
                 - Application Load Balancer + AWS WAF
