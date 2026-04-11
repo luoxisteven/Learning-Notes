@@ -1,10 +1,10 @@
 # AWS
 - Current
     - 1 - 150 (Done)
-    - 232 (646)
+    - 282 (771)
     - 531 (1307)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 257^, 281
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
 - Terms
     - Bastion Server
@@ -70,6 +70,20 @@
         ```
 - Computing
     - EC2
+        - Auto Scaling
+            - Supports both `Scale Out = Add more instances, Scale in = Remove instances`
+            - Can use one or more policies in combination
+            - **Scaling Policy**
+                - Target Tracking Scaling
+                    - Tracking CPU or RAM usage rate
+                - Step Scaling
+                    - More thresholds comparing to Target Tracking
+                - Simple Scaling
+                    - Old, Trigger by CloudWatch
+                - Scheduled Scaling
+                    - Scale based on time
+                - Predictive Scaling
+                    - Using ML to predict and scale
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
             - On-Demand Reservation
                 - `Reserve Instances for speical events` that requires a lots of instances
@@ -104,6 +118,7 @@
             - **Amazon FSx for Lustre**
                 - `HPC and Linux File System`
                 - HPC: High Performance Computing
+                - **Can join with (on-premise) Active Directory**
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
             - `AMI saves the data in EBS as well`
@@ -137,7 +152,11 @@
                 - Only for regional Server
             - Private
                 - Only Access through Private VPC/ VPC Endpoint
-        - `You can use AWS Cognito with Authoriser`
+        - Authoriser
+            - AWS Cognito
+                - `You can use AWS Cognito with Authoriser`
+            - IAM
+                - Based on secret key create a signautre, and verify the signature
     - Container Service (ECS)
         - Fargate
     - Kubernetes Service (EKS)
@@ -182,17 +201,34 @@
         - Job, Job Queue, Compute Environment
         - Compute environment only supports EC2, ECS Fargate
 - Load Balancer (Elastic Load Balancer)
-    - Application Load Balancer
+    - Application Load Balancer (ALB)
         - Application Layer
         - Protocals: HTTP, HTTPs, WebSocket, gPRC
         - Listener Rule
             - Redirect HTTP traffic to HTTPS
+            - Host-based routing
+                - e.g. api.example.com → API, admin.example.com → Admin
+            - Path-based routing
+                - e.g. /api/* → API, / → Frontend
+            - HTTP Header-based routing
+                - e.g. Header: User-Agent = Mobile → Mobile Service, Header: x-env = test → Test Env
+            - Query String routing
+                - e.g. ?version=v2 → new app, ?user=beta → Beta user
+            - HTTP Method routing
+                - e.g. GET, POST
+            - Source IP routing
+                - e.g. based on different IP address
         - ACL & Security Group
             - `ACL can block based on IP`
             - `Security Group only allow but not deny`
-    - Network Load Balancer 
+        - **ALB & NLB are located in a VPC's Public Subnet and can connect with Private Subnet**
+        - ALB can connect multiple servers with Target Group, or connect with Auto-Scaling group
+        - `ALB has health check, https status code level`
+    - Network Load Balancer (NLB)
         - Transport Layer
         - Protocal: IP
+        - **NLB don't have the same routing listener route like ALB**
+        - `NLB has health check, tcp level`
         - Distributes traffic using a flow hash algorithm depedning on the IP and Port
         - Distributes traffic using a flow hash algorithm based on the 5-tuple:
             - Source IP
@@ -208,6 +244,7 @@
 - Databases
     - RDS
         - Can do encryption at rest
+        - RDS Instance is the server for RDS Database
         - Provisioned IOPS SSD
             - Made for high levels of I/O opps for consistent, predictable performance.
         - RDS Event Notification
@@ -223,23 +260,25 @@
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
         - **Multi-AZ Standby Instance**
             - Architecture: 1 Main + 1 Stand-by (Only-2)
-            - Much Cheaper
-            - Stand-by can't be used normally comparing to Read Replicas and Multi-AZ DB Cluster Readable Stand-by
+            - Much Cheaper, RPO less than 1 second
+            - `Stand-by can't be used normally comparing to Read Replicas and Multi-AZ DB Cluster Readable Stand-by`
             - Synchronous replication, minimal data loss
         - **Multi-AZ DB Cluster**
             - Architecture: 1 Main + 2 Readable Stand-by
-            - Better Availability, More Expensive, Reduce the Load of the database, Improving Database Performance
+            - `Stand-by databases can be read normally and reduce the burden of main database`
+            - Higher Availability, More Expensive, Reduce the Load of the database, Improving Database Performance
             - Not Support:
                 - RDS for MariaDB
                 - RDS for Oracle
                 - RDS for SQL Server
-        - RDS Proxy
+        - **RDS Proxy**
+            - RDS Proxy `builds long-term connection` with RDS Database.
             - Effective with AWS Lambda
                 - Each Lambda originallly requires to build one connection with database
                 - `With RDS Proxy fewer connection are needed, releasing the load of RDS`
             - Combining with AWS Secret Manager
             - Combing with Multi-AZ Standby Database
-                - Being able to mitigate the `failover `
+                - Being able to mitigate the `failover`
                 - when a database fail, proxy will direct to another one
         - `You can enable encryption for an Amazon RDS DB instance when you create it, but not after it's created. However, you can add encryption to an unencrypted DB instance by creating a snapshot of your DB instance, and then creating an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot to get an encrypted copy of your original DB instance.`
     - Aurora 
@@ -251,7 +290,8 @@
         - Cross-Region Read Replicas
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
         - Aurora Global Database
-            - Stronger and faster in availability comparing to cross-region read replicas
+            - 1 Primary Region (Write & Read) + Up to 5 Secondary Region (Read-Only)
+            - `Provides faster cross-region replication and lower RPO/RTO compared to standard cross-region read replicas`
             - Suitable for finance system that requires high availability
     - DocumentDB
         - Type: `Document`
@@ -289,9 +329,6 @@
         - Lifecycle policy for the objects 
             - Automated management of objects based on predefined rules
             - e.g. 30 days/3 years later delete files or transfer it to Glacier
-        - Gateway VPC Endpoint
-            - Access S3 privately without using the Internet
-            - Traffic stays within AWS network
         - S3 Transfer Acceleration
             - Upload Acceleration
         - S3 Object Lock
@@ -314,15 +351,30 @@
         - SSE-S3(Server-Side Encryption with Amazon S3 Managed Keys)
             - `Encryption for S3` and `Encrypt data in the saving level`
             - Rotate every year
+    - AWS Neptune
+        - `Graph Database`
     - AWS Transfer
         - `Transfer Document to S3 or EFS with different protocals`
         - Supported protocals
             - SFTP, FTPS, FTP, AS2
-    - Storage Gateway
+    - **AWS Storage Gateway**
         - `Connect on-premise storage and AWS Cloud Storage together`
         - Purposes:
             - Keep both records in both on-premise and cloud (Back-up)
             - Gradual Migration without interruptting the existing app
+        - Types
+            - File Gateway
+                - NFS/SMB -> S3
+            - Block Gateway
+                - iSCSI -> S3
+            - Tape Gateway
+                - VTL, Virtual Tape Library -> S3 Glacier / Glacier Deep Archive
+        - Modes
+            - Shared Volume
+                - Keep two complete copies in both on-premise and S3
+            - Cached Volume
+                - Keep the main copy in S3
+                - Keep only frequent-access copy in Premise
     - AWS ElasticCache
         - `Caching`
         - `Can do application-level session caching`
@@ -340,17 +392,17 @@
             - **For Lowest Cost**, **hundreds of Terabytes => always use Snowball**
             - `Support File Migration`
             - Indirect Support for Database Transfer (.sql, .csb)
-        - AWS DataSync
-            - File Migration
+        - **AWS DataSync**
+            - `File Migration`
             - On-premise File System -> S3
             - s3 -> EFS -> FSx
-        - AWS Database Migration Service (AWS DMS)
-            - Database Migration
+        - **AWS Database Migration Service (AWS DMS)**
+            - `Database Migration`
     - Backup
         - AWS Backup
             - `Automatic Backup` and `Retain the data for a while`
             - Backup data across different services (RDS + S3/FSx/EFS/DynamoDB/EC2)
-            - Can keep the data for a long time comparing to RDS Data Rentetion (35 days maximum)
+            - `Can keep the data for a long time comparing to RDS Data Rentetion (35 days maximum)`
         - Metrics
             - Recovery Point Objective (RPO)
                 - Maximum tolerable data loss
@@ -359,11 +411,11 @@
                 - Maximum tolerable downtime
                 - For the availablitiy ability
         - Disaster Recovery Mode
-            - Warm Standby
-                - Cost Middle, RTO Short
-            - Pilot Light
+            - `Pilot Light`
                 - Cost Lowest, RTO Middle
-            - Hot/Active
+            - `Warm Standby`
+                - Cost Middle, RTO Short
+            - `Hot/Active`
                 - Cost Highest, RTO Shortest
     - AWS Elastic Disaster Recovery
         - Architecture: 
@@ -404,7 +456,7 @@
         - VPC Peering
             - Only between two AWS-to-AWS VPC
             - Building connection between two subnet
-            - Supports cross-region peering
+            - Supports cross-region peering, cross-account peering
         - AWS Transit Gateway
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
@@ -416,7 +468,9 @@
             - ACL
                 - Conrtrol the Inbound and Outbound rules in `Subnet level`
                 - **You must explicitly allow both inbound AND outbound.**
-                - Outbound `Port 32768-65535` with destination `0.0.0.0/0`
+                - Outbound `Port 32768-65535` with destination `0.0.0.0/0
+        - VPC Flow Log
+            - A Log that can connect with CloudWatch and set alarm
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
@@ -427,6 +481,8 @@
         - ACM can not renew any third-party SSL certificate
         - Private Certificate Authority
             - For Private Networks, VPN
+        - Encrypt data in transit
+            - Encrypt data in transit with certificate
     - AWS App Mesh
         - `For monitoring network`
         - Suitable for EC2, ECS, EKS
@@ -443,16 +499,20 @@
                         - Can redirect them to Error Pages
         - **Traffic Routing Strategy**
             - Simple
-                - One IP
+                - One or multiple IPs
             - Weighted
                 - For A/B Testing, and Pressure Division
                 - e.g. 70% to A, 30% to B
             - Failover
+                - Always go to the primary, if not healthy go to the backup
                 - Health Check and direct to healthy IP
+                - If requires multiple servers/IPs
+                    - Use the primary for ALB, then uses ALB to connect multiple servers/IPs
             - Latency-based
                 - Regional/global routing based on latancy
             - Geolocation
             - Multi-value answer
+                - 8 IP at most, and route to the healthy IP address
                 - Completed Random
     - AWS CloudFront
         - `Content Delivery Network (CDN)`- Cache content in edge server
@@ -485,8 +545,11 @@
     - Amazon Kinesis services
         - Kinesis Data Streams (KDS)
             - `Real-time data` ingestion and custom stream processing applications.
+            - `KDS requires consumer applications to read and process data (e.g., Lambda, EC2, Flink)`
         - Kinesis Data Firehose
             - `ETL`
+            - `Firehose can process data, and is not required to add consumers.`
+            - `Consumer is optional`
         - Kinesis Data Analytics
             - `Real-time analytics` with the data sources coming from KDS or Firehose
     - AWS RedShift
@@ -508,8 +571,8 @@
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
         - For example, connect Salesforce
-    - AWS EMR
-        - Elastic MapReduce
+    - AWS Elastic MapReduce (EM)
+        - `Elastic MapReduce`
         - Can do large data processing
 - AI
     - Amazon Rekognition
@@ -550,11 +613,7 @@
             - Logs
                 - Store logs in **Amazon S3**
                 - Use **AWS Athena** to query the logs of CloudTrail
-        - Amazon Inspector
-            - Inspect EC2, Container for any CVE Vunlerability
-            - CVE (Common Vulnerabilities and Exposures)
-                - Any patches that haven't been installed.
-        - Amazon Macie
+        - **Amazon Macie**
             - `Scaning S3 to search` for any PII and sensitive data
             - However, not doing any application to encrypt the data
     - Configuration
@@ -597,9 +656,13 @@
                 - API Gateway + AWS WAF
             - `Geographic (Geo) Match Conditions`
                 - Restrict to specific countries
-        - Amazon GuardDuty
+        - **Amazon GuardDuty**
             - `Only Monitor and Identify the AWS environment Threat`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
+        - **Amazon Inspector**
+            - Inspect EC2, Container for any `CVE Vunlerability`
+            - CVE (Common Vulnerabilities and Exposures)
+                - Any patches that haven't been installed.
         - AWS Shield
             - Protect services from `DDoS`
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
@@ -607,6 +670,7 @@
             - `WAF for the entire AWS Organization`
             - `Across different accounts`
             - `Manages security policies`
+
 - User Control
     - IAM
         - Policy
@@ -679,10 +743,12 @@
         - `Plan, Montior, and Warn based on your planned budget`
         - Can make budget based on regions, services, and many more
 - Secret
-    - AWS Key Management Service
+    - AWS Key Management Service (KMS)
         - `On-demand cryptographic operations`
         - Customer managed multi-Region KMS key (This can be rotated.)
         - Customer provided (imported) key (This can't be rotated.)
+        - Encrypt at rest
+            - AWS KMS can be used to encrypt the EBS and Aurora database storage at rest.
     - AWS Secret Manager
         - For Secret Key
         - `Not suitable for frequent access`
