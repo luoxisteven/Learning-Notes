@@ -1,11 +1,10 @@
 # AWS
 - Current
-    - 1 - 150 (Done)
-    - 282 (771)
-    - 531 (1307)
+    - 1 - 300 (809)
+    - 556 (1359)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 257^, 281
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 257^, 281, 291^, 295^, 300
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，532, 537^, 539, 540^, 541^, 536, 542, 543^, 545, 550^
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -16,18 +15,27 @@
         - Assign a small portion of users to this release version
         - Gradually promote the canary stage to the production stage.
     - ACL
-        - Acess Control List\
+        - Access Control List
     - RDP
         - Remote Desktop Protocol
     - IPOS
         - Input/Output Operations Per Second
+    - Database Availability Metrics
+        - Recovery Point Objective (RPO)
+            - How long does the system may lost the data
+        - Recovery Time Objective (RTO)
+            - When does the system recover
     - Stateful
         - Stateful Application
             - Meaning having memory or records
             - `Can't fix the issues with Auto-Scaling`
                 - Having specific memory on one server
             - `Solve it with increasing the RAM`
-- **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
+    - CIDR (Classless Inter-Domain Routing)
+        - Allocating IP address by locking a certain of bits
+        - Locking the IP address in the front `(8, 16, 24, 32)`
+        - e.g. 10.0.0.0/8 (Locking 10, but 0.0.0 can be changed)
+        - e.g. 192.16.1.1/32 (Locking the completed IP block)
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
         - `Many small reads/writes`
@@ -73,6 +81,7 @@
         - Auto Scaling
             - Supports both `Scale Out = Add more instances, Scale in = Remove instances`
             - Can use one or more policies in combination
+            - **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
             - **Scaling Policy**
                 - Target Tracking Scaling
                     - Tracking CPU or RAM usage rate
@@ -85,6 +94,7 @@
                 - Predictive Scaling
                     - Using ML to predict and scale
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
+            - These all require to specifiy instance type.
             - On-Demand Reservation
                 - `Reserve Instances for speical events` that requires a lots of instances
                 - If not, there might not be enough instances for a speical events.
@@ -97,6 +107,11 @@
             - Spot Blocks
                 - Locking a certain period (7 a.m. to 10 a.m.)
                 - This functionality has been retried.
+        - Saving Plan
+            - `Make minimum commitment, even if you use less but you have to pay for that amount`
+            - Upfront Plan
+            - Partial Upfront Plan
+            - No Upfront Plan
         - Storage
             - Elastic Block Services (EBS)
                 - SSD
@@ -115,6 +130,7 @@
                 - `For long-term archive, try to use "S3" instead cost-effectively`
             - Amazon FSx for Windows File Server
                 - `EFS for Windows`
+                - **Supports SMB protocal, EFS doesn't support SMB protocal**
             - **Amazon FSx for Lustre**
                 - `HPC and Linux File System`
                 - HPC: High Performance Computing
@@ -131,19 +147,30 @@
             | R      | RAM            | Memory                    |
             | X      | Extreme        | Extremely large memory    |
             | I      | IOPS           | Disk I/O                  |
-            | D      | Dense          | High storage capacity     |
+            | D      | Dense          | High storage capacity     |SS
             | H      | HDD            | High throughput storage   |
             | P      | GPU            | ML training               |
             | G      | GPU            | Graphics / inference      |
             | F      | FPGA           | Hardware acceleration     |
+        - Elastic Network Interface (ENI)
+            - An attacahed Network Interface
+            - **That keeping the same IP address, adn can be used and reused into differnt instances**
     - AWS Lambda
-        - `Reserved Concurrency`
-            - Reserve a certain number of throughput
-        - `Unreserved Concurrency`
-            - Shared with other Lambda Functions
-        - `Provisioned Concurrency`
-            - `Warm Start` (The computing instance is prepared)
-            - `Lower Latency`
+        - Concurrency Methods
+            - `Reserved Concurrency`
+                - Reserve a certain number of throughput
+            - `Unreserved Concurrency`
+                - Shared with other Lambda Functions
+            - `Provisioned Concurrency`
+                - `Warm Start` (The computing instance is prepared)
+                - `Lower Latency`
+        - Permission Policy
+            - Execution Role
+                - How Lambda is able to exccess other resources
+                - e.g. Lambda read S3, read DynamoDB
+            - Resource Policy/Function Policy
+                - Defines who can access Lambda
+                - e.g. S3 trigger Lambda Function, API Gateway uses Lambda Function
     - AWS API Gateway
         - `Deployment Type`
             - Edge-Optimised
@@ -157,6 +184,8 @@
                 - `You can use AWS Cognito with Authoriser`
             - IAM
                 - Based on secret key create a signautre, and verify the signature
+    - AWS AppSync
+        - `GraphQL services connect to data sources (Lambda, RDS, HTTP)`
     - Container Service (ECS)
         - Fargate
     - Kubernetes Service (EKS)
@@ -224,6 +253,9 @@
         - **ALB & NLB are located in a VPC's Public Subnet and can connect with Private Subnet**
         - ALB can connect multiple servers with Target Group, or connect with Auto-Scaling group
         - `ALB has health check, https status code level`
+        - Deregistration Delay Timeout
+            - Default 300 seconds.
+            - **If the response is taking up a lot of time, increase this**
     - Network Load Balancer (NLB)
         - Transport Layer
         - Protocal: IP
@@ -251,7 +283,7 @@
             - Connect SNS
             - When DB Instances, Failover, Backup, Low Storage..
             - `But not the data or the schema is changed.`
-        - Data Retention
+        - Data Retention Policy
             - Keeping the data before being automatically deleted
             - Maximum 35 days
         - **Read Replicas**
@@ -342,15 +374,25 @@
         - S3 Access Control List
             - Read, Write, Update, Delete Control on bucket and object
         - **Hide S3 URL**
-            - Configure `Cloudfront Origin Access Control (OAC)` or `Cloudfront OAI (Origin Access Identity)`
+            - Configure `new Cloudfront Origin Access Control (OAC)` or `old Cloudfront OAI (Origin Access Identity)`
                 - For Security, and performance purposes
+        - **Signed URL, Cookies**
+            - Presigned URL is a temporary signature to access files.
+                - For Single File Only
+            - Presigned Cookies must accompany with `CloudFront` to use.
+                - For Multiple File
+        - **Object Lambda**
+            - Using Lambda Function to process file before returning the data
+            - For exmaple, removing sensitive data
         - S3 Event Notification
             - `Trigger when an object is uploaded and deleted and others`
             - Limitation: `Each S3 event can only fan out to one SQS, one SNS, or one Lambda destination per rule`
             - `Use EventBridge to send multiple`
-        - SSE-S3(Server-Side Encryption with Amazon S3 Managed Keys)
+        - SSE-S3 (Server-Side Encryption with Amazon S3 Managed Keys)
             - `Encryption for S3` and `Encrypt data in the saving level`
             - Rotate every year
+        - S3 Frontend Deployment
+            - `Does not support PHP server-side script`
     - AWS Neptune
         - `Graph Database`
     - AWS Transfer
@@ -363,16 +405,16 @@
             - Keep both records in both on-premise and cloud (Back-up)
             - Gradual Migration without interruptting the existing app
         - Types
-            - File Gateway
+            - `File Gateway`
                 - NFS/SMB -> S3
-            - Block Gateway
+            - `Block Gateway`
                 - iSCSI -> S3
-            - Tape Gateway
+            - `Tape Gateway`
                 - VTL, Virtual Tape Library -> S3 Glacier / Glacier Deep Archive
-        - Modes
-            - Shared Volume
+        - **Modes**
+            - **Shared Volume**
                 - Keep two complete copies in both on-premise and S3
-            - Cached Volume
+            - **Cached Volume**
                 - Keep the main copy in S3
                 - Keep only frequent-access copy in Premise
     - AWS ElasticCache
@@ -385,19 +427,28 @@
             - Fast but have less functionality
             - Only supports key-value
     - Data Migration
-        - AWS Snowball & AWS Transfer Terminal
-            - `Physical Transfer`
-            - Data Migration in and out AWS services
-            - `Slow, expensive Internet`
-            - **For Lowest Cost**, **hundreds of Terabytes => always use Snowball**
-            - `Support File Migration`
-            - Indirect Support for Database Transfer (.sql, .csb)
+        - AWS Snowball
+            - Features
+                - `Physical Transfer`
+                - Data Migration `in and out` AWS services
+                - `Slow, expensive Internet`
+                - **For Lowest Cost**, **hundreds of Terabytes => always use Snowball**
+                - `Support File Migration`
+                - Indirect Support for Database Transfer (.sql, .csb)
+            - `AWS Snowball Edge`
+                - Not only a storage device, but includes computing resources
+                - Suitable for processing data before data migration
+            - `AWS Transfer Terminal`
+                - Bring your own SSD to AWS Data Center
         - **AWS DataSync**
             - `File Migration`
             - On-premise File System -> S3
             - s3 -> EFS -> FSx
         - **AWS Database Migration Service (AWS DMS)**
             - `Database Migration`
+            - **Change Data Capture (CDC)**
+                - Keep the record of data that has been updated
+                - `Can be used to increase the RPO for high availability`
     - Backup
         - AWS Backup
             - `Automatic Backup` and `Retain the data for a while`
@@ -413,10 +464,13 @@
         - Disaster Recovery Mode
             - `Pilot Light`
                 - Cost Lowest, RTO Middle
+                - **10 mintues to an hour**
             - `Warm Standby`
                 - Cost Middle, RTO Short
+                - **A few mintues**
             - `Hot/Active`
                 - Cost Highest, RTO Shortest
+                - **In seconds**
     - AWS Elastic Disaster Recovery
         - Architecture: 
         - Create a backup database on the Cloud for on-premise database
@@ -517,7 +571,7 @@
     - AWS CloudFront
         - `Content Delivery Network (CDN)`- Cache content in edge server
         - `Can have Geographic restriction`
-        - Field-Level Encryption
+        - **Field-Level Encryption**
             - Encrypt specified field in a request from client-side to server-side
             - e.g. 'credit_card'
     - AWS Global Accelerator
@@ -543,23 +597,25 @@
         - Data Sources
             - S3, RDS, NoSQL, RedShift, Streaming (Kinesis Data Stream), On-premises
     - Amazon Kinesis services
-        - Kinesis Data Streams (KDS)
+        - **Kinesis is much more simple options comparing to AWS Glue**
+        - **Kinesis Data Streams (KDS)**
             - `Real-time data` ingestion and custom stream processing applications.
             - `KDS requires consumer applications to read and process data (e.g., Lambda, EC2, Flink)`
-        - Kinesis Data Firehose
+            - Same as `Amazon Managed Streaming for Apache Kafka (Amazon MSK)`
+        - **Kinesis Data Firehose**
             - `ETL`
             - `Firehose can process data, and is not required to add consumers.`
             - `Consumer is optional`
         - Kinesis Data Analytics
             - `Real-time analytics` with the data sources coming from KDS or Firehose
-    - AWS RedShift
+    - **AWS RedShift**
         - `Data Warehouse` (Large numbers of Read not Write)
         - `No visualisation` needs to work with AWS QuickSight for visualisation
         - Supporting client-side and server-side encryption
         - PostgreSQL Comptible
         - For OLAP not OLTPs
         - Database => ETL => Data Warehouse
-    - AWS QuickSight
+    - **AWS QuickSight**
         - `Business Intelligence & Visualisation`
         - Similar to Tableau and PowerBI
         - Connect with other sources (Database, S3, Excel)
@@ -567,7 +623,7 @@
         - `A central data lake from different sources` (RDS, S3, RedShift)
         - Saving the data in S3
         - IAM, Analytics, Logs
-    - AWS AppFlow
+    - **AWS AppFlow**
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
         - For example, connect Salesforce
@@ -616,7 +672,7 @@
         - **Amazon Macie**
             - `Scaning S3 to search` for any PII and sensitive data
             - However, not doing any application to encrypt the data
-    - Configuration
+    - **Configuration**
         - **AWS Systems Manager**
             - Parameter Store
                 - Parameter
@@ -630,6 +686,7 @@
             - Automation
                 - Run script and restart instances when something happen
         - **AWS Config**
+            - Make sure the system meets with **Compliance**
             - AWS Config is a service that enables you to assess, audit, and evaluate the `configurations` of your AWS resources
             1) Configuration Recording
                 - Record anything has been updated in configuration
@@ -647,7 +704,7 @@
             - `Encapsulation of AWS CloudFormation`
             - `Make CloudFormation to be a product`
     - Protection
-        - Amazon WAF (Web Application Firewall)
+        - **Amazon WAF (Web Application Firewall)**
             - `HTTPS Application Layer`
             - `IP Black List, SQL Injection, XSS`
             - Combination
@@ -659,18 +716,20 @@
         - **Amazon GuardDuty**
             - `Only Monitor and Identify the AWS environment Threat`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
+            - Tracking any abnormal behaviors such as abnormal login locaction, IAM Abuse, S3 Leaking
         - **Amazon Inspector**
             - Inspect EC2, Container for any `CVE Vunlerability`
             - CVE (Common Vulnerabilities and Exposures)
                 - Any patches that haven't been installed.
-        - AWS Shield
+        - **AWS Shield**
             - Protect services from `DDoS`
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
         - Amazon Firewall Manager
             - `WAF for the entire AWS Organization`
             - `Across different accounts`
             - `Manages security policies`
-
+        - AWS Security Hub
+            - 
 - User Control
     - IAM
         - Policy
@@ -765,7 +824,7 @@
             - Sustainability
     - AWS OpenSearch Sevice (AWS Elastic Search)
         - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service、
-    - AWS Connect
+    - **AWS Connect**
         - `Call Center`
         - 3 Ways
             1) Traditional Agent
@@ -774,7 +833,7 @@
                 - Can't manage complex senarios
             3) `Mixed (Most Common)`
                 - First Virtual, then new person
-    - AWS Pinpoint
+    - **AWS Pinpoint**
         - `Marketing communications`
         - One-way SMS & Two-way SMS
         - Can save data for one year for analysis
