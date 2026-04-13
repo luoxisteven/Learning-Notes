@@ -1,10 +1,10 @@
 # AWS
-- Current
+- Progress
     - 1 - 300 (809)
     - 556 (1359)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，532, 537^, 539, 540^, 541^, 536, 542, 543^, 545, 550^
+    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -18,7 +18,7 @@
         - Access Control List
     - RDP
         - Remote Desktop Protocol
-    - IPOS
+    - IOPS
         - Input/Output Operations Per Second
     - Database Availability Metrics
         - Recovery Point Objective (RPO)
@@ -93,6 +93,9 @@
                     - Scale based on time
                 - Predictive Scaling
                     - Using ML to predict and scale
+        - Dedicated Host
+            - Renting a complete host to you without sharing resources with other AWS Accounts
+            - Suitable for software licenses that require a single dedicated server (e.g., BYOL for Oracle, Windows Server)
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
             - These all require to specifiy instance type.
             - On-Demand Reservation
@@ -130,6 +133,7 @@
                 - `For long-term archive, try to use "S3" instead cost-effectively`
             - Amazon FSx for Windows File Server
                 - `EFS for Windows`
+                - **SMB + fully managed = fsx for windows**
                 - **Supports SMB protocal, EFS doesn't support SMB protocal**
             - **Amazon FSx for Lustre**
                 - `HPC and Linux File System`
@@ -147,7 +151,7 @@
             | R      | RAM            | Memory                    |
             | X      | Extreme        | Extremely large memory    |
             | I      | IOPS           | Disk I/O                  |
-            | D      | Dense          | High storage capacity     |SS
+            | D      | Dense          | High storage capacity     |
             | H      | HDD            | High throughput storage   |
             | P      | GPU            | ML training               |
             | G      | GPU            | Graphics / inference      |
@@ -165,10 +169,10 @@
                 - `Warm Start` (The computing instance is prepared)
                 - `Lower Latency`
         - Permission Policy
-            - Execution Role
+            - **Execution Role**
                 - How Lambda is able to exccess other resources
                 - e.g. Lambda read S3, read DynamoDB
-            - Resource Policy/Function Policy
+            - **Resource Policy/Function Policy**
                 - Defines who can access Lambda
                 - e.g. S3 trigger Lambda Function, API Gateway uses Lambda Function
     - AWS API Gateway
@@ -188,6 +192,7 @@
         - `GraphQL services connect to data sources (Lambda, RDS, HTTP)`
     - Container Service (ECS)
         - Fargate
+        - EC2
     - Kubernetes Service (EKS)
         - Architecture
             - `Control Plane`
@@ -202,14 +207,15 @@
             - Save in etcd
     - Fast Deployment
         - AWS Elastic Beanstalk
-            - Still Server-based PaaS
+            - **Old and Server-based** PaaS
             - Upload only the `code` or `Docker Image`
             - Use servers that can be accessed and managed
             - `URL swapping`
                 - Swapping environment quickly without stopping
                 - Zero-downtime deployment
         - AWS App Runner
-            - Container-based SUserverless
+            - **New & Serverless** PaaS 
+            - Container-based Serverless
             - Faster
         - AWS Amplify
             - Serverless with AWS Lambda, API, Storage
@@ -233,7 +239,7 @@
     - Application Load Balancer (ALB)
         - Application Layer
         - Protocals: HTTP, HTTPs, WebSocket, gPRC
-        - Listener Rule
+        - **Listener Rule**
             - Redirect HTTP traffic to HTTPS
             - Host-based routing
                 - e.g. api.example.com → API, admin.example.com → Admin
@@ -269,10 +275,14 @@
             - Destination Port
             - Protocol (TCP/UDP)
         - If the client using the same IP and same port, it will always go to the same server.
+        - **NLB can't check the HTTP/HTTPS Status code, because HTTP is in the Application Layer**
     - Gateway Load Balancer 
         - Network Layer
         - Protocal: IP
         - Not Only HTTPS & HTTP
+    - Classic Load Balancer
+        - Old and Obselete
+        - Both Application and Network Layer
 - Databases
     - RDS
         - Can do encryption at rest
@@ -407,7 +417,7 @@
         - Types
             - `File Gateway`
                 - NFS/SMB -> S3
-            - `Block Gateway`
+            - `Block/Volume Gateway`
                 - iSCSI -> S3
             - `Tape Gateway`
                 - VTL, Virtual Tape Library -> S3 Glacier / Glacier Deep Archive
@@ -507,6 +517,7 @@
         - Route Table
             - `Route IP to different targets (Internet Gateway, Ohter VPC with VPC peering)`
             - After setting up the VPC Peering, you need to set up the route table to connect to the VPC.
+            - e.g. 0.0.0.0/0 -> Internet Gateway, 172.31.0.0/16 -> Local, 172.26.0.0/16 -> Peering VPC
         - VPC Peering
             - Only between two AWS-to-AWS VPC
             - Building connection between two subnet
@@ -516,15 +527,19 @@
             - Add "AWS Direct Connect" to conntect to On-premise
         - Traffic Control
             - Security Group
-                - Stateful
+                - Stateful (If Inbound is allowed, Outbound is allowed automatically)
                 - Conrtrol the Inbound and Outbound rules for `Instance`
                 - **If you allow incoming traffic, the response is automatically allowed.**
             - ACL
+                - Stateless (Inbound and Outbound is required to be set separately)
                 - Conrtrol the Inbound and Outbound rules in `Subnet level`
                 - **You must explicitly allow both inbound AND outbound.**
                 - Outbound `Port 32768-65535` with destination `0.0.0.0/0
         - VPC Flow Log
             - A Log that can connect with CloudWatch and set alarm
+            - Can save logs into S3
+        - DHCP (Dynamic Host Configuration Protocol)
+            - When devices (EC2, RDS) connects to VPC, DHCP is giving them `Private IPs`.
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
@@ -578,7 +593,7 @@
         - `Access AWS Edge to access AWS Backbone Networks`
         - CloudFront is in higher level (Application Level: HTTP and HTTPS)
         - Global Accelerator is in lower level (TCP & UDP)
-        - Assigns the best available network path to your users
+        - `Assigns the best available network path` to your users
         - Provide only one IP address for your services
 - Data-related
     - AWS Athena
@@ -669,9 +684,6 @@
             - Logs
                 - Store logs in **Amazon S3**
                 - Use **AWS Athena** to query the logs of CloudTrail
-        - **Amazon Macie**
-            - `Scaning S3 to search` for any PII and sensitive data
-            - However, not doing any application to encrypt the data
     - **Configuration**
         - **AWS Systems Manager**
             - Parameter Store
@@ -728,8 +740,11 @@
             - `WAF for the entire AWS Organization`
             - `Across different accounts`
             - `Manages security policies`
+        - **Amazon Macie**
+            - `Scaning S3 to search` for any PII and sensitive data
+            - However, not doing any application to encrypt the data
         - AWS Security Hub
-            - 
+            - Combining AWS Config, AWS Inspector, and AWS GuardDuty
 - User Control
     - IAM
         - Policy
