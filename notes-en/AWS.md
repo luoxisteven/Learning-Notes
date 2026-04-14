@@ -36,6 +36,17 @@
         - Locking the IP address in the front `(8, 16, 24, 32)`
         - e.g. 10.0.0.0/8 (Locking 10, but 0.0.0 can be changed)
         - e.g. 192.16.1.1/32 (Locking the completed IP block)
+- Pub/Sub
+    - Instead of App A talking directly to App B, they communicate through a topic (like a radio channel)
+        ```
+        Publisher  →→→  [Topic]  →→→  Subscriber 1
+                            →→→  Subscriber 2
+                            →→→  Subscriber 3
+        ```
+    - **Fire and forget**
+        - The communcation method is similar to the UDP.
+- Queue
+    - 
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
         - `Many small reads/writes`
