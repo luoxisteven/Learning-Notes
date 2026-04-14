@@ -1,7 +1,7 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 556 (1359)
+    - 559 (1365)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
@@ -88,7 +88,7 @@
                 - Step Scaling
                     - More thresholds comparing to Target Tracking
                 - Simple Scaling
-                    - Old, Trigger by CloudWatch
+                    - Old, Triggered by CloudWatch
                 - Scheduled Scaling
                     - Scale based on time
                 - Predictive Scaling
@@ -100,7 +100,7 @@
             - These all require to specifiy instance type.
             - On-Demand Reservation
                 - `Reserve Instances for speical events` that requires a lots of instances
-                - If not, there might not be enough instances for a speical events.
+                - If not, there might not be enough instances for a speical Wevents.
                 - On-Demand Price
             - Reserved Instances
                 - `Promise to use the instances for a long period` (e.g. 1 or 2 years) to have discount
@@ -108,13 +108,20 @@
                 - `Instances might be stopped at any time`
                 - `Cheapest but will be taken away with 2 minutes notification`
             - Spot Blocks
+                - **Obsolete**
                 - Locking a certain period (7 a.m. to 10 a.m.)
                 - This functionality has been retried.
         - Saving Plan
             - `Make minimum commitment, even if you use less but you have to pay for that amount`
-            - Upfront Plan
-            - Partial Upfront Plan
-            - No Upfront Plan
+            - Payment Plan
+                - Upfront Plan
+                - Partial Upfront Plan
+                - No Upfront Plan
+            - Computing Savings Plan
+                - More Flexible
+                - EC2, AWS Lambda, AWS Fargate
+            - EC2 Instance Savings Plan
+                - Has the best discount
         - Storage
             - Elastic Block Services (EBS)
                 - SSD
@@ -122,6 +129,8 @@
                 - For one instance only
                 - `Single AZ`
             - Elatsic File System (EFS)
+                - Protocal: NFS
+                - OS: Linux-Only
                 - Features
                     - For one and more instances
                     - Supports EKS and ECS
@@ -131,14 +140,22 @@
                 - `Auto-scale automatically!`
                 - `Single Region and Multiple AZ`
                 - `For long-term archive, try to use "S3" instead cost-effectively`
-            - Amazon FSx for Windows File Server
-                - `EFS for Windows`
-                - **SMB + fully managed = fsx for windows**
-                - **Supports SMB protocal, EFS doesn't support SMB protocal**
-            - **Amazon FSx for Lustre**
-                - `HPC and Linux File System`
-                - HPC: High Performance Computing
-                - **Can join with (on-premise) Active Directory**
+            - AWS FSx
+                - **Amazon FSx for Windows File Server**
+                    - `EFS for Windows`
+                    - **SMB + fully managed = fsx for windows**
+                    - **Supports SMB protocal, EFS doesn't support SMB protocal**
+                - **Amazon FSx for Lustre**
+                    - Protocal: POSIX
+                    - OS: Linux
+                    - `HPC and Linux File System`
+                    - HPC: High Performance Computing
+                    - **Can join with (on-premise) Active Directory**
+                - NetApp ONTAP
+                    - Protocols: NFS/SMB/iSCSI
+                    - OS: Both Linux and SMB
+                    - For Enterprise Hybrid Cloud (On-Premise, Cloud)
+                - ZFS
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
             - `AMI saves the data in EBS as well`
@@ -158,7 +175,7 @@
             | F      | FPGA           | Hardware acceleration     |
         - Elastic Network Interface (ENI)
             - An attacahed Network Interface
-            - **That keeping the same IP address, adn can be used and reused into differnt instances**
+            - **That keeping the same IP address, and can be used and reused into differnt instances**
     - AWS Lambda
         - Concurrency Methods
             - `Reserved Concurrency`
@@ -204,7 +221,7 @@
             - Scaling Pods
             - Scaling Nodes
         - Kubernetes Secret
-            - Save in etcd
+            - Save in `etcd`
     - Fast Deployment
         - AWS Elastic Beanstalk
             - **Old and Server-based** PaaS
@@ -219,8 +236,15 @@
             - Faster
         - AWS Amplify
             - Serverless with AWS Lambda, API, Storage
-    - AWS Simple Notification Service (SNS)
-            - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
+    - Amazon MQ
+        - **Comparing with SQS, Amazon MQ requires more efforts in management of the brokers**
+        - Managed open-source broker
+        - Purposes 
+            - Queue, Topic, Pub/Sub, OpenWrite, WebSocket
+            - Similar to SQS
+        - Brokers
+            - Apache ActiveMQ
+            - RabbitMQ
     - AWS Simple Queue Service (SQS)
         - Retain the job for a long time
         - FIFO (First-In-First-Out) Queue
@@ -232,9 +256,15 @@
         - **Dead Letter Queue**
             - When the job is failed, logs and message will be collected.
             - You can add a AWS Lambda Function to rerun the job.
+    - AWS Simple Notification Service (SNS)
+        - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
     - AWS Batch
         - Job, Job Queue, Compute Environment
-        - Compute environment only supports EC2, ECS Fargate
+        - Compute environment only supports `EC2, Fargate`
+        - Pricing: Based on `EC2 and Fargate`
+    - **AWS Outposts**
+        - `Bring AWS Services to Local Infrastructure`
+        - Ideal for location that has on-premise and slow Internet condition
 - Load Balancer (Elastic Load Balancer)
     - Application Load Balancer (ALB)
         - Application Layer
@@ -265,7 +295,6 @@
     - Network Load Balancer (NLB)
         - Transport Layer
         - Protocal: IP
-        - **NLB don't have the same routing listener route like ALB**
         - `NLB has health check, tcp level`
         - Distributes traffic using a flow hash algorithm depedning on the IP and Port
         - Distributes traffic using a flow hash algorithm based on the 5-tuple:
@@ -276,12 +305,13 @@
             - Protocol (TCP/UDP)
         - If the client using the same IP and same port, it will always go to the same server.
         - **NLB can't check the HTTP/HTTPS Status code, because HTTP is in the Application Layer**
+        - **NLB don't have the same routing listener route like ALB**
     - Gateway Load Balancer 
         - Network Layer
         - Protocal: IP
         - Not Only HTTPS & HTTP
     - Classic Load Balancer
-        - Old and Obselete
+        - Old and Obsolete
         - Both Application and Network Layer
 - Databases
     - RDS
@@ -342,14 +372,16 @@
         - `Compatible with MongoDB`
     - DynamoDB
         - Type: `Key-Value + Document`
-        - `Don't store files in RDS database`
-        - `Create GSI(Global Secondary Index) for fast filtering`
+        - Features
+            - `Don't store files in RDS database`
+            - **Not compatible with MongoDB**
+            - **Create GSI(Global Secondary Index) for fast filtering**
         - NoSQL (Based on JSON, BSON, XML)
-        - `On-demand Read & Write`
-            - For demand that is unpredictable
-        - `Provisioned Read & Write`
-            - Set up a certain throughput of read and write
-        - `Not compatible with MongoDB`
+        - Modes
+            - `On-demand Read & Write`
+                - For demand that is unpredictable
+            - `Provisioned Read & Write`
+                - Set up a certain throughput of read and write
         - **DynamoDB Global Table**
             - Consistent across differnt regions
             - `Not using Replicas`
@@ -358,6 +390,8 @@
             - Similar to Redis
         - **Time To Live (TTL)**
             - Data tagged with TTL will be deleted after the designated period
+    - **AWS Neptune**
+        - `Graph Database`
     - AWS S3
         - Object Storage
             - Key, Data, Metadata
@@ -403,30 +437,6 @@
             - Rotate every year
         - S3 Frontend Deployment
             - `Does not support PHP server-side script`
-    - AWS Neptune
-        - `Graph Database`
-    - AWS Transfer
-        - `Transfer Document to S3 or EFS with different protocals`
-        - Supported protocals
-            - SFTP, FTPS, FTP, AS2
-    - **AWS Storage Gateway**
-        - `Connect on-premise storage and AWS Cloud Storage together`
-        - Purposes:
-            - Keep both records in both on-premise and cloud (Back-up)
-            - Gradual Migration without interruptting the existing app
-        - Types
-            - `File Gateway`
-                - NFS/SMB -> S3
-            - `Block/Volume Gateway`
-                - iSCSI -> S3
-            - `Tape Gateway`
-                - VTL, Virtual Tape Library -> S3 Glacier / Glacier Deep Archive
-        - **Modes**
-            - **Shared Volume**
-                - Keep two complete copies in both on-premise and S3
-            - **Cached Volume**
-                - Keep the main copy in S3
-                - Keep only frequent-access copy in Premise
     - AWS ElasticCache
         - `Caching`
         - `Can do application-level session caching`
@@ -437,7 +447,7 @@
             - Fast but have less functionality
             - Only supports key-value
     - Data Migration
-        - AWS Snowball
+        - **AWS Snowball**
             - Features
                 - `Physical Transfer`
                 - Data Migration `in and out` AWS services
@@ -450,10 +460,39 @@
                 - Suitable for processing data before data migration
             - `AWS Transfer Terminal`
                 - Bring your own SSD to AWS Data Center
+        - **AWS Transfer**
+            - **Host a endpoint transfer files**
+            - `Transfer Document to S3 or EFS with different protocals`
+            - Supported protocals
+                - **S3/EFS doesn't support SFTP, so use AWS Transfer for SFTP**
+                - `SFTP, FTPS, FTP, AS2`
+            - Not Supported protocal
+                - **SMB**
+            - **This is different from AWS Database Migration Service**
         - **AWS DataSync**
-            - `File Migration`
-            - On-premise File System -> S3
-            - s3 -> EFS -> FSx
+            - `On-premise File Migration`
+            - Support Protocals
+                - NFS、**SMB**、HDFS
+            - On-premise File System -> S3, EFS, FSx
+        - **AWS Storage Gateway**
+            - `Connect on-premise File Storage and AWS Cloud Storage together`
+            - **Not for database**
+            - Purposes:
+                - Keep both records in both on-premise and cloud (Back-up)
+                - Gradual Migration without interruptting the existing app
+            - Types
+                - `File Gateway`
+                    - NFS/SMB -> S3
+                - `Block/Volume Gateway`
+                    - iSCSI -> S3
+                - `Tape Gateway`
+                    - VTL, Virtual Tape Library -> S3 Glacier / Glacier Deep Archive
+            - **Modes**
+                - **Shared Volume**
+                    - Keep two complete copies in both on-premise and S3
+                - **Cached Volume**
+                    - Keep the main copy in S3
+                    - Keep only frequent-access copy in Premise
         - **AWS Database Migration Service (AWS DMS)**
             - `Database Migration`
             - **Change Data Capture (CDC)**
@@ -514,15 +553,15 @@
                 - `IPv6 Only`
                 - Private Subnet access Internet
                 - `Outbound only and no need to have public IP`
-        - Route Table
+        - **Route Table**
             - `Route IP to different targets (Internet Gateway, Ohter VPC with VPC peering)`
             - After setting up the VPC Peering, you need to set up the route table to connect to the VPC.
             - e.g. 0.0.0.0/0 -> Internet Gateway, 172.31.0.0/16 -> Local, 172.26.0.0/16 -> Peering VPC
-        - VPC Peering
+        - **VPC Peering**
             - Only between two AWS-to-AWS VPC
             - Building connection between two subnet
-            - Supports cross-region peering, cross-account peering
-        - AWS Transit Gateway
+            - Supports `cross-region peering, cross-account peering`
+        - **AWS Transit Gateway**
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
         - Traffic Control
@@ -596,13 +635,13 @@
         - `Assigns the best available network path` to your users
         - Provide only one IP address for your services
 - Data-related
-    - AWS Athena
+    - **AWS Athena**
         - Serverless
         - `Data Analysis` run query in S3 or other data sources
         - Mainly for S3
         - **Amazon Athena Federated Query**
             - Run Query on Multiple sources including Databases (RDS, NoSQL, CloudWatch)
-    - AWS Glue
+    - **AWS Glue**
         - Extract, Transform, Load (`ETL`)
         - Bulck Process
             - `Process regularly, on a schedule, manually`
@@ -611,18 +650,27 @@
             - `Lets you clean and transform data without writing any code.`
         - Data Sources
             - S3, RDS, NoSQL, RedShift, Streaming (Kinesis Data Stream), On-premises
-    - Amazon Kinesis services
+        - Destination
+            -S3, Redshift, RDS/Aurora
+    - **Amazon Kinesis services**
         - **Kinesis is much more simple options comparing to AWS Glue**
         - **Kinesis Data Streams (KDS)**
             - `Real-time data` ingestion and custom stream processing applications.
             - `KDS requires consumer applications to read and process data (e.g., Lambda, EC2, Flink)`
             - Same as `Amazon Managed Streaming for Apache Kafka (Amazon MSK)`
+            - **Data is kept for at most 365 days**
         - **Kinesis Data Firehose**
             - `ETL`
             - `Firehose can process data, and is not required to add consumers.`
             - `Consumer is optional`
+            - **Data is not kept**
         - Kinesis Data Analytics
             - `Real-time analytics` with the data sources coming from KDS or Firehose
+    - **AWS Elastic MapReduce (EMR)**
+        - `Elastic MapReduce`
+        - Supports `Spark & Hadoop`
+        - Hadoop MapReduce is designed for batch processing, while Apache Spark is more suited for real-time data processing and iterative analytics.
+        - Can do large data processing
     - **AWS RedShift**
         - `Data Warehouse` (Large numbers of Read not Write)
         - `No visualisation` needs to work with AWS QuickSight for visualisation
@@ -634,7 +682,7 @@
         - `Business Intelligence & Visualisation`
         - Similar to Tableau and PowerBI
         - Connect with other sources (Database, S3, Excel)
-    - AWS Lake Formation
+    - **AWS Lake Formation**
         - `A central data lake from different sources` (RDS, S3, RedShift)
         - Saving the data in S3
         - IAM, Analytics, Logs
@@ -642,24 +690,29 @@
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
         - For example, connect Salesforce
-    - AWS Elastic MapReduce (EM)
-        - `Elastic MapReduce`
-        - Can do large data processing
 - AI
-    - Amazon Rekognition
+    - **Amazon Rekognition**
         - `Images, Computer Vision`
         - Face Recognition, Object Detection, Scene Detection, `Content Moderation`
-    - Amazon Comprehend
+    - **Amazon Comprehend**
         - `Text, NLP`
         - Sentiment Analysis, Entity Recognition, Key Phrase Extraction, Language Detection
         - Amazon Comprehend Medical
             - `Protected Health Information (PHI)`
-    - Amazon SageMaker
+    - **Amazon SageMaker**
         - `Full Set of Machine Learning Process`
         - Data Preparation, Training, Hyperparameter Tuning, Deployment, Inference
-    - AWS Bedrock
+    - **AWS Bedrock**
         - `AI model marketplace + API`
         - Claude, Llama and others
+- Multi-Modals Transition
+    - AWS Textract
+        - `OCR`
+        - Supports JEPG, PNG, PDF
+    - AWS Transcribe
+        - `Speech-to-Text Recognition`
+    - AWS Polly 
+        - `Text-to-Speech`
 - Security
     - Monitor
         - AWS CloudWatch
@@ -736,13 +789,17 @@
         - **AWS Shield**
             - Protect services from `DDoS`
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
-        - Amazon Firewall Manager
+        - **Amazon Firewall Manager**
             - `WAF for the entire AWS Organization`
             - `Across different accounts`
             - `Manages security policies`
         - **Amazon Macie**
-            - `Scaning S3 to search` for any PII and sensitive data
+            - `Scaning S3 to search` for any PII (Personally Identifiable Information) and sensitive data
             - However, not doing any application to encrypt the data
+            - Procedures
+                - PII identified by Macie
+                - Pass the data through EventBridge with JSON
+                - Use Lambda/Comprehend to hide the information
         - AWS Security Hub
             - Combining AWS Config, AWS Inspector, and AWS GuardDuty
 - User Control
@@ -767,12 +824,14 @@
             - Assign permissions via Policies or User Groups
         - User Group
             - User Group is a group of users sharing the same permissions/policy.
+    - AWS STS (Security Token Service)
+        - `Define the potential role call STS to get the credential to have permissions to access the specified AWS Services`
     - AWS Organisation
         - Service Control Policy
             - `Manage Permissions on the whole organisation or OU or Specific Account`
             - Upper Global Permissions
             - Final Permissions = IAM Permissions ∩ SCP Permissions
-    - AWS Control Tower
+    - **AWS Control Tower**
         - Under AWS Organisation
         - `Manage AWS User Account Environment`
         - Features:
@@ -787,7 +846,9 @@
                 - Create AWS Accounts with username, email
             - Dashboard
                 - Who violate the rules
-                - Who does not violate the rules 
+                - Who does not violate the rules
+            - `Account Drift Noticiation`
+                - Monitor changes to the OU hierarchy and organizational structure
     - AWS Cognito
         - **User Pool**
             - `Authentication`
@@ -837,7 +898,7 @@
             - Performance Efficiency
             - Cost Optimization
             - Sustainability
-    - AWS OpenSearch Sevice (AWS Elastic Search)
+    - **AWS OpenSearch Sevice (AWS Elastic Search)**
         - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service、
     - **AWS Connect**
         - `Call Center`
@@ -852,14 +913,3 @@
         - `Marketing communications`
         - One-way SMS & Two-way SMS
         - Can save data for one year for analysis
-    - AWS Textract
-        - `OCR`
-        - Supports JEPG, PNG, PDF
-    - AWS Transcribe
-        - `Speech-to-Text Recognition`
-    - Savings Plan
-        - Computing Savings Plan
-            - More Flexible
-            - EC2, AWS Lambda, AWS Fargate
-        - EC2 Instance Savings Plan
-            - Has the best discount
