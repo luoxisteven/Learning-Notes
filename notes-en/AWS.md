@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 559 (1365)
+    - 569 (1383)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -14,6 +14,8 @@
         - 金丝雀实验发布
         - Assign a small portion of users to this release version
         - Gradually promote the canary stage to the production stage.
+    - Managed Service
+        - 托管服务
     - ACL
         - Access Control List
     - RDP
@@ -46,7 +48,12 @@
     - **Fire and forget**
         - The communcation method is similar to the UDP.
 - Queue
-    - 
+    - Producer and Consumer
+        ```
+        Producer → [Queue] → Consumer A gets it
+                        Consumer B gets nothing
+                        Consumer C gets nothing
+        ```
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
         - `Many small reads/writes`
@@ -225,14 +232,22 @@
         - Architecture
             - `Control Plane`
                 - AWS Server, etcd, Scheduler, Controller Manager
+                - `etcd`
+                    - Save Kubernet Secrets
                 - `Managed By AWS`
             - `Data Plane`
                 - Nodes
+                    - Fargate
+                    - EC2
+                - `Managed By yourself`
         - Auto-scaling (Two-ways)
             - Scaling Pods
             - Scaling Nodes
-        - Kubernetes Secret
-            - Save in `etcd`
+        - **EKS Connector**
+            - **Connect with other K8s to create a Central Panel**
+            - On-Premises, and other Cloud Services (GCP, Azure)
+        - **EKS Everywhere**
+            - **Deploy EKS on-premise**
     - Fast Deployment
         - AWS Elastic Beanstalk
             - **Old and Server-based** PaaS
@@ -337,6 +352,9 @@
         - Data Retention Policy
             - Keeping the data before being automatically deleted
             - Maximum 35 days
+        - Scaling
+            - `Storage can be auto scaled`
+            - `Instance can not be auto scaled`
         - **Read Replicas**
             - Have both cross-region replicas and cross-az replicas
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
@@ -544,7 +562,7 @@
             - Public Subnet
                 - Must have Public IP
                 - `Both Inbound and Outbound to public networks`
-        - AWS PrivateLink
+        - **AWS PrivateLink**
             - `VPC Endpoint`
                 - Connect AWS Services inside AWS
                 - Building private connection with the subnet and the services
@@ -590,6 +608,10 @@
             - Can save logs into S3
         - DHCP (Dynamic Host Configuration Protocol)
             - When devices (EC2, RDS) connects to VPC, DHCP is giving them `Private IPs`.
+        - **VPC Gateway Endpoint**
+            - Supports **EC2, DynamoDB** Only
+            - **Requires to add the endpoint into the Route Table**
+            - Connect VPC without using Public Internet
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
