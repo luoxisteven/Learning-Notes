@@ -40,7 +40,7 @@
         - e.g. 192.16.1.1/32 (Locking the completed IP block)
 - Pub/Sub
     - Instead of App A talking directly to App B, they communicate through a topic (like a radio channel)
-        ```
+        ```sql
         Publisher  →→→  [Topic]  →→→  Subscriber 1
                             →→→  Subscriber 2
                             →→→  Subscriber 3
@@ -49,7 +49,7 @@
         - The communcation method is similar to the UDP.
 - Queue
     - Producer and Consumer
-        ```
+        ```sql
         Producer → [Queue] → Consumer A gets it
                         Consumer B gets nothing
                         Consumer C gets nothing
@@ -111,7 +111,7 @@
                     - Scale based on time
                 - Predictive Scaling
                     - Using ML to predict and scale
-        - Dedicated Host
+        - **Dedicated Host**
             - Renting a complete host to you without sharing resources with other AWS Accounts
             - Suitable for software licenses that require a single dedicated server (e.g., BYOL for Oracle, Windows Server)
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
@@ -246,7 +246,10 @@
         - **EKS Connector**
             - **Connect with other K8s to create a Central Panel**
             - On-Premises, and other Cloud Services (GCP, Azure)
+        - **EKS Distro**
+            - Install and Run EKS by yourself
         - **EKS Everywhere**
+            - Together wit Distro
             - **Deploy EKS on-premise**
     - Fast Deployment
         - AWS Elastic Beanstalk
@@ -288,6 +291,22 @@
         - Job, Job Queue, Compute Environment
         - Compute environment only supports `EC2, Fargate`
         - Pricing: Based on `EC2 and Fargate`
+    - **AWS Wavelength**
+        - AWS Wavelength hosts EC2 in an AWS Wavelength Zone.
+        - AWS Wavelength Zone
+            - Directly connect with Telecom Networks (Low Latency)
+            - An edge zone associated with a parent AWS Region (not a standard AZ)
+    - **AWS Serverless Application Repository**
+        - `Share serverless applications` (Lambda + API Gateway + IAM + DynamoDB + config)
+        - Others can deploy them into their AWS account
+    - **VMware Cloud on AWS**
+        - `On-prem VMware data center, but hosted inside AWS`
+        - Components
+            - VMware vSphere → run VMs
+            - VMware vSAN → storage
+            - VMware NSX → networking & security
+        - Senarios
+            - Transfer the whole virtual machine (OS + disk + config + state) from on-premise to AWS with VMware HCX, vMotion, Replication
     - **AWS Outposts**
         - `Bring AWS Services to Local Infrastructure`
         - Ideal for location that has on-premise and slow Internet condition
@@ -475,6 +494,12 @@
         - Memcached
             - Fast but have less functionality
             - Only supports key-value
+    - **AWS OpenSearch Sevice (AWS Elastic Search)**
+        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
+        - Output: Matching documents with scores (you interpret the result)
+    - **AWS Kendra**
+        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
+        - Output: AI-ranked answers + relevant passages from documents
     - Data Migration
         - **AWS Snowball**
             - Features
@@ -490,6 +515,7 @@
             - `AWS Transfer Terminal`
                 - Bring your own SSD to AWS Data Center
         - **AWS Transfer**
+            - **Transfer files via SFTP/FTP/FTPS**
             - **Host a endpoint transfer files**
             - `Transfer Document to S3 or EFS with different protocals`
             - Supported protocals
@@ -527,6 +553,9 @@
             - **Change Data Capture (CDC)**
                 - Keep the record of data that has been updated
                 - `Can be used to increase the RPO for high availability`
+        - **AWS Data Exchange**
+            - **Subscribe data publish by the Provider**
+            - AWS Data Exchange is a service by Amazon Web Services that lets you find, subscribe to, and use third-party datasets directly inside AWS.
     - Backup
         - AWS Backup
             - `Automatic Backup` and `Retain the data for a while`
@@ -737,15 +766,22 @@
         - Data Preparation, Training, Hyperparameter Tuning, Deployment, Inference
     - **AWS Bedrock**
         - `AI model marketplace + API`
-        - Claude, Llama and others
+        - Claude, Llama and others'
+    - **AWS Kendra**
+        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
+        - Output: AI-ranked answers + relevant passages from documents
+    - **Amazon Lex**
+        - `Chatbot`
 - Multi-Modals Transition
-    - AWS Textract
+    - **AWS Textract**
         - `OCR`
         - Supports JEPG, PNG, PDF
-    - AWS Transcribe
+    - **AWS Transcribe**
         - `Speech-to-Text Recognition`
-    - AWS Polly 
+    - **AWS Polly** 
         - `Text-to-Speech`
+    - **AWS Translate**
+        - `Translation`
 - Security
     - Monitor
         - AWS CloudWatch
@@ -931,8 +967,8 @@
             - Performance Efficiency
             - Cost Optimization
             - Sustainability
-    - **AWS OpenSearch Sevice (AWS Elastic Search)**
-        - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service、
+    - AWS Step Functions
+        - Serverless orchestration service
     - **AWS Connect**
         - `Call Center`
         - 3 Ways
