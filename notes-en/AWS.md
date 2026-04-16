@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 584 (1412)
+    - 585 (1416)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -113,6 +113,8 @@
             - Supports both `Scale Out = Add more instances, Scale in = Remove instances`
             - Can use one or more policies in combination
             - **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
+            - **Nitro Enclave**
+                - `Strongest Isloated Instancce`
             - **Scaling Policy**
                 - Target Tracking Scaling
                     - Tracking CPU or RAM usage rate
@@ -124,16 +126,41 @@
                     - Scale based on time
                 - Predictive Scaling
                     - Using ML to predict and scale
-        - **Dedicated Host**
-            - Renting a complete host to you without sharing resources with other AWS Accounts
-            - Suitable for software licenses that require a single dedicated server (e.g., BYOL for Oracle, Windows Server)
+            - **Placement Group**
+                - **For a group of virtual machines**
+                - Cluster
+                    - Place virtual machines in the same physical machine
+                    - `Lowest Latency`
+                    - `e.g. HPC`
+                - Spread
+                    - Place virtual machines in different physical machines
+                    - `Highest availability`
+                - Partition
+                    - Cluster some virtual machines in the same physical machine into a partion
+                    - Spread the partion into differnt phyiscal machiens
+                    - `Scalable Distributed System`
+                    - `e.g. Kafka, HDFS, Cassandra`
+            - **Tenancy**
+                - **For that single virtual machine**
+                - **Shared**
+                    - Default
+                    - Share with others
+                - **Dedicated Instance**
+                    - Dedicated Instances are EC2 instances that run on hardware that's dedicated to a single AWS account. 
+                    - Ensure that instances you created sharing the same 
+                - **Dedicated Host**
+                    - Renting `a complete phyiscal server` to you without sharing resources with other AWS Accounts
+                    - AWS has divided the host into different designated virtual machines
+                    - `Buy your own license`
+                        - Suitable for `software licenses` that require `a single dedicated server` (e.g., BYOL for Oracle, Windows Server)
         - Capacity Reservation v.s. Reserved Instances v.s. Spot Instances
             - These all require to specifiy instance type.
-            - On-Demand Reservation
+            - **On-Demand Reservation**
                 - `Reserve Instances for speical events` that requires a lots of instances
                 - If not, there might not be enough instances for a speical Wevents.
                 - On-Demand Price
-            - Reserved Instances
+            - **Reserved Instances**
+                - Make promise on certain instances
                 - `Promise to use the instances for a long period` (e.g. 1 or 2 years) to have discount
             - Spot Instances
                 - `Instances might be stopped at any time`
@@ -143,7 +170,12 @@
                 - Locking a certain period (7 a.m. to 10 a.m.)
                 - This functionality has been retried.
         - Saving Plan
-            - `Make minimum commitment, even if you use less but you have to pay for that amount`
+            - `Make minimum commitment of money, even if you use less but you have to pay for that amount`
+            - **Different from Reserved Instances**
+                - Reserved Instances
+                    - Make promise on certain instance configuration
+                - Saving Plan
+                    - Make promise on certain money
             - Payment Plan
                 - Upfront Plan
                 - Partial Upfront Plan
