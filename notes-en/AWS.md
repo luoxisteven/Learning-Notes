@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 569 (1383)
+    - 584 (1412)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -29,7 +29,7 @@
             - When does the system recover
     - Stateful
         - Stateful Application
-            - Meaning having memory or records
+            - Meaning **having memory** or records
             - `Can't fix the issues with Auto-Scaling`
                 - Having specific memory on one server
             - `Solve it with increasing the RAM`
@@ -38,6 +38,19 @@
         - Locking the IP address in the front `(8, 16, 24, 32)`
         - e.g. 10.0.0.0/8 (Locking 10, but 0.0.0 can be changed)
         - e.g. 192.16.1.1/32 (Locking the completed IP block)
+- Scaling
+    - Vertical Scaling
+        - `Increase or Decrease the size of the instance`
+        - Scale up
+            - `Increase the size of the instance`
+        - Scale down
+            - `Decrease the size of the instance`
+    - Horizontal Scaling
+        - `Increse or Decrease the number of instances`
+        - Scale out
+            - `Increase the number of instances`
+        - Scale in
+            - `Decrease the number of instances`
 - Pub/Sub
     - Instead of App A talking directly to App B, they communicate through a topic (like a radio channel)
         ```sql
@@ -142,10 +155,20 @@
                 - Has the best discount
         - Storage
             - Elastic Block Services (EBS)
-                - SSD
-                - `❌ Does NOT auto-scale automatically`
-                - For one instance only
-                - `Single AZ`
+                - Features
+                    - `Single AZ`
+                    - `❌ Does NOT auto-scale automatically`
+                    - `For one instance only`
+                - **Types**
+                    - General SSD (gp3)
+                        - Cost Effective
+                        - Can Choose IOPS
+                    - General SSD (gp2)
+                        - Obsolete
+                        - Static IOPS
+                    - Provisioned IOPS SSD
+                    - HDD
+                        - Cheapest
             - Elatsic File System (EFS)
                 - Protocal: NFS
                 - OS: Linux-Only
@@ -210,6 +233,9 @@
             - **Resource Policy/Function Policy**
                 - Defines who can access Lambda
                 - e.g. S3 trigger Lambda Function, API Gateway uses Lambda Function
+        - AWS Snapstart
+            - `Java Only`
+            - Not cold start
     - AWS API Gateway
         - `Deployment Type`
             - Edge-Optimised
@@ -375,7 +401,7 @@
             - `Storage can be auto scaled`
             - `Instance can not be auto scaled`
         - **Read Replicas**
-            - Have both cross-region replicas and cross-az replicas
+            - Have both **cross-region replicas** and **cross-az replicas**
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
         - **Multi-AZ Standby Instance**
@@ -403,13 +429,20 @@
         - `You can enable encryption for an Amazon RDS DB instance when you create it, but not after it's created. However, you can add encryption to an unencrypted DB instance by creating a snapshot of your DB instance, and then creating an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot to get an encrypted copy of your original DB instance.`
     - Aurora 
         - Two mode: `MySQL Compatible` and `PostgreSQL Compatible`
+        - **Modes**
+            - **Provisioned**
+                - Choose your own database instances
+                - Needs to scale mannually
+            - **Serverless**
+                - Setup minimum and maximum ACU (1 ACU = 2GB RAM)
+                - `Auto Scale` in and out based on this
         - AURORA is 5x performance improvement over MySQL on RDS and handles more read requests than write; maintaining high availability
         - `Aurora Database Cloning`
             - Very Fast database cloning
             - Theory: `Cloning the metadata or the address instead of the whole database`
         - Cross-Region Read Replicas
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
-        - Aurora Global Database
+        - **Aurora Global Database**
             - 1 Primary Region (Write & Read) + Up to 5 Secondary Region (Read-Only)
             - `Provides faster cross-region replication and lower RPO/RTO compared to standard cross-region read replicas`
             - Suitable for finance system that requires high availability
@@ -647,9 +680,13 @@
         - Reduce the bandwidth costs
         - Can connect you AWS VPC with your servers
     - AWS Certificate Manager (ACM)
-        - `SSL Certificate`
-        - ACM can not renew any third-party SSL certificate
-        - Private Certificate Authority
+        - `ACM can not renew any third-party SSL certificate`
+        - **Certificates**
+            1) ACM as CA issue a certificate 
+                - Issues Certificate on behalf of ACM
+            2) Import a third party
+                - **Can't create a certificate signed by a third party**
+        - **Private Certificate Authority**
             - For Private Networks, VPN
         - Encrypt data in transit
             - Encrypt data in transit with certificate
