@@ -1003,6 +1003,7 @@
             - `Manage Permissions on the whole organisation or OU or Specific Account`
             - Upper Global Permissions
             - Final Permissions = IAM Permissions ∩ SCP Permissions
+        - PrincipleOrgId in permissions 
     - **AWS Control Tower**
         - Under AWS Organisation
         - `Manage AWS User Account Environment`
