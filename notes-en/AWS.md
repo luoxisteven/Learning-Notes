@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 585 (1416)
+    - 601 (1441)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -114,7 +114,7 @@
             - Can use one or more policies in combination
             - **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
             - **Nitro Enclave**
-                - `Strongest Isloated Instancce`
+                - `Strongest Isloated Instance`
             - **Scaling Policy**
                 - Target Tracking Scaling
                     - Tracking CPU or RAM usage rate
@@ -126,6 +126,7 @@
                     - Scale based on time
                 - Predictive Scaling
                     - Using ML to predict and scale
+                    - `Not Possible when it is ramdon`
             - **Placement Group**
                 - **For a group of virtual machines**
                 - Cluster
@@ -159,6 +160,7 @@
                 - `Reserve Instances for speical events` that requires a lots of instances
                 - If not, there might not be enough instances for a speical Wevents.
                 - On-Demand Price
+                - **You can turn on "Hibernation" and have "warm start-up", and only need to pay for the EBS during hibernation.**
             - **Reserved Instances**
                 - Make promise on certain instances
                 - `Promise to use the instances for a long period` (e.g. 1 or 2 years) to have discount
@@ -396,7 +398,7 @@
             - Default 300 seconds.
             - **If the response is taking up a lot of time, increase this**
     - Network Load Balancer (NLB)
-        - Transport Layer
+        - Transport Layer (TCP, UDP)
         - Protocal: IP
         - `NLB has health check, tcp level`
         - Distributes traffic using a flow hash algorithm depedning on the IP and Port
@@ -410,7 +412,8 @@
         - **NLB can't check the HTTP/HTTPS Status code, because HTTP is in the Application Layer**
         - **NLB don't have the same routing listener route like ALB**
     - Gateway Load Balancer 
-        - Network Layer
+        - Network Layer (`Much Abstract Layer`)
+        - **For Saftey Reason**
         - Protocal: IP
         - Not Only HTTPS & HTTP
     - Classic Load Balancer
@@ -552,11 +555,42 @@
             - `Does not support PHP server-side script`
     - AWS ElasticCache
         - `Caching`
-        - `Can do application-level session caching`
-        - Redis
-            - Redis supports more formats
-            - This is `more recommended`
-        - Memcached
+        - L1 + L2 Cache (Good Architecture)
+            - L1: Local Instance Cache
+            - L2: AWS ElasticCache
+        - Write (2 Strategies)
+            1) `Delete the Cache first, and then Write into the RDS`
+            2) `Update both Cache and RDS`
+            - **SET name "Steven" EX 300** (Expires 300 seconds)
+        - Read
+            - `The application first looks for the Cache first, then looks for the RDS`
+            - `Then, write the data into Cache`
+            - **GET name, and return "Steven"**
+        - `Redis` (More Recommended)
+            - `Valkey` is the open-source version of Redis (which is commercialised)
+            - **Good for complex senarios**
+            - Features
+                - Redis supports more formats (String, List, Set...)
+                - Supports `replication` and `multi-AZ`
+                - Supports `Persistence`
+            - `Persistence`
+                - Increase the resilience of Redis
+                - `RDS`
+                    - Keep a snapshot into the RDS of the current state of Redis 
+                - `AOF (Append Only File)`
+                    - Log of all the write
+                - `Mixing RDS and AOF`
+            - `Sharding`
+                - Keeping multiple shards in different instances
+            - High Availability
+                - Replication
+                    - Master and Replica
+                - Redis Cluster
+                    - For Example
+                        - Shard A: Master A + Replica A
+                        - Shard B: Master B + Replica B
+                        - Shard C: Master C + Replica C
+        - `Memcached`
             - Fast but have less functionality
             - Only supports key-value
     - **AWS OpenSearch Sevice (AWS Elastic Search)**
@@ -602,7 +636,7 @@
                 - Gradual Migration without interruptting the existing app
             - Types
                 - `File Gateway`
-                    - NFS/SMB -> S3
+                    - **NFS/SMB -> S3 (Storage Gateway Supports SMB)**
                 - `Block/Volume Gateway`
                     - iSCSI -> S3
                 - `Tape Gateway`
@@ -752,7 +786,7 @@
             - Geolocation
             - Multi-value answer
                 - 8 IP at most, and route to the healthy IP address
-                - Completed Random
+                - Complete Random
     - AWS CloudFront
         - `Content Delivery Network (CDN)`- Cache content in edge server
         - `Can have Geographic restriction`
@@ -916,6 +950,10 @@
                 - API Gateway + AWS WAF
             - `Geographic (Geo) Match Conditions`
                 - Restrict to specific countries
+        - **Amazon Firewall Manager**
+            - `WAF for the entire AWS Organization`
+            - `Across different accounts`
+            - `Manages security policies`
         - **Amazon GuardDuty**
             - `Only Monitor and Identify the AWS environment Threat`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
@@ -927,10 +965,6 @@
         - **AWS Shield**
             - Protect services from `DDoS`
             - `Both Network Layer (SYN Flood、UDP Flood) and Application Layer (HTTP Flood)`
-        - **Amazon Firewall Manager**
-            - `WAF for the entire AWS Organization`
-            - `Across different accounts`
-            - `Manages security policies`
         - **Amazon Macie**
             - `Scaning S3 to search` for any PII (Personally Identifiable Information) and sensitive data
             - However, not doing any application to encrypt the data
