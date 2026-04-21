@@ -23,9 +23,9 @@
     - IOPS
         - Input/Output Operations Per Second
     - Database Availability Metrics
-        - Recovery Point Objective (RPO)
+        - **Recovery Point Objective (RPO)**
             - How long does the system may lost the data
-        - Recovery Time Objective (RTO)
+        - **Recovery Time Objective (RTO)**
             - When does the system recover
     - Stateful
         - Stateful Application
@@ -255,11 +255,13 @@
         - Concurrency Methods
             - `Reserved Concurrency`
                 - Reserve a certain number of throughput
+                - and deduct from the account limit as well
             - `Unreserved Concurrency`
                 - Shared with other Lambda Functions
             - `Provisioned Concurrency`
                 - `Warm Start` (The computing instance is prepared)
                 - `Lower Latency`
+                - and deduct from the account limit as well
         - Permission Policy
             - **Execution Role**
                 - How Lambda is able to exccess other resources
@@ -286,8 +288,8 @@
     - AWS AppSync
         - `GraphQL services connect to data sources (Lambda, RDS, HTTP)`
     - Container Service (ECS)
-        - Fargate
-        - EC2
+        - Fargate (Serverless)
+        - EC2 (Server)
     - Kubernetes Service (EKS)
         - Architecture
             - `Control Plane`
@@ -325,7 +327,7 @@
             - Faster
         - AWS Amplify
             - Serverless with AWS Lambda, API, Storage
-    - Amazon MQ
+    - Amazon MQ (Message Queue)
         - **Comparing with SQS, Amazon MQ requires more efforts in management of the brokers**
         - Managed open-source broker
         - Purposes 
@@ -389,8 +391,8 @@
             - Source IP routing
                 - e.g. based on different IP address
         - ACL & Security Group
-            - `ACL can block based on IP`
-            - `Security Group only allow but not deny`
+            - `ACL can llimit both inbound and outbound`
+            - `Security Group limits the inbound`
         - **ALB & NLB are located in a VPC's Public Subnet and can connect with Private Subnet**
         - ALB can connect multiple servers with Target Group, or connect with Auto-Scaling group
         - `ALB has health check, https status code level`
@@ -433,19 +435,20 @@
             - Keeping the data before being automatically deleted
             - Maximum 35 days
         - Scaling
-            - `Storage can be auto scaled`
+            - `Storage can be auto scaled (Mannually Set)`
             - `Instance can not be auto scaled`
+                - Aurora can auto scale Instance but not RDS
         - **Read Replicas**
             - Have both **cross-region replicas** and **cross-az replicas**
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
             - It is not recommnd to use Read Replicas as back-up because it requires some mannual operations. (`Need to promote into the main database manunally`)
         - **Multi-AZ Standby Instance**
-            - Architecture: 1 Main + 1 Stand-by (Only-2)
+            - Architecture: `1 Main + 1 Stand-by (Only-2)`
             - Much Cheaper, RPO less than 1 second
             - `Stand-by can't be used normally comparing to Read Replicas and Multi-AZ DB Cluster Readable Stand-by`
             - Synchronous replication, minimal data loss
         - **Multi-AZ DB Cluster**
-            - Architecture: 1 Main + 2 Readable Stand-by
+            - Architecture: `1 Main + 2 Readable Stand-by`
             - `Stand-by databases can be read normally and reduce the burden of main database`
             - Higher Availability, More Expensive, Reduce the Load of the database, Improving Database Performance
             - Not Support:
@@ -461,6 +464,7 @@
             - Combing with Multi-AZ Standby Database
                 - Being able to mitigate the `failover`
                 - when a database fail, proxy will direct to another one
+        - Supports encrpytion at rest or with AWS KMS.
         - `You can enable encryption for an Amazon RDS DB instance when you create it, but not after it's created. However, you can add encryption to an unencrypted DB instance by creating a snapshot of your DB instance, and then creating an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot to get an encrypted copy of your original DB instance.`
     - Aurora 
         - Two mode: `MySQL Compatible` and `PostgreSQL Compatible`
@@ -472,6 +476,8 @@
                 - Setup minimum and maximum ACU (1 ACU = 2GB RAM)
                 - `Auto Scale` in and out based on this
         - AURORA is 5x performance improvement over MySQL on RDS and handles more read requests than write; maintaining high availability
+        - **Aurora Multi-AZ Deployment (Aurora Repilca)**
+            - Readable replica deployed in a different AZ
         - `Aurora Database Cloning`
             - Very Fast database cloning
             - Theory: `Cloning the metadata or the address instead of the whole database`
@@ -482,25 +488,30 @@
             - `Provides faster cross-region replication and lower RPO/RTO compared to standard cross-region read replicas`
             - Suitable for finance system that requires high availability
     - DocumentDB
-        - Type: `Document`
+        - Type: `Document` and `Compatible with MongoDB`
         - NoSQL (Based on JSON, BSON, XML)
         - Not `Images, Videos, PDF`
-        - `Compatible with MongoDB`
+        - Availability
+            - Multi-AZ within a Region
+            - DocumentDB Global Clusters
     - DynamoDB
-        - Type: `Key-Value + Document`
+        - Only have Table and without the concept of Database
+        - Type: `Key-Value + Document` not  `Not compatible with MongoDB`
+        - NoSQL (Based on JSON, BSON, XML)
         - Features
             - `Don't store files in RDS database`
-            - **Not compatible with MongoDB**
             - **Create GSI(Global Secondary Index) for fast filtering**
-        - NoSQL (Based on JSON, BSON, XML)
         - Modes
             - `On-demand Read & Write`
                 - For demand that is unpredictable
             - `Provisioned Read & Write`
                 - Set up a certain throughput of read and write
-        - **DynamoDB Global Table**
-            - Consistent across differnt regions
-            - `Not using Replicas`
+        - Availability
+            - Multi-AZ
+                - Multi-AZ by default
+            - **DynamoDB Global Table**
+                - Consistent across differnt regions
+                - `Not using Replicas`
         - **DynamoDB Accelerator (DAX)**
             - Database Cache
             - Similar to Redis
@@ -548,11 +559,16 @@
             - `Trigger when an object is uploaded and deleted and others`
             - Limitation: `Each S3 event can only fan out to one SQS, one SNS, or one Lambda destination per rule`
             - `Use EventBridge to send multiple`
-        - SSE-S3 (Server-Side Encryption with Amazon S3 Managed Keys)
-            - `Encryption for S3` and `Encrypt data in the saving level`
-            - Rotate every year
         - S3 Frontend Deployment
             - `Does not support PHP server-side script`
+        - Encryption
+            - SSE-S3 (`Server-Side Encryption` with Amazon S3 Managed Keys)
+                - `Server-side at rest encryption`
+                - `Encryption for S3` and `Encrypt data in the saving level`
+                - Auto Rotate every year
+            - AWS KMS (Key Management Service)
+                - `Server-side at rest encryption` and `Can do client-side encryption`
+                - Auto-Rotate
     - AWS ElasticCache
         - `Caching`
         - L1 + L2 Cache (Good Architecture)
@@ -614,7 +630,7 @@
             - `AWS Transfer Terminal`
                 - Bring your own SSD to AWS Data Center
         - **AWS Transfer**
-            - **Transfer files via SFTP/FTP/FTPS**
+            - **Transfer files via SFTP/FTP/FTPS/AS2**
             - **Host a endpoint transfer files**
             - `Transfer Document to S3 or EFS with different protocals`
             - Supported protocals
@@ -660,13 +676,6 @@
             - `Automatic Backup` and `Retain the data for a while`
             - Backup data across different services (RDS + S3/FSx/EFS/DynamoDB/EC2)
             - `Can keep the data for a long time comparing to RDS Data Rentetion (35 days maximum)`
-        - Metrics
-            - Recovery Point Objective (RPO)
-                - Maximum tolerable data loss
-                - For the backup ability
-            - Recovery Time Objective (RTO)
-                - Maximum tolerable downtime
-                - For the availablitiy ability
         - Disaster Recovery Mode
             - `Pilot Light`
                 - Cost Lowest, RTO Middle
@@ -677,10 +686,10 @@
             - `Hot/Active`
                 - Cost Highest, RTO Shortest
                 - **In seconds**
-    - AWS Elastic Disaster Recovery
-        - Architecture: 
-        - Create a backup database on the Cloud for on-premise database
-        - Keeping on-premise database as the main database
+        - AWS Elastic Disaster Recovery
+            - Architecture: 
+            - Create a backup database on the Cloud for on-premise database
+            - Keeping on-premise database as the main database
 - Networks
     - VPC
         - Subnet
@@ -695,6 +704,10 @@
                 - Connect AWS Services inside AWS
                 - Building private connection with the subnet and the services
                 - Without accessing thourgh Internet reducing Network Cost
+            - **VPC Gateway Endpoint**
+                - Supports **EC2, DynamoDB** Only
+                - **Requires to add the endpoint into the Route Table**
+            - Connect VPC without using Public Internet
         - Access to Internet
             - NAT Instance
                 - Old Technology better to be `replaced with NAT Gateway`
@@ -722,10 +735,12 @@
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
         - Traffic Control
-            - Security Group
+            - Security Group (Instance Level)
                 - Stateful (If Inbound is allowed, Outbound is allowed automatically)
-                - Conrtrol the Inbound and Outbound rules for `Instance`
+                - Conrtrol the Inbound and Outbound rules for **Instance level**
                 - **If you allow incoming traffic, the response is automatically allowed.**
+                - Instance Level
+                    - Requires to attach this security group to AWS Services (EC2, RDS)
             - ACL
                 - Stateless (Inbound and Outbound is required to be set separately)
                 - Conrtrol the Inbound and Outbound rules in `Subnet level`
@@ -736,10 +751,6 @@
             - Can save logs into S3
         - DHCP (Dynamic Host Configuration Protocol)
             - When devices (EC2, RDS) connects to VPC, DHCP is giving them `Private IPs`.
-        - **VPC Gateway Endpoint**
-            - Supports **EC2, DynamoDB** Only
-            - **Requires to add the endpoint into the Route Table**
-            - Connect VPC without using Public Internet
     - AWS Direct Connect 
         - `Networks Connection between other Cloud providers or on-premises connection`
         - Without using Public Internet Networks
@@ -829,7 +840,7 @@
             - `Firehose can process data, and is not required to add consumers.`
             - `Consumer is optional`
             - **Data is not kept**
-        - Kinesis Data Analytics
+        - **Kinesis Data Analytics**
             - `Real-time analytics` with the data sources coming from KDS or Firehose
     - **AWS Elastic MapReduce (EMR)**
         - `Elastic MapReduce`
@@ -858,7 +869,7 @@
 - AI
     - **Amazon Rekognition**
         - `Images, Computer Vision`
-        - Face Recognition, Object Detection, Scene Detection, `Content Moderation`
+        - Face Recognition, Object Detection, Scene Detection, `Content Moderation (Identify Restricted Content)`
     - **Amazon Comprehend**
         - `Text, NLP`
         - Sentiment Analysis, Entity Recognition, Key Phrase Extraction, Language Detection
@@ -1003,7 +1014,6 @@
             - `Manage Permissions on the whole organisation or OU or Specific Account`
             - Upper Global Permissions
             - Final Permissions = IAM Permissions ∩ SCP Permissions
-        - PrincipleOrgId in permissions 
     - **AWS Control Tower**
         - Under AWS Organisation
         - `Manage AWS User Account Environment`
@@ -1055,7 +1065,7 @@
         - `On-demand cryptographic operations`
         - Customer managed multi-Region KMS key (This can be rotated.)
         - Customer provided (imported) key (This can't be rotated.)
-        - Encrypt at rest
+        - `Encrypt at rest`
             - AWS KMS can be used to encrypt the EBS and Aurora database storage at rest.
     - AWS Secret Manager
         - For Secret Key
