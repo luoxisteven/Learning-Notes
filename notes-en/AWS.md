@@ -253,7 +253,7 @@
             | I      | IOPS           | Disk I/O                  |
             | D      | Dense          | High storage capacity     |
             | H      | HDD            | High throughput storage   |
-            | P      | GPU            | ML training               |
+            | P      | GPU            | ML training/ Performance  |
             | G      | GPU            | Graphics / inference      |
             | F      | FPGA           | Hardware acceleration     |
         - Elastic Network Interface (ENI)
