@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 603 (1444)
+    - 640 (1504)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599, 603, 605, 614^， 615^, 627, 630, 634，638^
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -16,12 +16,14 @@
         - Gradually promote the canary stage to the production stage.
     - Managed Service
         - 托管服务
-    - ACL
-        - Access Control List
     - RDP
         - Remote Desktop Protocol
     - IOPS
         - Input/Output Operations Per Second
+    - Concurrency (并发)
+        - How many requests can be processed at the same time
+    - Throughput (吞吐)
+        - How many requests can be processed per second
     - Database Availability Metrics
         - **Recovery Point Objective (RPO)**
             - How long does the system may lost the data
@@ -38,6 +40,10 @@
         - Locking the IP address in the front `(8, 16, 24, 32)`
         - e.g. 10.0.0.0/8 (Locking 10, but 0.0.0 can be changed)
         - e.g. 192.16.1.1/32 (Locking the completed IP block)
+    - REST API
+        - API Design Pattern based on HTTP/HTTPS
+    - Blob
+        - Binary Large Object
 - Scaling
     - Vertical Scaling
         - `Increase or Decrease the size of the instance`
@@ -252,6 +258,7 @@
             - An attacahed Network Interface
             - **That keeping the same IP address, and can be used and reused into differnt instances**
     - AWS Lambda
+        - `Maximum run time 15 mins`
         - Concurrency Methods
             - `Reserved Concurrency`
                 - Reserve a certain number of throughput
@@ -305,6 +312,8 @@
         - Auto-scaling (Two-ways)
             - Scaling Pods
             - Scaling Nodes
+        - **Amazon CloudWatch Container Insights**
+            - Collects, Aggregates, and Summarizes metrics and logs from the application
         - **EKS Connector**
             - **Connect with other K8s to create a Central Panel**
             - On-Premises, and other Cloud Services (GCP, Azure)
@@ -464,6 +473,9 @@
             - Combing with Multi-AZ Standby Database
                 - Being able to mitigate the `failover`
                 - when a database fail, proxy will direct to another one
+        - **Blue/Green Deployment**
+            - `Make changes` to the database in the staging environment `without affecting the production environment`
+            - Create a staging environment, then upgrade it to production environment
         - Supports encrpytion at rest or with AWS KMS.
         - `You can enable encryption for an Amazon RDS DB instance when you create it, but not after it's created. However, you can add encryption to an unencrypted DB instance by creating a snapshot of your DB instance, and then creating an encrypted copy of that snapshot. You can then restore a DB instance from the encrypted snapshot to get an encrypted copy of your original DB instance.`
     - Aurora 
@@ -501,6 +513,7 @@
         - Features
             - `Don't store files in RDS database`
             - **Create GSI(Global Secondary Index) for fast filtering**
+        - `On-Demand can be auto-scaled as well unlike on-demand EC2`
         - Modes
             - `On-demand Read & Write`
                 - For demand that is unpredictable
@@ -519,7 +532,14 @@
             - Data tagged with TTL will be deleted after the designated period
     - **AWS Neptune**
         - `Graph Database`
+            - **Strong relationship between different entities**
+        - `Neptune Stream` can process data
+    - **Amazon Quantum Ledger Database (Amazon QLDB)**
+        - `Immutable Database`
+            - It `records who, when update/delete the data`
     - AWS S3
+        - **Blob Storage, Protocal: HTTP/HTTPS + REST API**
+        - `Original Mutli-AZ Storage`
         - Object Storage
             - Key, Data, Metadata
         - Versioning
@@ -641,6 +661,7 @@
             - **This is different from AWS Database Migration Service**
         - **AWS DataSync**
             - `On-premise File Migration`
+            - `Has the ability to validate/check/verify the integrity of the data`
             - Support Protocals
                 - NFS、**SMB**、HDFS
             - On-premise File System -> S3, EFS, FSx
@@ -699,14 +720,6 @@
             - Public Subnet
                 - Must have Public IP
                 - `Both Inbound and Outbound to public networks`
-        - **AWS PrivateLink**
-            - `VPC Endpoint`
-                - Connect AWS Services inside AWS
-                - Building private connection with the subnet and the services
-                - Without accessing thourgh Internet reducing Network Cost
-            - **VPC Gateway Endpoint**
-                - Supports **EC2, DynamoDB** Only
-                - **Requires to add the endpoint into the Route Table**
             - Connect VPC without using Public Internet
         - Access to Internet
             - NAT Instance
@@ -734,6 +747,14 @@
         - **AWS Transit Gateway**
             - `VPC Peering only connect two VPCs` but not a whole bunch of VPCs
             - Add "AWS Direct Connect" to conntect to On-premise
+        - **AWS PrivateLink**
+            - `Connect Services privately` without exposing to public Internet
+            - **VPC Gateway Endpoint**
+                - Supports **EC2, DynamoDB** Only
+                - **Requires to add the endpoint into the Route Table**
+            - **Interface Gateway Endpoint**
+                - Supports **ENI**
+                - **Connect AWS Services and Thrid Party Service**
         - Traffic Control
             - Security Group (Instance Level)
                 - Stateful (If Inbound is allowed, Outbound is allowed automatically)
@@ -767,7 +788,7 @@
             - For Private Networks, VPN
         - Encrypt data in transit
             - Encrypt data in transit with certificate
-    - AWS App Mesh
+    - **AWS App Mesh**
         - `For monitoring network`
         - Suitable for EC2, ECS, EKS
 - Reduce Latency
@@ -798,6 +819,8 @@
             - Multi-value answer
                 - 8 IP at most, and route to the healthy IP address
                 - Complete Random
+        - `Can be DNS Server as well`
+            - with Zone files
     - AWS CloudFront
         - `Content Delivery Network (CDN)`- Cache content in edge server
         - `Can have Geographic restriction`
@@ -817,10 +840,27 @@
         - Mainly for S3
         - **Amazon Athena Federated Query**
             - Run Query on Multiple sources including Databases (RDS, NoSQL, CloudWatch)
+    - **AWS Step Functions**
+        - `Serverless orchestration service`
+        - Workflows
+            - Standard Workflow
+                - Exactly-once, execute at most for 1 year
+                - e.g. Pipeline
+            - Express Workflow
+                - At least once, excute at most for 5 minute
+                - High Concurrency
+                - e.g. API Call
+        - Map State
+            - `Process cycle or for-loop`
+            - **Inline Map**
+                - Process in one execution
+            - **Distributed Map**
+                - Process in multiple executions
+                - High Concurrency
     - **AWS Glue**
         - Extract, Transform, Load (`ETL`)
         - Bulck Process
-            - `Process regularly, on a schedule, manually`
+            - **Process regularly, on a schedule, manually (!IMPORTANT)**
         - `Job bookmarks help AWS Glue maintain state information and prevent the reprocessing of old data.`
         - AWS Glue DataBrew
             - `Lets you clean and transform data without writing any code.`
@@ -862,6 +902,9 @@
         - `A central data lake from different sources` (RDS, S3, RedShift)
         - Saving the data in S3
         - IAM, Analytics, Logs
+        - Prevent access of sensitive data by
+            - Row-Level security
+            - Cell-Level security
     - **AWS AppFlow**
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
@@ -966,9 +1009,9 @@
             - `Across different accounts`
             - `Manages security policies`
         - **Amazon GuardDuty**
-            - `Only Monitor and Identify the AWS environment Threat`
+            - `Only Monitor and Identify the AWS Environment Abnormal Behaviors`
             - Montior AWS CloudTrail, VPC Flow Logs, Route53 DNS Logs
-            - Tracking any abnormal behaviors such as abnormal login locaction, IAM Abuse, S3 Leaking
+            - `Tracking any abnormal behaviors` such as abnormal login locaction, IAM Abuse, S3 Leaking
         - **Amazon Inspector**
             - Inspect EC2, Container for any `CVE Vunlerability`
             - CVE (Common Vulnerabilities and Exposures)
@@ -1005,15 +1048,19 @@
             - Console access: `username` + `password`
             - Programmatic access: `Access Key` + `Secret Key`
             - Assign permissions via Policies or User Groups
+            - **Don't try to use `User` to external users**
         - User Group
             - User Group is a group of users sharing the same permissions/policy.
     - AWS STS (Security Token Service)
         - `Define the potential role call STS to get the credential to have permissions to access the specified AWS Services`
     - AWS Organisation
-        - Service Control Policy
-            - `Manage Permissions on the whole organisation or OU or Specific Account`
-            - Upper Global Permissions
+        - **Service Control Policy**
+            - Manage Permissions on the **Internal** organisation or OU or Specific Account
+            - Upper Global Permissions (`Higer Prioity`)
             - Final Permissions = IAM Permissions ∩ SCP Permissions
+        - **Resource Control Policy**
+            - Manage Permissions on the **External** user
+            - Use `PrincipalOrgID` to control permission
     - **AWS Control Tower**
         - Under AWS Organisation
         - `Manage AWS User Account Environment`
@@ -1043,9 +1090,10 @@
             - Auth0
             - Azure AD (Active Directory)(Entra ID)
         - `Support API Gateway with Cognito Authorizer`
-    - Access Control List (ACL)
-        - Acccess Control List is resource-based.
-        - S3 and VPC have their own ACLs.
+        - **Use Active Directory not AWS Cognito**
+            1) Uses `Active Directory Federation Services`
+            2) `Security Assertion Markup Language (SAML)` federation
+            3) Create a role attach with this SAML
 - Cost
     - Cost Explorer
         - `Cost Visualisation of last 38 months cost`
@@ -1081,8 +1129,6 @@
             - Performance Efficiency
             - Cost Optimization
             - Sustainability
-    - AWS Step Functions
-        - Serverless orchestration service
     - **AWS Connect**
         - `Call Center`
         - 3 Ways
