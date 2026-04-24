@@ -1,10 +1,10 @@
 # AWS
 - Progress
     - 1 - 300 (809)
-    - 640 (1504)
+    - 644 (1510)
 - Important
     - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599, 603, 605, 614^， 615^, 627, 630, 634，638^
+    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599, 603, 605, 614^， 615^, 627, 630, 634，638^, 640^
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
@@ -27,13 +27,15 @@
     - Database Availability Metrics
         - **Recovery Point Objective (RPO)**
             - How long does the system may lost the data
+            - `Looking back from time of incident`
         - **Recovery Time Objective (RTO)**
             - When does the system recover
+            - `Looking forward from time of incident`
     - Stateful
         - Stateful Application
-            - Meaning **having memory** or records
+            - Meaning **having memory** or records on the application
             - `Can't fix the issues with Auto-Scaling`
-                - Having specific memory on one server
+                - Should have a specific and larger memory on one server
             - `Solve it with increasing the RAM`
     - CIDR (Classless Inter-Domain Routing)
         - Allocating IP address by locking a certain of bits
@@ -79,7 +81,7 @@
         - Tools: Regular Databases (MySQL, PostgreSQL)
         - Frequent Access, Real-time
         - `Row Store`
-            ```
+            ```java
             [1, Tom, 20, 5000]
             [2, Jack, 25, 8000]
             [3, Lucy, 22, 6000]
@@ -89,7 +91,7 @@
         - Tools: Data Warehouse
         - AWS RedShift, SnowFlake
         - `Column Store`
-            ```
+            ```java
             id:     [1, 2, 3]
             name:   [Tom, Jack, Lucy]
             age:    [20, 25, 22]
@@ -118,7 +120,7 @@
         - Auto Scaling
             - Supports both `Scale Out = Add more instances, Scale in = Remove instances`
             - Can use one or more policies in combination
-            - **Auto Scaling can not auto scale in region. You need to deploy in a second region.**
+            - **Auto Scaling can not auto scale in differnt regions. You need to deploy in a second region.**
             - **Nitro Enclave**
                 - `Strongest Isloated Instance`
             - **Scaling Policy**
@@ -136,7 +138,7 @@
             - **Placement Group**
                 - **For a group of virtual machines**
                 - Cluster
-                    - Place virtual machines in the same physical machine
+                    - Place virtual machines close together on the underlying network (same AZ)
                     - `Lowest Latency`
                     - `e.g. HPC`
                 - Spread
@@ -322,6 +324,11 @@
         - **EKS Everywhere**
             - Together wit Distro
             - **Deploy EKS on-premise**
+    - **AWS Compute Optimizer**
+        - Analyses your AWS compute resources and make recommendations
+            - By collecting CloudWatch metrics
+            - By analysing the CloudWatch metrics with machine learning
+            - and gives you recommendations
     - Fast Deployment
         - AWS Elastic Beanstalk
             - **Old and Server-based** PaaS
@@ -331,11 +338,15 @@
                 - Swapping environment quickly without stopping
                 - Zero-downtime deployment
         - AWS App Runner
-            - **New & Serverless** PaaS 
-            - Container-based Serverless
-            - Faster
+            - **New & Serverless** PaaS
+            - Container-based Serverless Service
+            - **Not Supported for New Customer anymore, moving to AWS ECS Express Mode**
         - AWS Amplify
             - Serverless with AWS Lambda, API, Storage
+            - Does not support hosting traditional backend servers (e.g. .NET, node.js)
+                - Only supports Lambda for backend
+        - AWS Device Farm
+            - Run tests on Android and iOS `mobile devices`
     - Amazon MQ (Message Queue)
         - **Comparing with SQS, Amazon MQ requires more efforts in management of the brokers**
         - Managed open-source broker
@@ -530,6 +541,12 @@
             - Similar to Redis
         - **Time To Live (TTL)**
             - Data tagged with TTL will be deleted after the designated period
+    - **Amazon Keyspaces**
+        - Serverless database service compatible with `Apache Cassandra`
+        - `Apache Cassandra`
+            - Distributed NoSQ Database
+            - Any node can accept reads or writes
+            - Data is partitioned (sharded) across nodes with Replication Factor (How many replications)
     - **AWS Neptune**
         - `Graph Database`
             - **Strong relationship between different entities**
@@ -909,7 +926,7 @@
         - `SaaS Integration`
         - AppFlow connects other SaaS services with AWS services
         - For example, connect Salesforce
-- AI
+- AI / Machine Learning
     - **Amazon Rekognition**
         - `Images, Computer Vision`
         - Face Recognition, Object Detection, Scene Detection, `Content Moderation (Identify Restricted Content)`
@@ -928,7 +945,7 @@
         - Database (RDS, Aurora, DocumentDB), Storage (S3) Search Service
         - Output: AI-ranked answers + relevant passages from documents
     - **Amazon Lex**
-        - `Chatbot`
+        - `Voice and Text Chatbot`
 - Multi-Modals Transition
     - **AWS Textract**
         - `OCR`
@@ -1026,7 +1043,7 @@
                 - PII identified by Macie
                 - Pass the data through EventBridge with JSON
                 - Use Lambda/Comprehend to hide the information
-        - AWS Security Hub
+        - **AWS Security Hub**
             - Combining AWS Config, AWS Inspector, and AWS GuardDuty
 - User Control
     - IAM
@@ -1051,6 +1068,11 @@
             - **Don't try to use `User` to external users**
         - User Group
             - User Group is a group of users sharing the same permissions/policy.
+        - Federation of Directory Services
+            - **Use Active Directory without AWS Cognito**
+                1) Uses `Active Directory Federation Services`
+                2) `Security Assertion Markup Language (SAML)` federation
+                3) Create a role attach with this SAML
     - AWS STS (Security Token Service)
         - `Define the potential role call STS to get the credential to have permissions to access the specified AWS Services`
     - AWS Organisation
@@ -1090,10 +1112,6 @@
             - Auth0
             - Azure AD (Active Directory)(Entra ID)
         - `Support API Gateway with Cognito Authorizer`
-        - **Use Active Directory not AWS Cognito**
-            1) Uses `Active Directory Federation Services`
-            2) `Security Assertion Markup Language (SAML)` federation
-            3) Create a role attach with this SAML
 - Cost
     - Cost Explorer
         - `Cost Visualisation of last 38 months cost`
@@ -1116,8 +1134,8 @@
         - `Encrypt at rest`
             - AWS KMS can be used to encrypt the EBS and Aurora database storage at rest.
     - AWS Secret Manager
-        - For Secret Key
-        - `Not suitable for frequent access`
+        - For storing Secret Keys / Credentials
+        - `Charges per API call — use caching client for frequent access`
         - `Automatic Rotation`
             - RDS, Redshift, DoumentDB, Lambda Roatation Function
 - Utility
