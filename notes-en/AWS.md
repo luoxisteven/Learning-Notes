@@ -5,7 +5,7 @@
     - 1 - 300 (809)
     - 644 (1510)
 - Important
-    - 40, 56, 67, 68, 70, 71, 72, 75, 77, 80, 82, 85, 90*, 93*, 96, 98*, 99, 102, 103, 104, 107, 108, 111, 112, 113, 117*, 119, 121*, 125*, 131*, 133*, 134*, 135*, 136*，137^, 139, 145, 159, 179, 183, 184, 188^, 189^, 194，197^, 206, 208, 209^，210^, 211, 216^, 219^, 222, 230^, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
+    - 67, 71, 80, 82, 90*, 93*, 96, 103, 104, 107, 108, 113, 117*, 119, 121*, 133*, 135*, 139, 145, 183, 184, 189^, 194，197^, 206, 208, 211, 216^, 219^, 222, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
     - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599, 603, 605, 614^， 615^, 627, 630, 634，638^, 640^
 - Terms
     - Bastion Server
@@ -76,7 +76,6 @@
         Producer → [Queue] → Consumer A gets it
                         Consumer B gets nothing
                         Consumer C gets nothing
-        ```
 - OLAP & OLTP
     - Online Transaction Processing (OLTP)
         - `Many small reads/writes`
@@ -174,7 +173,7 @@
             - **Reserved Instances**
                 - Make promise on certain instances
                 - `Promise to use the instances for a long period` (e.g. 1 or 2 years) to have discount
-            - Spot Instances
+            - Spot Instances/ Spot Fleet
                 - `Instances might be stopped at any time`
                 - `Cheapest but will be taken away with 2 minutes notification`
             - Spot Blocks
@@ -244,6 +243,7 @@
         - Amazon Machine Image (AMI)
             - Includes OS, Apps (Node.js, Nginx), Environment Variables
             - `AMI saves the data in EBS as well`
+            - Launch Tempalte
         - Instance Type
             | Letter | Meaning        | Optimization Focus        |
             |--------|----------------|---------------------------|
@@ -369,6 +369,7 @@
         - **Dead Letter Queue**
             - When the job is failed, logs and message will be collected.
             - You can add a AWS Lambda Function to rerun the job.
+        - **Visiblity Timeout**
     - AWS Simple Notification Service (SNS)
         - [Pub/Sub](https://aws.amazon.com/what-is/pub-sub-messaging/)
     - AWS Batch
@@ -506,7 +507,7 @@
         - `Aurora Database Cloning`
             - Very Fast database cloning
             - Theory: `Cloning the metadata or the address instead of the whole database`
-        - Cross-Region Read Replicas
+        - `Cross-Region Read Replicas`
             - `Replicating data without taking up a lot of computing power comparing to snapshot`
         - **Aurora Global Database**
             - 1 Primary Region (Write & Read) + Up to 5 Secondary Region (Read-Only)
@@ -769,7 +770,7 @@
         - **AWS PrivateLink**
             - `Connect Services privately` without exposing to public Internet
             - **VPC Gateway Endpoint**
-                - Supports **EC2, DynamoDB** Only
+                - Supports **S3, DynamoDB** Only
                 - **Requires to add the endpoint into the Route Table**
             - **Interface Gateway Endpoint**
                 - Supports **ENI**
@@ -881,7 +882,7 @@
         - Bulck Process
             - **Process regularly, on a schedule, manually (!IMPORTANT)**
         - `Job bookmarks help AWS Glue maintain state information and prevent the reprocessing of old data.`
-        - AWS Glue DataBrew
+        - `AWS Glue DataBrew`
             - `Lets you clean and transform data without writing any code.`
         - Data Sources
             - S3, RDS, NoSQL, RedShift, Streaming (Kinesis Data Stream), On-premises
