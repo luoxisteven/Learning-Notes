@@ -1,4 +1,6 @@
 # AWS
+- Solution Architect
+    - https://www.credly.com/badges/ae216ed1-f90d-43c9-9608-823023e6bbee
 - Progress
     - 1 - 300 (809)
     - 644 (1510)
