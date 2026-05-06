@@ -2,7 +2,7 @@
 - 这个仓库包含了我多年来记录的部分笔记。
 - 原始git仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
 - 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。然后，[**xiluo.net**](https://xiluo.net/notes) 会从 GitHub 源获取最新笔记。
-- **Last Update:** 29/APR/2025
+- **Last Update:** 06/MAY/2026
 
 ## 目录
 1) **Maths**
@@ -22,13 +22,17 @@
     - [SDLC](notes-cn/SDLC.md)
     - [CRUD](notes-cn/CRUD.md)
     - [全栈开发](notes-cn/Full-stack.md)
+    - [React](notes-en/React.md)
     - [网站开发](notes-cn/Web.md)
+    - [Docker and Kubernetes](notes-en/Docker&k8s.md)
+    - [AWS](notes-en/AWS.md)
 
 4) **Machine Learning**
     - [机器学习基础](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
     - [计算机视觉](notes-cn/CV.md)
     - [自然语言处理](notes-cn/NLP.md)
+    - [LangChain](notes-en/LangChain.md)
 
 5) **Finance**
     - [Finance](notes-cn/Finance.md)

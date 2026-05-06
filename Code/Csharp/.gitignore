@@ -1,0 +1,52 @@
+## Build Folders
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## VS Code settings
+.vscode/
+
+## Visual Studio Code and Rider
+.idea/
+*.sln.iml
+
+## ASP.NET / Entity Framework
+# appsettings.*.json
+# appsettings.json
+
+## Logs and other runtime files
+*.log
+
+## NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+## Temporary Files
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+## Test Results
+TestResults/
+*.coverage
+*.coveragexml
+*.testresults
+
+## Others
+project.lock.json
+project.fragment.lock.json
+
+## Python (if mixing .NET with Python for any reason)
+venv/
+__pycache__/
+*.py[cod]
