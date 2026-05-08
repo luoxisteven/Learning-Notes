@@ -23,7 +23,7 @@
     - [CRUD](notes-en/CRUD.md)
     - [Full Stack](notes-en/Full-stack.md)
     - [React](notes-en/React.md)
-    - [Web Development](notes-en/Web.md)
+    - [Web Development](notes-cn/Web.md)
     - [Docker and Kubernetes](notes-en/Docker&k8s.md)
     - [AWS](notes-en/AWS.md)
 

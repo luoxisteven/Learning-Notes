@@ -30,7 +30,7 @@
 4) **Machine Learning**
     - [机器学习基础](notes-cn/Machine%20Learning.md)
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
-    - [计算机视觉](notes-cn/CV.md)
+    - [计算机视觉](notes-en/CV.md)
     - [自然语言处理&大语言模型](notes-cn/NLP.md)
     - [LangChain](notes-en/LangChain.md)
 
