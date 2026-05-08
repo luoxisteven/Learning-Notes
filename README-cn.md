@@ -18,9 +18,9 @@
     - [SQL](notes-cn/SQL.md)
 
 3) **Development**
-    - [Bash & Git](notes-cn/bash-git.md)
-    - [SDLC](notes-cn/SDLC.md)
-    - [CRUD](notes-cn/CRUD.md)
+    - [Bash & Git](notes-en/bash-git.md)
+    - [SDLC](notes-en/SDLC.md)
+    - [CRUD](notes-en/CRUD.md)
     - [全栈开发](notes-cn/Full-stack.md)
     - [React](notes-en/React.md)
     - [网站开发](notes-cn/Web.md)
