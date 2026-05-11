@@ -41,6 +41,7 @@
 
 6) **English**
     - [General](notes-cn/English/English.md)
+    - [PTE](notes-cn/English/PTE.md)
     - [IELTS](notes-cn/English/IELTS.md)
     - [可数名词和不可数名词](notes-cn/English/Countable.md)
 

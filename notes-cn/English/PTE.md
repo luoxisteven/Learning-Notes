@@ -1,0 +1,30 @@
+# PTE
+
+- Speaking
+    - Read Aloud
+    - Repeat Sentence
+    - Describe Image
+    - Retell Lecture
+    - Answer Short Question
+    - Summarize Group Discussion
+    - Respond to a Situation
+- Writing
+    - Summarize Written Text
+    - Write Essay
+    - Summarize Written Text
+    - Write Email
+- Reading
+    - Fill in the Blanks (Dropdown)
+    - Multiple Choice (Multiple)
+    - Reorder Paragraph
+    - Fill in the Blanks (Drag and Drop)
+    - Multiple Choice (Single)
+- Listening
+    - Summarize Spoken Text
+    - Multiple Choice (Multiple)
+    - Fill in the Blanks
+    - Highlight Correct Summary
+    - Multiple Choice (Single)
+    - Select Missing Word
+    - Highlight Incorrect Words
+    - Write from Dictation
