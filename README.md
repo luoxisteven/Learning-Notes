@@ -32,7 +32,7 @@
     - [Reinforcement Learning](notes-en/Reinforcement%20Learning.md)
     - [Computer Vision](notes-en/CV.md)
     - [Natural Language Processing and LLM](notes-en/NLP.md)
-    - [LangChain](notes-en/LangChain.md)
+    - [AI Agent](notes-en/AI-Agent.md)
 
 5) **Finance**
     - [Finance](notes-en/Finance.md)
