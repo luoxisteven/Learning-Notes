@@ -2,7 +2,7 @@
 - This repository contains some of the notes I’ve taken over the years.
 - The original repository is located at [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes). 
 - I take notes in an IDE like VS Code and then upload them to the GitHub repository above, and [**xiluo.net**](https://xiluo.net/notes) fetches the latest notes from GitHub sources.
-- **Last Update**: 06/MAY/2026
+- **Last Update**: 20/MAY/2026
 
 ## Table of Contents
 1) **Maths**
