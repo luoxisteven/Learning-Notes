@@ -31,8 +31,8 @@
     - [Machine Learning Fundamentals](notes-en/Machine%20Learning.md)
     - [Reinforcement Learning](notes-en/Reinforcement%20Learning.md)
     - [Computer Vision](notes-en/CV.md)
-    - [Natural Language Processing and LLM](notes-en/NLP.md)
-    - [AI Agent](notes-en/AI-Agent.md)
+    - [Natural Language Processing](notes-en/NLP.md)
+    - [LLM & AI Agent](notes-en/LLM.md)
 
 5) **Finance**
     - [Finance](notes-en/Finance.md)

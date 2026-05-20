@@ -32,7 +32,7 @@
     - [强化学习](notes-cn/Reinforcement%20Learning.md)
     - [计算机视觉](notes-en/CV.md)
     - [自然语言处理&大语言模型](notes-cn/NLP.md)
-    - [AI Agent](notes-en/AI-Agent.md)
+    - [LLM & AI 智能体](notes-en/LLM.md)
 
 5) **Finance**
     - [Finance](notes-cn/Finance.md)
