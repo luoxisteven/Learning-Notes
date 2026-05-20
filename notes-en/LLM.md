@@ -1,5 +1,30 @@
-# LangChain
-## Dynamic Tools
+# LLM & AI Agent
+
+## Transformer
+
+- See [Machine_Learning.Transformer](Machine%20Learning.md#transformer)
+
+The Transformer architecture includes an encoder and a decoder, with three possible variations:
+1. **Encoder-only** structure.
+2. **Decoder-only** structure (e.g., GPT).
+3. **Full structure** with both encoder and decoder.
+
+GPT uses the **decoder-only** structure.  
+The core of Transformer is the **Attention** mechanism, which differs from other NLP models (e.g., RNN, LSTM). Traditional models struggle with long sequences due to limitations in information passing, leading to the loss of earlier information. The **Attention** mechanism allows the model to focus on different parts of the sequence, improving its ability to handle long-range dependencies.
+
+Reference: [Transformer Detailed Explanation](https://zhuanlan.zhihu.com/p/607423406)
+
+## Chain of Thoughts
+
+## ReAct
+Reasoning + Acting
+
+## Agent Harness
+
+## KV Cache
+
+## LangChain
+### Dynamic Tools
     - Utilise Middlewware
 ``` python
 from langchain.agents import create_agent
@@ -35,7 +60,7 @@ agent = create_agent(
 )
 ```
 
-## Error Handling
+### Error Handling
 ``` Python
 from langchain.agents import create_agent
 from langchain.agents.middleware import wrap_tool_call
@@ -61,7 +86,7 @@ agent = create_agent(
 )
 ```
 
-## Response Format
+### Response Format
 https://docs.langchain.com/oss/python/langchain/structured-output
 - Suggested Followed Queriess
     ```python
@@ -85,10 +110,7 @@ https://docs.langchain.com/oss/python/langchain/structured-output
     print(response)  # Movie(title="Inception", year=2010, director="Christopher Nolan", rating=8.8)
     ```
 
-## ReAct
-Reasoning + Acting
-
-## Messages
+### Messages
 ```python
 from langchain.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage
 
