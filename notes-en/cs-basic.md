@@ -309,11 +309,19 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 
 - Asymmetric cryptography is not used for bulk data encryption due to high computational cost
 
+## Hash Function
+SHA-256, SHA-6
+单向性，雪崩效应
+
 ## Symmetric Algorithm
+
+### DES
 
 ### AES
 
 ## Asymmetric Algorithm
+
+### Encryption & Digital Signature 
 
 ### Modulo 模运算
 - Calculate the remainder 计算余数
@@ -326,7 +334,6 @@ $$A \bmod B = C$$
 ### RSA
 - Theory
    - It is difficult to find the two prime numbers given their product N, if the primes are large enough.
-   - 
 - How to get public key and private key
    1) Step 1: Find two prime numbers ($p$, $q$)
       - Prime Numbers 质数
@@ -385,5 +392,8 @@ $$A \bmod B = C$$
    - So:
       $$1^{k} \cdot m \equiv m \pmod{N}$$
    - Then, Decryption successful.
+
+### Diffie-Hellman Key Exchange
+HTTPS TLS Handshake
 
 ### ECC
