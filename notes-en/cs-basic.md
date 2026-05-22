@@ -300,19 +300,18 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 ## Cryptography
 
 ## HTTPS
-``` bash
-Browser connects to server
-        ↓
-Server sends fullchain.pem
-        ↓
-Browser checks: Is this certificate trusted? Is it for this domain?
-        ↓
-Server proves it owns the matching privkey.pem
-        ↓
-Browser and server create a temporary shared session key
-        ↓
-Actual website data is encrypted/decrypted using that session key
-```
+- Uses asymmetric cryptography during handshake
+  - For server authentication (via certificates)
+  - For securely establishing a shared symmetric key
+
+- After handshake, uses symmetric encryption for data transmission
+  - Because symmetric encryption is much faster and efficient
+
+- Asymmetric cryptography is not used for bulk data encryption due to high computational cost
+
+## Symmetric Algorithm
+
+### AES
 
 ## Asymmetric Algorithm
 
