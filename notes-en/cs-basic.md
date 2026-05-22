@@ -297,7 +297,7 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 ![alt text](img-en/process-and-thread.png)
 
 
-## Crptography
+## Cryptography
 
 ## HTTPS
 ``` bash
