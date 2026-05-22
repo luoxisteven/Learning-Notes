@@ -299,6 +299,21 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 
 ## Crptography
 
+## HTTPS
+``` bash
+Browser connects to server
+        ↓
+Server sends fullchain.pem
+        ↓
+Browser checks: Is this certificate trusted? Is it for this domain?
+        ↓
+Server proves it owns the matching privkey.pem
+        ↓
+Browser and server create a temporary shared session key
+        ↓
+Actual website data is encrypted/decrypted using that session key
+```
+
 ## Asymmetric Algorithm
 
 ### Modulo 模运算
@@ -332,7 +347,9 @@ $$A \bmod B = C$$
       - $e$ may not be unique
    5) Step 5: Find the private key
 - How to do encryption and decryption
-   - Encrpytion
-   - Decrpytion
-
+   - If $c$ is the secret and $m$ is the message
+      - Encryption
+         $$c = m^e \bmod N$$
+      - Decryption
+         $$m = c^d \bmod N$$
 ### ECC
