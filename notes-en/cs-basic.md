@@ -351,8 +351,25 @@ $$A \bmod B = C$$
          - $(e \cdot d) \bmod \varphi(N) = 1$, 
          - $d$ is the modular multiplicative inverse of $e$ modulo $\varphi(N)$:
          $$d \equiv e^{-1} \pmod{\varphi(N)}$$
+
+- How to do encryption and decryption
+   - If $c$ is the secret and $m$ is the message
+      - Encryption
+         $$c = m^e \bmod N$$
+      - Decryption
+         $$m = c^d \bmod N$$
+
 - **IMPORTANT:**
+   - The result of $\bmod$ is cyclic (it wraps around).
+      - For example
+         - $1 \bmod 3 = 1$, $\ 2 \bmod 3 = 2$, $\ 3 \bmod 3 = 0$, $\ 4 \bmod 3 = 1$
+         - 1 occurs again in here, then 2 will come with $\ 5 \bmod 3 = 2$ . then 3, 0, 1, 2, 0, 1, 2...
+         - Follow the pattern of 1, 2, 0 indefinitely
    - Euler's theorem makes $m^{\varphi(N)}$ "equivalent to 1" in the mod $N$ world.
+      $$\displaystyle a^{\varphi (n)}\equiv 1{\pmod {n}}$$
+      $$a^{\varphi (n)} \bmod n = 1$$
+
+- **IMPORTANT 2**
    - RSA requires:
       $$m^{ed} \equiv m \pmod{N}$$
    - Since:
@@ -364,13 +381,5 @@ $$A \bmod B = C$$
    - So:
       $$1^{k} \cdot m \equiv m \pmod{N}$$
    - Then, Decryption successful.
-
-
-- How to do encryption and decryption
-   - If $c$ is the secret and $m$ is the message
-      - Encryption
-         $$c = m^e \bmod N$$
-      - Decryption
-         $$m = c^d \bmod N$$
 
 ### ECC
