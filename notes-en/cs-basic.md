@@ -345,6 +345,7 @@ $$A \bmod B = C$$
          $$gcd(e, \varphi(N)) = 1$$
       - $e$ may not be unique
    5) Step 5: Find the private key
+      $$e \cdot d \equiv 1 \pmod{\varphi(N)}$$
 - How to do encryption and decryption
    - If $c$ is the secret and $m$ is the message
       - Encryption
