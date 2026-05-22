@@ -49,11 +49,24 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 ```
 
-## ReAct (Reasoning + Acting) (https://www.promptingguide.ai/techniques/react)
 
 ## Agent Harness
 
 ## KV Cache
+
+## Agent Loop
+
+## ReAct (Reasoning + Acting) (https://www.promptingguide.ai/techniques/react)
+
+## Reasoning
+
+## Tool Use
+
+## Skills
+
+## MCP
+
+## Subagent
 
 ## LangChain
 ### Dynamic Tools
