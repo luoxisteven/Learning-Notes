@@ -320,6 +320,8 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 $$A \bmod B = C$$
 - Computer language A % B = C
 - Operator precedence: $\bmod$ has the **same** priority as $\times$ and $\div$, and is evaluated left-to-right.
+- If $A \equiv B \pmod{n}$, then $(A - B) \bmod n = 0$ (equivalently, $n \mid (A - B)$). 
+- 如果 $A$ 和 $B$ 与 $n$ 的模相同(余数相同)，也就是说 $A - B$ 可以被 $n$ 整除）
 
 ### RSA
 - Theory
