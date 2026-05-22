@@ -284,7 +284,7 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 
 ### Software Thread v.s. CPU Thread
 | Feature                | **Software Thread**                                      | **CPU Thread (Hardware Thread)**                               |
-|------------------------|----------------------------------------------------------|-----------------------------------------------------------------|
+|------------------------|----------------------------------------------------------|-----------------------------------------------------------------|   
 | **Definition**         | A thread created and managed by software (e.g., OS, runtime) | A physical or logical execution unit in a CPU core             |
 | **Managed By**         | Operating system or user-level threading library         | CPU hardware and microarchitecture                             |
 | **Existence**          | Exists conceptually within programs                      | Exists physically/logically inside the CPU                     |
@@ -322,6 +322,7 @@ $$A \bmod B = C$$
 ### RSA
 - Theory
    - It is difficult to find the two prime numbers given their product N, if the primes are large enough.
+   - 
 - How to get public key and private key
    1) Step 1: Find two prime numbers ($p$, $q$)
       - Prime Numbers 质数
@@ -346,10 +347,30 @@ $$A \bmod B = C$$
       - $e$ may not be unique
    5) Step 5: Find the private key
       $$e \cdot d \equiv 1 \pmod{\varphi(N)}$$
+      - What this equation means?
+         - $(e \cdot d) \bmod \varphi(N) = 1$, 
+         - $d$ is the modular multiplicative inverse of $e$ modulo $\varphi(N)$:
+         $$d \equiv e^{-1} \pmod{\varphi(N)}$$
+- **IMPORTANT:**
+   - Euler's theorem makes $m^{\varphi(N)}$ "equivalent to 1" in the mod $N$ world.
+   - RSA requires:
+      $$m^{ed} \equiv m \pmod{N}$$
+   - Since:
+      $$ed = k\varphi(N) + 1$$
+   - Therefore:
+      $$m^{ed} = m^{k\varphi(N) + 1} = \left(m^{\varphi(N)}\right)^{k} \cdot m$$
+   - By Euler's theorem:
+      $$m^{\varphi(N)} \equiv 1 \pmod{N}$$
+   - So:
+      $$1^{k} \cdot m \equiv m \pmod{N}$$
+   - Then, Decryption successful.
+
+
 - How to do encryption and decryption
    - If $c$ is the secret and $m$ is the message
       - Encryption
          $$c = m^e \bmod N$$
       - Decryption
          $$m = c^d \bmod N$$
+
 ### ECC
