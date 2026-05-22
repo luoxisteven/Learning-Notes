@@ -318,6 +318,8 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 ### Modulo 模运算
 - Calculate the remainder 计算余数
 $$A \bmod B = C$$
+- Computer language A % B = C
+- Operator precedence: $\bmod$ has the **same** priority as $\times$ and $\div$, and is evaluated left-to-right.
 
 ### RSA
 - Theory
@@ -372,6 +374,8 @@ $$A \bmod B = C$$
 - **IMPORTANT 2**
    - RSA requires:
       $$m^{ed} \equiv m \pmod{N}$$
+      - That is 
+      $$m^{ed} \bmod N = m$$
    - Since:
       $$ed = k\varphi(N) + 1$$
    - Therefore:
