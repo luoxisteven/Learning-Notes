@@ -14,7 +14,7 @@ References include Zhihu, CSDN, geeksforgeeks.org
 
 ![alt text](img-cn/osi-tcpip.png)
 
-## OSI (8层)
+### OSI (8层)
 - **物理层 Physical Layer**
 - **数据链路层 Data Link Layer**
 - **网络层 Network Layer**
@@ -85,17 +85,17 @@ References include Zhihu, CSDN, geeksforgeeks.org
     - The application layer refers to **`programs`** that need TCP/IP to help them communicate with each other. 
     - Examples: HTTP, HTTPS
 
-## IPv4 地址
+### IPv4 地址
 - IPv4 地址，256:256:256:256，所以总共32个bit，4个字节
 - 2^8 (2 to the power of 8) = 256
 - 8 bits = 1 Byte
 - LAN 局域网 (Local Area Network)
 
-## IPv6 
+### IPv6 
 - 长度为128 bits = 16 bytes
 - e.g. 2001:0DA8:0000:0000:200C:0000:0000:00A5
 
-## MAC
+### MAC
 设备的唯一ID，MAC地址的获取是通过由ARP（Address Resolution Protocol）协议来实现的。
 
 每个MAC地址都是一个48位的标识符，通常写作六组十六进制数字（例如：8a:3f:80:c9:9a:28）。这些MAC地址是在硬件制造时分配的，目的是确保网络上每个接口都有唯一标识。
@@ -113,7 +113,7 @@ While it’s true that IP address + Port number can help identify specific servi
 
    - The MAC address is a unique identifier assigned to each network interface card (NIC). It allows devices to communicate directly with each other over the local link (such as within a LAN).
 
-## Private IP, Public IP
+### Private IP, Public IP
 - **私有IP (Private IP)**
     - 私有IP是指在局域网(LAN)内部使用的IP地址
 这些地址在RFC 1918中定义，包括:

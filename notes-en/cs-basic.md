@@ -3,6 +3,7 @@
 - [Internet Technology](#internet-technology)
 - [Database](#database)
 - [Operating Systems](#operating-systems)
+- [Cryptography](#Crptography)
 
 References include Zhihu, CSDN, geeksforgeeks.org
 
@@ -13,7 +14,7 @@ Refrence Website:
 
 ![alt text](img-en/osi-tcpip.png)
 
-## OSI (8 Layer)
+### OSI (8 Layer)
 - **Physical Layer**
 - **Data Link Layer**
 - **Network Layer**
@@ -82,13 +83,13 @@ Refrence Website:
    - The application layer refers to **`programs`** that need TCP/IP to help them communicate with each other. 
    - Examples: HTTP, HTTPS
 
-## IPv4 Address
+### IPv4 Address
 - IP address, 256:256:256:256, so a total of 32 bits, 4 bytes
 - 2^8 (2 to the power of 8) = 256
 - 8 bits = 1 Byte
 - LAN (Local Area Network)
 
-## IPv6 Address
+### IPv6 Address
 - 128 bits = 16 bytes
 - e.g. 2001:0DA8:0000:0000:200C:0000:0000:00A5
 
@@ -110,7 +111,7 @@ While it’s true that IP address + Port number can help identify specific servi
 
    - The MAC address is a unique identifier assigned to each network interface card (NIC). It allows devices to communicate directly with each other over the local link (such as within a LAN).
 
-## Private IP, Public IP
+### Private IP, Public IP
 - **Private IP**
    - Private IP refers to IP addresses used within a local area network (LAN)
    - These addresses are defined in RFC 1918, including:
@@ -138,8 +139,8 @@ While it’s true that IP address + Port number can help identify specific servi
    | 203.0.113.5    | 50002       | →           | 192.168.1.20        | 80             |
 
 
-## Gateway
-### Subnet Mask
+### Gateway
+#### Subnet Mask
 
 A subnet mask is used to divide the network portion and host portion of an IP address, telling devices which IP addresses are within the same network segment.
 * **Format**: Same as IP address (e.g., 255.255.255.0)
@@ -149,7 +150,7 @@ A subnet mask is used to divide the network portion and host portion of an IP ad
   * 255.255.0.0 is equivalent to /16
   * 255.0.0.0 is equivalent to /8
 
-### Network Segment
+#### Network Segment
 
 A network segment is a logical partition in the IP address space where devices can communicate directly without a router.
 * **Determination method**: Perform a bitwise AND operation between the IP address and subnet mask to get the network address
@@ -159,7 +160,7 @@ A network segment is a logical partition in the IP address space where devices c
   * Network address: 192.168.1.0
   * Network segment range: 192.168.1.0 - 192.168.1.255
 
-### Gateway
+#### Gateway
 
 A gateway is a device that connects two different networks, usually a router, responsible for forwarding data packets between different network segments.
 * **Default gateway**: When a data packet's destination is not in the local network segment, the device sends the packet to the default gateway
@@ -168,12 +169,12 @@ A gateway is a device that connects two different networks, usually a router, re
   * WAN port IP: Assigned by ISP, used to connect to the Internet
   * LAN port IP: Usually 192.168.1.1, serving as the default gateway for internal devices
 
-## Transmission Layer
-### TCP and UDP
+### Transmission Layer
+#### TCP and UDP
 - TCP (Transmission Control Protocol) provides a `reliable`, `error-checked`, and `connection-oriented communication`.
 - UDP (User Datagram Protocol) is `unreliable` (no guarantee of delivery, order, or error correction) but is `faster` and `more efficient` in terms of `latency` and `computational overhead`.
 
-### Three-way Handshake (TCP-Only)
+#### Three-way Handshake (TCP-Only)
 - TCP uses a three-way handshake to `establish a connection` between two devices before data transfer begins.
 - The three-way handshake is a process used in TCP/IP networks to establish a reliable connection between two devices (hosts).
 - **SYN**: The client sends a SYN (synchronize) packet to the server to request a connection.
@@ -181,7 +182,7 @@ A gateway is a device that connects two different networks, usually a router, re
 - **ACK**: The client sends an ACK (acknowledge) packet back to the server, confirming the connection.
 - **`Main Purpose`**: The main purpose of the three-way handshake is to establish a reliable connection by ensuring that `both client and server are ready to communicate (both sides can send and receive)`.
 
-### Four-way Handshake (TCP-Only)
+#### Four-way Handshake (TCP-Only)
 - TCP uses a four-way handshake to `terminate a connection` between two devices after data transfer ends.
 - The four-way handshake ensures that `both sides have finished sending data` and can safely close the connection.
 - **FIN (Client → Server)**: The client sends a FIN (finish) packet to the server, indicating it has finished sending data.
@@ -190,7 +191,7 @@ A gateway is a device that connects two different networks, usually a router, re
 - **ACK (Client → Server)**: The client acknowledges the server’s FIN with an ACK packet, completing the connection termination.
 - **`Main Purpose`**: The main purpose of the four-way handshake is to terminate a TCP connection, ensuring that `both client and server have finished all data transmission and acknowledge each other's termination`.
 
-### Error Control for TCP:
+#### Error Control for TCP:
 1) Checksum
 2) Acknowledgments (ACK)
  - The receiver sends an ACK (acknowledgment) back to the sender when it successfully receives a segment.
@@ -203,6 +204,15 @@ A gateway is a device that connects two different networks, usually a router, re
  - TCP uses a sliding window mechanism to avoid overwhelming the receiver.
  - The receiver tells the sender how much data it can accept (window size).
  - If too many packets are lost or delayed, TCP shrinks the window to slow down transmission.
+
+### IP Address
+- What counts as a private IP?
+   - Private IPv4 ranges:
+      - 10.0.0.0 – 10.255.255.255
+      - 172.16.0.0 – 172.31.255.255
+      - 192.168.0.0 – 192.168.255.255
+   - Private IPv6 range:
+      - fc00::/7 (“Unique local addresses” — ULA)
 
 ## Database
 
@@ -274,7 +284,7 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 
 ### Software Thread v.s. CPU Thread
 | Feature                | **Software Thread**                                      | **CPU Thread (Hardware Thread)**                               |
-|------------------------|----------------------------------------------------------|-----------------------------------------------------------------|
+|------------------------|----------------------------------------------------------|-----------------------------------------------------------------|   
 | **Definition**         | A thread created and managed by software (e.g., OS, runtime) | A physical or logical execution unit in a CPU core             |
 | **Managed By**         | Operating system or user-level threading library         | CPU hardware and microarchitecture                             |
 | **Existence**          | Exists conceptually within programs                      | Exists physically/logically inside the CPU                     |
@@ -287,11 +297,103 @@ An Operating System(OS) is a software that manages and handles hardware and soft
 ![alt text](img-en/process-and-thread.png)
 
 
-## IP Address
-- What counts as a private IP?
-   - Private IPv4 ranges:
-      - 10.0.0.0 – 10.255.255.255
-      - 172.16.0.0 – 172.31.255.255
-      - 192.168.0.0 – 192.168.255.255
-   - Private IPv6 range:
-      - fc00::/7 (“Unique local addresses” — ULA)
+## Cryptography
+
+## HTTPS
+- Uses asymmetric cryptography during handshake
+  - For server authentication (via certificates)
+  - For securely establishing a shared symmetric key
+
+- After handshake, uses symmetric encryption for data transmission
+  - Because symmetric encryption is much faster and efficient
+
+- Asymmetric cryptography is not used for bulk data encryption due to high computational cost
+
+## Hash Function
+SHA-256, SHA-6
+单向性，雪崩效应
+
+## Symmetric Algorithm
+
+### DES
+
+### AES
+
+## Asymmetric Algorithm
+
+### Encryption & Digital Signature 
+
+### Modulo 模运算
+- Calculate the remainder 计算余数
+$$A \bmod B = C$$
+- Computer language A % B = C
+- Operator precedence: $\bmod$ has the **same** priority as $\times$ and $\div$, and is evaluated left-to-right.
+- If $A \equiv B \pmod{n}$, then $(A - B) \bmod n = 0$ (equivalently, $n \mid (A - B)$). 
+- 如果 $A$ 和 $B$ 与 $n$ 的模相同(余数相同)，也就是说 $A - B $ 可以被 $n$ 整除）
+
+### RSA
+- Theory
+   - It is difficult to find the two prime numbers given their product N, if the primes are large enough.
+- How to get public key and private key
+   1) Step 1: Find two prime numbers ($p$, $q$)
+      - Prime Numbers 质数
+         - A natural number $(0, 1, 2 ...)$ greater than $1$ that has exactly two divisors: $1$ and itself.
+   2) Step 2: Calculate the modulus $N$ by multiplying $p$ and $q$
+      $$N = p \times q$$
+   3) Step 3: Euler's totient function
+      - The number of (How Many) positive integers $\varphi(N)$ less than $N$ that are coprime to $N$ (小于N的正整数中，与N互质的数的个数)
+         $$\varphi(N) = (p - 1)(q - 1)$$
+      - Remember: $\varphi(N)$ should be integers not numbers with decimals
+      - **Coprime**
+         - The nubmers $(a,b,c ...)$ **coprime** to N: Two numbers are coprime if their **greatest common divisor 最大公约数** (gcd) is $1$
+            $$gcd(a, N) = 1$$
+         - This number may not be prime number.
+      - If 
+         $$N = p \times q$$
+         with $p$, $q$ are both prime numbers, then
+         $$\varphi(N) = (p - 1)(q - 1)$$
+   4) Step 4: Choose $e$ (Find the public key)
+      - Find the number $e$ that $e$ and  $\varphi(N)$ are coprime to each other.
+         $$gcd(e, \varphi(N)) = 1$$
+      - $e$ may not be unique
+   5) Step 5: Find the private key
+      $$e \cdot d \equiv 1 \pmod{\varphi(N)}$$
+      - What this equation means?
+         - $(e \cdot d) \bmod \varphi(N) = 1$, 
+         - $d$ is the modular multiplicative inverse of $e$ modulo $\varphi(N)$:
+         $$d \equiv e^{-1} \pmod{\varphi(N)}$$
+
+- How to do encryption and decryption
+   - If $c$ is the secret and $m$ is the message
+      - Encryption
+         $$c = m^e \bmod N$$
+      - Decryption
+         $$m = c^d \bmod N$$
+
+- **IMPORTANT:**
+   - The result of $\bmod$ is cyclic (it wraps around).
+      - For example
+         - $1 \bmod 3 = 1$, $\ 2 \bmod 3 = 2$, $\ 3 \bmod 3 = 0$, $\ 4 \bmod 3 = 1$
+         - 1 occurs again in here, then 2 will come with $\ 5 \bmod 3 = 2$ . then 3, 0, 1, 2, 0, 1, 2...
+         - Follow the pattern of 1, 2, 0 indefinitely
+   - Euler's theorem makes $m^{\varphi(N)}$ "equivalent to 1" in the mod $N$ world.
+      $$\displaystyle a^{\varphi (n)}\equiv 1{\pmod {n}}$$
+      $$a^{\varphi (n)} \bmod n = 1$$
+
+- **IMPORTANT 2**
+   - RSA requires:
+      $$m^{ed} \bmod N = m$$
+   - Since $e$ and $d$ are selected from Step 3 and Step 4:
+      $$ed = k\varphi(N) + 1$$
+   - Therefore:
+      $$m^{ed} = m^{k\varphi(N) + 1} = \left(m^{\varphi(N)}\right)^{k} \cdot m$$
+   - By Euler's theorem:
+      $$m^{\varphi(N)} \equiv 1 \pmod{N}$$
+   - So:
+      $$1^{k} \cdot m \equiv m \pmod{N}$$
+   - Then, Decryption successful.
+
+### Diffie-Hellman Key Exchange
+HTTPS TLS Handshake
+
+### ECC

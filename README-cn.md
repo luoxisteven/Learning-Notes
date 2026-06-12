@@ -2,7 +2,7 @@
 - 这个仓库包含了我多年来记录的部分笔记。
 - 原始git仓库位于 [https://github.com/luoxisteven/Learning-Notes](https://github.com/luoxisteven/Learning-Notes)。
 - 我会在 VS Code 这样的 IDE 中做笔记，然后将它们上传到上述链接里的 GitHub 仓库。然后，[**xiluo.net**](https://xiluo.net/notes) 会从 GitHub 源获取最新笔记。
-- **Last Update:** 06/MAY/2026
+- **Last Update:** 20/MAY/2026
 
 ## 目录
 1) **Maths**
