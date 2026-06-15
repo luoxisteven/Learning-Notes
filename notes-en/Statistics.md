@@ -431,3 +431,4 @@ To address the problem of insufficient traffic, A/B tests can use a **Multi-Arme
 - **Purpose**: The AA test aims to verify that there are no significant differences in the data collection or traffic allocation logic. If an AA test shows significant differences, it suggests that there may be issues with data collection or the experiment's traffic allocation, requiring correction or data re-collection.
 
 - **Expected Result**: The expected result of an AA test is **no significant difference**, meaning the two groups should show similar results.
+
