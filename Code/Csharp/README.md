@@ -72,3 +72,6 @@ app.UseEndpoints(
 ```
 
 ## Delegate
+
+## Interface & Abstract
+
