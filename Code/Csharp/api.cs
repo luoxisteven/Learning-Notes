@@ -5,7 +5,7 @@ namespace MyApp.Namespace
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class api : ControllerBase
+    public class API : ControllerBase
     {
     }
 }
