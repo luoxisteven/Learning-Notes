@@ -1,12 +1,30 @@
 # AWS
 - Solution Architect
     - https://www.credly.com/badges/ae216ed1-f90d-43c9-9608-823023e6bbee
-- Progress
-    - 1 - 300 (809)
-    - 644 (1510)
-- Important
-    - 67, 71, 80, 82, 90*, 93*, 96, 103, 104, 107, 108, 113, 117*, 119, 121*, 133*, 135*, 139, 145, 183, 184, 189^, 194，197^, 206, 208, 211, 216^, 219^, 222, 232^, 235, 239, 242, 245, 246^, 249^, 254^, 257^, 281, 291^, 295^, 300
-    - 501, 503*, 507, 509, 510*, 515, 517, 519^, 521, 526*, 527^，537^, 539, 536, 543，569^, 582, 583^, 585, 599, 603, 605, 614^， 615^, 627, 630, 634，638^, 640^
+- Producer -> Broker -> Consumer
+    - Producer
+        - Who invokes a task
+    - Broker
+        - Saves/queues the task; can persist and retry
+        - e.g. Redis, RabbitMQ, SQS, Kafka
+    - Consumer
+        - The compute that processes the task
+        - e.g. Celery worker (framework), running on EC2 or as Lambda (serverless)
+    - Why use a broker?
+        - Decoupling producer and consumer
+            - Strategy: Fire and Forget
+            - Fault isolation
+                - Producer error doesn't block consumer
+                - Consumer error doesn't block producer (if broker supports retry/DLQ)
+            - Scaling
+                - N producers, M consumers, independently scaled
+        - Buffering / Backpressure
+            - Absorbs burst traffic; consumer drains at its own pace
+        - Rate Limiting
+            - Consumer may have hard limits (e.g. third-party webhook, Lambda concurrency)
+            - Broker throttles delivery to stay within limits
+        - Durability
+            - Broker persists tasks so they survive crashes/restarts
 - Terms
     - Bastion Server
         - 壁垒机，跳板机
