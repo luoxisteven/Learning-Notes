@@ -25,8 +25,26 @@ Never prompt the permission, Check the JWT token to identify users
     - 
 
 ## Retreiver
-- Combining semantic and 
+- Semantic Search
+    - Embeddings Distance
+- Keyword Search
+    - BM25
+- Combining Semantic and Keyword Search
+    - Reciprocal Rank Fusion (RRF)
 
+
+## Evaluation
+- Retrieval Metrics
+    - Recall@k
+    - Mean Reciprocal Rank (MRR)
+- Generation Metrics
+    - Faithfulness / Groundedness
+    - Answer Relevance
+    - Answer Correctness
+    - Token/n-gram overlap metrics
+        - ROUGE (Recall-Oriented Understudy for Gisting Evaluation) — measures n-gram overlap between generated answer and reference answer. ROUGE-N is essentially recall@n-grams; ROUGE-L uses longest common subsequence. Originally built for summarization.
+        - BLEU — precision-oriented n-gram overlap, originally for translation. Less suited to RAG since answers can be correct while phrased very differently from the reference.
+        - F1 / Exact Match (EM) — common in QA benchmarks (e.g., SQuAD-style). EM = did the answer match exactly; F1 = token-level precision/recall between predicted and reference answer. This is probably the closest literal analogue to precision/recall you're thinking of.
 ## Transformer
 
 - See [Machine_Learning.Transformer](Machine%20Learning.md#transformer)
