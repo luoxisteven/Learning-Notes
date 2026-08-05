@@ -1,5 +1,32 @@
 # LLM & AI Agent
 
+
+## System Design
+### Guardrail
+Never prompt the permission, Check the JWT token to identify users
+1. Access control at retrieval time
+    - Filter by metadata
+    - Row-Level Permission
+2. Relevant Threshold
+    - Unrelevant Data may cause hallucination 
+    - BM25
+    - Embedding Distance
+3. Injection Defense
+    - Regex, Enumeration(Metadata)
+4. Masking Sensitive Data like the PII
+
+## Vectorisation
+1. Strctured Data (e.g. Database)
+    - Transformed into JSON and then vectorise
+        - ProductID: 101, Name: "Wireless Earbuds", Category: "Electronics", Price: 89.99, Description: "Noise-cancelling, 20hr battery"
+    - Flatten
+        - "Wireless Earbuds is an Electronics product priced at $89.99. Noise-cancelling, 20hr battery."
+2. Files
+    - 
+
+## Retreiver
+- Combining semantic and 
+
 ## Transformer
 
 - See [Machine_Learning.Transformer](Machine%20Learning.md#transformer)
