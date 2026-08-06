@@ -209,6 +209,27 @@ class MyClass:
    # Static method
    @staticmethod
 
+# Interface
+# Defining interface using class with only @abstractmethod
+# If I use an Interface, then I must create the abstractmethod in the child. If not this child can't be used.
+class Shape():
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+class Rectangle(Shape):
+    def area(self):
+        pass
+
+    def perimeter(self):
+        pass
+
+Here, Shape has two abstract metho
+
 # Equivalent to Java's function entry:
 public static void main(String[] args){
 

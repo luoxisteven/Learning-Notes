@@ -207,11 +207,11 @@ A gateway is a device that connects two different networks, usually a router, re
 
 ### IP Address
 - What counts as a private IP?
-   - Private IPv4 ranges:
+   - Private IPv4 ranges (32 bits, 4 bytes):
       - 10.0.0.0 – 10.255.255.255
       - 172.16.0.0 – 172.31.255.255
       - 192.168.0.0 – 192.168.255.255
-   - Private IPv6 range:
+   - Private IPv6 range (128 bits, 16 bytes):
       - fc00::/7 (“Unique local addresses” — ULA)
 
 ## Database
