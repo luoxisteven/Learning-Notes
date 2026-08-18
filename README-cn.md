@@ -22,6 +22,7 @@
     - [SDLC](notes-en/SDLC.md)
     - [CRUD](notes-en/CRUD.md)
     - [全栈开发](notes-cn/Full-stack.md)
+    - [UI/UX](notes-en/UI-UX.md)
     - [React](notes-en/React.md)
     - [网站开发](notes-cn/Web.md)
     - [Docker and Kubernetes](notes-en/Docker&k8s.md)

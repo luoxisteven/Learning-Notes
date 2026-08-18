@@ -22,6 +22,7 @@
     - [SDLC](notes-en/SDLC.md)
     - [CRUD](notes-en/CRUD.md)
     - [Full Stack](notes-en/Full-stack.md)
+    - [UI/UX](notes-en/UI-UX.md)
     - [React](notes-en/React.md)
     - [Web Development](notes-cn/Web.md)
     - [Docker and Kubernetes](notes-en/Docker&k8s.md)
