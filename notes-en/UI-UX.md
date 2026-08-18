@@ -1,4 +1,10 @@
 # UI/UX
+- Represent Company Image
+- Consistent
+- Feedback
+- Error prevention
+- Relevant
+- Easy to use (without learning too much)
 
 ## Jakob Nielsen (10 Usability Heuristics)
 1. Visibility of System Status
