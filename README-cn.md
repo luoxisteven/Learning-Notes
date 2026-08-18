@@ -26,6 +26,7 @@
     - [React](notes-en/React.md)
     - [网站开发](notes-cn/Web.md)
     - [Docker and Kubernetes](notes-en/Docker&k8s.md)
+    - [System Design](notes-en/System-Design.md)
     - [AWS](notes-en/AWS.md)
 
 4) **Machine Learning**
